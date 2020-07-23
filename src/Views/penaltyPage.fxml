@@ -32,7 +32,7 @@
                                        <children>
                                           <ComboBox layoutX="426.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تكلفة الغرامة" />
-                                          <Button layoutX="177.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة غرامة" />
+                                          <Button layoutX="177.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة غرامة" />
                                           <TextField layoutX="834.0" layoutY="137.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
                                             <columns>
