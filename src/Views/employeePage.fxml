@@ -34,7 +34,7 @@
                                           <TextField fx:id="employeeName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
                                           <ComboBox fx:id="locationName" layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="identityNumber" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
-                                          <Button fx:id="addEmployee" layoutX="177.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موظف" />
+                                          <Button layoutX="177.0" layoutY="187.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موظف" />
                                           <TextField layoutX="834.0" layoutY="186.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" prefHeight="308.0" prefWidth="1089.0">
                                             <columns>
