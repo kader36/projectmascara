@@ -31,10 +31,10 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
-                                          <ComboBox layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <TextField layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
-                                          <Button layoutX="177.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موظف" />
+                                          <TextField fx:id="employeeName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
+                                          <ComboBox fx:id="locationName" layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <TextField fx:id="identityNumber" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
+                                          <Button fx:id="addEmployee" layoutX="177.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موظف" />
                                           <TextField layoutX="834.0" layoutY="186.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" prefHeight="308.0" prefWidth="1089.0">
                                             <columns>
@@ -57,15 +57,15 @@
                                              </effect>
                                           </TableView>
                                           <Button layoutX="481.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موظف" />
-                                          <TextField layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العامل" />
-                                          <TextField layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
-                                          <TextField layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />
-                                          <TextField layoutX="838.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
-                                          <ComboBox layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
-                                          <ComboBox layoutX="31.0" layoutY="118.0" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
-                                          <DatePicker layoutX="301.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
-                                          <DatePicker layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
-                                          <DatePicker layoutX="838.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
+                                          <TextField fx:id="employeeNumber" layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العامل" />
+                                          <TextField fx:id="employeeNationality" layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
+                                          <TextField fx:id="religion" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />
+                                          <TextField fx:id="residenceOccupation" layoutX="838.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
+                                          <ComboBox fx:id="identityType" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
+                                          <ComboBox fx:id="reelOccupation" layoutX="31.0" layoutY="118.0" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
+                                          <DatePicker fx:id="residenceEndDate" layoutX="301.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
+                                          <DatePicker fx:id="HealthCertificateStartDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
+                                          <DatePicker fx:id="HealthCertificatEndDate" layoutX="838.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
                                        </children>
                                     </AnchorPane>
                               </content>
