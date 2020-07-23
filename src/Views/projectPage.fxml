@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.MainPage">
+<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPage">
    <children>
       <VBox prefHeight="603.0" prefWidth="1325.0">
          <children>
@@ -31,15 +31,15 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المشروع" />
-                                          <ComboBox layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
-                                          <ComboBox layoutX="570.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <ComboBox fx:id="addItemsproject" layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع المشروع" />
-                                          <TextField layoutX="33.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
-                                          <TextField layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
-                                          <DatePicker layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
-                                          <DatePicker layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
-                                          <Button layoutX="177.0" layoutY="131.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <TextField fx:id="projectName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المشروع" />
+                                          <ComboBox fx:id="areaName" layoutX="301.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName" layoutX="570.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectType" layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع المشروع" />
+                                          <TextField fx:id="contactDuration" layoutX="33.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
+                                          <TextField fx:id="contractPrice" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
+                                          <DatePicker fx:id="contractStartDate" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
+                                          <DatePicker fx:id="contractEndDate" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
+                                          <Button layoutX="177.0" layoutY="131.0" mnemonicParsing="false" onAction="#addProject" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
                                           <TextField layoutX="834.0" layoutY="130.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fixedCellSize="0.0" layoutX="57.0" layoutY="181.0" prefHeight="179.0" prefWidth="1019.0">
                                             <columns>
@@ -70,8 +70,8 @@
                                              </effect>
                                           </TableView>
                                           <ComboBox layoutX="57.0" layoutY="400.0" prefHeight="35.0" prefWidth="240.0" promptText="إختر الوظيفة" />
-                                          <TextField layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
-                                          <Button layoutX="56.0" layoutY="512.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <TextField fx:id="maxNumber" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
+                                          <Button layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة" />
                                           <Button layoutX="185.0" layoutY="512.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                        </children>
                                     </AnchorPane>
