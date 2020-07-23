@@ -1,5 +1,7 @@
 package Controlers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +15,41 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class EmployeePage implements Initializable {
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
+    ObservableList<Occupation> occupations= FXCollections.observableArrayList();
+    ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة السياقة");
+    int idOccupation=0;
+    public void fillCombo(){
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `occupations`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                occupations.add(new Occupation(rs.getInt("id"),rs.getString("occupationName")));
 
+            }
+            for (int i=0;i<occupations.size();i++){
+                reelOccupation.getItems().add(occupations.get(i).getNameOcupation());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     @FXML
     private TextField employeeName;
 
     @FXML
-    private ComboBox<?> locationName;
+    private ComboBox<String> locationName;
 
     @FXML
     private TextField identityNumber;
@@ -39,10 +67,10 @@ public class EmployeePage implements Initializable {
     private TextField residenceOccupation;
 
     @FXML
-    private ComboBox<?> identityType;
+    private ComboBox<String> identityType;
 
     @FXML
-    private ComboBox<?> reelOccupation;
+    private ComboBox<String> reelOccupation;
 
     @FXML
     private DatePicker residenceEndDate;
@@ -57,6 +85,8 @@ public class EmployeePage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        identityType.setItems(identityTypeList);
+        fillCombo();
 
     }
 
@@ -64,8 +94,33 @@ public class EmployeePage implements Initializable {
 
 
     @FXML
-    void addEmployee(ActionEvent event) {
+    public void addEmployee(ActionEvent actionEvent) {
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                    " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                    " `HealthCertificateStartDate`, `HealthCertificatEndDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,employeeName.getText());
+            pst.setString(2,employeeNumber.getText());
+            pst.setString(3,employeeNationality.getText());
+            pst.setString(4,identityType.getValue());
+            pst.setString(5,identityNumber.getText());
+            pst.setString(6,religion.getText());
+            pst.setString(7,residenceOccupation.getText());
+            pst.setInt(8,idOccupation);
+            pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+            pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+            pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+            pst.execute();
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    @FXML
+    void selectOccupation(ActionEvent event) {
+        int index= reelOccupation.getSelectionModel().getSelectedIndex();
+        idOccupation=occupations.get(index).getIdOcupation();
     }
 
 

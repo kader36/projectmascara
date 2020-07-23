@@ -62,7 +62,7 @@
                                           <TextField fx:id="religion" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />
                                           <TextField fx:id="residenceOccupation" layoutX="838.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
                                           <ComboBox fx:id="identityType" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
-                                          <ComboBox fx:id="reelOccupation" layoutX="31.0" layoutY="118.0" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
+                                          <ComboBox fx:id="reelOccupation" layoutX="31.0" layoutY="118.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
                                           <DatePicker fx:id="residenceEndDate" layoutX="301.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
                                           <DatePicker fx:id="HealthCertificateStartDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
                                           <DatePicker fx:id="HealthCertificatEndDate" layoutX="838.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
