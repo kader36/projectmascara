@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.MainPage">
+   <children>
+      <VBox prefHeight="603.0" prefWidth="1325.0">
+         <children>
+            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0">
+                     <children>
+                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
+                          <tabs>
+                            <Tab closable="false" text="المستخدمين">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <TextField layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
+                                          <ComboBox layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox layoutX="570.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <TextField layoutX="301.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="البريد الإلكتروني" />
+                                          <TextField layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الجوال" />
+                                          <Button layoutX="177.0" layoutY="186.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
+                                          <TextField layoutX="834.0" layoutY="185.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fixedCellSize="0.0" layoutX="57.0" layoutY="239.0" prefHeight="314.0" prefWidth="1019.0">
+                                            <columns>
+                                              <TableColumn editable="false" prefWidth="131.0" text="إسم الموظف" />
+                                              <TableColumn editable="false" prefWidth="83.0" text="المنطقة" />
+                                                <TableColumn editable="false" minWidth="6.0" prefWidth="81.0" text="الموقع" />
+                                                <TableColumn editable="false" minWidth="0.0" prefWidth="110.0" text="إسم المستخدم" />
+                                                <TableColumn editable="false" prefWidth="187.0" text="البريد الإلكتروني" />
+                                                <TableColumn editable="false" prefWidth="118.0" text="رقم الجوال" />
+                                                <TableColumn editable="false" prefWidth="111.0" text="الرقم الوظيفي" />
+                                                <TableColumn editable="false" prefWidth="123.0" text="الصلاحيات" />
+                                                <TableColumn editable="false" prefWidth="74.0" text="تعديل" />
+                                            </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                          </TableView>
+                                          <Button layoutX="481.0" layoutY="186.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخدم" />
+                                          <TextField layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
+                                          <TextField layoutX="839.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
+                                          <PasswordField layoutX="31.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
+                                          <ComboBox layoutX="31.0" layoutY="115.0" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab closable="false" text="الصلاحيات">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <Button layoutX="330.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="244.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة صلاحية جديدة" />
+                                          <TextField layoutX="29.0" layoutY="14.0" prefHeight="37.0" prefWidth="241.0" promptText="إسم الصلاحية" />
+                                          <Label layoutX="29.0" layoutY="72.0" style="-fx-text-fill: #9351F9;" text="المناطق">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="29.0" layoutY="111.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="150.0" layoutY="111.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="257.0" layoutY="111.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="14.0" layoutY="147.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="26.0" layoutY="159.0" style="-fx-text-fill: #9351F9;" text="المواقع">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="26.0" layoutY="198.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="147.0" layoutY="198.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="254.0" layoutY="198.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="11.0" layoutY="234.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="26.0" layoutY="241.0" style="-fx-text-fill: #9351F9;" text="المشاريع">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="26.0" layoutY="280.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="147.0" layoutY="280.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="254.0" layoutY="280.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="11.0" layoutY="316.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="23.0" layoutY="328.0" style="-fx-text-fill: #9351F9;" text="الضمانات">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="23.0" layoutY="367.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="144.0" layoutY="367.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="251.0" layoutY="367.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="8.0" layoutY="403.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="403.0" layoutY="72.0" style="-fx-text-fill: #9351F9;" text="الوظائف">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="403.0" layoutY="111.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="524.0" layoutY="111.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="631.0" layoutY="111.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="388.0" layoutY="147.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="400.0" layoutY="159.0" style="-fx-text-fill: #9351F9;" text="الموظفين">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="400.0" layoutY="198.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="521.0" layoutY="198.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="628.0" layoutY="198.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="385.0" layoutY="234.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="400.0" layoutY="241.0" style="-fx-text-fill: #9351F9;" text="المستخلصات">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="400.0" layoutY="280.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="521.0" layoutY="280.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="628.0" layoutY="280.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="385.0" layoutY="316.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="397.0" layoutY="328.0" style="-fx-text-fill: #9351F9;" text="الإستقطاعات">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="397.0" layoutY="367.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="518.0" layoutY="367.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="625.0" layoutY="367.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="382.0" layoutY="403.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="771.0" layoutY="73.0" style="-fx-text-fill: #9351F9;" text="الغرامات">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="771.0" layoutY="112.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="892.0" layoutY="112.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="999.0" layoutY="112.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="756.0" layoutY="148.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="768.0" layoutY="160.0" style="-fx-text-fill: #9351F9;" text="إدارة المستخدمين">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="768.0" layoutY="199.0" mnemonicParsing="false" text="معاينة" />
+                                          <CheckBox layoutX="889.0" layoutY="199.0" mnemonicParsing="false" text="حذف" />
+                                          <CheckBox layoutX="996.0" layoutY="199.0" mnemonicParsing="false" text="تعديل" />
+                                          <Separator layoutX="753.0" layoutY="235.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Label layoutX="768.0" layoutY="242.0" style="-fx-text-fill: #9351F9;" text="التقارير">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <CheckBox layoutX="768.0" layoutY="281.0" mnemonicParsing="false" text="معاينة" />
+                                          <Separator layoutX="753.0" layoutY="317.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <TableView layoutX="157.0" layoutY="418.0" prefHeight="141.0" prefWidth="809.0">
+                                            <columns>
+                                              <TableColumn prefWidth="370.0" text="إسم الصلاحية" />
+                                              <TableColumn prefWidth="328.0" text="عدد المستخدمين" />
+                                                <TableColumn prefWidth="110.0" text="تعديل" />
+                                            </columns>
+                                          </TableView>
+                                       </children></AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                     <children>
+                        <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/login-logo.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="53.0" layoutY="135.0" style="-fx-background-color: #9351F9;" text="\@Username" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Button id="a" layoutX="-1.0" layoutY="217.0" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="254.0" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutY="291.0" mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutY="328.0" mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutY="365.0" mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="402.0" mnemonicParsing="false" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="439.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="476.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="513.0" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="550.0" mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button layoutX="-1.0" layoutY="180.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

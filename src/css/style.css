@@ -1,0 +1,76 @@
+Button{
+
+}
+.addButton{
+    -fx-background-color: #59EFB2;
+    -fx-text-fill:  #FFF;
+}
+.addButton:hover{
+    -fx-background-color: #FFF;
+    -fx-border-color:#59EFB2;
+    -fx-border-width:2px;
+    -fx-text-fill:#59EFB2;
+
+}
+
+.addButton:pressed{
+      -fx-background-color:  #59EFB2;
+      -fx-text-fill:  #FFF;
+
+}
+
+
+
+.editButton{
+    -fx-background-color: #6895E8;
+    -fx-text-fill:  #FFF;
+
+}
+.editButton:hover{
+      -fx-background-color: #FFF;
+      -fx-border-color: #6895E8;
+      -fx-border-width:2px;
+      -fx-text-fill: #6895E8;
+
+}
+.editButton:pressed{
+      -fx-background-color:  #6895E8;
+      -fx-text-fill:  #FFF;
+
+}
+
+
+.deleteButton{
+    -fx-background-color:  #FF7B88;
+    -fx-text-fill:  #FFF;
+}
+.deleteButton:hover{
+      -fx-background-color: #FFF;
+      -fx-border-color:  #FF7B88;
+      -fx-border-width:2px;
+      -fx-text-fill:  #FF7B88;
+
+}
+.deleteButton:pressed{
+      -fx-background-color:  #FF7B88;
+      -fx-text-fill:  #FFF;
+
+}
+.buttonMenuSelected{
+    -fx-background-color:  #7339E0;
+    -fx-text-fill:#FFF;
+    -fx-border-color:#FFF;
+    -fx-border-width: 0px 7px  0px 0px;
+}
+.buttonMenu{
+    -fx-background-color: #9351F9;
+    -fx-text-fill:#FFF;
+}
+.buttonMenu:hover{
+    -fx-background-color:  #7339E0;
+
+}
+.buttonMenu:pressed{
+    -fx-background-color:  #7339E0;
+
+}
