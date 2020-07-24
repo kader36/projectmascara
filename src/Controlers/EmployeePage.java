@@ -9,9 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -48,8 +47,7 @@ public class EmployeePage implements Initializable {
     @FXML
     private TextField employeeName;
 
-    @FXML
-    private ComboBox<String> locationName;
+
 
     @FXML
     private TextField identityNumber;
@@ -82,17 +80,6 @@ public class EmployeePage implements Initializable {
     private DatePicker HealthCertificatEndDate;
 
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        identityType.setItems(identityTypeList);
-        fillCombo();
-
-    }
-
-
-
-
     @FXML
     public void addEmployee(ActionEvent actionEvent) {
         try {
@@ -116,6 +103,13 @@ public class EmployeePage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        addToTable();
+        employeeName.clear();
+        identityNumber.clear();
+        employeeNumber.clear();
+        religion.clear();
+        employeeNationality.clear();
+        residenceOccupation.clear();
     }
     @FXML
     void selectOccupation(ActionEvent event) {
@@ -251,6 +245,103 @@ public class EmployeePage implements Initializable {
         }
 
     }
+
+    @FXML
+    private TableView<EmployeeForTable> employeeTableView;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> employeeNameTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> employeeNumberTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> employeeNationalityTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> identityTypeTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> identityNumberTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> religionTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> residenceOccupationTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> reelOccupationTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> residenceEndDateTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> HealthCertificateStartDateTable;
+
+    @FXML
+    private TableColumn<EmployeeForTable, String> HealthCertificatEndDateTable;
+
+    ObservableList employeesTable= FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        identityType.setItems(identityTypeList);
+        fillCombo();
+
+        addToTable();
+        employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+        employeeNationalityTable.setCellValueFactory(new PropertyValueFactory<>("employeeNationality"));
+        identityTypeTable.setCellValueFactory(new PropertyValueFactory<>("identityType"));
+        identityNumberTable.setCellValueFactory(new PropertyValueFactory<>("identityNumber"));
+        religionTable.setCellValueFactory(new PropertyValueFactory<>("religion"));
+        residenceOccupationTable.setCellValueFactory(new PropertyValueFactory<>("residenceOccupation"));
+        reelOccupationTable.setCellValueFactory(new PropertyValueFactory<>("reelOccupationName"));
+        residenceEndDateTable.setCellValueFactory(new PropertyValueFactory<>("residenceEndDate"));
+        HealthCertificateStartDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificateStartDate"));
+        HealthCertificatEndDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificatEndDate"));
+        employeeTableView.setItems(employeesTable);
+    }
+    public void addToTable(){
+        employeesTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                employeesTable.add(new EmployeeForTable(rs.getInt("id"),rs.getInt("reelOccupation"),rs.getString("employeeName"),rs.getString("employeeNumber"),rs.getString("employeeNationality"),rs.getString("identityType"),rs.getString("identityNumber"),rs.getString("religion"),getOccupationName(rs.getInt("reelOccupation")),rs.getString("residenceOccupation"),rs.getString("residenceEndDate"),rs.getString("HealthCertificateStartDate"),rs.getString("HealthCertificatEndDate")));
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public String getOccupationName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("occupationName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+
 
 
 }

@@ -32,40 +32,38 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <TextField fx:id="employeeName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
-                                          <ComboBox fx:id="locationName" layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <TextField fx:id="identityNumber" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
-                                          <Button layoutX="177.0" layoutY="187.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موظف" />
+                                          <TextField fx:id="identityNumber" layoutX="32.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
+                                          <Button layoutX="16.0" layoutY="187.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موظف" />
                                           <TextField layoutX="834.0" layoutY="186.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" prefHeight="308.0" prefWidth="1089.0">
+                                          <TableView fx:id="employeeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" prefHeight="308.0" prefWidth="1089.0">
                                             <columns>
-                                              <TableColumn editable="false" prefWidth="131.0" text="إسم الموضف" />
-                                              <TableColumn editable="false" prefWidth="61.0" text="الموقع" />
-                                                <TableColumn editable="false" minWidth="6.0" prefWidth="76.0" text="رقم العامل" />
-                                                <TableColumn editable="false" minWidth="0.0" prefWidth="71.0" text="الجنسية" />
-                                                <TableColumn editable="false" prefWidth="73.0" text="نوع الهوية" />
-                                                <TableColumn editable="false" prefWidth="74.0" text="رقم الهوية" />
-                                                <TableColumn editable="false" prefWidth="61.0" text="الديانة" />
-                                                <TableColumn editable="false" prefWidth="87.0" text="مهنة الإقامة" />
-                                                <TableColumn prefWidth="94.0" text="المهنة الفعلية" />
-                                                <TableColumn prefWidth="92.0" text="تاريخ إنتهاء الإقامة" />
-                                                <TableColumn prefWidth="110.0" text="بداية الشهادة الصحية" />
-                                                <TableColumn prefWidth="112.0" text="نهاية الشهادة الصحية" />
-                                                <TableColumn editable="false" prefWidth="46.0" text="تعديل" />
+                                              <TableColumn fx:id="employeeNameTable" editable="false" prefWidth="131.0" text="إسم الموضف" />
+                                                <TableColumn fx:id="employeeNumberTable" editable="false" minWidth="6.0" prefWidth="76.0" text="رقم العامل" />
+                                                <TableColumn fx:id="employeeNationalityTable" editable="false" minWidth="0.0" prefWidth="71.0" text="الجنسية" />
+                                                <TableColumn fx:id="identityTypeTable" editable="false" prefWidth="73.0" text="نوع الهوية" />
+                                                <TableColumn fx:id="identityNumberTable" editable="false" prefWidth="74.0" text="رقم الهوية" />
+                                                <TableColumn fx:id="religionTable" editable="false" prefWidth="61.0" text="الديانة" />
+                                                <TableColumn fx:id="residenceOccupationTable" editable="false" prefWidth="93.0" text="مهنة الإقامة" />
+                                                <TableColumn fx:id="reelOccupationTable" prefWidth="107.0" text="المهنة الفعلية" />
+                                                <TableColumn fx:id="residenceEndDateTable" prefWidth="122.0" text="تاريخ إنتهاء الإقامة" />
+                                                <TableColumn fx:id="HealthCertificateStartDateTable" prefWidth="138.0" text="بداية الشهادة الصحية" />
+                                                <TableColumn fx:id="HealthCertificatEndDateTable" prefWidth="142.0" text="نهاية الشهادة الصحية" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="481.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موظف" />
-                                          <TextField fx:id="employeeNumber" layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العامل" />
-                                          <TextField fx:id="employeeNationality" layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
-                                          <TextField fx:id="religion" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />
-                                          <TextField fx:id="residenceOccupation" layoutX="838.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
-                                          <ComboBox fx:id="identityType" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
-                                          <ComboBox fx:id="reelOccupation" layoutX="31.0" layoutY="118.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
-                                          <DatePicker fx:id="residenceEndDate" layoutX="301.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
-                                          <DatePicker fx:id="HealthCertificateStartDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
-                                          <DatePicker fx:id="HealthCertificatEndDate" layoutX="838.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
+                                          <Button layoutX="562.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موظف" />
+                                          <TextField fx:id="employeeNumber" layoutX="300.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العامل" />
+                                          <TextField fx:id="employeeNationality" layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
+                                          <TextField fx:id="religion" layoutX="300.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />
+                                          <TextField fx:id="residenceOccupation" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
+                                          <ComboBox fx:id="identityType" layoutX="838.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
+                                          <ComboBox fx:id="reelOccupation" layoutX="838.0" layoutY="70.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
+                                          <DatePicker fx:id="residenceEndDate" layoutX="32.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
+                                          <DatePicker fx:id="HealthCertificateStartDate" layoutX="300.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
+                                          <DatePicker fx:id="HealthCertificatEndDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
+                                          <Button layoutX="285.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موظف" />
                                        </children>
                                     </AnchorPane>
                               </content>
