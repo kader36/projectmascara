@@ -241,6 +241,7 @@ public class UserPage implements Initializable {
     void selectPrivileges(ActionEvent event) {
         int index= privilegeName.getSelectionModel().getSelectedIndex();
         //privilegesId=privileges.get(index).
+        //privilegesId=privileges.get(index).
 
     }
     public void addUser(ActionEvent actionEvent) {
