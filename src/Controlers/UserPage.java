@@ -28,7 +28,7 @@ public class UserPage implements Initializable {
 
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
-    ObservableList<String> privileges= FXCollections.observableArrayList("الافراج عن الضمان","تخفيض 5% من الضمان");
+    //ObservableList<String> privileges= FXCollections.observableArrayList("الافراج عن الضمان","تخفيض 5% من الضمان");
     int idArea=0,idLocation=0,privilegesId=0;
 
 
@@ -50,7 +50,8 @@ public class UserPage implements Initializable {
     private TextField email;
     @FXML
     private TextField employeeNumber;
-
+    @FXML
+    private ComboBox<String> privilegeName;
     @FXML
     private PasswordField password;
 
@@ -234,6 +235,12 @@ public class UserPage implements Initializable {
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
+
+    }
+    @FXML
+    void selectPrivileges(ActionEvent event) {
+        int index= privilegeName.getSelectionModel().getSelectedIndex();
+        //privilegesId=privileges.get(index).
 
     }
     public void addUser(ActionEvent actionEvent) {
