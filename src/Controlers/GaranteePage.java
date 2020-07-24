@@ -65,7 +65,6 @@ public class GaranteePage implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-        System.out.println(idProject);
     }
 
     public void fillComboLocation(){

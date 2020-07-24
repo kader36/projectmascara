@@ -10,7 +10,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -41,11 +44,6 @@ public class PenaltyPage implements Initializable {
     @FXML
     private ComboBox<String> projectName;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        fillComboArea();
-        typePenalty.setItems(penalties);
-    }
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
@@ -63,7 +61,6 @@ public class PenaltyPage implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-        System.out.println(idProject);
     }
 
     public void fillComboLocation(){
@@ -272,5 +269,123 @@ public class PenaltyPage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        addToTable();
+        amountOfPenalty.clear();
+    }
+
+    @FXML
+    private TableView<GaranteeForTable> penaltyTableView;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> areaNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> locationNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> projectNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, Float> amountOfPenaltyTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> typePenaltyTable;
+
+    ObservableList penaltiesTable= FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        fillComboArea();
+        typePenalty.setItems(penalties);
+
+        addToTable();
+        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        amountOfPenaltyTable.setCellValueFactory(new PropertyValueFactory<>("amountOfPenalty"));
+        typePenaltyTable.setCellValueFactory(new PropertyValueFactory<>("typePenalty"));
+        penaltyTableView.setItems(penaltiesTable);
+    }
+    public void addToTable(){
+        penaltiesTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `penalties`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                penaltiesTable.add(new PenaltyForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),rs.getString("typePenalty"),rs.getFloat("amountOfPenalty")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public String getAreaName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("areaName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getLocationName(int idArea,int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
+            pst.setInt(1,id);
+            pst.setInt(2,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("locationName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getProjectName(int idArea,int idLocation,int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
+            pst.setInt(1,id);
+            pst.setInt(2,idArea);
+            pst.setInt(3,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("contractName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
     }
 }
