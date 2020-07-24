@@ -1,26 +1,33 @@
 package Controlers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class OccupationPage {
+public class OccupationPage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
-    List<Occupation> occupations=new ArrayList<>();
 
     @FXML
     private TextField occupationName;
@@ -36,6 +43,8 @@ public class OccupationPage {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        addToTable();
+        occupationName.clear();
     }
 
 
@@ -164,4 +173,37 @@ public class OccupationPage {
         }
 
     }
+    @FXML
+    private TableView<LocationForTable> occupationTableView;
+    @FXML
+    private TableColumn<LocationForTable, String> occupationNameTable;
+
+    ObservableList occupationsTable= FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addToTable();
+        occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+        occupationTableView.setItems(occupationsTable);
+    }
+    public void addToTable(){
+        occupationsTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `occupations`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                occupationsTable.add(new OccupationForTable(rs.getString("occupationName"), rs.getInt("id")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+
 }
