@@ -33,12 +33,12 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
-                                          <ComboBox layoutX="301.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
-                                          <ComboBox layoutX="570.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <TextField layoutX="301.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="البريد الإلكتروني" />
-                                          <TextField layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الجوال" />
-                                          <Button layoutX="177.0" layoutY="186.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
+                                          <TextField fx:id="employeeName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
+                                          <ComboBox fx:id="areaName" layoutX="301.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName" layoutX="570.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <TextField fx:id="email" layoutX="301.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="البريد الإلكتروني" />
+                                          <TextField fx:id="phoneNumber" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الجوال" />
+                                          <Button layoutX="177.0" layoutY="186.0" mnemonicParsing="false" onAction="#addUser" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
                                           <TextField layoutX="834.0" layoutY="185.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fixedCellSize="0.0" layoutX="57.0" layoutY="239.0" prefHeight="314.0" prefWidth="1019.0">
                                             <columns>
@@ -57,10 +57,10 @@
                                              </effect>
                                           </TableView>
                                           <Button layoutX="481.0" layoutY="186.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخدم" />
-                                          <TextField layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
-                                          <TextField layoutX="839.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
-                                          <PasswordField layoutX="31.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
-                                          <ComboBox layoutX="31.0" layoutY="115.0" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
+                                          <TextField fx:id="username" layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
+                                          <TextField fx:id="employeeNumber" layoutX="839.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
+                                          <PasswordField fx:id="password" layoutX="31.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
+                                          <ComboBox layoutX="31.0" layoutY="115.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
                                        </children>
                                     </AnchorPane>
                               </content>
