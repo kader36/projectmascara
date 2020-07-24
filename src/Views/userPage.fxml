@@ -60,7 +60,7 @@
                                           <TextField fx:id="username" layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
                                           <TextField fx:id="employeeNumber" layoutX="839.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
                                           <PasswordField fx:id="password" layoutX="31.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
-                                          <ComboBox layoutX="31.0" layoutY="115.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
+                                          <ComboBox fx:id="privilegeName" layoutX="31.0" layoutY="115.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
                                        </children>
                                     </AnchorPane>
                               </content>
