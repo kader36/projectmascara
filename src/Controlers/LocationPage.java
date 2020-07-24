@@ -1,6 +1,7 @@
 package Controlers;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,7 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -68,6 +72,9 @@ public class LocationPage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        addToTable();
+
+        locationName.clear();
     }
     @FXML
     void selectArea(ActionEvent event) {
@@ -201,10 +208,60 @@ public class LocationPage implements Initializable {
         }
 
     }
+    @FXML
+    private TableView<LocationForTable> locationTableView;
+    @FXML
+    private TableColumn<LocationForTable, String> locationNameTable;
+    @FXML
+    private TableColumn<LocationForTable, String> areaNameTable;
 
+    ObservableList locationsTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillCombo();
+        addToTable();
+        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        locationTableView.setItems(locationsTable);
+    }
+    public void addToTable(){
+        locationsTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),getAreaName(rs.getInt("areaId")),rs.getString("locationName")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public String getAreaName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("areaName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
     }
 }

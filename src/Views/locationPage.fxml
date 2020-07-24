@@ -30,21 +30,21 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField fx:id="locationName" layoutX="660.0" layoutY="20.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموقع" />
-                                          <Button layoutX="205.0" layoutY="96.0" mnemonicParsing="false" onAction="#addLocation" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة موقع" />
+                                          <TextField fx:id="locationName" layoutX="328.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموقع" />
+                                          <Button layoutX="58.0" layoutY="96.0" mnemonicParsing="false" onAction="#addLocation" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موقع" />
                                           <TextField layoutX="837.0" layoutY="95.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="locationTable" fixedCellSize="0.0" layoutX="57.0" layoutY="145.0" prefHeight="398.0" prefWidth="1019.0">
+                                          <TableView fx:id="locationTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="145.0" prefHeight="398.0" prefWidth="1019.0">
                                             <columns>
-                                                <TableColumn prefWidth="465.0" text="إسم الموقع" />
-                                              <TableColumn editable="false" prefWidth="472.0" text="إسم المنطقة" />
-                                                <TableColumn editable="false" minWidth="0.0" prefWidth="81.0" text="تعديل" />
+                                                <TableColumn fx:id="locationNameTable" prefWidth="508.0" text="إسم الموقع" />
+                                              <TableColumn fx:id="areaNameTable" editable="false" prefWidth="510.0" text="إسم المنطقة" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="550.0" layoutY="96.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موقع" />
-                                          <ComboBox fx:id="areaName" layoutX="276.0" layoutY="19.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="إختر المنطقة" />
+                                          <Button layoutX="572.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موقع" />
+                                          <ComboBox fx:id="areaName" layoutX="58.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="إختر المنطقة" />
+                                          <Button layoutX="314.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موقع" />
                                        </children>
                                     </AnchorPane>
                               </content>

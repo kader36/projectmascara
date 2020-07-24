@@ -31,10 +31,9 @@ public class AreaPage implements Initializable {
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
-        List <Area> areas=new ArrayList<>();
 
     @FXML
-    private TableView<AreaForTable> areaTable;
+    private TableView<AreaForTable> areaTableView;
     @FXML
     private TableColumn<AreaForTable, String> areaNameTable;
 
@@ -60,7 +59,7 @@ public class AreaPage implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-        areaTable.setItems(areasTable);
+        areaTableView.setItems(areasTable);
 
     }
 
