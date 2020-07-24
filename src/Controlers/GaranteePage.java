@@ -10,7 +10,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -44,12 +47,7 @@ public class GaranteePage implements Initializable {
     @FXML
     private ComboBox<String> projectName;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        fillComboArea();
-        garanteeType.setItems(garantees);
-        contractType.setItems(contracts);
-    }
+
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
@@ -264,18 +262,138 @@ public class GaranteePage implements Initializable {
     public void addGarantee(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`, `garanteeNumber`, `garanteeType`, `contractType`) VALUES (?,?,?,?,?)");
+            pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`, `contractType`) VALUES (?,?,?,?,?,?)");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
-            pst.setString(3,garanteeNumber.getText());
-            pst.setString(4,garanteeType.getValue());
-            pst.setString(5,contractType.getValue());
+            pst.setInt(3,idProject);
+            pst.setString(4,garanteeNumber.getText());
+            pst.setString(5,garanteeType.getValue());
+            pst.setString(6,contractType.getValue());
             pst.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTable();
+        garanteeNumber.clear();
+    }
+    @FXML
+    private TableView<GaranteeForTable> garanteeTableView;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> areaNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> locationNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> projectNameTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> garanteeNumberTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> garanteeTypeTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> contractTypeTable;
+    ObservableList garanteesTable= FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        fillComboArea();
+        garanteeType.setItems(garantees);
+        contractType.setItems(contracts);
+
+        addToTable();
+        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+        projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
+        garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
+        contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+        garanteeTableView.setItems(garanteesTable);
+    }
+    public void addToTable(){
+        garanteesTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `garantees`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("contractType")));
+
+            }
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
 
+
+
+    }
+    public String getAreaName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("areaName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getLocationName(int idArea,int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
+            pst.setInt(1,id);
+            pst.setInt(2,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("locationName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getProjectName(int idArea,int idLocation,int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
+            pst.setInt(1,id);
+            pst.setInt(2,idArea);
+            pst.setInt(3,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("contractName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
 
 }

@@ -32,27 +32,27 @@
                                        <children>
                                           <ComboBox fx:id="locationName" layoutX="426.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="garanteeNumber" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الضمان" />
-                                          <Button layoutX="177.0" layoutY="138.0" mnemonicParsing="false" onAction="#addGarantee" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="إظافة ضمان" />
+                                          <Button layoutX="20.0" layoutY="138.0" mnemonicParsing="false" onAction="#addGarantee" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة ضمان" />
                                           <TextField layoutX="834.0" layoutY="137.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
+                                          <TableView fx:id="garanteeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
                                             <columns>
-                                              <TableColumn editable="false" prefWidth="131.0" text="إسم المنطقة" />
-                                                <TableColumn editable="false" prefWidth="126.0" text="إسم الموقع" />
-                                                <TableColumn prefWidth="194.0" text="المشروع" />
-                                                <TableColumn prefWidth="194.0" text="رقم الضمان" />
-                                                <TableColumn prefWidth="179.0" text="نوع الضمان" />
-                                                <TableColumn prefWidth="173.0" text="نوع العقد" />
-                                                <TableColumn editable="false" prefWidth="91.0" text="تعديل" />
+                                              <TableColumn fx:id="areaNameTable" editable="false" prefWidth="167.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable" editable="false" prefWidth="185.0" text="إسم الموقع" />
+                                                <TableColumn fx:id="projectNameTable" prefWidth="201.0" text="المشروع" />
+                                                <TableColumn fx:id="garanteeNumberTable" prefWidth="166.0" text="رقم الضمان" />
+                                                <TableColumn fx:id="garanteeTypeTable" prefWidth="200.0" text="نوع الضمان" />
+                                                <TableColumn fx:id="contractTypeTable" prefWidth="169.0" text="نوع العقد" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="481.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
+                                          <Button layoutX="558.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
                                           <ComboBox fx:id="garanteeType" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الضمان" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="815.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <ComboBox fx:id="contractType" layoutX="815.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
+                                          <Button layoutX="287.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل ضمان" />
                                        </children>
                                     </AnchorPane>
                               </content>
