@@ -2,9 +2,9 @@ package Controlers;
 
 public class AreaForTable {
     private String areaName;
-    private String areaId;
+    private int areaId;
 
-    public AreaForTable(String areaName, String areaId) {
+    public AreaForTable(String areaName, int areaId) {
         this.areaName = areaName;
         this.areaId = areaId;
     }
@@ -13,7 +13,7 @@ public class AreaForTable {
         return areaName;
     }
 
-    public String getAreaId() {
+    public int getAreaId() {
         return areaId;
     }
 }
