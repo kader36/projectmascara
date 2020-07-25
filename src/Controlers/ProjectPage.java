@@ -25,10 +25,13 @@ public class ProjectPage implements Initializable {
     PreparedStatement pst;
     ResultSet rs;
     ObservableList<Area> areas= FXCollections.observableArrayList();
+    ObservableList<Project> projects= FXCollections.observableArrayList();
+    ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
+    ObservableList<ProjectOcupation> projectOccupation= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<String> projectTypeList= FXCollections.observableArrayList("مشروع قطاع عسكري","مشروع قطاع صحي");
-    int idArea=0,idLocation=0;
+    int idArea=0,idLocation=0,idProject=0,idOccupation=0,idEmployee=0;
 
 
     @FXML
@@ -62,6 +65,9 @@ public class ProjectPage implements Initializable {
     private TextField maxNumber;
 
     public void fillComboArea(){
+        areas.clear();
+        areaName.getItems().clear();
+        areaNameEmployee.getItems().clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -72,6 +78,24 @@ public class ProjectPage implements Initializable {
             }
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
+                areaNameEmployee.getItems().add(areas.get(i).getNameArea());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void fillComboEmployee(){
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                employees.add(new EmployeeForList(rs.getInt("id"),rs.getString("employeeName")));
+
+            }
+            for (int i=0;i<employees.size();i++){
+                employeeNameEmployee.getItems().add(employees.get(i).getEmployeeName());
             }
 
         } catch (SQLException throwables) {
@@ -79,6 +103,9 @@ public class ProjectPage implements Initializable {
         }
     }
     public void fillComboOccupation(){
+        occupations.clear();
+        occupationName.getItems().clear();
+
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `occupations`");
@@ -95,9 +122,33 @@ public class ProjectPage implements Initializable {
             throwables.printStackTrace();
         }
     }
+    public void fillComboOccupationEmployee(){
+        projectOccupation.clear();
+        occupationNameEmployee.getItems().clear();
+
+
+
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),getOccupationName(rs.getInt("idOccupation"))));
+
+            }
+            for (int i=0;i<projectOccupation.size();i++){
+                occupationNameEmployee.getItems().add(projectOccupation.get(i).getOccupationName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     public void fillComboLocation(){
         locations.clear();
         locationName.getItems().clear();
+
         try {
 
             con=new Controlers.ConnectDB().getConnection();
@@ -117,6 +168,57 @@ public class ProjectPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
+    public void fillComboLocationEmployee(){
+        locations.clear();
+        locationNameEmployee.getItems().clear();
+        projects.clear();
+        projectNameEmployee.getItems().clear();
+        projectOccupation.clear();
+        occupationNameEmployee.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `areaId`=?");
+            pst.setInt(1,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
+
+            }
+
+            for (int i=0;i<locations.size();i++){
+                locationNameEmployee.getItems().add(locations.get(i).getLocationName());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+    public void fillComboProjectEmployee(){
+        projects.clear();
+        projectNameEmployee.getItems().clear();
+        projectOccupation.clear();
+        occupationNameEmployee.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=?");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+
+            }
+
+            for (int i=0;i<projects.size();i++){
+                projectNameEmployee.getItems().add(projects.get(i).getContractName());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
@@ -124,14 +226,45 @@ public class ProjectPage implements Initializable {
         fillComboLocation();
     }
     @FXML
+    void selectAreaEmployee(ActionEvent event) {
+        int index= areaNameEmployee.getSelectionModel().getSelectedIndex();
+        idArea=areas.get(index).getIdArea();
+        fillComboLocationEmployee();
+    }
+    @FXML
+    void selectEmployeeEmployee(ActionEvent event) {
+
+    }
+    @FXML
     void selectOccupation(ActionEvent event) {
         int index= occupationName.getSelectionModel().getSelectedIndex();
-        idArea=occupations.get(index).getIdOcupation();
+        idOccupation=occupations.get(index).getIdOcupation();
     }
+    @FXML
+    void selectOccupationEmployee(ActionEvent event) {
+        int index= occupationNameEmployee.getSelectionModel().getSelectedIndex();
+        idOccupation=projectOccupation.get(index).getIdOccupation();
+    }
+
     @FXML
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
+
+    }
+    @FXML
+    void selectLocationEmployee(ActionEvent event) {
+        int index= locationNameEmployee.getSelectionModel().getSelectedIndex();
+        idLocation=locations.get(index).getIdLocation();
+        fillComboProjectEmployee();
+
+    }
+
+    @FXML
+    public void selectProjectEmployee(ActionEvent actionEvent) {
+        int index= projectNameEmployee.getSelectionModel().getSelectedIndex();
+        idProject=projects.get(index).getIdProject();
+        fillComboOccupationEmployee();
 
     }
 
@@ -321,23 +454,6 @@ public class ProjectPage implements Initializable {
 
     ObservableList projectsTable= FXCollections.observableArrayList();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        fillComboArea();
-        fillComboOccupation();
-        projectType.setItems(projectTypeList);
-
-        addToTable();
-        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
-        projectNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
-        projectTypeTable.setCellValueFactory(new PropertyValueFactory<>("projectType"));
-        contactDurationTable.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
-        contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
-        contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
-        contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
-        projectTableView.setItems(projectsTable);
-    }
     public void addToTable(){
         projectsTable.clear();
         try {
@@ -369,6 +485,46 @@ public class ProjectPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 return result= rs.getString("areaName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getOccupationName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("occupationName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getEmployeeName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("employeeName");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -418,6 +574,110 @@ public class ProjectPage implements Initializable {
 
         }
         return result;
+
+    }
+
+
+
+    @FXML
+    private ListView<String> employeeNameEmployee;
+    @FXML
+    private TableView<projectEmployeeForTable> projectEmployeeTableView;
+    @FXML
+    private TableColumn<projectEmployeeForTable, String> employeeNameEmployeeTable;
+
+    @FXML
+    private TableColumn<projectEmployeeForTable, String> occupationNameEmployeeTable;
+
+    @FXML
+    private TableColumn<projectEmployeeForTable, String> areaNameEmployeeTable;
+
+    @FXML
+    private TableColumn<projectEmployeeForTable, String> locationNameEmployeeTable;
+
+    @FXML
+    private TableColumn<projectEmployeeForTable, String> projectNameEmployeeTable;
+
+    @FXML
+    private ComboBox<String> areaNameEmployee;
+
+    @FXML
+    private ComboBox<String> locationNameEmployee;
+
+    @FXML
+    private ComboBox<String> projectNameEmployee;
+
+    @FXML
+    private ComboBox<String> occupationNameEmployee;
+
+    ObservableList projectEmployeesTable= FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        fillComboArea();
+        fillComboEmployee();
+
+        fillComboOccupation();
+        projectType.setItems(projectTypeList);
+
+        addToTable();
+        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        projectNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
+        projectTypeTable.setCellValueFactory(new PropertyValueFactory<>("projectType"));
+        contactDurationTable.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
+        contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
+        contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+        contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        projectTableView.setItems(projectsTable);
+
+        addToTable2();
+        employeeNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        occupationNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+        areaNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+        locationNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        projectNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+        projectEmployeeTableView.setItems(projectEmployeesTable);
+    }
+
+    public void addToTable2(){
+        projectEmployeesTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getOccupationName(rs.getInt("idOccupation")),getEmployeeName(rs.getInt("idEmployee"))));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+
+    @FXML
+    public void addEmployeeProject(ActionEvent actionEvent) {
+        int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
+        idEmployee=employees.get(index).getId();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `projectsemployees`(`idArea`, `idLocation`, `idProject`, `idOccupation`, `idEmployee`) VALUES (?,?,?,?,?)");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            pst.setInt(3,idProject);
+            pst.setInt(4,idOccupation);
+            pst.setInt(5,idEmployee);
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTable2();
 
     }
 }

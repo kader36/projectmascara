@@ -82,27 +82,28 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <ListView layoutX="24.0" layoutY="140.0" prefHeight="413.0" prefWidth="216.0" />
-                                          <TableView layoutX="281.0" layoutY="144.0" prefHeight="415.0" prefWidth="818.0">
+                                          <ListView fx:id="employeeNameEmployee" layoutX="24.0" layoutY="146.0" onEditStart="#selectEmployeeEmployee" prefHeight="411.0" prefWidth="216.0" />
+                                          <TableView fx:id="projectEmployeeTableView" layoutX="281.0" layoutY="144.0" prefHeight="415.0" prefWidth="818.0">
                                             <columns>
-                                              <TableColumn prefWidth="75.0" text="اسم العامل " />
-                                              <TableColumn prefWidth="75.0" text="الوظيفة " />
-                                                <TableColumn prefWidth="75.0" text="المنطقة العامل فيها " />
-                                                <TableColumn prefWidth="75.0" text="الموقع العامل فيه" />
-                                                <TableColumn prefWidth="75.0" text="المشروع العامل فيه " />
-                                                <TableColumn prefWidth="75.0" text="تعديل" />
-                                                <TableColumn prefWidth="75.0" text="حذف" />
+                                              <TableColumn fx:id="employeeNameEmployeeTable" prefWidth="75.0" text="اسم العامل " />
+                                              <TableColumn fx:id="occupationNameEmployeeTable" prefWidth="75.0" text="الوظيفة " />
+                                                <TableColumn fx:id="areaNameEmployeeTable" prefWidth="75.0" text="المنطقة العامل فيها " />
+                                                <TableColumn fx:id="locationNameEmployeeTable" prefWidth="75.0" text="الموقع العامل فيه" />
+                                                <TableColumn fx:id="projectNameEmployeeTable" prefWidth="75.0" text="المشروع العامل فيه " />
                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <ComboBox layoutX="44.0" layoutY="27.0" prefHeight="30.0" prefWidth="189.0" promptText="المنطقة " />
-                                          <ComboBox layoutX="284.0" layoutY="27.0" prefHeight="30.0" prefWidth="181.0" promptText="الموقع " />
-                                          <ComboBox layoutX="518.0" layoutY="27.0" prefHeight="30.0" prefWidth="181.0" promptText="المشروع" />
-                                          <TextField layoutX="839.0" layoutY="90.0" prefHeight="30.0" prefWidth="192.0" promptText="بحث " />
-                                          <ComboBox layoutX="44.0" layoutY="87.0" prefHeight="30.0" prefWidth="189.0" promptText="الوظيفة " />
-                                          <Button layoutX="282.0" layoutY="90.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="186.0" text="إضافة " />
+                                          <ComboBox fx:id="areaNameEmployee" layoutX="25.0" layoutY="27.0" onAction="#selectAreaEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة " />
+                                          <ComboBox fx:id="locationNameEmployee" layoutX="303.0" layoutY="27.0" onAction="#selectLocationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الموقع " />
+                                          <ComboBox fx:id="projectNameEmployee" layoutX="565.0" layoutY="27.0" onAction="#selectProjectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
+                                          <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
+                                          <ComboBox fx:id="occupationNameEmployee" layoutX="848.0" layoutY="27.0" onAction="#selectOccupationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الوظيفة " />
+                                          <Button layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة العمالة" />
+                                          <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
+                                          <Button layoutX="488.0" layoutY="102.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل العمالة" />
+                                          <Button layoutX="695.0" layoutY="102.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
