@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -31,7 +32,7 @@ public class ProjectPage implements Initializable {
     ObservableList<ProjectOcupation> projectOccupation= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<String> projectTypeList= FXCollections.observableArrayList("مشروع قطاع عسكري","مشروع قطاع صحي");
-    int idArea=0,idLocation=0,idProject=0,idOccupation=0,idEmployee=0;
+    int idArea=0,idLocation=0,idProject=0,idOccupation=0,idEmployee=0,idProjectOccupation=0;
 
 
     @FXML
@@ -219,11 +220,54 @@ public class ProjectPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
+    public void fillProject(){
+        projects.clear();
+        projectNameEmployee.getItems().clear();
+        projectOccupation.clear();
+        occupationNameEmployee.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+    public void fillTableProjectOccupation(){
+        projectOccupation.clear();
+        projectOccupationTableView.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst.setInt(1,idProjectOccupation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),getOccupationName(rs.getInt("idOccupation"))));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
         fillComboLocation();
+    }
+    @FXML
+    void selectProjectOccupation(ActionEvent event) {
+
     }
     @FXML
     void selectAreaEmployee(ActionEvent event) {
@@ -420,6 +464,21 @@ public class ProjectPage implements Initializable {
     @FXML
     void addProjectOccupation(ActionEvent event) {
 
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `projectoccupations`(`idProject`, `idOccupation`, `maxNumber`, `realNumber`) VALUES (?,?,?,?)");
+            pst.setInt(1,idProjectOccupation);
+            pst.setInt(2,idOccupation);
+            pst.setString(3,maxNumber.getText());
+            pst.setInt(4,0);
+
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        fillTableProjectOccupation();
+
     }
 
 
@@ -462,8 +521,8 @@ public class ProjectPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
-
             }
+
 
 
         } catch (SQLException throwables) {
@@ -473,6 +532,7 @@ public class ProjectPage implements Initializable {
 
 
     }
+
     public String getAreaName(int id){
         Connection con;
         PreparedStatement pst;
@@ -584,6 +644,8 @@ public class ProjectPage implements Initializable {
     @FXML
     private TableView<projectEmployeeForTable> projectEmployeeTableView;
     @FXML
+    private TableView<ProjectOcupation> projectOccupationTableView;
+    @FXML
     private TableColumn<projectEmployeeForTable, String> employeeNameEmployeeTable;
 
     @FXML
@@ -611,12 +673,13 @@ public class ProjectPage implements Initializable {
     private ComboBox<String> occupationNameEmployee;
 
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();
+    ObservableList projectOccupationsTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
         fillComboEmployee();
-
+        fillProject();
         fillComboOccupation();
         projectType.setItems(projectTypeList);
 
@@ -638,6 +701,7 @@ public class ProjectPage implements Initializable {
         locationNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
         projectNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("projectName"));
         projectEmployeeTableView.setItems(projectEmployeesTable);
+
     }
 
     public void addToTable2(){
@@ -679,5 +743,26 @@ public class ProjectPage implements Initializable {
         }
         addToTable2();
 
+    }
+
+
+    @FXML
+    private TableColumn<ProjectOcupation, String> occupationNameTable;
+
+    @FXML
+    private TableColumn<ProjectOcupation, Integer> maxNumberTable;
+
+    @FXML
+    private TableColumn<ProjectOcupation, Integer> realNumberTable;
+    @FXML
+    public void getSelectItemTable(MouseEvent mouseEvent) {
+        int index= projectTableView.getSelectionModel().getSelectedIndex();
+        idProjectOccupation=projects.get(index).getIdProject();
+        fillTableProjectOccupation();
+
+        occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+        maxNumberTable.setCellValueFactory(new PropertyValueFactory<>("maxNumber"));
+        realNumberTable.setCellValueFactory(new PropertyValueFactory<>("realNumber"));
+        projectOccupationTableView.setItems(projectOccupation);
     }
 }
