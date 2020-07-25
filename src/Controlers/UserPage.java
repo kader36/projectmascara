@@ -9,9 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -55,11 +54,7 @@ public class UserPage implements Initializable {
     @FXML
     private PasswordField password;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        fillComboArea();
 
-    }
     public void fillComboArea(){
         try {
             con=new Controlers.ConnectDB().getConnection();
@@ -263,7 +258,133 @@ public class UserPage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        addToTable();
     }
 
+    @FXML
+    private TableView<UserForTable> userTableView;
 
+    @FXML
+    private TableColumn<UserForTable, String> employeeNameTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> areaNameTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> locationNameTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> usernameTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> emailTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> phoneNumberTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> employeeNumberTable;
+
+    @FXML
+    private TableColumn<UserForTable, String> privilegeNameTable;
+
+    ObservableList usersTable= FXCollections.observableArrayList();
+
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
+            fillComboArea();
+            addToTable();
+            employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+            usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
+            emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
+            phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+            employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+            privilegeNameTable.setCellValueFactory(new PropertyValueFactory<>("privilegeName"));
+            userTableView.setItems(usersTable);
+        }
+        public void addToTable(){
+            usersTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `users`");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getPrivilegeName(rs.getInt("privilegesId"))));
+
+                }
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+    public String getAreaName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("areaName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getLocationName(int idArea,int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
+            pst.setInt(1,id);
+            pst.setInt(2,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("locationName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getPrivilegeName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users` WHERE `privilegesId`=?");
+            pst.setInt(1,id);
+
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= String.valueOf(rs.getInt("privilegesId"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
 }
+
+
+
