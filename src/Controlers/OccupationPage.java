@@ -174,7 +174,7 @@ public class OccupationPage implements Initializable {
 
     }
     @FXML
-    private TableView<LocationForTable> occupationTableView;
+    private TableView<OccupationForTable> occupationTableView;
     @FXML
     private TableColumn<LocationForTable, String> occupationNameTable;
 
@@ -205,5 +205,21 @@ public class OccupationPage implements Initializable {
 
 
     }
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= occupationTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=occupationTableView.getItems().get(index).getOccupationId();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `occupations` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
 
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
 }

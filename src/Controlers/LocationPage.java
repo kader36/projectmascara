@@ -264,4 +264,22 @@ public class LocationPage implements Initializable {
         return result;
 
     }
+    @FXML
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= locationTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=locationTableView.getItems().get(index).getIdLocation();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `locations` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
 }

@@ -210,4 +210,22 @@ public class AreaPage implements Initializable {
         }
 
     }
+
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= areaTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=areaTableView.getItems().get(index).getAreaId();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `areas` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
 }

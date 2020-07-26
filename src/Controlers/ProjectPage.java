@@ -765,4 +765,61 @@ public class ProjectPage implements Initializable {
         realNumberTable.setCellValueFactory(new PropertyValueFactory<>("realNumber"));
         projectOccupationTableView.setItems(projectOccupation);
     }
+
+
+    public void deleteRow1(ActionEvent actionEvent) {
+        int index= projectTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=projectTableView.getItems().get(index).getProjectId();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projects` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+            addToTable2();
+            projectOccupationTableView.getItems().clear();
+        }
+    }
+    public void deleteRow2(ActionEvent actionEvent) {
+        int index= projectOccupationTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=projectOccupationTableView.getItems().get(index).getIdProjectOccupation();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projectoccupations` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            fillTableProjectOccupation();
+            addToTable2();
+            addToTable();
+        }
+    }
+    public void deleteRow3(ActionEvent actionEvent) {
+        int index= projectEmployeeTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=projectEmployeeTableView.getItems().get(index).getId();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projectsemployees` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable2();
+        }
+    }
 }

@@ -384,6 +384,24 @@ public class UserPage implements Initializable {
         return result;
 
     }
+
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= userTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=userTableView.getItems().get(index).getIdUser();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `users` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
 }
 
 

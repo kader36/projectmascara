@@ -47,7 +47,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="558.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
+                                          <Button layoutX="558.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
                                           <ComboBox fx:id="garanteeType" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الضمان" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="815.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />

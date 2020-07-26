@@ -42,7 +42,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="572.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موقع" />
+                                          <Button layoutX="572.0" layoutY="95.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موقع" />
                                           <ComboBox fx:id="areaName" layoutX="58.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="إختر المنطقة" />
                                           <Button layoutX="314.0" layoutY="95.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موقع" />
                                        </children>

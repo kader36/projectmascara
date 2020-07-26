@@ -342,6 +342,23 @@ public class EmployeePage implements Initializable {
 
     }
 
+    @FXML
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= employeeTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=employeeTableView.getItems().get(index).getIdEmployee();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `employees` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
 
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
 
 }

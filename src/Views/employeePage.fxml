@@ -53,7 +53,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="562.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موظف" />
+                                          <Button layoutX="562.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف موظف" />
                                           <TextField fx:id="employeeNumber" layoutX="300.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العامل" />
                                           <TextField fx:id="employeeNationality" layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
                                           <TextField fx:id="religion" layoutX="300.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الديانة" />

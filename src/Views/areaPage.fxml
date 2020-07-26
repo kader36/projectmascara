@@ -40,7 +40,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="578.0" layoutY="104.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف المنطقة" />
+                                          <Button layoutX="578.0" layoutY="104.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف المنطقة" />
                                           <Button layoutX="58.0" layoutY="104.0" mnemonicParsing="false" onAction="#addArea" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة منطقة" />
                                        </children>
                                     </AnchorPane>

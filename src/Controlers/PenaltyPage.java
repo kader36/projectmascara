@@ -274,7 +274,7 @@ public class PenaltyPage implements Initializable {
     }
 
     @FXML
-    private TableView<GaranteeForTable> penaltyTableView;
+    private TableView<PenaltyForTable> penaltyTableView;
 
     @FXML
     private TableColumn<GaranteeForTable, String> areaNameTable;
@@ -387,5 +387,23 @@ public class PenaltyPage implements Initializable {
         }
         return result;
 
+    }
+    @FXML
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= penaltyTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=penaltyTableView.getItems().get(index).getIdPenalty();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `penalties` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
     }
 }

@@ -57,7 +57,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="573.0" layoutY="130.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <Button layoutX="573.0" layoutY="130.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TableView fx:id="projectOccupationTableView" layoutX="340.0" layoutY="400.0" prefHeight="147.0" prefWidth="735.0">
                                             <columns>
                                               <TableColumn fx:id="occupationNameTable" editable="false" prefWidth="260.0" text="إسم الوظيفة" />
@@ -71,7 +71,7 @@
                                           <ComboBox fx:id="occupationName" layoutX="57.0" layoutY="400.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="إختر الوظيفة" />
                                           <TextField fx:id="maxNumber" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
                                           <Button layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button layoutX="185.0" layoutY="512.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <Button layoutX="315.0" layoutY="130.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
                                        </children>
                                     </AnchorPane>
@@ -102,7 +102,7 @@
                                           <Button layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة العمالة" />
                                           <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
                                           <Button layoutX="488.0" layoutY="102.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل العمالة" />
-                                          <Button layoutX="695.0" layoutY="102.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
+                                          <Button layoutX="695.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
