@@ -99,11 +99,11 @@
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <Button layoutX="-1.0" layoutY="476.0" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                        <Button layoutX="-1.0" layoutY="476.0" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font></Button>
-                        <Button layoutX="-1.0" layoutY="513.0" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                        <Button layoutX="-1.0" layoutY="513.0" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font></Button>

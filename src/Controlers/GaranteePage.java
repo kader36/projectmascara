@@ -242,6 +242,32 @@ public class GaranteePage implements Initializable {
 
         }
     }
+    public void abstracts(ActionEvent actionEvent) {
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/abstractPage.fxml"));
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المناطق");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void deduction(ActionEvent actionEvent) {
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/deductionPage.fxml"));
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المناطق");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
     public void login(ActionEvent actionEvent) {
         try {
 
