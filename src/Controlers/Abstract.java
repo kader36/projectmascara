@@ -5,10 +5,7 @@
  */
 package Controlers;
 
-/**
- *
- * @author Mahdi
- */
 public class Abstract {
+    private int idAbstract;
     
 }
