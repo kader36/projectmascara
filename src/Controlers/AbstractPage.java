@@ -23,14 +23,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class DeductionPage implements Initializable {
+public class AbstractPage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
-    ObservableList<String> deductions= FXCollections.observableArrayList("نوع الإستقطاع","نوع الإستقطاع");
+    ObservableList<String> deductions= FXCollections.observableArrayList("نوع الغرامة","نوع الغرامة");
     int idArea=0,idLocation=0,idProject=0;
 
     @FXML
