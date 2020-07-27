@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.PenaltyPage">
+<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.DeductionPage">
    <children>
       <VBox prefHeight="603.0" prefWidth="1325.0">
          <children>
@@ -26,31 +26,31 @@
                      <children>
                         <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
                           <tabs>
-                            <Tab closable="false" text="الغرامات">
+                            <Tab closable="false" text="الإستقطاعات">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <ComboBox fx:id="locationName" layoutX="426.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <TextField fx:id="amountOfPenalty" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تكلفة الغرامة" />
-                                          <Button layoutX="22.0" layoutY="138.0" mnemonicParsing="false" onAction="#addPenalty" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة غرامة" />
+                                          <TextField fx:id="amountOfDeduction" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تكلفة الإستقطاع" />
+                                          <Button layoutX="22.0" layoutY="138.0" mnemonicParsing="false" onAction="#addDeduction" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة إستقطاع" />
                                           <TextField layoutX="834.0" layoutY="137.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="penaltyTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
+                                          <TableView fx:id="deductionTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
                                             <columns>
                                               <TableColumn fx:id="areaNameTable" editable="false" prefWidth="192.0" text="إسم المنطقة" />
                                                 <TableColumn fx:id="locationNameTable" editable="false" prefWidth="185.0" text="إسم الموقع" />
                                                 <TableColumn fx:id="projectNameTable" prefWidth="217.0" text="المشروع" />
-                                                <TableColumn fx:id="amountOfPenaltyTable" prefWidth="239.0" text="تكلفة الغرامة " />
-                                                <TableColumn fx:id="typePenaltyTable" prefWidth="255.0" text="نوع الغرامة" />
+                                                <TableColumn fx:id="amountOfDeductionTable" prefWidth="239.0" text="تكلفة الإستقطاع " />
+                                                <TableColumn fx:id="typeDeductionTable" prefWidth="255.0" text="نوع الإستقطاع" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="567.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف غرامة" />
-                                          <ComboBox fx:id="typePenalty" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الغرامة" />
+                                          <Button layoutX="567.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف إستقطاع" />
+                                          <ComboBox fx:id="typeDeduction" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الإستقطاع" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="815.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
-                                          <Button layoutX="291.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل غرامة" />
+                                          <Button layoutX="291.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل إستقطاع" />
                                        </children>
                                     </AnchorPane>
                               </content>
