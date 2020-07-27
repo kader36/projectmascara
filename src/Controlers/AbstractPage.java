@@ -37,10 +37,7 @@ public class AbstractPage implements Initializable {
     private ComboBox<String> areaName;
     @FXML
     private ComboBox<String> locationName;
-    @FXML
-    private TextField amountOfDeduction;
-    @FXML
-    private ComboBox<String> typeDeduction;
+
     @FXML
     private ComboBox<String> projectName;
 
@@ -280,27 +277,6 @@ public class AbstractPage implements Initializable {
     }
 
 
-    public void addDeduction(ActionEvent actionEvent) {
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`) VALUES (?,?,?,?,?)");
-            pst.setInt(1,idArea);
-            pst.setInt(2,idLocation);
-            pst.setString(3,typeDeduction.getValue());
-            pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
-            pst.setInt(5,idProject);
-            pst.execute();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        addToTable();
-        amountOfDeduction.clear();
-    }
-
-    @FXML
-    private TableView<DeductionForTable> deductionTableView;
-
     @FXML
     private TableColumn<GaranteeForTable, String> areaNameTable;
 
@@ -310,26 +286,17 @@ public class AbstractPage implements Initializable {
     @FXML
     private TableColumn<GaranteeForTable, String> projectNameTable;
 
-    @FXML
-    private TableColumn<GaranteeForTable, Float> amountOfDeductionTable;
-
-    @FXML
-    private TableColumn<GaranteeForTable, String> typeDeductionTable;
-
     ObservableList deductionsTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-        typeDeduction.setItems(deductions);
 
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-        amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
-        typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
-        deductionTableView.setItems(deductionsTable);
+
     }
     public void addToTable(){
         deductionsTable.clear();
@@ -413,22 +380,5 @@ public class AbstractPage implements Initializable {
         return result;
 
     }
-    @FXML
-    public void deleteRow(ActionEvent actionEvent) {
-        int index= deductionTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=deductionTableView.getItems().get(index).getIdDeduction();
-        if (idDelete>0) {
-            try {
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("DELETE FROM `deductions` WHERE `id`=?");
-                pst.setInt(1, idDelete);
-                pst.execute();
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            idDelete=0;
-            addToTable();
-        }
-    }
 }

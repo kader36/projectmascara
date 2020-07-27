@@ -48,7 +48,7 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="567.0" layoutY="237.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف غرامة" />
+                                          <Button layoutX="567.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف غرامة" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="583.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <Button layoutX="291.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل غرامة" />
@@ -61,6 +61,12 @@
                                           <CheckBox layoutX="574.0" layoutY="123.0" mnemonicParsing="false" text="أفريل" />
                                           <CheckBox layoutX="780.0" layoutY="123.0" mnemonicParsing="false" text="ماي" />
                                           <CheckBox layoutX="978.0" layoutY="123.0" mnemonicParsing="false" text="جوان" />
+                                          <CheckBox layoutX="30.0" layoutY="176.0" mnemonicParsing="false" text="جويلية" />
+                                          <CheckBox layoutX="210.0" layoutY="176.0" mnemonicParsing="false" text="أوت" />
+                                          <CheckBox layoutX="388.0" layoutY="176.0" mnemonicParsing="false" text="سبتمبر" />
+                                          <CheckBox layoutX="574.0" layoutY="176.0" mnemonicParsing="false" text="أكتوبر" />
+                                          <CheckBox layoutX="780.0" layoutY="176.0" mnemonicParsing="false" text="نوفمبر" />
+                                          <CheckBox layoutX="978.0" layoutY="176.0" mnemonicParsing="false" text="ديسمبر" />
                                        </children>
                                     </AnchorPane>
                               </content>
