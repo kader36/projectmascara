@@ -34,24 +34,27 @@
                                        <children>
                                           <ComboBox fx:id="locationName" layoutX="306.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="amountOfPenalty" editable="false" layoutX="855.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
-                                          <Button layoutX="22.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة غرامة" />
+                                          <Button layoutX="22.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخلص" />
                                           <TextField layoutX="834.0" layoutY="236.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="penaltyTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="286.0" prefHeight="260.0" prefWidth="1089.0">
                                             <columns>
-                                              <TableColumn fx:id="areaNameTable" editable="false" prefWidth="192.0" text="إسم المنطقة" />
-                                                <TableColumn fx:id="locationNameTable" editable="false" prefWidth="185.0" text="إسم الموقع" />
-                                                <TableColumn fx:id="projectNameTable" prefWidth="217.0" text="المشروع" />
-                                                <TableColumn fx:id="amountOfPenaltyTable" prefWidth="239.0" text="تكلفة الغرامة " />
-                                                <TableColumn fx:id="typePenaltyTable" prefWidth="255.0" text="نوع الغرامة" />
+                                              <TableColumn fx:id="areaNameTable" editable="false" prefWidth="92.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable" editable="false" prefWidth="85.0" text="إسم الموقع" />
+                                                <TableColumn fx:id="projectNameTable" prefWidth="117.0" text="المشروع" />
+                                                <TableColumn fx:id="amountOfPenaltyTable" prefWidth="126.0" text="نوع العقد" />
+                                                <TableColumn fx:id="typePenaltyTable" prefWidth="74.0" text="رقم العقد" />
+                                                <TableColumn prefWidth="122.0" text="بداية العقد" />
+                                                <TableColumn prefWidth="114.0" text="نهاية العقد" />
+                                                <TableColumn prefWidth="358.0" text="الأشهر" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <Button layoutX="567.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف غرامة" />
+                                          <Button layoutX="567.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخلص" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="583.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
-                                          <Button layoutX="291.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل غرامة" />
+                                          <Button layoutX="291.0" layoutY="237.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخلص" />
                                           <TextField fx:id="amountOfPenalty1" editable="false" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <DatePicker editable="false" layoutX="307.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker editable="false" layoutX="582.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
