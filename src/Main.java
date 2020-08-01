@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("تسجيل الدخول");
         primaryStage.setScene(new Scene(root));

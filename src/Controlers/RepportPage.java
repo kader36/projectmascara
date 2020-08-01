@@ -1,21 +1,14 @@
 package Controlers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -24,73 +17,15 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
-import static Controlers.ConnectDB.getConnection;
+public class RepportPage implements Initializable {
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
 
-public class AreaPage implements Initializable {
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-
-    @FXML
-    private TableView<AreaForTable> areaTableView;
-    @FXML
-    private TableColumn<AreaForTable, String> areaNameTable;
-
-    @FXML
-    private TextField areaName;
-
-    @FXML
-    void addArea(ActionEvent event) {
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `areas`(`areaName`) VALUES (?)");
-            pst.setString(1,areaName.getText());
-            pst.execute();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        addToTable();
-
-    }
-    ObservableList areasTable= FXCollections.observableArrayList();
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        addToTable();
-        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-        areaTableView.setItems(areasTable);
-
-    }
-
-
-    public void addToTable(){
-        areasTable.clear();
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas`");
-            rs=pst.executeQuery();
-            while (rs.next()){
-                areasTable.add(new AreaForTable(rs.getString("areaName"), rs.getInt("id")));
-
-            }
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        areaName.clear();
-
-
-    }
-
-
-    public void areas(javafx.event.ActionEvent actionEvent) {
+    public void areas(ActionEvent actionEvent) {
         try {
 
             Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
@@ -242,29 +177,22 @@ public class AreaPage implements Initializable {
 
     }
 
-    public void deleteRow(ActionEvent actionEvent) {
-        int index= areaTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=areaTableView.getItems().get(index).getAreaId();
-        if (idDelete>0) {
-            try {
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("DELETE FROM `areas` WHERE `id`=?");
-                pst.setInt(1, idDelete);
-                pst.execute();
+    public void printOne(ActionEvent actionEvent)  {
+        try {
+            String path=System.getProperty("user.dir")+"\\src\\report\\Invoice_Table_Based.jrxml";
+            JasperDesign jd=  JRXmlLoader.load(path);
+            JasperReport jr= JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+            JasperViewer.viewReport(jasperPrint);
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            idDelete=0;
-            addToTable();
+        } catch (JRException e) {
+            e.printStackTrace();
         }
+
     }
 
-    public void printOne(ActionEvent actionEvent) throws JRException {
-        JasperDesign jasperDesign= JRXmlLoader.load("C:\\Users\\mahdi\\IdeaProjects\\projectmascara2\\src\\report\\Cherry_Landscape.jrxml");
-        JasperReport jasperReport=JasperCompileManager.compileReport(jasperDesign);
-        HashMap<String,Object> para =new HashMap<>();
-        JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport, para, con);
-        JasperViewer.viewReport(jasperPrint);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        con=new Controlers.ConnectDB().getConnection();
     }
 }
