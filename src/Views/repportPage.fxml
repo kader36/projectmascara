@@ -26,6 +26,7 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <Button layoutX="56.0" layoutY="54.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="addButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
+                                          <Button layoutX="429.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="addButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
                                        </children>
                                     </AnchorPane>
                               </content>

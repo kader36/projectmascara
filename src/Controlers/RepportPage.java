@@ -179,8 +179,29 @@ public class RepportPage implements Initializable {
 
     public void printOne(ActionEvent actionEvent)  {
         try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Invoice_Table_Based.jrxml";
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report1.jrxml";
+            String querry="SELECT * FROM `projects`,`areas` WHERE areas.id=projects.areaId ORDER BY areas.id";
             JasperDesign jd=  JRXmlLoader.load(path);
+            JRDesignQuery query=new JRDesignQuery();
+            query.setText(querry);
+            jd.setQuery(query);
+            JasperReport jr= JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+            JasperViewer.viewReport(jasperPrint);
+
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void printTwo(ActionEvent actionEvent)  {
+        try {
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report2.jrxml";
+            String querry="SELECT * FROM `projects`,`areas` WHERE areas.id=projects.areaId ORDER BY areas.id";
+            JasperDesign jd=  JRXmlLoader.load(path);
+            JRDesignQuery query=new JRDesignQuery();
+            query.setText(querry);
+            jd.setQuery(query);
             JasperReport jr= JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
             JasperViewer.viewReport(jasperPrint);
