@@ -34,7 +34,7 @@
                                           <TextField fx:id="amountOfDeduction" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تكلفة الإستقطاع" />
                                           <Button layoutX="22.0" layoutY="138.0" mnemonicParsing="false" onAction="#addDeduction" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة إستقطاع" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="137.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="deductionTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" prefHeight="360.0" prefWidth="1089.0">
+                                          <TableView fx:id="deductionTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" onMouseClicked="#idReset" prefHeight="360.0" prefWidth="1089.0">
                                             <columns>
                                                 <TableColumn fx:id="projectNameTable" prefWidth="217.0" text="المشروع" />
                                                 <TableColumn fx:id="amountOfDeductionTable" prefWidth="239.0" text="تكلفة الإستقطاع " />
@@ -49,7 +49,7 @@
                                           <Button layoutX="567.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف إستقطاع" />
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="projectName" layoutX="815.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
-                                          <Button layoutX="291.0" layoutY="138.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل إستقطاع" />
+                                          <Button fx:id="edit" layoutX="291.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل إستقطاع" />
                                           <TextField fx:id="typeDeduction" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الإستقطاع" />
                                           <ComboBox fx:id="employeeName" layoutX="815.0" layoutY="70.0" onAction="#selectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الموظف" />
                                        </children>

@@ -318,7 +318,7 @@ public class AbstractPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `deductions`");
             rs=pst.executeQuery();
             while (rs.next()){
-                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
+                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
 
             }
 
@@ -328,6 +328,27 @@ public class AbstractPage implements Initializable {
         }
 
 
+
+    }
+
+    public String getEmployeeName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("employeeName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
 
     }
     public String getAreaName(int id){
