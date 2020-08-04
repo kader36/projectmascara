@@ -255,6 +255,19 @@ public class GaranteePage implements Initializable {
 
         }
     }
+    public void report(ActionEvent actionEvent) {
+        try {
+
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المناطق");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
     public void deduction(ActionEvent actionEvent) {
         try {
 

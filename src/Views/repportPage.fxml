@@ -25,8 +25,15 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <Button layoutX="56.0" layoutY="54.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="addButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
-                                          <Button layoutX="429.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="addButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
+                                          <Button layoutX="32.0" layoutY="54.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
+                                          <Button layoutX="405.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
+                                          <Button layoutX="784.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
+                                          <Label layoutX="902.0" layoutY="29.0" text="مطلوب إسم المشروع" />
+                                          <Label layoutX="167.0" layoutY="20.0" text="مطلوب المنطقة" />
+                                          <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
+                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
+                                          <Button layoutX="784.0" layoutY="203.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير نقص العمالة لجميع المشاريع" />
+                                          <Label layoutX="154.0" layoutY="174.0" text="مطلوب إسم المشروع" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -99,7 +106,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                              <Button mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

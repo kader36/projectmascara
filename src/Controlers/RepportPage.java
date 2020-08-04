@@ -109,7 +109,19 @@ public class RepportPage implements Initializable {
 
         }
     }
+    public void report(ActionEvent actionEvent) {
+        try {
 
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المناطق");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
     public void users(ActionEvent actionEvent) {
         try {
 
@@ -180,14 +192,15 @@ public class RepportPage implements Initializable {
     public void printOne(ActionEvent actionEvent)  {
         try {
             String path=System.getProperty("user.dir")+"\\src\\report\\Report1.jrxml";
-            String querry="SELECT * FROM `projects`,`areas` WHERE areas.id=projects.areaId ORDER BY areas.id";
+            String querry="SELECT * FROM `projects`,`areas` WHERE projects.areaId=areas.id AND projects.areaId =7";
             JasperDesign jd=  JRXmlLoader.load(path);
             JRDesignQuery query=new JRDesignQuery();
             query.setText(querry);
             jd.setQuery(query);
             JasperReport jr= JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer.viewReport(jasperPrint);
+            JasperViewer jv = new JasperViewer( jasperPrint, false );
+            jv.viewReport( jasperPrint, false );
 
         } catch (JRException e) {
             e.printStackTrace();
@@ -204,7 +217,8 @@ public class RepportPage implements Initializable {
             jd.setQuery(query);
             JasperReport jr= JasperCompileManager.compileReport(jd);
             JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer.viewReport(jasperPrint);
+            JasperViewer jv = new JasperViewer( jasperPrint, false );
+            jv.viewReport( jasperPrint, false );
 
         } catch (JRException e) {
             e.printStackTrace();
