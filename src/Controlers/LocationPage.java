@@ -11,11 +11,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -320,5 +319,79 @@ public class LocationPage implements Initializable {
             idDelete=0;
             addToTable();
         }
+    }
+
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+            locationTableView.setItems(locationsTable);
+        }else{
+            locationsTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName` LIKE '%"+key+"%' ");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),getAreaName(rs.getInt("areaId")),rs.getString("locationName")));
+
+                }
+                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+                locationTableView.setItems(locationsTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= locationTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=locationTableView.getItems().get(index).getIdLocation();
+        int idArea=0;
+
+        if (edit.getText().contains("تعديل موقع")){
+            edit.setText("حفظ");
+            areaName.setValue(locationTableView.getItems().get(index).getAreaName());
+            locationName.setText(locationTableView.getItems().get(index).getLocationName());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                for (int i=0; i<areas.size() ;i++){
+                    if (areas.get(i).getNameArea()==areaName.getValue()){
+                        idArea=areas.get(i).getIdArea();
+                    }
+                }
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `locations` SET `locationName`=?,`areaId`=? WHERE `id`=?");
+                pst.setString(1, locationName.getText());
+                pst.setInt(2, idArea);
+                pst.setInt(3, idEdit);
+                pst.execute();
+                edit.setText("تعديل موقع");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل منطقة");
     }
 }

@@ -14,6 +14,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -257,8 +260,8 @@ public class AreaPage implements Initializable {
 
     public void deleteRow(ActionEvent actionEvent) {
         int index= areaTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=areaTableView.getItems().get(index).getAreaId();
-        if (idDelete>0) {
+        if (index>0) {
+            int idDelete=areaTableView.getItems().get(index).getAreaId();
             try {
                 con = new Controlers.ConnectDB().getConnection();
                 pst = con.prepareStatement("DELETE FROM `areas` WHERE `id`=?");
@@ -273,11 +276,67 @@ public class AreaPage implements Initializable {
         }
     }
 
-    public void printOne(ActionEvent actionEvent) throws JRException {
-        JasperDesign jasperDesign= JRXmlLoader.load("C:\\Users\\mahdi\\IdeaProjects\\projectmascara2\\src\\report\\Cherry_Landscape.jrxml");
-        JasperReport jasperReport=JasperCompileManager.compileReport(jasperDesign);
-        HashMap<String,Object> para =new HashMap<>();
-        JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport, para, con);
-        JasperViewer.viewReport(jasperPrint);
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+            areaTableView.setItems(areasTable);
+        }else{
+            areasTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `areas` WHERE `areaName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    areasTable.add(new AreaForTable(rs.getString("areaName"), rs.getInt("id")));
+
+                }
+                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+                areaTableView.setItems(areasTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= areaTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=areaTableView.getItems().get(index).getAreaId();
+
+        if (edit.getText().contains("تعديل منطقة")){
+            edit.setText("حفظ");
+            areaName.setText(areaTableView.getItems().get(index).getAreaName());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `areas` SET `areaName`=? WHERE `id`=?");
+                pst.setString(1, areaName.getText());
+                pst.setInt(2, idEdit);
+                pst.execute();
+                edit.setText("تعديل منطقة");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل منطقة");
     }
 }

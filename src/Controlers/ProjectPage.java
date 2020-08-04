@@ -508,7 +508,7 @@ public class ProjectPage implements Initializable {
             pst=con.prepareStatement("INSERT INTO `projectoccupations`(`idProject`, `idOccupation`, `maxNumber`, `realNumber`) VALUES (?,?,?,?)");
             pst.setInt(1,idProjectOccupation);
             pst.setInt(2,idOccupation);
-            pst.setString(3,maxNumber.getText());
+            pst.setInt(3,Integer.parseInt(maxNumber.getText()));
             pst.setInt(4,0);
 
             pst.execute();
@@ -539,10 +539,10 @@ public class ProjectPage implements Initializable {
     private TableColumn<ProjectForTable, String> projectTypeTable;
 
     @FXML
-    private TableColumn<ProjectForTable, Integer> contactDurationTable;
+    private TableColumn<ProjectForTable, String> contactDurationTable;
 
     @FXML
-    private TableColumn<ProjectForTable, Float> contractPriceTable;
+    private TableColumn<ProjectForTable, String> contractPriceTable;
 
     @FXML
     private TableColumn<ProjectForTable, String> contractStartDateTable;
@@ -559,7 +559,7 @@ public class ProjectPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `projects`");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice")));
             }
 
 
@@ -766,6 +766,7 @@ public class ProjectPage implements Initializable {
     @FXML
     public void addEmployeeProject(ActionEvent actionEvent) {
         int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
+        System.out.println(index);
         idEmployee=employees.get(index).getId();
         try {
             con=new Controlers.ConnectDB().getConnection();

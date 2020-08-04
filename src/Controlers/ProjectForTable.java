@@ -3,9 +3,9 @@ package Controlers;
 public class ProjectForTable {
     private int projectId,areaId,locationId,contactDuration;
     private String contractName,areaName,locationName,projectType,contractStartDate,contractEndDate;
-    private float contractPrice;
+    private String contractPrice;
 
-    public ProjectForTable(int projectId,int areaId, int locationId, int contactDuration, String contractName, String areaName, String locationName, String projectType, String contractStartDate, String contractEndDate, float contractPrice) {
+    public ProjectForTable(int projectId,int areaId, int locationId, int contactDuration, String contractName, String areaName, String locationName, String projectType, String contractStartDate, String contractEndDate, String contractPrice) {
         this.projectId = projectId;
         this.areaId = areaId;
         this.locationId = locationId;
@@ -59,7 +59,7 @@ public class ProjectForTable {
         return contractEndDate;
     }
 
-    public float getContractPrice() {
+    public String getContractPrice() {
         return contractPrice;
     }
 }

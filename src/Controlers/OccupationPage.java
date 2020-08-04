@@ -9,10 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -260,5 +263,69 @@ public class OccupationPage implements Initializable {
             idDelete=0;
             addToTable();
         }
+    }
+
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+            occupationTableView.setItems(occupationsTable);
+        }else{
+            occupationsTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `occupationName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    occupationsTable.add(new OccupationForTable(rs.getString("occupationName"), rs.getInt("id")));
+
+                }
+                occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+                occupationTableView.setItems(occupationsTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= occupationTableView.getSelectionModel().getSelectedIndex();
+        int idEdit= occupationTableView.getItems().get(index).getOccupationId();
+
+        if (edit.getText().contains("تعديل وظيفة")){
+            edit.setText("حفظ");
+            occupationName.setText(occupationTableView.getItems().get(index).getOccupationName());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `occupations` SET `occupationName`=? WHERE `id`=?");
+                pst.setString(1, occupationName.getText());
+                pst.setInt(2, idEdit);
+                pst.execute();
+                edit.setText("تعديل وظيفة");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل وظيفة");
     }
 }

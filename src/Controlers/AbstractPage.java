@@ -318,7 +318,7 @@ public class AbstractPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `deductions`");
             rs=pst.executeQuery();
             while (rs.next()){
-                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),rs.getString("typeDeduction"),rs.getFloat("amountOfDeduction")));
+                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
 
             }
 

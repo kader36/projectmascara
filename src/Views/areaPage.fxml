@@ -29,10 +29,10 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField fx:id="areaName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المنطقة" />
-                                          <Button layoutX="316.0" layoutY="104.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل منطقة" />
-                                          <TextField layoutX="833.0" layoutY="104.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="areaTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="157.0" prefHeight="386.0" prefWidth="1019.0">
+                                          <TextField fx:id="areaName" layoutX="56.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المنطقة" />
+                                          <Button fx:id="edit" layoutX="316.0" layoutY="104.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل منطقة" />
+                                          <TextField fx:id="search" layoutX="833.0" layoutY="104.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="areaTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="157.0" onMouseClicked="#idReset" prefHeight="386.0" prefWidth="1019.0">
                                             <columns>
                                               <TableColumn fx:id="areaNameTable" editable="false" prefWidth="1018.0" text="إسم المنطقة" />
                                             </columns>
