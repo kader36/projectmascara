@@ -343,7 +343,7 @@ public class DeductionPage implements Initializable {
                 pst.setString(3,typeDeduction.getText());
                 pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
                 pst.setInt(5,idProject);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
 
                 pst.setString(6, sdf.format(new Date()));
                 pst.setInt(7,idEmployee);
@@ -356,7 +356,7 @@ public class DeductionPage implements Initializable {
                 pst.setString(3,typeDeduction.getText());
                 pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
                 pst.setInt(5,idProject);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
                 pst.setString(6, sdf.format(new Date()));
                 pst.setString(7,"d");
 

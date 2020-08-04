@@ -9,11 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -21,6 +20,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class GaranteePage implements Initializable {
@@ -32,7 +33,7 @@ public class GaranteePage implements Initializable {
     ObservableList<Project> projects= FXCollections.observableArrayList();
     ObservableList<String> contracts= FXCollections.observableArrayList("طهي","توريد");
     ObservableList<String> garantees= FXCollections.observableArrayList("الافراج عن الضمان","تخفيض 5% من الضمان");
-    int idArea=0,idLocation=0,idProject=0;
+    int idArea=0,idLocation=0,idProject=0,idGarantee=0,idHistorical;
 
     @FXML
     private ComboBox<String> areaName;
@@ -52,12 +53,17 @@ public class GaranteePage implements Initializable {
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
+        locationName.getItems().clear();
+        projectName.getItems().clear();
         fillComboLocation();
+
     }
     @FXML
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
+
+        projectName.getItems().clear();
         fillComboProject();
 
     }
@@ -114,6 +120,7 @@ public class GaranteePage implements Initializable {
     }
 
     public void fillComboArea(){
+        areaName.getItems().clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -312,7 +319,15 @@ public class GaranteePage implements Initializable {
             throwables.printStackTrace();
         }
         addToTable();
+        areaName.getItems().clear();
+        locationName.getItems().clear();
+        projectName.getItems().clear();
         garanteeNumber.clear();
+        garanteeType.getItems().clear();
+        contractType.getItems().clear();
+        contractType.setItems(contracts);
+        garanteeType.setItems(garantees);
+        fillComboArea();
     }
     @FXML
     private TableView<GaranteeForTable> garanteeTableView;
@@ -334,6 +349,17 @@ public class GaranteePage implements Initializable {
 
     @FXML
     private TableColumn<GaranteeForTable, String> contractTypeTable;
+    @FXML
+    private TableView<HistoricalGaranteeForTable> historicalGaranteeTableView;
+
+    @FXML
+    private TableColumn<HistoricalGaranteeForTable, String> dateHistoricalTable;
+
+    @FXML
+    private TableColumn<HistoricalGaranteeForTable, String> descriptionTable;
+
+    @FXML
+    private TableColumn<HistoricalGaranteeForTable, String> nnameUserTable;
     ObservableList garanteesTable= FXCollections.observableArrayList();
 
     @Override
@@ -452,4 +478,220 @@ public class GaranteePage implements Initializable {
         }
     }
 
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+            projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+            garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
+            garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
+            contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+            garanteeTableView.setItems(garanteesTable);
+        }else{
+            garanteesTable.clear();
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("contractType")));
+                }
+                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+                projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+                garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
+                garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
+                contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+                garanteeTableView.setItems(garanteesTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=garanteeTableView.getItems().get(index).getIdGarantee();
+        int idArea=0,idLocation=0,idProject=0;
+
+
+        if (edit.getText().contains("تعديل ضمان")){
+            edit.setText("حفظ");
+            areaName.setValue(garanteeTableView.getItems().get(index).getNameArea());
+            locationName.setValue(garanteeTableView.getItems().get(index).getNameLocation());
+            projectName.setValue(garanteeTableView.getItems().get(index).getNameProject());
+            garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
+            contractType.setValue(garanteeTableView.getItems().get(index).getContractType());
+            garanteeNumber.setText(garanteeTableView.getItems().get(index).getGaranteeNumber());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                for (int i=0; i<areas.size() ;i++){
+                    if (areas.get(i).getNameArea()==areaName.getValue()){
+                        idArea=areas.get(i).getIdArea();
+                    }
+                }
+                for (int i=0; i<locations.size() ;i++){
+                    if (locations.get(i).getLocationName()==locationName.getValue()){
+                        idLocation=locations.get(i).getIdLocation();
+                    }
+                }
+
+                for (int i=0; i<projects.size() ;i++){
+                    if (projects.get(i).getContractName()==projectName.getValue()){
+                        idProject=projects.get(i).getIdProject();
+                    }
+                }
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=?,`contractType`=? WHERE `id`=?");
+
+
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                pst.setString(4,garanteeNumber.getText());
+                pst.setString(5,garanteeType.getValue());
+                pst.setString(6,contractType.getValue());
+                pst.setInt(7,idEdit);
+                pst.execute();
+                edit.setText("تعديل ضمان");
+                locationName.getItems().clear();
+                projectName.getItems().clear();
+                garanteeNumber.clear();
+                garanteeType.getItems().clear();
+                contractType.getItems().clear();
+                contractType.setItems(contracts);
+                garanteeType.setItems(garantees);
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idEdit=0;
+        }
+
+
+    }
+
+
+    ObservableList<HistoricalGaranteeForTable> historicalGarantee= FXCollections.observableArrayList();
+
+    @FXML
+    private TextArea description;
+
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل ضمان");
+        areaName.setValue("");
+        locationName.setValue("");
+        projectName.setValue("");
+        garanteeNumber.clear();
+        garanteeType.setValue("");
+        contractType.setValue("");
+        contractType.setItems(contracts);
+        garanteeType.setItems(garantees);
+
+        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
+        idGarantee=garanteeTableView.getItems().get(index).getIdGarantee();
+        fillTableHistoricalGarantee();
+        dateHistoricalTable.setCellValueFactory(new PropertyValueFactory<>("dateHistorical"));
+        descriptionTable.setCellValueFactory(new PropertyValueFactory<>("description"));
+        nnameUserTable.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
+        historicalGaranteeTableView.setItems(historicalGarantee);
+    }
+    public void fillTableHistoricalGarantee(){
+        historicalGarantee.clear();
+        historicalGaranteeTableView.getItems().clear();
+        try {
+            System.out.println(idGarantee);
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `historicalgarantees` WHERE `idGarantee`=?");
+            pst.setInt(1,idGarantee);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                historicalGarantee.add(new HistoricalGaranteeForTable(rs.getInt("id"),rs.getInt("idUser"),rs.getInt("idGarantee"),rs.getString("dateHistorical"),rs.getString("description"),getUserName(rs.getInt("idUser"))));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("problem here");
+        }
+    }
+    public String getUserName(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("employeeName");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+
+    public void selectIdHistorical(MouseEvent mouseEvent) {
+        int index=historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
+        idHistorical=historicalGaranteeTableView.getItems().get(index).getIdHistorical();
+    }
+
+    public void addHistorical(ActionEvent actionEvent) {
+        if (idGarantee>0) {
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `historicalgarantees`(`dateHistorical`, `description`, `idUser`, `idGarantee`) VALUES (?,?,?,?)");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
+
+                pst.setString(1, sdf.format(new Date()));
+                pst.setString(2,description.getText());
+                pst.setInt(3,1);
+                pst.setInt(4,idGarantee);
+                pst.execute();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            fillTableHistoricalGarantee();
+        }
+
+    }
+    @FXML
+    public void deleteRow2(ActionEvent actionEvent) {
+        int index= historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=historicalGaranteeTableView.getItems().get(index).getIdHistorical();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `historicalgarantees` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            fillTableHistoricalGarantee();
+        }
+    }
 }
