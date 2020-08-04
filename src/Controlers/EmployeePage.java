@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -400,4 +402,135 @@ public class EmployeePage implements Initializable {
         }
     }
 
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+            employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+            employeeNationalityTable.setCellValueFactory(new PropertyValueFactory<>("employeeNationality"));
+            identityTypeTable.setCellValueFactory(new PropertyValueFactory<>("identityType"));
+            identityNumberTable.setCellValueFactory(new PropertyValueFactory<>("identityNumber"));
+            religionTable.setCellValueFactory(new PropertyValueFactory<>("religion"));
+            residenceOccupationTable.setCellValueFactory(new PropertyValueFactory<>("residenceOccupation"));
+            reelOccupationTable.setCellValueFactory(new PropertyValueFactory<>("reelOccupationName"));
+            residenceEndDateTable.setCellValueFactory(new PropertyValueFactory<>("residenceEndDate"));
+            HealthCertificateStartDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificateStartDate"));
+            HealthCertificatEndDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificatEndDate"));
+            employeeTableView.setItems(employeesTable);
+        }else{
+            employeesTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `employees` WHERE `employeeName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    employeesTable.add(new EmployeeForTable(rs.getInt("id"),rs.getInt("reelOccupation"),rs.getString("employeeName"),rs.getString("employeeNumber"),rs.getString("employeeNationality"),rs.getString("identityType"),rs.getString("identityNumber"),rs.getString("religion"),getOccupationName(rs.getInt("reelOccupation")),rs.getString("residenceOccupation"),rs.getString("residenceEndDate"),rs.getString("HealthCertificateStartDate"),rs.getString("HealthCertificatEndDate")));
+                }
+                employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+                employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+                employeeNationalityTable.setCellValueFactory(new PropertyValueFactory<>("employeeNationality"));
+                identityTypeTable.setCellValueFactory(new PropertyValueFactory<>("identityType"));
+                identityNumberTable.setCellValueFactory(new PropertyValueFactory<>("identityNumber"));
+                religionTable.setCellValueFactory(new PropertyValueFactory<>("religion"));
+                residenceOccupationTable.setCellValueFactory(new PropertyValueFactory<>("residenceOccupation"));
+                reelOccupationTable.setCellValueFactory(new PropertyValueFactory<>("reelOccupationName"));
+                residenceEndDateTable.setCellValueFactory(new PropertyValueFactory<>("residenceEndDate"));
+                HealthCertificateStartDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificateStartDate"));
+                HealthCertificatEndDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificatEndDate"));
+                employeeTableView.setItems(employeesTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= employeeTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=employeeTableView.getItems().get(index).getIdEmployee();
+        int idOccupation=0;
+
+
+        if (edit.getText().contains("تعديل موظف")){
+            edit.setText("حفظ");
+            employeeName.setText(employeeTableView.getItems().get(index).getEmployeeName());
+            identityNumber.setText(employeeTableView.getItems().get(index).getIdentityNumber());
+            residenceEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+            HealthCertificateStartDate.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
+            HealthCertificatEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+            reelOccupation.setValue(employeeTableView.getItems().get(index).getReelOccupationName());
+            identityType.setValue(employeeTableView.getItems().get(index).getIdentityType());
+            employeeNumber.setText(employeeTableView.getItems().get(index).getEmployeeNumber());
+            employeeNationality.setText(employeeTableView.getItems().get(index).getEmployeeNationality());
+            residenceOccupation.setText(employeeTableView.getItems().get(index).getResidenceOccupation());
+            religion.setText(employeeTableView.getItems().get(index).getReligion());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                for (int i=0; i<occupations.size() ;i++){
+                    if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                        idOccupation=occupations.get(i).getIdOcupation();
+                    }
+                }
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?  WHERE `id`=?");
+
+
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,employeeNumber.getText());
+                pst.setString(3,employeeNationality.getText());
+                pst.setString(4,identityType.getValue());
+                pst.setString(5,identityNumber.getText());
+                pst.setString(6,religion.getText());
+                pst.setString(7,residenceOccupation.getText());
+                pst.setInt(8,idOccupation);
+                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                pst.setInt(12,idEdit);
+                pst.execute();
+                edit.setText("تعديل إستقطاع");
+                employeeName.clear();
+                identityNumber.clear();
+                residenceEndDate.getEditor().clear();
+                HealthCertificateStartDate.getEditor().clear();
+                HealthCertificatEndDate.getEditor().clear();
+                reelOccupation.getItems().clear();
+                identityType.getItems().clear();
+                employeeNumber.clear();
+                employeeNationality.clear();
+                residenceOccupation.clear();
+                religion.clear();
+                identityType.setItems(identityTypeList);
+                fillCombo();
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idOccupation=0;
+        }
+
+
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل موظف");
+    }
+
+
 }
+
+
+

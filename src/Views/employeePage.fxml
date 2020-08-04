@@ -34,8 +34,8 @@
                                           <TextField fx:id="employeeName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
                                           <TextField fx:id="identityNumber" layoutX="32.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الهوية" />
                                           <Button layoutX="16.0" layoutY="187.0" mnemonicParsing="false" onAction="#addEmployee" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موظف" />
-                                          <TextField layoutX="834.0" layoutY="186.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="employeeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" prefHeight="308.0" prefWidth="1089.0">
+                                          <TextField fx:id="search" layoutX="834.0" layoutY="186.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="employeeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="238.0" onMouseClicked="#idReset" prefHeight="308.0" prefWidth="1089.0">
                                             <columns>
                                               <TableColumn fx:id="employeeNameTable" editable="false" prefWidth="131.0" text="إسم الموضف" />
                                                 <TableColumn fx:id="employeeNumberTable" editable="false" minWidth="6.0" prefWidth="76.0" text="رقم العامل" />
@@ -63,7 +63,7 @@
                                           <DatePicker fx:id="residenceEndDate" layoutX="32.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
                                           <DatePicker fx:id="HealthCertificateStartDate" layoutX="300.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
                                           <DatePicker fx:id="HealthCertificatEndDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
-                                          <Button layoutX="285.0" layoutY="187.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موظف" />
+                                          <Button fx:id="edit" layoutX="285.0" layoutY="187.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موظف" />
                                        </children>
                                     </AnchorPane>
                               </content>
