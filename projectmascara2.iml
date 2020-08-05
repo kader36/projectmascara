@@ -10,6 +10,15 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-5.1.49.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
           <root url="jar://$USER_HOME$/Desktop/dep/bcprov-jdk15on-1.64.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -167,25 +176,6 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-5.1.49.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/Nouveau dossier (2)/jasperreports-fonts-6.4.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="jar://$USER_HOME$/Desktop/Nouveau dossier (2)/jasperreports-fonts-6.4.3.jar!/" recursive="false" />
       </library>
     </orderEntry>
   </component>

@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -30,14 +31,14 @@ public class AbstractPage implements Initializable {
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
     ObservableList<String> contracts= FXCollections.observableArrayList("طهي","توريد");
-    int idArea=0,idLocation=0,idProject=0;
+    int idArea=0,idLocation=0,idProject=0,idAbstract=0;
 
     @FXML
     private ComboBox<String> areaName;
     @FXML
     private ComboBox<String> locationName;
     @FXML
-    private ComboBox<String> contractType;
+    private TextField contractType;
 
     @FXML
     private ComboBox<String> projectName;
@@ -46,6 +47,8 @@ public class AbstractPage implements Initializable {
 
     @FXML
     private TableView<AbstractForTable> abstractTableView;
+    @FXML
+    private TableView<AbstractForTable2> yearAbstractTableView;
 
     @FXML
     private TableColumn<AbstractForTable, String> projectNameTable;
@@ -69,40 +72,42 @@ public class AbstractPage implements Initializable {
     private TableColumn<AbstractForTable, String> contractEndDateTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> janvierTable;
+    private TableColumn<AbstractForTable2, String> yearTable;
+    @FXML
+    private TableColumn<AbstractForTable2, String> janvierTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> fevrierTable;
+    private TableColumn<AbstractForTable2, String> fevrierTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> marsTable;
+    private TableColumn<AbstractForTable2, String> marsTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> avrilTable;
+    private TableColumn<AbstractForTable2, String> avrilTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> mayTable;
+    private TableColumn<AbstractForTable2, String> mayTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> juinTable;
+    private TableColumn<AbstractForTable2, String> juinTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> juillietTable;
+    private TableColumn<AbstractForTable2, String> juillietTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> aoutTable;
+    private TableColumn<AbstractForTable2, String> aoutTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> septembreTable;
+    private TableColumn<AbstractForTable2, String> septembreTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> octobreTable;
+    private TableColumn<AbstractForTable2, String> octobreTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> novembreTable;
+    private TableColumn<AbstractForTable2, String> novembreTable;
 
     @FXML
-    private TableColumn<AbstractForTable, String> decembreTable;
+    private TableColumn<AbstractForTable2, String> decembreTable;
 
     @FXML
     void selectArea(ActionEvent event) {
@@ -138,13 +143,14 @@ public class AbstractPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 contractNumber.setText(rs.getString("contractNumber"));
+                contractType.setText(rs.getString("projectType"));
                 contractStartDate.setValue(LocalDate.parse(rs.getString("contractStartDate")));
                 contractEndDate.setValue(LocalDate.parse(rs.getString("contractEndDate")));
             }
 
 
         } catch (SQLException throwables) {
-            System.out.println("No Connection with DB");
+            System.out.println(throwables.getMessage());
         }
     }
 
@@ -379,11 +385,11 @@ public class AbstractPage implements Initializable {
 
 
     ObservableList abstractsTable= FXCollections.observableArrayList();
+    ObservableList abstractYearsTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-        contractType.setItems(contracts);
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
@@ -392,6 +398,7 @@ public class AbstractPage implements Initializable {
         contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
         contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
         contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        yearTable.setCellValueFactory(new PropertyValueFactory<>("year"));
         janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
         fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
         marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
@@ -406,6 +413,7 @@ public class AbstractPage implements Initializable {
         decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
 
         abstractTableView.setItems(abstractsTable);
+        yearAbstractTableView.setItems(abstractYearsTable);
 
     }
     public void addToTable(){
@@ -415,7 +423,8 @@ public class AbstractPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `abstract`");
             rs=pst.executeQuery();
             while (rs.next()){
-                abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),rs.getString("contractType"),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject")),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm")));
+                abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),getContractType(rs.getInt("idProject")),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject"))));
+
             }
 
 
@@ -425,6 +434,25 @@ public class AbstractPage implements Initializable {
 
 
 
+    }
+    public void fillTableAbstractYears(){
+        abstractYearsTable.clear();
+        yearAbstractTableView.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst.setInt(1,idAbstract);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                abstractYearsTable.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("idOccupation")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
     }
 
     public String getEmployeeName(int id){
@@ -519,6 +547,26 @@ public class AbstractPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 return result= rs.getString("contractStartDate");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getContractType(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("projectType");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -635,23 +683,22 @@ public class AbstractPage implements Initializable {
         }
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`, `contractType`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`) VALUES (?,?,?)");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             pst.setInt(3,idProject);
-            pst.setString(4,contractType.getValue());
-            pst.setString(5,month1);
-            pst.setString(6,month2);
-            pst.setString(7,month3);
-            pst.setString(8,month4);
-            pst.setString(9,month5);
-            pst.setString(10,month6);
-            pst.setString(11,month7);
-            pst.setString(12,month8);
-            pst.setString(13,month9);
-            pst.setString(14,month10);
-            pst.setString(15,month11);
-            pst.setString(16,month12);
+//            pst.setString(5,month1);
+//            pst.setString(6,month2);
+//            pst.setString(7,month3);
+//            pst.setString(8,month4);
+//            pst.setString(9,month5);
+//            pst.setString(10,month6);
+//            pst.setString(11,month7);
+//            pst.setString(12,month8);
+//            pst.setString(13,month9);
+//            pst.setString(14,month10);
+//            pst.setString(15,month11);
+//            pst.setString(16,month12);
             pst.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -661,7 +708,6 @@ public class AbstractPage implements Initializable {
         areas.clear();
         locationName.getItems().clear();
         projectName.getItems().clear();
-        contractType.setItems(contracts);
         fillComboArea();
         areaName.setValue("");
 
@@ -717,7 +763,8 @@ public class AbstractPage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `abstract`,`projects` WHERE abstract.idProject =projects.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),rs.getString("contractType"),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject")),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm")));
+                    abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),getContractType(rs.getInt("idProject")),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject"))));
+//                    ,rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm")
 
                 }
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
@@ -749,6 +796,11 @@ public class AbstractPage implements Initializable {
         }
 
 
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+//        edit.setText("تعديل الغرامة");
+        fillTableAbstractYears();
     }
 
 }
