@@ -9,11 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -21,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AbstractPage implements Initializable {
@@ -30,16 +29,80 @@ public class AbstractPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
-    ObservableList<String> deductions= FXCollections.observableArrayList("نوع الغرامة","نوع الغرامة");
+    ObservableList<String> contracts= FXCollections.observableArrayList("طهي","توريد");
     int idArea=0,idLocation=0,idProject=0;
 
     @FXML
     private ComboBox<String> areaName;
     @FXML
     private ComboBox<String> locationName;
+    @FXML
+    private ComboBox<String> contractType;
 
     @FXML
     private ComboBox<String> projectName;
+
+
+
+    @FXML
+    private TableView<AbstractForTable> abstractTableView;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> projectNameTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractNumberTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractTypeTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> areaNameTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> locationNameTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractStartDateTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractEndDateTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> janvierTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> fevrierTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> marsTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> avrilTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> mayTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> juinTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> juillietTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> aoutTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> septembreTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> octobreTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> novembreTable;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> decembreTable;
 
     @FXML
     void selectArea(ActionEvent event) {
@@ -54,10 +117,35 @@ public class AbstractPage implements Initializable {
         fillComboProject();
 
     }
+
+    @FXML
+    private TextField contractNumber;
+
+    @FXML
+    private DatePicker contractStartDate;
+
+    @FXML
+    private DatePicker contractEndDate;
     @FXML
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                contractNumber.setText(rs.getString("contractNumber"));
+                contractStartDate.setValue(LocalDate.parse(rs.getString("contractStartDate")));
+                contractEndDate.setValue(LocalDate.parse(rs.getString("contractEndDate")));
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
     }
 
     public void fillComboLocation(){
@@ -290,36 +378,44 @@ public class AbstractPage implements Initializable {
     }
 
 
-    @FXML
-    private TableColumn<GaranteeForTable, String> areaNameTable;
-
-    @FXML
-    private TableColumn<GaranteeForTable, String> locationNameTable;
-
-    @FXML
-    private TableColumn<GaranteeForTable, String> projectNameTable;
-
-    ObservableList deductionsTable= FXCollections.observableArrayList();
+    ObservableList abstractsTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-
+        contractType.setItems(contracts);
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+        contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+        contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+        contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
+        fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
+        marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
+        avrilTable.setCellValueFactory(new PropertyValueFactory<>("avril"));
+        mayTable.setCellValueFactory(new PropertyValueFactory<>("may"));
+        juinTable.setCellValueFactory(new PropertyValueFactory<>("juin"));
+        juillietTable.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
+        aoutTable.setCellValueFactory(new PropertyValueFactory<>("aout"));
+        septembreTable.setCellValueFactory(new PropertyValueFactory<>("septembre"));
+        octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
+        novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
+        decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+
+        abstractTableView.setItems(abstractsTable);
 
     }
     public void addToTable(){
-        deductionsTable.clear();
+        abstractsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `deductions`");
+            pst=con.prepareStatement("SELECT * FROM `abstract`");
             rs=pst.executeQuery();
             while (rs.next()){
-                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
-
+                abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),rs.getString("contractType"),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject")),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm")));
             }
 
 
@@ -371,6 +467,66 @@ public class AbstractPage implements Initializable {
         return result;
 
     }
+    public String getContractNumber(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("contractNumber");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getContractStartDate(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("contractStartDate");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
+    public String getContractEndDate(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                return result= rs.getString("contractStartDate");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return result;
+
+    }
     public String getLocationName(int idArea,int id){
         Connection con;
         PreparedStatement pst;
@@ -412,6 +568,186 @@ public class AbstractPage implements Initializable {
 
         }
         return result;
+
+    }
+    @FXML
+    private CheckBox janvier;
+
+    @FXML
+    private CheckBox fevrier;
+
+    @FXML
+    private CheckBox mars;
+
+    @FXML
+    private CheckBox avril;
+
+    @FXML
+    private CheckBox may;
+
+    @FXML
+    private CheckBox juin;
+
+    @FXML
+    private CheckBox juilliet;
+
+    @FXML
+    private CheckBox aout;
+
+    @FXML
+    private CheckBox septembre;
+
+    @FXML
+    private CheckBox octobre;
+
+    @FXML
+    private CheckBox novembre;
+
+    @FXML
+    private CheckBox decembre;
+    @FXML
+    public void addAbstract(ActionEvent actionEvent) {
+        String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
+        if (janvier.isSelected()){
+            month1="X";
+        }if (fevrier.isSelected()){
+            month2="X";
+        }if (mars.isSelected()){
+            month3="X";
+        }if (avril.isSelected()){
+            month4="X";
+        }if (may.isSelected()){
+            month5="X";
+        }if (juin.isSelected()){
+            month6="X";
+        }if (juilliet.isSelected()){
+            month7="X";
+        }if (aout.isSelected()){
+            month8="X";
+        }if (septembre.isSelected()){
+            month9="X";
+        }if (octobre.isSelected()){
+            month10="X";
+        }if (novembre.isSelected()){
+            month11="X";
+        }if (decembre.isSelected()){
+            month12="X";
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`, `contractType`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            pst.setInt(3,idProject);
+            pst.setString(4,contractType.getValue());
+            pst.setString(5,month1);
+            pst.setString(6,month2);
+            pst.setString(7,month3);
+            pst.setString(8,month4);
+            pst.setString(9,month5);
+            pst.setString(10,month6);
+            pst.setString(11,month7);
+            pst.setString(12,month8);
+            pst.setString(13,month9);
+            pst.setString(14,month10);
+            pst.setString(15,month11);
+            pst.setString(16,month12);
+            pst.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTable();
+        areaName.getItems().clear();
+        areas.clear();
+        locationName.getItems().clear();
+        projectName.getItems().clear();
+        contractType.setItems(contracts);
+        fillComboArea();
+        areaName.setValue("");
+
+    }
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= abstractTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=abstractTableView.getItems().get(index).getIdAbstract();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `abstract` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable();
+        }
+    }
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+            projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+            contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+            contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+            contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+            contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+            janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
+            fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
+            marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
+            avrilTable.setCellValueFactory(new PropertyValueFactory<>("avril"));
+            mayTable.setCellValueFactory(new PropertyValueFactory<>("may"));
+            juinTable.setCellValueFactory(new PropertyValueFactory<>("juin"));
+            juillietTable.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
+            aoutTable.setCellValueFactory(new PropertyValueFactory<>("aout"));
+            septembreTable.setCellValueFactory(new PropertyValueFactory<>("septembre"));
+            octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
+            novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
+            decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+            abstractTableView.setItems(abstractsTable);
+        }else{
+            abstractsTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstract`,`projects` WHERE abstract.idProject =projects.id AND projects.contractName LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),rs.getString("contractType"),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject")),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm")));
+
+                }
+                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+                projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+                contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+                contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+                contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+                contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+                janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
+                fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
+                marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
+                avrilTable.setCellValueFactory(new PropertyValueFactory<>("avril"));
+                mayTable.setCellValueFactory(new PropertyValueFactory<>("may"));
+                juinTable.setCellValueFactory(new PropertyValueFactory<>("juin"));
+                juillietTable.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
+                aoutTable.setCellValueFactory(new PropertyValueFactory<>("aout"));
+                septembreTable.setCellValueFactory(new PropertyValueFactory<>("septembre"));
+                octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
+                novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
+                decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+                abstractTableView.setItems(abstractsTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
 
     }
 

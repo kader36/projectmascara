@@ -60,9 +60,9 @@
                                           <TextField fx:id="residenceOccupation" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مهنة الإقامة" />
                                           <ComboBox fx:id="identityType" layoutX="838.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الهوية" />
                                           <ComboBox fx:id="reelOccupation" layoutX="838.0" layoutY="70.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="المهنة الفعلية" />
-                                          <DatePicker fx:id="residenceEndDate" layoutX="32.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
-                                          <DatePicker fx:id="HealthCertificateStartDate" layoutX="300.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
-                                          <DatePicker fx:id="HealthCertificatEndDate" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
+                                          <DatePicker fx:id="residenceEndDate" editable="false" layoutX="32.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ انتهاء الإقامة" />
+                                          <DatePicker fx:id="HealthCertificateStartDate" editable="false" layoutX="300.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
+                                          <DatePicker fx:id="HealthCertificatEndDate" editable="false" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
                                           <Button fx:id="edit" layoutX="285.0" layoutY="187.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موظف" />
                                        </children>
                                     </AnchorPane>
