@@ -29,7 +29,7 @@ public class UserPage implements Initializable {
 
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
-    //ObservableList<String> privileges= FXCollections.observableArrayList("الافراج عن الضمان","تخفيض 5% من الضمان");
+    ObservableList<PrivilegeForTable> privileges= FXCollections.observableArrayList();
     int idArea=0,idLocation=0,privilegesId=0;
 
 
@@ -72,6 +72,27 @@ public class UserPage implements Initializable {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+    public void fillComboPrivilege(){
+        privileges.clear();
+        privilegeName.getItems().clear();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `privileges`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+
+            }
+
+            for (int i=0;i<privileges.size();i++){
+                privilegeName.getItems().add(privileges.get(i).getPrivilegeNamee());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
         }
     }
     public void fillComboLocation(){
@@ -273,12 +294,13 @@ public class UserPage implements Initializable {
         idLocation=locations.get(index).getIdLocation();
 
     }
+
     @FXML
     void selectPrivileges(ActionEvent event) {
-        int index= privilegeName.getSelectionModel().getSelectedIndex();
-        //privilegesId=privileges.get(index).
-
+        int index = privilegeName.getSelectionModel().getSelectedIndex();
+        privilegesId = privileges.get(index).getIdPrivilege();
     }
+
     public void addUser(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
@@ -341,6 +363,7 @@ public class UserPage implements Initializable {
         @Override
         public void initialize(URL location, ResourceBundle resources) {
             fillComboArea();
+            fillComboPrivilege();
             addToTable();
             addToTable2();
             employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -438,12 +461,12 @@ public class UserPage implements Initializable {
         String result = null;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `users` WHERE `privilegesId`=?");
+            pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `id`=?");
             pst.setInt(1,id);
 
             rs=pst.executeQuery();
             while (rs.next()){
-                return result= String.valueOf(rs.getInt("privilegesId"));
+                return result= rs.getString("privilegeName");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -545,11 +568,11 @@ public class UserPage implements Initializable {
                         idLocation=locations.get(i).getIdLocation();
                     }
                 }
-//                for (int i=0; i<employees.size() ;i++){
-//                    if (employees.get(i).getEmployeeName()==employeeName.getValue()){
-//                        idEmployee=employees.get(i).getId();
-//                    }
-//                }
+                for (int i=0; i<privileges.size() ;i++){
+                    if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
+                        privilegesId=privileges.get(i).getIdPrivilege();
+                    }
+                }
 
                 con = new ConnectDB().getConnection();
                 pst = con.prepareStatement("UPDATE `users` SET `idArea`=?,`idLocation`=?, `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
@@ -561,7 +584,7 @@ public class UserPage implements Initializable {
                 pst.setString(6, email.getText());
                 pst.setString(7, phoneNumber.getText());
                 pst.setString(8, employeeNumber.getText());
-                pst.setString(9, "0");
+                pst.setString(9,"" );
                 pst.setInt(10, idEdit);
                 pst.execute();
                 edit.setText("تعديل مستخدم");
@@ -760,6 +783,28 @@ public class UserPage implements Initializable {
             throwables.printStackTrace();
         }
         addToTable2();
+        privilegeNamee.clear();
+        arsa.setSelected(false);
+        arde.setSelected(false);
+        losa.setSelected(false);
+        lode.setSelected(false);
+        prsa.setSelected(false);
+        prde.setSelected(false);
+        ocsa.setSelected(false);
+        ocde.setSelected(false);
+        emsa.setSelected(false);
+        emde.setSelected(false);
+        absa.setSelected(false);
+        abde.setSelected(false);
+        desa.setSelected(false);
+        dede.setSelected(false);
+        pesa.setSelected(false);
+        pede.setSelected(false);
+        ussa.setSelected(false);
+        usde.setSelected(false);
+        res.setSelected(false);
+        grsa.setSelected(false);
+        grde.setSelected(false);
 
     }
     public void deleteRow2(ActionEvent actionEvent) {
@@ -778,6 +823,240 @@ public class UserPage implements Initializable {
             idDelete=0;
             addToTable2();
         }
+    }
+
+    @FXML
+    private Button edit2;
+    public void edit2(ActionEvent actionEvent) {
+        int index= privilegesTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=privilegesTableView.getItems().get(index).getIdPrivilege();
+        int idArea=0,idLocation=0,idEmployee=0,idProject=0;
+
+
+        if (edit2.getText().contains("تعديل الصلاحية")){
+            edit2.setText("حفظ");
+            privilegeNamee.setText(privilegesTableView.getItems().get(index).getPrivilegeNamee());
+            if (privilegesTableView.getItems().get(index).getArsa()==1){
+                arsa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getArde()==1){
+                arde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getLosa()==1){
+                losa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getLode()==1){
+                lode.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrsa()==1){
+                prsa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrde()==1){
+                prde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getOcsa()==1){
+                ocsa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getOcde()==1){
+                ocde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getEmsa()==1){
+                emsa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getEmde()==1){
+                emde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbsa()==1){
+                absa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbde()==1){
+                abde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDesa()==1){
+                desa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDede()==1){
+                dede.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPesa()==1){
+                pesa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPede()==1){
+                pede.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getUssa()==1){
+                ussa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getUsde()==1){
+                usde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getRes()==1){
+                res.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGrsa()==1){
+                grsa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGrde()==1){
+                grde.setSelected(true);
+            }
+        }else if (edit2.getText().contains("حفظ")){
+            try {
+                int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+
+                if (arsa.isSelected()){
+                    arsai=1;
+                }
+                if (arde.isSelected()){
+                    ardei=1;
+                }
+                if (losa.isSelected()){
+                    losai=1;
+                }
+
+                if (lode.isSelected()){
+                    lodei=1;
+                }
+                if (prsa.isSelected()){
+                    prsai=1;
+                }
+                if (prde.isSelected()){
+                    prdei=1;
+                }
+                if (grsa.isSelected()){
+                    grsai=1;
+                }
+                if (grde.isSelected()){
+                    grdei=1;
+                }
+                if (ocsa.isSelected()){
+                    ocsai=1;
+                }
+                if (ocde.isSelected()){
+                    ocdei=1;
+                }
+
+                if (emsa.isSelected()){
+                    emsai=1;
+                }
+                if (emde.isSelected()){
+                    emdei=1;
+                }
+                if (absa.isSelected()){
+                    absai=1;
+                }
+
+                if (abde.isSelected()){
+                    abdei=1;
+                }
+                if (desa.isSelected()){
+                    desai=1;
+                }
+                if (dede.isSelected()){
+                    dedei=1;
+                }
+
+                if (pesa.isSelected()){
+                    pesai=1;
+                }
+                if (pede.isSelected()){
+                    pedei=1;
+                }
+                if (ussa.isSelected()){
+                    ussai=1;
+                }
+                if (usde.isSelected()){
+                    usdei=1;
+                }
+                if (res.isSelected()){
+                    resi=1;
+                }
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
+
+                pst.setString(1,privilegeNamee.getText());
+                pst.setInt(2,arsai);
+                pst.setInt(3,ardei);
+                pst.setInt(4,losai);
+                pst.setInt(5,lodei);
+                pst.setInt(6,prsai);
+                pst.setInt(7,prdei);
+                pst.setInt(8,grsai);
+                pst.setInt(9,grdei);
+                pst.setInt(10,ocsai);
+                pst.setInt(11,ocdei);
+                pst.setInt(12,emsai);
+                pst.setInt(13,emdei);
+                pst.setInt(14,absai);
+                pst.setInt(15,abdei);
+                pst.setInt(16,desai);
+                pst.setInt(17,dedei);
+                pst.setInt(18,pesai);
+                pst.setInt(19,pedei);
+                pst.setInt(20,ussai);
+                pst.setInt(21,usdei);
+                pst.setInt(22,resi);
+                pst.setInt(23,idEdit);
+
+                pst.execute();
+                edit2.setText("تعديل الصلاحية");
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable2();
+            idEdit=0;
+            privilegeNamee.clear();
+            arsa.setSelected(false);
+            arde.setSelected(false);
+            losa.setSelected(false);
+            lode.setSelected(false);
+            prsa.setSelected(false);
+            prde.setSelected(false);
+            ocsa.setSelected(false);
+            ocde.setSelected(false);
+            emsa.setSelected(false);
+            emde.setSelected(false);
+            absa.setSelected(false);
+            abde.setSelected(false);
+            desa.setSelected(false);
+            dede.setSelected(false);
+            pesa.setSelected(false);
+            pede.setSelected(false);
+            ussa.setSelected(false);
+            usde.setSelected(false);
+            res.setSelected(false);
+            grsa.setSelected(false);
+            grde.setSelected(false);
+        }
+
+
+
+    }@FXML
+    void idReset2(MouseEvent event) {
+        edit2.setText("تعديل الصلاحية");
+        privilegeNamee.clear();
+            arsa.setSelected(false);
+            arde.setSelected(false);
+            losa.setSelected(false);
+            lode.setSelected(false);
+            prsa.setSelected(false);
+            prde.setSelected(false);
+            ocsa.setSelected(false);
+            ocde.setSelected(false);
+            emsa.setSelected(false);
+            emde.setSelected(false);
+            absa.setSelected(false);
+            abde.setSelected(false);
+            desa.setSelected(false);
+            dede.setSelected(false);
+            pesa.setSelected(false);
+            pede.setSelected(false);
+            ussa.setSelected(false);
+            usde.setSelected(false);
+            res.setSelected(false);
+            grsa.setSelected(false);
+            grde.setSelected(false);
     }
 
 }

@@ -136,12 +136,12 @@
                                           </Label>
                                           <CheckBox fx:id="res" layoutX="768.0" layoutY="281.0" mnemonicParsing="false" text="معاينة" />
                                           <Separator layoutX="753.0" layoutY="317.0" prefHeight="4.0" prefWidth="314.0" />
-                                          <TableView fx:id="privilegesTableView" layoutX="157.0" layoutY="418.0" prefHeight="141.0" prefWidth="809.0">
+                                          <TableView fx:id="privilegesTableView" layoutX="157.0" layoutY="418.0" onMouseClicked="#idReset2" prefHeight="141.0" prefWidth="809.0">
                                             <columns>
                                               <TableColumn fx:id="privilegeNameeTable" prefWidth="808.0" text="إسم الصلاحية" />
                                             </columns>
                                           </TableView>
-                                          <Button layoutX="591.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="244.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل الصلاحية" />
+                                          <Button fx:id="edit2" layoutX="591.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit2" prefHeight="37.0" prefWidth="244.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل الصلاحية" />
                                           <Button layoutX="856.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="37.0" prefWidth="244.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف الصلاحية" />
                                           <CheckBox fx:id="losa" layoutX="29.0" layoutY="200.0" mnemonicParsing="false" text="معاينة و إظافة" />
                                           <CheckBox fx:id="lode" layoutX="150.0" layoutY="200.0" mnemonicParsing="false" text="حذف و تعديل" />
