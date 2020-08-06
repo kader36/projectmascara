@@ -330,10 +330,19 @@ public class UserPage implements Initializable {
 
     ObservableList usersTable= FXCollections.observableArrayList();
 
+
+    @FXML
+    private TableView<PrivilegeForTable> privilegesTableView;
+
+    @FXML
+    private TableColumn<PrivilegeForTable, String> privilegeNameeTable;
+    ObservableList privilegesTable= FXCollections.observableArrayList();
+
         @Override
         public void initialize(URL location, ResourceBundle resources) {
             fillComboArea();
             addToTable();
+            addToTable2();
             employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
             areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
             locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
@@ -342,7 +351,9 @@ public class UserPage implements Initializable {
             phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
             employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
             privilegeNameTable.setCellValueFactory(new PropertyValueFactory<>("privilegeName"));
+            privilegeNameeTable.setCellValueFactory(new PropertyValueFactory<>("privilegeNamee"));
             userTableView.setItems(usersTable);
+            privilegesTableView.setItems(privilegesTable);
         }
         public void addToTable(){
             usersTable.clear();
@@ -361,6 +372,23 @@ public class UserPage implements Initializable {
             }
 
         }
+    public void addToTable2(){
+        privilegesTable.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `privileges`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 
     public String getAreaName(int id){
         Connection con;
@@ -562,6 +590,196 @@ public class UserPage implements Initializable {
     void idReset(MouseEvent event) {
         edit.setText("تعديل مستخدم");
     }
+    @FXML
+    private TextField privilegeNamee;
+    @FXML
+    private CheckBox arsa;
+
+    @FXML
+    private CheckBox arde;
+
+    @FXML
+    private CheckBox res;
+
+    @FXML
+    private CheckBox losa;
+
+    @FXML
+    private CheckBox lode;
+
+    @FXML
+    private CheckBox prsa;
+
+    @FXML
+    private CheckBox prde;
+
+    @FXML
+    private CheckBox grsa;
+
+    @FXML
+    private CheckBox grde;
+
+    @FXML
+    private CheckBox ocsa;
+
+    @FXML
+    private CheckBox ocde;
+
+    @FXML
+    private CheckBox emsa;
+
+    @FXML
+    private CheckBox emde;
+
+    @FXML
+    private CheckBox absa;
+
+    @FXML
+    private CheckBox abde;
+
+    @FXML
+    private CheckBox desa;
+
+    @FXML
+    private CheckBox dede;
+
+    @FXML
+    private CheckBox pesa;
+
+    @FXML
+    private CheckBox pede;
+
+    @FXML
+    private CheckBox ussa;
+
+    @FXML
+    private CheckBox usde;
+
+    @FXML
+    void addPriv(ActionEvent event) {
+
+        int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+
+        if (arsa.isSelected()){
+            arsai=1;
+        }
+        if (arde.isSelected()){
+            ardei=1;
+        }
+        if (losa.isSelected()){
+            losai=1;
+        }
+
+        if (lode.isSelected()){
+            lodei=1;
+        }
+        if (prsa.isSelected()){
+            prsai=1;
+        }
+        if (prde.isSelected()){
+            prdei=1;
+        }
+        if (grsa.isSelected()){
+            grsai=1;
+        }
+        if (grde.isSelected()){
+            grdei=1;
+        }
+        if (ocsa.isSelected()){
+            ocsai=1;
+        }
+        if (ocde.isSelected()){
+            ocdei=1;
+        }
+
+        if (emsa.isSelected()){
+            emsai=1;
+        }
+        if (emde.isSelected()){
+            emdei=1;
+        }
+        if (absa.isSelected()){
+            absai=1;
+        }
+
+        if (abde.isSelected()){
+            abdei=1;
+        }
+        if (desa.isSelected()){
+            desai=1;
+        }
+        if (dede.isSelected()){
+            dedei=1;
+        }
+
+        if (pesa.isSelected()){
+            pesai=1;
+        }
+        if (pede.isSelected()){
+            pedei=1;
+        }
+        if (ussa.isSelected()){
+            ussai=1;
+        }
+        if (usde.isSelected()){
+            usdei=1;
+        }
+        if (res.isSelected()){
+            resi=1;
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arsa`, `arde`, `losa`, `lode`, " +
+                    "`prsa`, `prde`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
+                    " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst.setString(1,privilegeNamee.getText());
+            pst.setInt(2,arsai);
+            pst.setInt(3,ardei);
+            pst.setInt(4,losai);
+            pst.setInt(5,lodei);
+            pst.setInt(6,prsai);
+            pst.setInt(7,prdei);
+            pst.setInt(8,grsai);
+            pst.setInt(9,grdei);
+            pst.setInt(10,ocsai);
+            pst.setInt(11,ocdei);
+            pst.setInt(12,emsai);
+            pst.setInt(13,emdei);
+            pst.setInt(14,absai);
+            pst.setInt(15,abdei);
+            pst.setInt(16,desai);
+            pst.setInt(17,dedei);
+            pst.setInt(18,pesai);
+            pst.setInt(19,pedei);
+            pst.setInt(20,ussai);
+            pst.setInt(21,usdei);
+            pst.setInt(22,resi);
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTable2();
+
+    }
+    public void deleteRow2(ActionEvent actionEvent) {
+        int index= privilegesTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=privilegesTableView.getItems().get(index).getIdPrivilege();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `privileges` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable2();
+        }
+    }
+
 }
 
 
