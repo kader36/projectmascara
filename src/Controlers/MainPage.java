@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -18,146 +19,60 @@ import javax.print.DocFlavor;
 import java.awt.*;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainPage implements Initializable {
-    public int selectedItem=1;
-
-    @FXML
-    private Button areaButton;
+    public javafx.scene.control.TextField usernamee;
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    @FXML
+    private PasswordField password;
 
-    public void areas(javafx.event.ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-
-    }
-
-    public void locations(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/locationPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void projects(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void garantees(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/garanteePage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void occupations(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/occupationPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void employees(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-
-    public void users(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/userPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void penalties(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/penaltyPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
     public void login(ActionEvent actionEvent) {
         try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users` WHERE `username`=? AND `password`=?");
+            pst.setString(1,usernamee.getText());
+            pst.setString(2,password.getText());
+            rs=pst.executeQuery();
+            int size=0;
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setX(10);
-            primaryStage.setY(20);
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
+                    Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+                    Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+                    primaryStage.setTitle("المناطق");
+                    primaryStage.setX(10);
+                    primaryStage.setY(20);
+                    primaryStage.setScene(new Scene(root));
+                    primaryStage.show();
 
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
 
+                }
+            }
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
 
     }
 
