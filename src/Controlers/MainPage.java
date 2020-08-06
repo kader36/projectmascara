@@ -149,8 +149,11 @@ public class MainPage implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المناطق");
+            primaryStage.setX(10);
+            primaryStage.setY(20);
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
 

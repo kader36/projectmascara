@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="Controlers.MainPage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.MainPage">
    <children>
       <Button layoutX="108.0" layoutY="337.0" mnemonicParsing="false" onAction="#login" prefHeight="35.0" prefWidth="245.0" styleClass="editButton" stylesheets="@../css/style.css" text="تسجيل الدخول" />
       <TextField alignment="CENTER_RIGHT" layoutX="108.0" layoutY="227.0" prefHeight="35.0" prefWidth="245.0" promptText="إسم المستخدم" />
@@ -18,6 +18,6 @@
             <Image url="@../imgs/login.png" />
          </image>
       </ImageView>
-      <Label layoutX="139.0" layoutY="388.0" text="إسم المستخدم أو كلمة السر غير صحيحة" textFill="RED" />
+      <Label layoutX="139.0" layoutY="388.0" text="إسم المستخدم أو كلمة السر غير صحيحة" textFill="RED" visible="false" />
    </children>
 </AnchorPane>

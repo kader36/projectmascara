@@ -9,15 +9,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
         primaryStage.setTitle("تسجيل الدخول");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
+
     }
 
 
     public static void main(String[] args) {
         launch(args);
+
+
     }
 }
