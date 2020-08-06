@@ -39,8 +39,8 @@
                                           <TextField fx:id="email" layoutX="301.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="البريد الإلكتروني" />
                                           <TextField fx:id="phoneNumber" layoutX="569.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الجوال" />
                                           <Button layoutX="57.0" layoutY="185.0" mnemonicParsing="false" onAction="#addUser" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
-                                          <TextField layoutX="834.0" layoutY="185.0" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="userTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="239.0" prefHeight="314.0" prefWidth="1019.0">
+                                          <TextField fx:id="search" layoutX="834.0" layoutY="185.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="userTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="239.0" onMouseClicked="#idReset" prefHeight="314.0" prefWidth="1019.0">
                                             <columns>
                                               <TableColumn fx:id="employeeNameTable" editable="false" prefWidth="151.0" text="إسم الموظف" />
                                               <TableColumn fx:id="areaNameTable" editable="false" prefWidth="85.0" text="المنطقة" />
@@ -60,7 +60,7 @@
                                           <TextField fx:id="employeeNumber" layoutX="839.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
                                           <PasswordField fx:id="password" layoutX="31.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
                                           <ComboBox fx:id="privilegeName" layoutX="31.0" layoutY="115.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
-                                          <Button layoutX="319.0" layoutY="185.0" mnemonicParsing="false" onAction="#addUser" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخدم" />
+                                          <Button fx:id="edit" layoutX="319.0" layoutY="185.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخدم" />
                                        </children>
                                     </AnchorPane>
                               </content>

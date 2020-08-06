@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -275,7 +277,6 @@ public class UserPage implements Initializable {
     void selectPrivileges(ActionEvent event) {
         int index= privilegeName.getSelectionModel().getSelectedIndex();
         //privilegesId=privileges.get(index).
-        //privilegesId=privileges.get(index).
 
     }
     public void addUser(ActionEvent actionEvent) {
@@ -440,6 +441,126 @@ public class UserPage implements Initializable {
             idDelete=0;
             addToTable();
         }
+    }
+    @FXML
+    private TextField search;
+    @FXML
+    public void search(KeyEvent keyEvent) {
+        String key=search.getText().trim();
+        if (key.isEmpty()){
+            addToTable();
+            employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+            usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
+            emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
+            phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+            employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+            privilegeNameTable.setCellValueFactory(new PropertyValueFactory<>("privilegeName"));
+            userTableView.setItems(usersTable);
+        }else{
+            usersTable.clear();
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `users` WHERE `employeeName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getPrivilegeName(rs.getInt("privilegesId"))));
+                }
+                employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+                usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
+                emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
+                phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+                employeeNumberTable.setCellValueFactory(new PropertyValueFactory<>("employeeNumber"));
+                privilegeNameTable.setCellValueFactory(new PropertyValueFactory<>("privilegeName"));
+                userTableView.setItems(usersTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private Button edit;
+    public void edit(ActionEvent actionEvent) {
+        int index= userTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=userTableView.getItems().get(index).getIdUser();
+        int idArea=0,idLocation=0;
+
+
+        if (edit.getText().contains("تعديل مستخدم")){
+            edit.setText("حفظ");
+            areaName.setValue(userTableView.getItems().get(index).getAreaName());
+            locationName.setValue(userTableView.getItems().get(index).getLocationName());
+            employeeName.setText(userTableView.getItems().get(index).getEmployeeName());
+            username.setText(userTableView.getItems().get(index).getUsername());
+            password.setText(userTableView.getItems().get(index).getPassword());
+            email.setText(userTableView.getItems().get(index).getEmail());
+            phoneNumber.setText(userTableView.getItems().get(index).getPhoneNumber());
+            employeeNumber.setText(userTableView.getItems().get(index).getEmployeeNumber());
+        }else if (edit.getText().contains("حفظ")){
+            try {
+                for (int i=0; i<areas.size() ;i++){
+                    if (areas.get(i).getNameArea()==areaName.getValue()){
+                        idArea=areas.get(i).getIdArea();
+                    }
+                }
+                for (int i=0; i<locations.size() ;i++){
+                    if (locations.get(i).getLocationName()==locationName.getValue()){
+                        idLocation=locations.get(i).getIdLocation();
+                    }
+                }
+//                for (int i=0; i<employees.size() ;i++){
+//                    if (employees.get(i).getEmployeeName()==employeeName.getValue()){
+//                        idEmployee=employees.get(i).getId();
+//                    }
+//                }
+
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `users` SET `idArea`=?,`idLocation`=?, `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                pst.setInt(1, idArea);
+                pst.setInt(2, idLocation);
+                pst.setString(3, employeeName.getText());
+                pst.setString(4, username.getText());
+                pst.setString(5, password.getText());
+                pst.setString(6, email.getText());
+                pst.setString(7, phoneNumber.getText());
+                pst.setString(8, employeeNumber.getText());
+                pst.setString(9, "0");
+                pst.setInt(10, idEdit);
+                pst.execute();
+                edit.setText("تعديل مستخدم");
+                locationName.getItems().clear();
+                areaName.getItems().clear();
+                employeeName.clear();
+                password.clear();
+                email.clear();
+                phoneNumber.clear();
+                employeeNumber.clear();
+                username.clear();
+                fillComboArea();
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    void idReset(MouseEvent event) {
+        edit.setText("تعديل مستخدم");
     }
 }
 
