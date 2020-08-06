@@ -32,10 +32,12 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
+                                          <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="306.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectName" layoutX="583.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <Button layoutX="22.0" layoutY="133.0" mnemonicParsing="false" onAction="#addAbstract" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخلص" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="132.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="abstractTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="182.0" prefHeight="164.0" prefWidth="1089.0">
+                                          <TableView fx:id="abstractTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="182.0" onMouseClicked="#idReset" prefHeight="164.0" prefWidth="1089.0">
                                             <columns>
                                                 <TableColumn fx:id="projectNameTable" prefWidth="167.0" text="المشروع" />
                                                 <TableColumn fx:id="contractNumberTable" prefWidth="150.0" text="رقم العقد" />
@@ -50,8 +52,6 @@
                                              </effect>
                                           </TableView>
                                           <Button layoutX="567.0" layoutY="133.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخلص" />
-                                          <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
-                                          <ComboBox fx:id="projectName" layoutX="583.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <Button fx:id="edit" layoutX="291.0" layoutY="133.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخلص" />
                                           <TextField fx:id="contractNumber" editable="false" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <DatePicker fx:id="contractStartDate" editable="false" layoutX="307.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
@@ -68,10 +68,10 @@
                                           <CheckBox fx:id="octobre" layoutX="33.0" layoutY="453.0" mnemonicParsing="false" text="أكتوبر" />
                                           <CheckBox fx:id="novembre" layoutX="213.0" layoutY="453.0" mnemonicParsing="false" text="نوفمبر" />
                                           <CheckBox fx:id="decembre" layoutX="390.0" layoutY="453.0" mnemonicParsing="false" text="ديسمبر" />
-                                          <Button layoutX="171.0" layoutY="489.0" mnemonicParsing="false" onAction="#addAbstract" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button layoutX="320.0" layoutY="489.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button layoutX="171.0" layoutY="489.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button layoutX="320.0" layoutY="489.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <ComboBox fx:id="yearAbstract" layoutX="31.0" layoutY="489.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
-                                          <TableView fx:id="yearAbstractTableView" layoutX="461.0" layoutY="379.0" onMouseClicked="#idReset" prefHeight="147.0" prefWidth="623.0">
+                                          <TableView fx:id="yearAbstractTableView" layoutX="461.0" layoutY="379.0" onMouseClicked="#idReset2" prefHeight="147.0" prefWidth="623.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable" prefWidth="64.0" text="السنة" />
                                                 <TableColumn prefWidth="75.0" text="الأشهر">
@@ -92,7 +92,7 @@
                                                 </TableColumn>
                                              </columns>
                                           </TableView>
-                                          <TextField fx:id="contractType" editable="false" layoutX="859.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
+                                          <TextField fx:id="contractType" editable="false" layoutX="859.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
                                        </children>
                                     </AnchorPane>
                               </content>
