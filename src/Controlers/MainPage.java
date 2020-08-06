@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -38,6 +39,8 @@ public class MainPage implements Initializable {
 
     @FXML
     private PasswordField password;
+    @FXML
+    private Label erreur;
 
     public void login(ActionEvent actionEvent) {
         try {
@@ -51,6 +54,8 @@ public class MainPage implements Initializable {
                 size++;
             }
             if (size>0){
+                erreur.setVisible(true);
+
                 try {
 
                     Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
@@ -65,6 +70,8 @@ public class MainPage implements Initializable {
                     System.out.println(e.getMessage());
 
                 }
+            }else{
+                erreur.setVisible(true);
             }
 
 
