@@ -101,10 +101,9 @@
                                           <ComboBox fx:id="projectNameEmployee" layoutX="565.0" layoutY="27.0" onAction="#selectProjectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
                                           <ComboBox fx:id="occupationNameEmployee" layoutX="848.0" layoutY="27.0" onAction="#selectOccupationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الوظيفة " />
-                                          <Button layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة العمالة" />
+                                          <Button layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة العمالة" />
                                           <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
-                                          <Button layoutX="488.0" layoutY="102.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل العمالة" />
-                                          <Button layoutX="695.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
+                                          <Button layoutX="591.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
