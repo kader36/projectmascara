@@ -51,7 +51,6 @@
                                           <ComboBox fx:id="projectName" layoutX="815.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <Button fx:id="edit" layoutX="291.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل إستقطاع" />
                                           <TextField fx:id="typeDeduction" layoutX="426.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الإستقطاع" />
-                                          <ComboBox fx:id="employeeName" layoutX="815.0" layoutY="70.0" onAction="#selectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الموظف" />
                                        </children>
                                     </AnchorPane>
                               </content>

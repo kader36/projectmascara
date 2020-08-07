@@ -49,9 +49,7 @@ public class DeductionPage implements Initializable {
         int index= areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
         fillComboLocation();
-        employeeName.getItems().clear();
         projectName.getItems().clear();
-        employeeName.setValue("");
 
     }
     @FXML
@@ -59,8 +57,6 @@ public class DeductionPage implements Initializable {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
         fillComboProject();
-        employeeName.getItems().clear();
-        employeeName.setValue("");
 
     }
     @FXML
@@ -74,7 +70,6 @@ public class DeductionPage implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-        fillComboEmployee();
         employeeName.setValue("");
 
     }
@@ -365,7 +360,6 @@ public class DeductionPage implements Initializable {
 
 
             pst.execute();
-            employeeName.getItems().clear();
             projectName.getItems().clear();
             locationName.getItems().clear();
             areaName.getItems().clear();
