@@ -263,7 +263,7 @@ public class RepportPage implements Initializable {
     }
     public void printFive(ActionEvent actionEvent)  {
         try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report4.jrxml";
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report5.jrxml";
             String querry="SELECT * FROM `deductions`,`projectsemployees`,`projects`, `occupations`,`employees`,`areas`  WHERE  deductions.idArea=areas.id AND deductions.idProject=projects.id AND deductions.idEmployeeDeduction=employees.id AND projectsemployees.idOccupation=occupations.id  AND projectsemployees.idEmployee=deductions.idEmployeeDeduction GROUP BY deductions.idProject";
             JasperDesign jd=  JRXmlLoader.load(path);
             JRDesignQuery query=new JRDesignQuery();

@@ -27,11 +27,11 @@
                                        <children>
                                           <Button layoutX="32.0" layoutY="54.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
                                           <Button layoutX="405.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
-                                          <Button layoutX="784.0" layoutY="54.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
+                                          <Button layoutX="784.0" layoutY="54.0" mnemonicParsing="false" onAction="#printThree" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
                                           <Label layoutX="902.0" layoutY="29.0" text="مطلوب إسم المشروع" />
                                           <Label layoutX="167.0" layoutY="20.0" text="مطلوب المنطقة" />
-                                          <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
-                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
+                                          <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFour" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
+                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFive" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
                                           <Button layoutX="784.0" layoutY="203.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير نقص العمالة لجميع المشاريع" />
                                           <Label layoutX="154.0" layoutY="174.0" text="مطلوب إسم المشروع" />
                                        </children>
