@@ -164,8 +164,7 @@
 		</field>
 	</subDataset>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `projects`,`areas` WHERE areas.id=projects.areaId ORDER BY areas.id
-]]>
+		<![CDATA[SELECT * FROM `projects`,`areas` WHERE areas.id=projects.areaId ORDER BY areas.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -300,7 +299,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="78" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<staticText>
 				<reportElement isPrintRepeatedValues="false" x="697" y="0" width="100" height="30" isRemoveLineWhenBlank="true" printWhenGroupChanges="areaName" forecolor="#FF0400" uuid="b4cff0d3-b255-403d-a051-06d7c4b45b05"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -309,56 +308,56 @@
 				<text><![CDATA[إسم المنطقة :]]></text>
 			</staticText>
 			<textField>
-				<reportElement isPrintRepeatedValues="false" x="597" y="0" width="100" height="30" isRemoveLineWhenBlank="true" printWhenGroupChanges="areaName" forecolor="#000000" uuid="2952b3d4-3392-4755-869f-14be0621afb9"/>
+				<reportElement isPrintRepeatedValues="false" x="597" y="0" width="100" height="30" isRemoveLineWhenBlank="true" forecolor="#000000" uuid="2952b3d4-3392-4755-869f-14be0621afb9"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="660" y="41" width="141" height="30" uuid="bdcb277c-c64e-4906-84aa-8876c2a19d19">
+				<reportElement x="660" y="30" width="141" height="20" isRemoveLineWhenBlank="true" uuid="bdcb277c-c64e-4906-84aa-8876c2a19d19">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e6fbe2c-62b3-41f0-86b3-2102037b5a78"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="557" y="41" width="103" height="30" uuid="1e2a7906-2179-44aa-b048-23bb3ae091f3">
+				<reportElement x="557" y="30" width="103" height="20" isRemoveLineWhenBlank="true" uuid="1e2a7906-2179-44aa-b048-23bb3ae091f3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="962c8c91-2c7a-4386-a7b1-ef3abc6ea463"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{projectType}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="429" y="40" width="127" height="30" uuid="5834bc8f-290b-49d1-acef-05d66da23404">
+				<reportElement x="429" y="29" width="127" height="20" isRemoveLineWhenBlank="true" uuid="5834bc8f-290b-49d1-acef-05d66da23404">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="929ff6b2-857f-4411-9294-4bd62ba2b4fa"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="40" width="100" height="30" uuid="a493bfa4-4aee-4a88-9708-e8d58e500db5">
+				<reportElement x="330" y="29" width="100" height="20" isRemoveLineWhenBlank="true" uuid="a493bfa4-4aee-4a88-9708-e8d58e500db5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="44079bae-5434-4863-bae2-1404794a8b64"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractPrice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="40" width="110" height="30" uuid="68b31e28-361f-44c9-9894-59c52318b1ed">
+				<reportElement x="220" y="29" width="110" height="20" isRemoveLineWhenBlank="true" uuid="68b31e28-361f-44c9-9894-59c52318b1ed">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48541fdb-836a-4331-91d2-bd63937bd643"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="40" width="100" height="30" uuid="a4111867-40a7-4553-9b12-686352ff0e7e">
+				<reportElement x="120" y="29" width="100" height="20" isRemoveLineWhenBlank="true" uuid="a4111867-40a7-4553-9b12-686352ff0e7e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="efb6e73b-1372-4e6f-8dab-0fd0462ae2d5"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="40" width="120" height="30" uuid="155674a2-4831-4dee-8480-90bdb76895a5">
+				<reportElement x="0" y="29" width="120" height="20" isRemoveLineWhenBlank="true" uuid="155674a2-4831-4dee-8480-90bdb76895a5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e99898ed-800e-4bca-ad00-b44d36349c68"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -369,7 +368,7 @@
 	<columnFooter>
 		<band height="7" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="501ac6c4-e9d4-43cb-ba6b-7f2f44394cf3"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="802" height="4" uuid="501ac6c4-e9d4-43cb-ba6b-7f2f44394cf3"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -377,30 +376,78 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
+		<band height="87" splitType="Stretch">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="ffb10ec8-0371-4545-8eaa-96d62ad3cec0"/>
+				<reportElement mode="Opaque" x="257" y="61" width="544" height="25" forecolor="#D0B48E" backcolor="#000000" uuid="fe561765-b58d-4144-ab45-43c9011d6263"/>
 				<textField evaluationTime="Report">
-					<reportElement style="Column header" x="677" y="3" width="20" height="20" forecolor="#FFFFFF" uuid="b5521ea6-5f36-4864-856f-58d0bcd011f2"/>
+					<reportElement style="Column header" x="430" y="3" width="20" height="20" forecolor="#FFFFFF" uuid="8f5357a2-1102-40c6-8d3d-ac9afb4e0c8c"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement style="Column header" x="697" y="3" width="93" height="20" forecolor="#FFFFFF" uuid="e625ea3c-1741-4cfe-81cf-fbbdd00162c8"/>
+					<reportElement style="Column header" x="450" y="3" width="93" height="20" forecolor="#FFFFFF" uuid="aa7c2e8a-2984-4ec1-aabc-9d375c1755c7"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" الصفحة رقم "+$V{PAGE_NUMBER}+" من "]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF" uuid="0c9f7e91-d3f5-47f9-82b7-0b2b3a43a5d6"/>
+					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="8820f732-9ba8-4c26-9bae-13b38ece5efa"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+			</frame>
+			<frame>
+				<reportElement x="3" y="5" width="219" height="82" backcolor="#EBEBEB" uuid="84f852c9-cd94-4f50-a3e5-6838a978228d"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement x="150" y="6" width="65" height="20" uuid="d8ab3d7f-319f-4b2a-adbb-8c78641ba1f5"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[المنصب :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="150" y="32" width="65" height="20" uuid="b17746df-c78f-420e-894a-8eab4f781c85"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[الإسم :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="151" y="56" width="65" height="20" uuid="990fe591-0429-4292-b02c-f7ee971437ac"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[التوقيع :]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</pageFooter>
