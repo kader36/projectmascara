@@ -304,17 +304,15 @@ public class UserPage implements Initializable {
     public void addUser(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `users`(`employeeName`, `idArea`, `idLocation`, `username`, `password`, `email`," +
-                    " `phoneNumber`, `employeeNumber`, `privilegesId`) VALUES (?,?,?,?,?,?,?,?,?)");
+            pst=con.prepareStatement("INSERT INTO `users`(`employeeName`, `username`, `password`, `email`," +
+                    " `phoneNumber`, `employeeNumber`, `privilegesId`) VALUES (?,?,?,?,?,?,?)");
             pst.setString(1,employeeName.getText());
-            pst.setInt(2,idArea);
-            pst.setInt(3,idLocation);
-            pst.setString(4,username.getText());
-            pst.setString(5,password.getText());
-            pst.setString(6,email.getText());
-            pst.setString(7,phoneNumber.getText());
-            pst.setString(8,employeeNumber.getText());
-            pst.setInt(9,privilegesId);
+            pst.setString(2,username.getText());
+            pst.setString(3,password.getText());
+            pst.setString(4,email.getText());
+            pst.setString(5,phoneNumber.getText());
+            pst.setString(6,employeeNumber.getText());
+            pst.setInt(7,privilegesId);
             pst.execute();
 
         } catch (SQLException throwables) {
@@ -362,13 +360,10 @@ public class UserPage implements Initializable {
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
-            fillComboArea();
             fillComboPrivilege();
             addToTable();
             addToTable2();
             employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
             usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
             emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
             phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
@@ -385,7 +380,7 @@ public class UserPage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `users`");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getPrivilegeName(rs.getInt("privilegesId"))));
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getPrivilegeName(rs.getInt("privilegesId"))));
 
                 }
 
@@ -516,11 +511,9 @@ public class UserPage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `users` WHERE `employeeName` LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getPrivilegeName(rs.getInt("privilegesId"))));
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getPrivilegeName(rs.getInt("privilegesId"))));
                 }
                 employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
                 usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
                 emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
                 phoneNumberTable.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
@@ -548,8 +541,7 @@ public class UserPage implements Initializable {
 
         if (edit.getText().contains("تعديل مستخدم")){
             edit.setText("حفظ");
-            areaName.setValue(userTableView.getItems().get(index).getAreaName());
-            locationName.setValue(userTableView.getItems().get(index).getLocationName());
+            privilegeName.setValue(userTableView.getItems().get(index).getPrivilegeName());
             employeeName.setText(userTableView.getItems().get(index).getEmployeeName());
             username.setText(userTableView.getItems().get(index).getUsername());
             password.setText(userTableView.getItems().get(index).getPassword());
@@ -558,16 +550,7 @@ public class UserPage implements Initializable {
             employeeNumber.setText(userTableView.getItems().get(index).getEmployeeNumber());
         }else if (edit.getText().contains("حفظ")){
             try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
-                    }
-                }
-                for (int i=0; i<locations.size() ;i++){
-                    if (locations.get(i).getLocationName()==locationName.getValue()){
-                        idLocation=locations.get(i).getIdLocation();
-                    }
-                }
+
                 for (int i=0; i<privileges.size() ;i++){
                     if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
                         privilegesId=privileges.get(i).getIdPrivilege();
@@ -575,28 +558,23 @@ public class UserPage implements Initializable {
                 }
 
                 con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `users` SET `idArea`=?,`idLocation`=?, `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
-                pst.setInt(1, idArea);
-                pst.setInt(2, idLocation);
-                pst.setString(3, employeeName.getText());
-                pst.setString(4, username.getText());
-                pst.setString(5, password.getText());
-                pst.setString(6, email.getText());
-                pst.setString(7, phoneNumber.getText());
-                pst.setString(8, employeeNumber.getText());
-                pst.setString(9,"" );
-                pst.setInt(10, idEdit);
+                pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                pst.setString(1, employeeName.getText());
+                pst.setString(2, username.getText());
+                pst.setString(3, password.getText());
+                pst.setString(4, email.getText());
+                pst.setString(5, phoneNumber.getText());
+                pst.setString(6, employeeNumber.getText());
+                pst.setInt(7,privilegesId );
+                pst.setInt(8, idEdit);
                 pst.execute();
                 edit.setText("تعديل مستخدم");
-                locationName.getItems().clear();
-                areaName.getItems().clear();
                 employeeName.clear();
                 password.clear();
                 email.clear();
                 phoneNumber.clear();
                 employeeNumber.clear();
                 username.clear();
-                fillComboArea();
 
 
 

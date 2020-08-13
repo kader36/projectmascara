@@ -5,7 +5,7 @@ public class UserForTable {
     private int idUser,idArea,idLocation,privilegeId;
     private String employeeName,username,password,email,phoneNumber,employeeNumber,areaName,locationName,privilegeName;
 
-    public UserForTable(int idUser, int idArea, int idLocation, int privilegeId, String employeeName, String username, String password, String email, String phoneNumber, String employeeNumber, String areaName, String locationName, String privilegeName) {
+    public UserForTable(int idUser, int privilegeId, String employeeName, String username, String password, String email, String phoneNumber, String employeeNumber, String privilegeName) {
         this.idUser = idUser;
         this.idArea = idArea;
         this.idLocation = idLocation;
