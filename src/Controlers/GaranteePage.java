@@ -41,8 +41,7 @@ public class GaranteePage implements Initializable {
     private ComboBox<String> locationName;
     @FXML
     private ComboBox<String> garanteeType;
-    @FXML
-    private ComboBox<String> contractType;
+
     @FXML
     private TextField garanteeNumber;
     @FXML
@@ -307,13 +306,12 @@ public class GaranteePage implements Initializable {
     public void addGarantee(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`, `contractType`) VALUES (?,?,?,?,?,?)");
+            pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`) VALUES (?,?,?,?,?)");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             pst.setInt(3,idProject);
             pst.setString(4,garanteeNumber.getText());
             pst.setString(5,garanteeType.getValue());
-            pst.setString(6,contractType.getValue());
             pst.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -324,8 +322,6 @@ public class GaranteePage implements Initializable {
         projectName.getItems().clear();
         garanteeNumber.clear();
         garanteeType.getItems().clear();
-        contractType.getItems().clear();
-        contractType.setItems(contracts);
         garanteeType.setItems(garantees);
         fillComboArea();
     }
@@ -348,8 +344,6 @@ public class GaranteePage implements Initializable {
     private TableColumn<GaranteeForTable, String> garanteeTypeTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> contractTypeTable;
-    @FXML
     private TableView<HistoricalGaranteeForTable> historicalGaranteeTableView;
 
     @FXML
@@ -366,7 +360,7 @@ public class GaranteePage implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
         garanteeType.setItems(garantees);
-        contractType.setItems(contracts);
+
 
         addToTable();
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
@@ -374,7 +368,6 @@ public class GaranteePage implements Initializable {
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
         garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
         garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
-        contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
         garanteeTableView.setItems(garanteesTable);
     }
     public void addToTable(){
@@ -384,7 +377,7 @@ public class GaranteePage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `garantees`");
             rs=pst.executeQuery();
             while (rs.next()){
-                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("contractType")));
+                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
 
             }
 
@@ -490,7 +483,6 @@ public class GaranteePage implements Initializable {
             projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
             garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
             garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
-            contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
             garanteeTableView.setItems(garanteesTable);
         }else{
             garanteesTable.clear();
@@ -499,14 +491,13 @@ public class GaranteePage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber` LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("contractType")));
+                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
                 }
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
                 garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
                 garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
-                contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
                 garanteeTableView.setItems(garanteesTable);
 
 
@@ -533,7 +524,6 @@ public class GaranteePage implements Initializable {
             locationName.setValue(garanteeTableView.getItems().get(index).getNameLocation());
             projectName.setValue(garanteeTableView.getItems().get(index).getNameProject());
             garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
-            contractType.setValue(garanteeTableView.getItems().get(index).getContractType());
             garanteeNumber.setText(garanteeTableView.getItems().get(index).getGaranteeNumber());
         }else if (edit.getText().contains("حفظ")){
             try {
@@ -554,7 +544,7 @@ public class GaranteePage implements Initializable {
                     }
                 }
                 con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=?,`contractType`=? WHERE `id`=?");
+                pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=? WHERE `id`=?");
 
 
                 pst.setInt(1,idArea);
@@ -562,16 +552,13 @@ public class GaranteePage implements Initializable {
                 pst.setInt(3,idProject);
                 pst.setString(4,garanteeNumber.getText());
                 pst.setString(5,garanteeType.getValue());
-                pst.setString(6,contractType.getValue());
-                pst.setInt(7,idEdit);
+                pst.setInt(6,idEdit);
                 pst.execute();
                 edit.setText("تعديل ضمان");
                 locationName.getItems().clear();
                 projectName.getItems().clear();
                 garanteeNumber.clear();
                 garanteeType.getItems().clear();
-                contractType.getItems().clear();
-                contractType.setItems(contracts);
                 garanteeType.setItems(garantees);
 
 
@@ -600,8 +587,6 @@ public class GaranteePage implements Initializable {
         projectName.setValue("");
         garanteeNumber.clear();
         garanteeType.setValue("");
-        contractType.setValue("");
-        contractType.setItems(contracts);
         garanteeType.setItems(garantees);
 
         int index= garanteeTableView.getSelectionModel().getSelectedIndex();

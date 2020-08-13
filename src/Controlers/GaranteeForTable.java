@@ -2,9 +2,9 @@ package Controlers;
 
 public class GaranteeForTable {
     private int idGarantee,idArea,idLocation,idProject;
-    private String nameArea,nameLocation,nameProject,garanteeNumber,garanteeType,contractType;
+    private String nameArea,nameLocation,nameProject,garanteeNumber,garanteeType;
 
-    public GaranteeForTable(int idGarantee, int idArea, int idLocation, int idProject, String nameArea, String nameLocation, String nameProject, String garanteeNumber, String garanteeType, String contractType) {
+    public GaranteeForTable(int idGarantee, int idArea, int idLocation, int idProject, String nameArea, String nameLocation, String nameProject, String garanteeNumber, String garanteeType) {
         this.idGarantee = idGarantee;
         this.idArea = idArea;
         this.idLocation = idLocation;
@@ -14,7 +14,6 @@ public class GaranteeForTable {
         this.nameProject = nameProject;
         this.garanteeNumber = garanteeNumber;
         this.garanteeType = garanteeType;
-        this.contractType = contractType;
     }
 
     public int getIdGarantee() {
@@ -53,7 +52,4 @@ public class GaranteeForTable {
         return garanteeType;
     }
 
-    public String getContractType() {
-        return contractType;
-    }
 }

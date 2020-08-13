@@ -11,15 +11,15 @@ package Controlers;
  */
 public class Garantee {
     private int idGarantee,idArea,idLocation;
-    private String garanteeNumber,garanteeType,contractType;
+    private String garanteeNumber,garanteeType;
     
-    public Garantee(int idGarantee,int idArea,int idLocation,String garanteeNumber,String garanteeType,String contractType){
+    public Garantee(int idGarantee,int idArea,int idLocation,String garanteeNumber,String garanteeType){
         this.idGarantee=idGarantee;
         this.idLocation=idLocation;
         this.idArea=idArea;
         this.garanteeNumber=garanteeNumber;
         this.garanteeType=garanteeType;
-        this.contractType=contractType;
+
 
     }
     
@@ -38,7 +38,5 @@ public class Garantee {
     public String getGaranteeType(){
         return garanteeType;
     }
-    public String getContractType(){
-        return contractType;
-    }
+
 }
