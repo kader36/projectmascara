@@ -30,14 +30,24 @@ public class PenaltyPage implements Initializable {
     ResultSet rs;
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
+    ObservableList<String> locoremps= FXCollections.observableArrayList("موقع","موظف");
+    ObservableList<String> perOrCoss= FXCollections.observableArrayList("نسبة","تكلفة");
     ObservableList<Project> projects= FXCollections.observableArrayList();
     ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
-    int idArea=0,idLocation=0,idProject=0,idEmployee=0;
+    ObservableList<Occupation> occupations= FXCollections.observableArrayList();
+    int idArea=0,idLocation=0,idProject=0,idEmployee=0,idOccupation=0;
 
     @FXML
     private ComboBox<String> areaName;
     @FXML
     private ComboBox<String> locationName;
+    @FXML
+    private ComboBox<String> occupationName;
+    @FXML
+    private ComboBox<String> locoremp;
+    @FXML
+    private ComboBox<String> perOrCos;
+
     @FXML
     private ComboBox<String> employeeName;
     @FXML
@@ -77,6 +87,13 @@ public class PenaltyPage implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
+        fillComboOccupation();
+
+    }
+    @FXML
+    void selectOccupation(ActionEvent event) {
+        int index= occupationName.getSelectionModel().getSelectedIndex();
+        idOccupation=occupations.get(index).getIdOcupation();
         fillComboEmployee();
         employeeName.setValue("");
 
@@ -105,14 +122,37 @@ public class PenaltyPage implements Initializable {
         }
     }
 
+    public void fillComboOccupation(){
+        occupations.clear();
+        occupationName.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations`, `occupations` WHERE projectoccupations.idProject=? AND projectoccupations.idOccupation=occupations.id");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                occupations.add(new Occupation(rs.getInt(6),rs.getString("occupationName")));
+
+            }
+            for (int i=0;i<occupations.size();i++){
+                occupationName.getItems().add(occupations.get(i).getNameOcupation());
+                System.out.println(occupations.get(i).getIdOcupation());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
     public void fillComboEmployee(){
         employees.clear();
         employeeName.getItems().clear();
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees` WHERE `idProject`=?");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees` WHERE `idProject`=? AND `idOccupation`=?");
             pst.setInt(1,idProject);
+            pst.setInt(2,idOccupation);
             rs=pst.executeQuery();
             while (rs.next()){
                 employees.add(new EmployeeForList(rs.getInt("idEmployee"),getEmployeeName(rs.getInt("idEmployee"))));
@@ -405,7 +445,11 @@ public class PenaltyPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-
+        occupationName.setVisible(false);
+        per.setVisible(false);
+        employeeName.setVisible(false);
+        perOrCos.setItems(perOrCoss);
+        locoremp.setItems(locoremps);
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
@@ -413,6 +457,7 @@ public class PenaltyPage implements Initializable {
         amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
         typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
         deductionTableView.setItems(deductionsTable);
+
     }
     public void addToTable(){
         deductionsTable.clear();
@@ -673,4 +718,30 @@ public class PenaltyPage implements Initializable {
     }
 
 
+    public void selectLocOrEmp(ActionEvent actionEvent) {
+        if (locoremp.getValue()=="موظف"){
+//            System.out.println("thats work");
+            occupationName.setVisible(true);
+            employeeName.setVisible(true);
+        }else {
+//            System.out.println("thats not work");
+            occupationName.setVisible(false);
+            employeeName.setVisible(false);
+
+        }
+    }
+
+    @FXML
+    private Label per;
+
+    public void selectPerOrCos(ActionEvent actionEvent) {
+        if (perOrCos.getValue()=="نسبة"){
+//            System.out.println("thats work");
+            per.setVisible(true);
+        }else {
+//            System.out.println("thats not work");
+            per.setVisible(false);
+
+        }
+    }
 }
