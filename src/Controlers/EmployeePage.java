@@ -11,10 +11,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +32,7 @@ public class EmployeePage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    File file1,file2;
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة السياقة");
     int idOccupation=0;
@@ -88,7 +95,7 @@ public class EmployeePage implements Initializable {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
                     " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                    " `HealthCertificateStartDate`, `HealthCertificatEndDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                    " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1,employeeName.getText());
             pst.setString(2,employeeNumber.getText());
             pst.setString(3,employeeNationality.getText());
@@ -100,9 +107,13 @@ public class EmployeePage implements Initializable {
             pst.setString(9, String.valueOf(residenceEndDate.getValue()));
             pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
             pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+            FileInputStream fis1=new FileInputStream(file1);
+            pst.setBinaryStream(12, fis1,(int) file1.length());
+            FileInputStream fis2=new FileInputStream(file2);
+            pst.setBinaryStream(13, fis2,(int) file2.length());
             pst.execute();
 
-        } catch (SQLException throwables) {
+        } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
         }
         addToTable();
@@ -530,6 +541,17 @@ public class EmployeePage implements Initializable {
     }
 
 
+    public void uploadHealth(ActionEvent actionEvent) {
+        FileChooser fileChooser=new FileChooser();
+        file1=fileChooser.showOpenDialog(null);
+
+    }
+    public void uploadIdentity(ActionEvent actionEvent) {
+        FileChooser fileChooser=new FileChooser();
+        file2=fileChooser.showOpenDialog(null);
+
+
+    }
 }
 
 

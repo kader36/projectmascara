@@ -28,19 +28,18 @@ public class DeductionPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
-    ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
-    int idArea=0,idLocation=0,idProject=0,idEmployee=0;
+    ObservableList<DeductionNames> deductionNames= FXCollections.observableArrayList();
+    int idArea=0,idLocation=0,idProject=0,idEmployee=0,idDeduction=0;
 
     @FXML
     private ComboBox<String> areaName;
     @FXML
     private ComboBox<String> locationName;
     @FXML
-    private ComboBox<String> employeeName;
+    private ComboBox<String> typeDeduction;
     @FXML
     private TextField amountOfDeduction;
-    @FXML
-    private TextField typeDeduction;
+
     @FXML
     private ComboBox<String> projectName;
 
@@ -60,9 +59,9 @@ public class DeductionPage implements Initializable {
 
     }
     @FXML
-    void selectEmployee(ActionEvent event) {
-        int index= employeeName.getSelectionModel().getSelectedIndex();
-        idEmployee=employees.get(index).getId();
+    void selectDeduction(ActionEvent event) {
+        int index= typeDeduction.getSelectionModel().getSelectedIndex();
+        idDeduction=deductionNames.get(index).getIdDeductionName();
 
 
     }
@@ -70,7 +69,7 @@ public class DeductionPage implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-        employeeName.setValue("");
+
 
     }
 
@@ -97,28 +96,6 @@ public class DeductionPage implements Initializable {
         }
     }
 
-    public void fillComboEmployee(){
-        employees.clear();
-        employeeName.getItems().clear();
-        try {
-
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees` WHERE `idProject`=?");
-            pst.setInt(1,idProject);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                employees.add(new EmployeeForList(rs.getInt("idEmployee"),getEmployeeName(rs.getInt("idEmployee"))));
-
-            }
-            for (int i=0;i<employees.size();i++){
-                employeeName.getItems().add(employees.get(i).getEmployeeName());
-            }
-
-        } catch (SQLException throwables) {
-            System.out.println("No Connection with DB");
-        }
-    }
-
     public void fillComboProject(){
         projects.clear();
         projectName.getItems().clear();
@@ -136,6 +113,28 @@ public class DeductionPage implements Initializable {
 
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+
+    public void fillComboDeductionType(){
+        deductionNames.clear();
+        typeDeduction.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `deductionnames`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                deductionNames.add(new DeductionNames(rs.getString("deductionName"), rs.getInt("id")));
+
+            }
+
+            for (int i=0;i<deductionNames.size();i++){
+                typeDeduction.getItems().add(deductionNames.get(i).getDeductionName());
             }
 
         } catch (SQLException throwables) {
@@ -335,7 +334,7 @@ public class DeductionPage implements Initializable {
                 pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`) VALUES (?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
-                pst.setString(3,typeDeduction.getText());
+                pst.setString(3,typeDeduction.getValue());
                 pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
                 pst.setInt(5,idProject);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
@@ -348,7 +347,7 @@ public class DeductionPage implements Initializable {
                 pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`) VALUES (?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
-                pst.setString(3,typeDeduction.getText());
+                pst.setString(3,typeDeduction.getValue());
                 pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
                 pst.setInt(5,idProject);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
@@ -364,7 +363,6 @@ public class DeductionPage implements Initializable {
             locationName.getItems().clear();
             areaName.getItems().clear();
             amountOfDeduction.clear();
-            typeDeduction.clear();
             fillComboArea();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -390,20 +388,28 @@ public class DeductionPage implements Initializable {
 
     @FXML
     private TableColumn<GaranteeForTable, String> typeDeductionTable;
+    @FXML
+    private TableView<DeductionNames> deductionNamesTableView;
 
+    @FXML
+    private TableColumn<DeductionNames, String> nameDeductionnTable;
     ObservableList deductionsTable= FXCollections.observableArrayList();
+    ObservableList deductionNamesTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-
+        fillComboDeductionType();
         addToTable();
+        addToTable2();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
         amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
         typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
         deductionTableView.setItems(deductionsTable);
+        nameDeductionnTable.setCellValueFactory(new PropertyValueFactory<>("deductionName"));
+        deductionNamesTableView.setItems(deductionNamesTable);
     }
     public void addToTable(){
         deductionsTable.clear();
@@ -413,6 +419,25 @@ public class DeductionPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public void addToTable2(){
+        deductionNamesTable.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `deductionnames`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                deductionNamesTable.add(new DeductionNames(rs.getString("deductionName"), rs.getInt("id")));
 
             }
 
@@ -580,9 +605,7 @@ public class DeductionPage implements Initializable {
             areaName.setValue(deductionTableView.getItems().get(index).getNameArea());
             locationName.setValue(deductionTableView.getItems().get(index).getNameLocation());
             projectName.setValue(deductionTableView.getItems().get(index).getNameProject());
-            employeeName.setValue(deductionTableView.getItems().get(index).getNameEmployee());
-
-            typeDeduction.setText(deductionTableView.getItems().get(index).getTypeDeduction());
+            typeDeduction.setValue(deductionTableView.getItems().get(index).getTypeDeduction());
             amountOfDeduction.setText(deductionTableView.getItems().get(index).getAmountOfDeduction());
         }else if (edit.getText().contains("حفظ")){
             try {
@@ -596,57 +619,32 @@ public class DeductionPage implements Initializable {
                         idLocation=locations.get(i).getIdLocation();
                     }
                 }
-                for (int i=0; i<employees.size() ;i++){
-                    if (employees.get(i).getEmployeeName()==employeeName.getValue()){
-                        idEmployee=employees.get(i).getId();
-                    }
-                }
+
                 for (int i=0; i<projects.size() ;i++){
                     if (projects.get(i).getContractName()==projectName.getValue()){
                         idProject=projects.get(i).getIdProject();
                     }
                 }
                 con = new Controlers.ConnectDB().getConnection();
-                if (idEmployee>0){
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=? WHERE `id`=?");
 
-                    pst.setInt(1, idArea);
-                    pst.setInt(2, idLocation);
-                    pst.setString(3, typeDeduction.getText());
-                    pst.setString(4, amountOfDeduction.getText());
-                    pst.setInt(5, idEmployee);
-                    pst.setInt(6, idProject);
-                    pst.setInt(7, idEdit);
+                pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=? WHERE `id`=?");
 
-                    pst.execute();
-                    edit.setText("تعديل إستقطاع");
-                    employeeName.getItems().clear();
-                    projectName.getItems().clear();
-                    locationName.getItems().clear();
-                    areaName.getItems().clear();
-                    amountOfDeduction.clear();
-                    typeDeduction.clear();
-                    fillComboArea();
-                }else{
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=? WHERE `id`=?");
+                pst.setInt(1, idArea);
+                pst.setInt(2, idLocation);
+                pst.setString(3, typeDeduction.getValue());
+                pst.setString(4, amountOfDeduction.getText());
+                pst.setInt(5, idProject);
+                pst.setInt(6, idEdit);
 
-                    pst.setInt(1, idArea);
-                    pst.setInt(2, idLocation);
-                    pst.setString(3, typeDeduction.getText());
-                    pst.setString(4, amountOfDeduction.getText());
-                    pst.setInt(5, idProject);
-                    pst.setInt(6, idEdit);
+                pst.execute();
+                edit.setText("تعديل إستقطاع");
+                projectName.getItems().clear();
+                locationName.getItems().clear();
+                areaName.getItems().clear();
+                amountOfDeduction.clear();
 
-                    pst.execute();
-                    edit.setText("تعديل إستقطاع");
-                    employeeName.getItems().clear();
-                    projectName.getItems().clear();
-                    locationName.getItems().clear();
-                    areaName.getItems().clear();
-                    amountOfDeduction.clear();
-                    typeDeduction.clear();
-                    fillComboArea();
-                }
+                fillComboArea();
+
 
 
             } catch (SQLException throwables) {
@@ -663,5 +661,75 @@ public class DeductionPage implements Initializable {
         edit.setText("تعديل إستقطاع");
     }
 
+
+
+
+    @FXML
+    private TextField nameDeductionn;
+
+    public void addDeductionn(ActionEvent actionEvent) {
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `deductionnames`(`deductionName`) VALUES (?)");
+            pst.setString(1,nameDeductionn.getText());
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTable2();
+        fillComboDeductionType();
+    }
+
+
+    @FXML
+    public void deleteRoww(ActionEvent actionEvent) {
+        int index= deductionNamesTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=deductionNamesTableView.getItems().get(index).getIdDeductionName();
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `deductionnames` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTable2();
+        }
+        fillComboDeductionType();
+    }
+    @FXML
+    private TextField search2;
+    @FXML
+    public void search2(KeyEvent keyEvent) {
+        String key=search2.getText().trim();
+        if (key.isEmpty()){
+            addToTable2();
+            nameDeductionnTable.setCellValueFactory(new PropertyValueFactory<>("deductionName"));
+            deductionNamesTableView.setItems(deductionNamesTable);
+        }else{
+            deductionNamesTable.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM  `deductionnames` WHERE `deductionName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    deductionNamesTable.add(new DeductionNames(rs.getString("deductionName"), rs.getInt("id")));
+                }
+                nameDeductionnTable.setCellValueFactory(new PropertyValueFactory<>("deductionName"));
+                deductionNamesTableView.setItems(deductionNamesTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
 
 }
