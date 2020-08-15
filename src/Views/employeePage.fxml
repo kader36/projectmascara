@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -64,10 +65,141 @@
                                           <DatePicker fx:id="HealthCertificateStartDate" editable="false" layoutX="300.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشهادة الصحية" />
                                           <DatePicker fx:id="HealthCertificatEndDate" editable="false" layoutX="569.0" layoutY="119.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشهادة الصحية" />
                                           <Button fx:id="edit" layoutX="285.0" layoutY="187.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل موظف" />
+                                          <Button layoutX="838.0" layoutY="119.0" mnemonicParsing="false" onAction="#uploadHealth" prefHeight="35.0" prefWidth="115.0" styleClass="addButton" stylesheets="@../css/style.css" text="شهادة الصحية" />
+                                          <Button layoutX="963.0" layoutY="119.0" mnemonicParsing="false" onAction="#uploadIdentity" prefHeight="35.0" prefWidth="117.0" styleClass="addButton" stylesheets="@../css/style.css" text="الصورة الشخصية" />
                                        </children>
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab closable="false" text="الموضف المحدد">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <AnchorPane layoutX="598.0" layoutY="5.0" prefHeight="562.0" prefWidth="431.0">
+                                             <children>
+                                                <ImageView fx:id="imageHealth1" fitHeight="559.0" fitWidth="430.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane layoutX="25.0" layoutY="15.0" prefHeight="301.0" prefWidth="166.0">
+                                             <children>
+                                                <ImageView fx:id="imageIdentity1" fitHeight="301.0" fitWidth="207.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+                                             </children>
+                                          </AnchorPane>
+                                          <Separator layoutX="510.0" orientation="VERTICAL" prefHeight="582.0" prefWidth="13.0" />
+                                          <Label layoutX="257.0" layoutY="18.0" text="إسم الموظف">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="employeeName1" editable="false" layoutX="251.0" layoutY="42.0" prefHeight="30.0" prefWidth="216.0" promptText="إسم الموظف">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="257.0" layoutY="100.0" text="رقم الموظف">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="employeeNumber1" editable="false" layoutX="251.0" layoutY="124.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الموظف">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="257.0" layoutY="177.0" text="الجنسية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="employeeNationality1" editable="false" layoutX="251.0" layoutY="201.0" prefHeight="30.0" prefWidth="216.0" promptText="الجنسية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="257.0" layoutY="259.0" text="الديانة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="religion1" editable="false" layoutX="251.0" layoutY="283.0" prefHeight="30.0" prefWidth="216.0" promptText="الديانة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="27.0" layoutY="329.0" text="نوع الهوية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="identityType1" editable="false" layoutX="21.0" layoutY="353.0" prefHeight="30.0" prefWidth="216.0" promptText="نوع الهوية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="273.0" layoutY="329.0" text="رقم الهوية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="identityNumber1" editable="false" layoutX="267.0" layoutY="353.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الهوية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="28.0" layoutY="392.0" text="مهنة الإقامة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="residenceOccupation1" editable="false" layoutX="22.0" layoutY="416.0" prefHeight="30.0" prefWidth="216.0" promptText="مهنة الإقامة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="274.0" layoutY="392.0" text="المهنة الفعلية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="reelOccupation1" editable="false" layoutX="268.0" layoutY="416.0" prefHeight="30.0" prefWidth="216.0" promptText="المهنة الفعلية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="28.0" layoutY="457.0" text="تاريخ إنتهاء الإقامة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="residenceEndDate1" editable="false" layoutX="22.0" layoutY="481.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ إنتهاء الإقامة">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="274.0" layoutY="457.0" text="تاريخ بداية الشهادة الصحية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="HealthCertificateStartDate1" editable="false" layoutX="268.0" layoutY="481.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ بداية الشهادة الصحية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                          <Label layoutX="28.0" layoutY="515.0" text="تاريخ نهاية الشهادة الصحية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="HealthCertificatEndDate1" editable="false" layoutX="22.0" layoutY="539.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ نهاية الشهادة الصحية">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>

@@ -1,5 +1,6 @@
 package Controlers;
 
+import com.mysql.jdbc.Blob;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -535,9 +537,93 @@ public class EmployeePage implements Initializable {
 
 
     }
+
+    @FXML
+    private ImageView imageHealth1;
+
+    @FXML
+    private ImageView imageIdentity1;
+
+    @FXML
+    private TextField employeeName1;
+
+    @FXML
+    private TextField employeeNumber1;
+
+    @FXML
+    private TextField employeeNationality1;
+
+    @FXML
+    private TextField religion1;
+
+    @FXML
+    private TextField identityType1;
+
+    @FXML
+    private TextField identityNumber1;
+
+    @FXML
+    private TextField residenceOccupation1;
+
+    @FXML
+    private TextField reelOccupation1;
+
+    @FXML
+    private TextField residenceEndDate1;
+
+    @FXML
+    private TextField HealthCertificateStartDate1;
+
+    @FXML
+    private TextField HealthCertificatEndDate1;
     @FXML
     void idReset(MouseEvent event) {
         edit.setText("تعديل موظف");
+        int index= employeeTableView.getSelectionModel().getSelectedIndex();
+        int idEmpl=employeeTableView.getItems().get(index).getIdEmployee();
+
+        employeeName1.setText(employeeTableView.getItems().get(index).getEmployeeName());
+        identityNumber1.setText(employeeTableView.getItems().get(index).getIdentityNumber());
+        residenceEndDate1.setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+        HealthCertificateStartDate1.setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
+        HealthCertificatEndDate1.setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+        reelOccupation1.setText(employeeTableView.getItems().get(index).getReelOccupationName());
+        identityType1.setText(employeeTableView.getItems().get(index).getIdentityType());
+        employeeNumber1.setText(employeeTableView.getItems().get(index).getEmployeeNumber());
+        employeeNationality1.setText(employeeTableView.getItems().get(index).getEmployeeNationality());
+        residenceOccupation1.setText(employeeTableView.getItems().get(index).getResidenceOccupation());
+        religion1.setText(employeeTableView.getItems().get(index).getReligion());
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
+            pst.setInt(1,idEmpl);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                Blob certificateImageBlob= (Blob) rs.getBlob("certificateImage");
+                Blob identityImageBlob= (Blob) rs.getBlob("identityImage");
+                InputStream inputStream1=certificateImageBlob.getBinaryStream();
+                InputStream inputStream2=identityImageBlob.getBinaryStream();
+                Image image1=new Image(inputStream1);
+                Image image2=new Image(inputStream2);
+                if (image1!=null){
+                    imageHealth1.setImage(image1);
+                }else{
+                    imageHealth1.setImage(null);
+                }
+                if (image2!=null){
+                    imageIdentity1.setImage(image2);
+
+                }else{
+                    imageIdentity1.setImage(null);
+                }
+            }
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
     }
 
 

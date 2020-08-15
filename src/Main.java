@@ -9,7 +9,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
         primaryStage.setTitle("تسجيل الدخول");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
