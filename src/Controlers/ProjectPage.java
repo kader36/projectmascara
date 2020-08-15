@@ -32,13 +32,16 @@ public class ProjectPage implements Initializable {
     ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     ObservableList<ProjectOcupation> projectOccupation= FXCollections.observableArrayList();
+    ObservableList<Masrouf> masroufats= FXCollections.observableArrayList();
+    ObservableList<Masrouf2> masroufats2= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
-    ObservableList<String> projectTypeList= FXCollections.observableArrayList("مشروع قطاع عسكري","مشروع قطاع صحي");
-    int idArea=0,idLocation=0,idProject=0,idOccupation=0,idEmployee=0,idProjectOccupation=0;
+    int idMasroufat=0,idArea=0,idLocation=0,idArea2=0,idLocation2=0,idProject=0,idOccupation=0,idEmployee=0,idProjectOccupation=0;
 
 
     @FXML
     private TextField projectName;
+    @FXML
+    private TextField masroufPrice;
 
     @FXML
     private ComboBox<String> areaName;
@@ -49,7 +52,7 @@ public class ProjectPage implements Initializable {
     private ComboBox<String> locationName;
 
     @FXML
-    private ComboBox<String> projectType;
+    private ComboBox<String> masroufatNameCombo;
 
 
     @FXML
@@ -90,10 +93,49 @@ public class ProjectPage implements Initializable {
             throwables.printStackTrace();
         }
     }
+
+    public void fillComboArea2(){
+        areas.clear();
+        areaName1.getItems().clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
+
+            }
+            for (int i=0;i<areas.size();i++){
+                areaName1.getItems().add(areas.get(i).getNameArea());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void fillComboMasroufat(){
+        masroufats.clear();
+        masroufatNameCombo.getItems().clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `masroufat`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
+
+            }
+            for (int i=0;i<masroufats.size();i++){
+                masroufatNameCombo.getItems().add(masroufats.get(i).getMasroufName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     public void fillComboEmployee(){
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees`");
+            pst=con.prepareStatement("SELECT * FROM `employees` ");
             rs=pst.executeQuery();
             while (rs.next()){
                 employees.add(new EmployeeForList(rs.getInt("id"),rs.getString("employeeName")));
@@ -167,6 +209,29 @@ public class ProjectPage implements Initializable {
 
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
+            }
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+    public void fillComboLocation2(){
+        locations.clear();
+        locationName1.getItems().clear();
+
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `areaId`=?");
+            pst.setInt(1,idArea2);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
+
+            }
+
+            for (int i=0;i<locations.size();i++){
+                locationName1.getItems().add(locations.get(i).getLocationName());
             }
 
         } catch (SQLException throwables) {
@@ -247,11 +312,13 @@ public class ProjectPage implements Initializable {
     public void fillTableProjectOccupation(){
         projectOccupation.clear();
         projectOccupationTableView.getItems().clear();
+        int index= projectTableView.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView.getItems().get(index).getProjectId();
         try {
 
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
-            pst.setInt(1,idProjectOccupation);
+            pst.setInt(1,idProject);
             rs=pst.executeQuery();
             while (rs.next()){
                 projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),getOccupationName(rs.getInt("idOccupation"))));
@@ -270,9 +337,18 @@ public class ProjectPage implements Initializable {
         fillComboLocation();
     }
     @FXML
-    void selectProjectOccupation(ActionEvent event) {
-
+    void selectMasroufat(ActionEvent event) {
+        int index= masroufatNameCombo.getSelectionModel().getSelectedIndex();
+        idMasroufat=masroufats.get(index).getIdMasrouf();
     }
+
+    @FXML
+    void selectArea2(ActionEvent event) {
+        int index= areaName1.getSelectionModel().getSelectedIndex();
+        idArea2=areas.get(index).getIdArea();
+        fillComboLocation2();
+    }
+
     @FXML
     void selectAreaEmployee(ActionEvent event) {
         int index= areaNameEmployee.getSelectionModel().getSelectedIndex();
@@ -298,6 +374,12 @@ public class ProjectPage implements Initializable {
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
+    }
+
+    @FXML
+    void selectLocation2(ActionEvent event) {
+        int index= locationName1.getSelectionModel().getSelectedIndex();
+        idLocation2=locations.get(index).getIdLocation();
 
     }
     @FXML
@@ -490,7 +572,7 @@ public class ProjectPage implements Initializable {
                     " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`) VALUES (?,?,?,?,?,?,?,?,?)");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
-            pst.setString(3,projectType.getValue());
+            pst.setString(3,"مشروع قطاع صحي");
             pst.setString(4,projectName.getText());
             pst.setFloat(5, Float.parseFloat(contractPrice.getText()));
             pst.setInt(6, Integer.parseInt(contactDuration.getText()));
@@ -507,11 +589,13 @@ public class ProjectPage implements Initializable {
 
     @FXML
     void addProjectOccupation(ActionEvent event) {
-
+        int index= projectTableView.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView.getItems().get(index).getProjectId();
         try {
             con=new Controlers.ConnectDB().getConnection();
+
             pst=con.prepareStatement("INSERT INTO `projectoccupations`(`idProject`, `idOccupation`, `maxNumber`, `realNumber`) VALUES (?,?,?,?)");
-            pst.setInt(1,idProjectOccupation);
+            pst.setInt(1,idProject);
             pst.setInt(2,idOccupation);
             pst.setInt(3,Integer.parseInt(maxNumber.getText()));
             pst.setInt(4,0);
@@ -555,16 +639,77 @@ public class ProjectPage implements Initializable {
     @FXML
     private TableColumn<ProjectForTable, String> contractEndDateTable;
 
-    ObservableList projectsTable= FXCollections.observableArrayList();
 
+
+
+
+
+    @FXML
+    private TableView<ProjectForTable> projectTableView1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> projectNameTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> areaNameTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> contactDurationTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> contractPriceTable1;
+    @FXML
+    private TableColumn<ProjectForTable, String> contractRestTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> contractStartDateTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> contractEndDateTable1;
+
+    ObservableList projectsTable= FXCollections.observableArrayList();
+    ObservableList projectsTable2= FXCollections.observableArrayList();
+    public void addToTableMasrouf(){
+        masroufats.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `masroufat`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+    public void addToTableMasrouf2(){
+        masroufats2.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectmasroufate`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                masroufats2.add(new Masrouf2(rs.getInt("id"),rs.getInt("projectId"),rs.getString("masroufName"),rs.getFloat("masroufPrice")));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
     public void addToTable(){
         projectsTable.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects`");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `projectType`='مشروع قطاع صحي'");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractNumber")));
+                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber")));
             }
 
 
@@ -705,6 +850,9 @@ public class ProjectPage implements Initializable {
     private TableColumn<projectEmployeeForTable, String> projectNameEmployeeTable;
     @FXML
     private TableColumn<ProjectForTable, String> contractNumberTable;
+    @FXML
+    private TableColumn<ProjectForTable, String> contractNumberTable1;
+
 
     @FXML
     private ComboBox<String> areaNameEmployee;
@@ -717,29 +865,49 @@ public class ProjectPage implements Initializable {
 
     @FXML
     private ComboBox<String> occupationNameEmployee;
+    @FXML
+    private TableView<Masrouf2> masroufat2TableView;
+
+    @FXML
+    private TableColumn<Masrouf2, String> masroufatNameComboTable;
+
+    @FXML
+    private TableColumn<Masrouf2, String> masroufPriceTable;
 
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();
     ObservableList projectOccupationsTable= FXCollections.observableArrayList();
-
+    @FXML
+    private Button locatione;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
+        fillComboArea2();
         fillComboEmployee();
         fillProject();
         fillComboOccupation();
-        projectType.setItems(projectTypeList);
+        fillComboMasroufat();
 
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
-        projectTypeTable.setCellValueFactory(new PropertyValueFactory<>("projectType"));
         contactDurationTable.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
         contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
         contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
         contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
         contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
         projectTableView.setItems(projectsTable);
+        addToTableMilitaire();
+        areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+        locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("contractName"));
+        contactDurationTable1.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
+        contractPriceTable1.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
+        contractRestTable1.setCellValueFactory(new PropertyValueFactory<>("contractPriceRest"));
+        contractStartDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+        contractEndDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        contractNumberTable1.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+        projectTableView1.setItems(projectsTable2);
 
         addToTable2();
         employeeNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -748,6 +916,13 @@ public class ProjectPage implements Initializable {
         locationNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
         projectNameEmployeeTable.setCellValueFactory(new PropertyValueFactory<>("projectName"));
         projectEmployeeTableView.setItems(projectEmployeesTable);
+        addToTableMasrouf();
+        masroufNameTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
+        masroufNameTableView.setItems(masroufats);
+
+        masroufatNameComboTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
+        masroufPriceTable.setCellValueFactory(new PropertyValueFactory<>("masroufPrice"));
+        masroufat2TableView.setItems(masroufats2);
 
     }
 
@@ -774,7 +949,6 @@ public class ProjectPage implements Initializable {
     @FXML
     public void addEmployeeProject(ActionEvent actionEvent) {
         int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
-        System.out.println(index);
         idEmployee=employees.get(index).getId();
         try {
             con=new Controlers.ConnectDB().getConnection();
@@ -806,7 +980,8 @@ public class ProjectPage implements Initializable {
     public void getSelectItemTable(MouseEvent mouseEvent) {
         edit.setText("تعديل مشروع");
         int index= projectTableView.getSelectionModel().getSelectedIndex();
-        idProjectOccupation=projects.get(index).getIdProject();
+        idProject=projectTableView.getItems().get(index).getProjectId();
+        System.out.println(idProject);
         fillTableProjectOccupation();
 
         occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
@@ -895,7 +1070,7 @@ public class ProjectPage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `projects` WHERE projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractNumber")));
+                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
 
 
                 }
@@ -925,14 +1100,24 @@ public class ProjectPage implements Initializable {
     public void edit(ActionEvent actionEvent) {
         int index= projectTableView.getSelectionModel().getSelectedIndex();
         int idEdit=projectTableView.getItems().get(index).getProjectId();
-        int idArea=0,idLocation=0,idEmployee=0,idProject=0;
+
+
+        for (int i=0; i<areas.size() ;i++){
+            if (areas.get(i).getNameArea()==areaName.getValue()){
+                idArea=areas.get(i).getIdArea();
+            }
+        }
+        for (int i=0; i<locations.size() ;i++){
+            if (locations.get(i).getLocationName()==locationName.getValue()){
+                idLocation=locations.get(i).getIdLocation();
+            }
+        }
 
 
         if (edit.getText().contains("تعديل مشروع")){
             edit.setText("حفظ");
             areaName.setValue(projectTableView.getItems().get(index).getAreaName());
             locationName.setValue(projectTableView.getItems().get(index).getLocationName());
-            projectType.setValue(projectTableView.getItems().get(index).getProjectType());
             projectName.setText(projectTableView.getItems().get(index).getContractName());
             contractPrice.setText(projectTableView.getItems().get(index).getContractPrice());
             contactDuration.setText(String.valueOf(projectTableView.getItems().get(index).getContactDuration()));
@@ -940,27 +1125,20 @@ public class ProjectPage implements Initializable {
             contractEndDate.setValue(LocalDate.parse(projectTableView.getItems().get(index).getContractEndDate()));
             contactNumber.setText(projectTableView.getItems().get(index).getContractNumber());
 
+
         }else if (edit.getText().contains("حفظ")){
             try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
-                    }
-                }
-                for (int i=0; i<locations.size() ;i++){
-                    if (locations.get(i).getLocationName()==locationName.getValue()){
-                        idLocation=locations.get(i).getIdLocation();
-                    }
-                }
+
 
                 con = new Controlers.ConnectDB().getConnection();
                 pst = con.prepareStatement("UPDATE `projects` SET `areaId`=?,`locationId`=?," +
                         "`projectType`=?,`contractName`=?,`contractPrice`=?,`contactDuration`=?" +
                         ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=? WHERE `id`=?");
+                System.out.println(idEdit+" "+idArea);
 
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
-                pst.setString(3,projectType.getValue());
+                pst.setString(3,"مشروع قطاع صحي");
                 pst.setString(4,projectName.getText());
                 pst.setFloat(5, Float.parseFloat(contractPrice.getText()));
                 pst.setInt(6, Integer.parseInt(contactDuration.getText()));
@@ -971,7 +1149,6 @@ public class ProjectPage implements Initializable {
 
                 pst.execute();
                 edit.setText("تعديل مشروع");
-                projectType.setPromptText("نوع المشروع");
                 projectName.clear();
                 contractPrice.clear();
                 contactDuration.clear();
@@ -981,6 +1158,7 @@ public class ProjectPage implements Initializable {
                 locationName.setPromptText(" الموقع");
                 areaName.setPromptText("المنطقة");
                 fillComboArea();
+                fillComboArea2();
 
 
 
@@ -993,5 +1171,333 @@ public class ProjectPage implements Initializable {
 
 
     }
+    @FXML
+    private TableView<Masrouf> masroufNameTableView;
 
+    @FXML
+    private TableColumn<Masrouf, String> masroufNameTable;
+
+    @FXML
+    private TextField searchMasrouf;
+
+    @FXML
+    private TextField masroufName;
+
+    public void addMasrouf(ActionEvent actionEvent) {
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `masroufat`(`masroufName`) VALUES (?)");
+            pst.setString(1,masroufName.getText());
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTableMasrouf();
+    }
+
+    public void deleteRowMasrouf(ActionEvent actionEvent) {
+        int index= masroufNameTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=masroufNameTableView.getItems().get(index).getIdMasrouf();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `masroufat` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTableMasrouf();
+        }
+    }
+
+    @FXML
+    public void searchMasrouf(KeyEvent keyEvent) {
+        String key=searchMasrouf.getText().trim();
+        if (key.isEmpty()){
+            addToTableMasrouf();
+            masroufNameTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
+            masroufNameTableView.setItems(masroufats);
+        }else{
+            masroufats.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `masroufat` WHERE `masroufName` LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
+                }
+                masroufNameTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
+                masroufNameTableView.setItems(masroufats);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+    @FXML
+    private TextField projectName1;
+
+    @FXML
+    private ComboBox<String> areaName1;
+
+    @FXML
+    private ComboBox<String> locationName1;
+
+    @FXML
+    private TextField contactDuration1;
+
+    @FXML
+    private TextField contractPrice1;
+
+    @FXML
+    private TextField contactNumber1;
+
+    @FXML
+    private DatePicker contractStartDate1;
+
+    @FXML
+    private DatePicker contractEndDate1;
+    @FXML
+    public void addProject2(ActionEvent actionEvent) {
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `projects`(`areaId`, `locationId`, `projectType`, `contractName`, `contractPrice`," +
+                    " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`) VALUES (?,?,?,?,?,?,?,?,?)");
+            pst.setInt(1,idArea2);
+            pst.setInt(2,idLocation2);
+            pst.setString(3,"مشروع قطاع عسكري");
+            pst.setString(4,projectName1.getText());
+            pst.setFloat(5, Float.parseFloat(contractPrice1.getText()));
+            pst.setInt(6, Integer.parseInt(contactDuration1.getText()));
+            pst.setString(7, String.valueOf(contractStartDate1.getValue()));
+            pst.setString(8, String.valueOf(contractEndDate1.getValue()));
+            pst.setString(9, contactNumber1.getText());
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        addToTableMilitaire();
+    }
+    public void addToTableMilitaire(){
+        projectsTable2.clear();
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `projectType`='مشروع قطاع عسكري'");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+            }
+
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public String calculerRest(int id){
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs;
+        String result = null,somme=null,prixCont=null;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT SUM(`masroufPrice`) AS SOMME FROM `projectmasroufate` WHERE `projectId`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                somme= String.valueOf(rs.getFloat("SOMME"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT `contractPrice` FROM `projects` WHERE `id`=?");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                prixCont= rs.getString("contractPrice");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+
+        }
+        return String.valueOf(Float.parseFloat(prixCont)-Float.parseFloat(somme));
+
+    }
+    public void deleteRowMilitaire(ActionEvent actionEvent) {
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=projectTableView1.getItems().get(index).getProjectId();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projects` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTableMilitaire();
+        }
+    }
+
+
+
+    public void addMasroufe(ActionEvent actionEvent) {
+
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("INSERT INTO `projectmasroufate`( `projectId`, `masroufName`, `masroufPrice`) VALUES (?,?,?)");
+            pst.setInt(1,idProject);
+            pst.setString(2,masroufatNameCombo.getValue());
+            pst.setString(3,masroufPrice.getText());
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        fillTableMasroufate2();
+        addToTableMilitaire();
+    }
+    @FXML
+    private Button edit1;
+    public void edit1(ActionEvent actionEvent) {
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        int idEdit=projectTableView1.getItems().get(index).getProjectId();
+
+
+        for (int i=0; i<areas.size() ;i++){
+            if (areas.get(i).getNameArea()==areaName1.getValue()){
+                idArea=areas.get(i).getIdArea();
+            }
+        }
+        for (int i=0; i<locations.size() ;i++){
+            if (locations.get(i).getLocationName()==locationName1.getValue()){
+                idLocation=locations.get(i).getIdLocation();
+            }
+        }
+
+
+        if (edit1.getText().contains("تعديل مشروع")){
+            edit1.setText("حفظ");
+            areaName1.setValue(projectTableView1.getItems().get(index).getAreaName());
+            locationName1.setValue(projectTableView1.getItems().get(index).getLocationName());
+            projectName1.setText(projectTableView1.getItems().get(index).getContractName());
+            contractPrice1.setText(projectTableView1.getItems().get(index).getContractPrice());
+            contactDuration1.setText(String.valueOf(projectTableView1.getItems().get(index).getContactDuration()));
+            contractStartDate1.setValue(LocalDate.parse(projectTableView1.getItems().get(index).getContractStartDate()));
+            contractEndDate1.setValue(LocalDate.parse(projectTableView1.getItems().get(index).getContractEndDate()));
+            contactNumber1.setText(projectTableView1.getItems().get(index).getContractNumber());
+
+
+        }else if (edit1.getText().contains("حفظ")){
+            try {
+
+
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `areaId`=?,`locationId`=?," +
+                        "`projectType`=?,`contractName`=?,`contractPrice`=?,`contactDuration`=?" +
+                        ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=? WHERE `id`=?");
+
+                pst.setInt(1,idArea2);
+                pst.setInt(2,idLocation2);
+                pst.setString(3,"مشروع قطاع عسكري");
+                pst.setString(4,projectName1.getText());
+                pst.setFloat(5, Float.parseFloat(contractPrice1.getText()));
+                pst.setInt(6, Integer.parseInt(contactDuration1.getText()));
+                pst.setString(7, String.valueOf(contractStartDate1.getValue()));
+                pst.setString(8, String.valueOf(contractEndDate1.getValue()));
+                pst.setString(9, contactNumber1.getText());
+                pst.setInt(10, idEdit);
+
+                pst.execute();
+                edit1.setText("تعديل مشروع");
+                projectName1.clear();
+                contractPrice1.clear();
+                contactDuration1.clear();
+                contractStartDate1.getEditor().clear();
+                contractEndDate1.getEditor().clear();
+                contactNumber1.clear();
+                locationName1.setPromptText(" الموقع");
+                areaName1.setPromptText("المنطقة");
+                fillComboArea2();
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTableMilitaire();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    public void getSelectItemTable2(MouseEvent mouseEvent) {
+        edit1.setText("تعديل مشروع");
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView1.getItems().get(index).getProjectId();
+        System.out.println(idProject);
+        fillTableMasroufate2();
+
+        masroufatNameComboTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
+        masroufPriceTable.setCellValueFactory(new PropertyValueFactory<>("masroufPrice"));
+        masroufat2TableView.setItems(masroufats2);
+    }
+    public void fillTableMasroufate2(){
+        masroufats2.clear();
+        masroufat2TableView.getItems().clear();
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView1.getItems().get(index).getProjectId();
+        try {
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectmasroufate` WHERE `projectId`=?");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                masroufats2.add(new Masrouf2(rs.getInt("id"),rs.getInt("projectId"),rs.getString("masroufName"),rs.getFloat("masroufPrice")));
+
+            }
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+    public void deleteMasroufate2(ActionEvent actionEvent) {
+        int index= masroufat2TableView.getSelectionModel().getSelectedIndex();
+        int idDelete=masroufat2TableView.getItems().get(index).getIdMasrouf();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projectmasroufate` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            idDelete=0;
+            addToTableMilitaire();
+
+            fillTableMasroufate2();
+        }
+    }
 }
