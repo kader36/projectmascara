@@ -4,7 +4,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -57,9 +56,9 @@
                                           <Button layoutX="577.0" layoutY="185.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخدم" />
                                           <TextField fx:id="username" layoutX="298.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
                                           <TextField fx:id="employeeNumber" layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
-                                          <PasswordField fx:id="password" layoutX="569.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة المرور" />
                                           <ComboBox fx:id="privilegeName" layoutX="31.0" layoutY="68.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
                                           <Button fx:id="edit" layoutX="319.0" layoutY="185.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخدم" />
+                                          <TextField fx:id="password" layoutX="567.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة السر" />
                                        </children>
                                     </AnchorPane>
                               </content>

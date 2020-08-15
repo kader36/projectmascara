@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import javax.print.DocFlavor;
+import javax.swing.*;
 import java.awt.*;
 
 import java.net.URL;
@@ -31,6 +32,7 @@ public class MainPage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,11 +56,11 @@ public class MainPage implements Initializable {
                 size++;
             }
             if (size>0){
-                erreur.setVisible(true);
+                erreur.setVisible(false);
 
                 try {
 
-                    Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
                     Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
                     primaryStage.setTitle("المناطق");
                     primaryStage.setX(10);

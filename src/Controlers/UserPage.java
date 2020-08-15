@@ -54,7 +54,7 @@ public class UserPage implements Initializable {
     @FXML
     private ComboBox<String> privilegeName;
     @FXML
-    private PasswordField password;
+    private TextField password;
 
 
     public void fillComboArea(){

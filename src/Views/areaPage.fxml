@@ -57,7 +57,7 @@
                               <Image url="@../imgs/login-logo.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="63.0" layoutY="134.0" style="-fx-background-color: #9351F9;" text="Username" textFill="WHITE">
+                        <Label fx:id="usernameMenu" layoutX="63.0" layoutY="134.0" style="-fx-background-color: #9351F9;" text="Username" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>

@@ -11,31 +11,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.InputMethodEvent;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
-
-import static Controlers.ConnectDB.getConnection;
 
 public class AreaPage implements Initializable {
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
+        MainPage mainPage=new MainPage();
+    @FXML
+    private Label usernameMenu;
+
 
     @FXML
     private TableView<AreaForTable> areaTableView;
@@ -63,6 +59,8 @@ public class AreaPage implements Initializable {
     ObservableList areasTable= FXCollections.observableArrayList();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        usernameMenu.setText("#"+mainPage.getUserNameConnected());
+
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
         areaTableView.setItems(areasTable);
