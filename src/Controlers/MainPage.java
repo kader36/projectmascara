@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -51,8 +52,14 @@ public class MainPage implements Initializable {
             pst.setString(1,usernamee.getText());
             pst.setString(2,password.getText());
             rs=pst.executeQuery();
+            int id = 0;
             int size=0;
             while(rs.next()){
+                id = rs.getInt("id");
+//                id mena nedih rs.getInt("id")
+
+//                AreaPage Controller = new AreaPage();
+//                Controller.Init(,rs.getString("username"),rs.getString("employeeName"));
                 size++;
             }
             if (size>0){
@@ -60,8 +67,12 @@ public class MainPage implements Initializable {
 
                 try {
 
-                    Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+                    AnchorPane root = loader.load();
+                    AreaPage controller = loader.getController();
+                    controller.Init(id);
                     Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+
                     primaryStage.setTitle("المناطق");
                     primaryStage.setX(10);
                     primaryStage.setY(20);

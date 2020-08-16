@@ -41,6 +41,13 @@ public class AreaPage implements Initializable {
     @FXML
     private TextField areaName;
 
+    private  int id;
+
+    public void Init(int id){
+        this.id = id;
+        usernameMenu.setText("#"+id);
+    }
+
 
     @FXML
     void addArea(ActionEvent event) {
@@ -59,7 +66,7 @@ public class AreaPage implements Initializable {
     ObservableList areasTable= FXCollections.observableArrayList();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        usernameMenu.setText("#"+mainPage.getUserNameConnected());
+
 
         addToTable();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
