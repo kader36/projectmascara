@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.UserPage">
+<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.UserPage">
    <children>
       <VBox prefHeight="603.0" prefWidth="1325.0">
          <children>
@@ -35,7 +35,7 @@
                                           <TextField fx:id="employeeName" layoutX="31.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الموظف" />
                                           <TextField fx:id="email" layoutX="298.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="البريد الإلكتروني" />
                                           <TextField fx:id="phoneNumber" layoutX="568.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الجوال" />
-                                          <Button layoutX="57.0" layoutY="185.0" mnemonicParsing="false" onAction="#addUser" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
+                                          <Button fx:id="userAddPrivilege" layoutX="57.0" layoutY="185.0" mnemonicParsing="false" onAction="#addUser" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخدم" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="185.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="userTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="239.0" onMouseClicked="#idReset" prefHeight="314.0" prefWidth="1019.0">
                                             <columns>
@@ -53,11 +53,11 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button layoutX="577.0" layoutY="185.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخدم" />
+                                          <Button fx:id="userDeletePrivilege" layoutX="577.0" layoutY="185.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخدم" />
                                           <TextField fx:id="username" layoutX="298.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المستخدم" />
                                           <TextField fx:id="employeeNumber" layoutX="839.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="الرقم الوظيفي" />
                                           <ComboBox fx:id="privilegeName" layoutX="31.0" layoutY="68.0" onAction="#selectPrivileges" prefHeight="35.0" prefWidth="240.0" promptText="الصلاحيات" />
-                                          <Button fx:id="edit" layoutX="319.0" layoutY="185.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخدم" />
+                                          <Button fx:id="userEditPrivilege" layoutX="319.0" layoutY="185.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخدم" />
                                           <TextField fx:id="password" layoutX="567.0" layoutY="22.0" prefHeight="35.0" prefWidth="240.0" promptText="كلمة السر" />
                                        </children>
                                     </AnchorPane>
@@ -67,7 +67,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <Button layoutX="330.0" layoutY="14.0" mnemonicParsing="false" onAction="#addPriv" prefHeight="37.0" prefWidth="244.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة الصلاحية" />
+                                          <Button fx:id="userAddPrivilege1" layoutX="330.0" layoutY="14.0" mnemonicParsing="false" onAction="#addPriv" prefHeight="37.0" prefWidth="244.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة الصلاحية" />
                                           <TextField fx:id="privilegeNamee" layoutX="29.0" layoutY="14.0" prefHeight="37.0" prefWidth="241.0" promptText="إسم الصلاحية" />
                                           <Label layoutX="29.0" layoutY="72.0" style="-fx-text-fill: #9351F9;" text="المناطق">
                                              <font>
@@ -81,12 +81,12 @@
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="26.0" layoutY="241.0" style="-fx-text-fill: #9351F9;" text="المشاريع">
+                                          <Label layoutX="22.0" layoutY="328.0" style="-fx-text-fill: #9351F9;" text="المشاريع">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <Label layoutX="23.0" layoutY="328.0" style="-fx-text-fill: #9351F9;" text="الضمانات">
+                                          <Label layoutX="23.0" layoutY="242.0" style="-fx-text-fill: #9351F9;" text="الضمانات">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -114,7 +114,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                           </Label>
-                                          <Separator layoutX="382.0" layoutY="403.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Separator layoutX="382.0" layoutY="428.0" prefHeight="4.0" prefWidth="314.0" />
                                           <Label layoutX="771.0" layoutY="73.0" style="-fx-text-fill: #9351F9;" text="الغرامات">
                                              <font>
                                                 <Font size="16.0" />
@@ -134,19 +134,19 @@
                                           </Label>
                                           <CheckBox fx:id="res" layoutX="768.0" layoutY="281.0" mnemonicParsing="false" text="معاينة" />
                                           <Separator layoutX="753.0" layoutY="317.0" prefHeight="4.0" prefWidth="314.0" />
-                                          <TableView fx:id="privilegesTableView" layoutX="157.0" layoutY="418.0" onMouseClicked="#idReset2" prefHeight="141.0" prefWidth="809.0">
+                                          <TableView fx:id="privilegesTableView" layoutX="157.0" layoutY="443.0" onMouseClicked="#idReset2" prefHeight="116.0" prefWidth="809.0">
                                             <columns>
                                               <TableColumn fx:id="privilegeNameeTable" prefWidth="808.0" text="إسم الصلاحية" />
                                             </columns>
                                           </TableView>
-                                          <Button fx:id="edit2" layoutX="591.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit2" prefHeight="37.0" prefWidth="244.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل الصلاحية" />
-                                          <Button layoutX="856.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="37.0" prefWidth="244.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف الصلاحية" />
+                                          <Button fx:id="userEditPrivilege1" layoutX="591.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit2" prefHeight="37.0" prefWidth="244.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل الصلاحية" />
+                                          <Button fx:id="userDeletePrivilege1" layoutX="856.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="37.0" prefWidth="244.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف الصلاحية" />
                                           <CheckBox fx:id="losa" layoutX="29.0" layoutY="200.0" mnemonicParsing="false" text="معاينة و إظافة" />
                                           <CheckBox fx:id="lode" layoutX="150.0" layoutY="200.0" mnemonicParsing="false" text="حذف و تعديل" />
-                                          <CheckBox fx:id="prsa" layoutX="29.0" layoutY="282.0" mnemonicParsing="false" text="معاينة و إظافة" />
-                                          <CheckBox fx:id="prde" layoutX="150.0" layoutY="282.0" mnemonicParsing="false" text="حذف و تعديل" />
-                                          <CheckBox fx:id="grsa" layoutX="29.0" layoutY="369.0" mnemonicParsing="false" text="معاينة و إظافة" />
-                                          <CheckBox fx:id="grde" layoutX="150.0" layoutY="369.0" mnemonicParsing="false" text="حذف و تعديل" />
+                                          <CheckBox fx:id="prsa" layoutX="25.0" layoutY="369.0" mnemonicParsing="false" text="معاينة و إظافة" />
+                                          <CheckBox fx:id="prde" layoutX="146.0" layoutY="369.0" mnemonicParsing="false" text="حذف و تعديل" />
+                                          <CheckBox fx:id="grsa" layoutX="29.0" layoutY="283.0" mnemonicParsing="false" text="معاينة و إظافة" />
+                                          <CheckBox fx:id="grde" layoutX="150.0" layoutY="283.0" mnemonicParsing="false" text="حذف و تعديل" />
                                           <CheckBox fx:id="ocsa" layoutX="399.0" layoutY="111.0" mnemonicParsing="false" text="معاينة و إظافة" />
                                           <CheckBox fx:id="ocde" layoutX="520.0" layoutY="111.0" mnemonicParsing="false" text="حذف و تعديل" />
                                           <CheckBox fx:id="emsa" layoutX="399.0" layoutY="200.0" mnemonicParsing="false" text="معاينة و إظافة" />
@@ -161,8 +161,10 @@
                                           <CheckBox fx:id="usde" layoutX="888.0" layoutY="201.0" mnemonicParsing="false" text="حذف و تعديل" />
                                           <Separator layoutX="19.0" layoutY="147.0" prefHeight="4.0" prefWidth="314.0" />
                                           <Separator layoutX="16.0" layoutY="234.0" prefHeight="4.0" prefWidth="314.0" />
-                                          <Separator layoutX="16.0" layoutY="316.0" prefHeight="4.0" prefWidth="314.0" />
-                                          <Separator layoutX="13.0" layoutY="403.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Separator layoutX="12.0" layoutY="428.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <Separator layoutX="13.0" layoutY="317.0" prefHeight="4.0" prefWidth="314.0" />
+                                          <CheckBox fx:id="prsa1" layoutX="25.0" layoutY="395.0" mnemonicParsing="false" text="نقل موظف" />
+                                          <CheckBox fx:id="prde1" layoutX="146.0" layoutY="395.0" mnemonicParsing="false" text="إستبعاد موظف" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
@@ -177,64 +179,64 @@
                               <Image url="@../imgs/login-logo.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="53.0" layoutY="135.0" style="-fx-background-color: #9351F9;" text="\@Username" textFill="WHITE">
+                        <Label fx:id="usernameMenu" alignment="CENTER" layoutX="1.0" layoutY="135.0" prefHeight="30.0" prefWidth="216.0" style="-fx-background-color: #9351F9;" text="Username" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <VBox layoutX="1.0" layoutY="183.0" prefHeight="412.0" prefWidth="216.0">
                            <children>
-                              <Button id="a" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
+                              <Button id="a" fx:id="areaMenuButton" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
+                              <Button fx:id="locationMenuButton" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
+                              <Button fx:id="projectMenuButton" mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
+                              <Button fx:id="garanteeMenuButton" mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
+                              <Button fx:id="occupationMenuButton" mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
+                              <Button fx:id="employeeMenuButton" mnemonicParsing="false" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
+                              <Button fx:id="abstractMenuButton" mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                              <Button fx:id="deductionMenuButton" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                              <Button fx:id="penaltyMenuButton" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
+                              <Button fx:id="userMenuButton" mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                              <Button fx:id="repportMenuButton" mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

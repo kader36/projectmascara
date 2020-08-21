@@ -1,10 +1,10 @@
 package Controlers;
 
 public class PrivilegeForTable {
-    private int idPrivilege,arsa,arde,losa,lode,prsa,prde,grsa,grde,ocsa,ocde,emsa,emde,absa,abde,desa,dede,pesa,pede,ussa,usde,res;
+    private int idPrivilege,arsa,arde,losa,lode,prsa,prde,prsa1,prde1,grsa,grde,ocsa,ocde,emsa,emde,absa,abde,desa,dede,pesa,pede,ussa,usde,res;
     private String privilegeNamee;
 
-    public PrivilegeForTable(int idPrivilege, int arsa, int arde, int losa, int lode, int prsa, int prde, int grsa, int grde, int ocsa, int ocde, int emsa, int emde, int absa, int abde, int desa, int dede, int pesa, int pede, int ussa, int usde, int res, String privilegeNamee) {
+    public PrivilegeForTable(int idPrivilege, int arsa, int arde, int losa, int lode, int prsa, int prde, int prsa1, int prde1, int grsa, int grde, int ocsa, int ocde, int emsa, int emde, int absa, int abde, int desa, int dede, int pesa, int pede, int ussa, int usde, int res, String privilegeNamee) {
         this.idPrivilege = idPrivilege;
         this.arsa = arsa;
         this.arde = arde;
@@ -12,6 +12,8 @@ public class PrivilegeForTable {
         this.lode = lode;
         this.prsa = prsa;
         this.prde = prde;
+        this.prsa1 = prsa1;
+        this.prde1 = prde1;
         this.grsa = grsa;
         this.grde = grde;
         this.ocsa = ocsa;
@@ -56,6 +58,14 @@ public class PrivilegeForTable {
 
     public int getPrde() {
         return prde;
+    }
+
+    public int getPrsa1() {
+        return prsa1;
+    }
+
+    public int getPrde1() {
+        return prde1;
     }
 
     public int getGrsa() {

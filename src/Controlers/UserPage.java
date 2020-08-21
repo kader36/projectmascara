@@ -13,9 +13,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sun.security.provider.MD5;
 
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -83,7 +87,7 @@ public class UserPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
 
@@ -117,10 +121,254 @@ public class UserPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
+
+    @FXML
+    private Label usernameMenu;
+    @FXML
+    private Button areaMenuButton;//c bn
+
+    @FXML
+    private Button locationMenuButton; //c bn
+
+    @FXML
+    private Button projectMenuButton;//mazel
+
+    @FXML
+    private Button garanteeMenuButton;// cbn
+
+    @FXML
+    private Button occupationMenuButton;// c bn
+
+    @FXML
+    private Button employeeMenuButton;// cbn
+
+    @FXML
+    private Button abstractMenuButton;// c bn
+
+    @FXML
+    private Button deductionMenuButton;// c bn
+
+    @FXML
+    private Button penaltyMenuButton;// c bn
+
+    @FXML
+    private Button userMenuButton;// c bn
+
+    @FXML
+    private Button repportMenuButton;//c bn
+
+    @FXML
+    private Button areaDeletePrivilege;
+    @FXML
+    private Button areaAddPrivilege;
+    @FXML
+    private Button areaEditPrivilege;
+
+    @FXML
+    private Button locationDeletePrivilege;
+    @FXML
+    private Button locationAddPrivilege;
+    @FXML
+    private Button locationEditPrivilege;
+
+    @FXML
+    private Button garanteeEditPrivilege;
+    @FXML
+    private Button garanteeAddPrivilege;
+    @FXML
+    private Button garanteeDeletePrivilege;
+    @FXML
+    private Button garanteeAddPrivilege1;
+    @FXML
+    private Button garanteeDeletePrivilege1;
+
+    @FXML
+    private Button occupationDeletePrivilege;
+    @FXML
+    private Button occupationAddPrivilege;
+    @FXML
+    private Button occupationEditPrivilege;
+
+    @FXML
+    private Button employeeDeletePrivilege;
+    @FXML
+    private Button employeeAddPrivilege;
+    @FXML
+    private Button employeeEditPrivilege;
+
+    @FXML
+    private Button abstractDeletePrivilege;
+    @FXML
+    private Button abstractAddPrivilege;
+    @FXML
+    private Button abstractDeletePrivilege1;
+    @FXML
+    private Button abstractAddPrivilege1;
+    @FXML
+    private Button abstractEditPrivilege;
+
+    @FXML
+    private Button deductionDeletePrivilege;
+    @FXML
+    private Button deductionAddPrivilege;
+    @FXML
+    private Button deductionDeletePrivilege1;
+    @FXML
+    private Button deductionAddPrivilege1;
+    @FXML
+    private Button deductionEditPrivilege;
+
+    @FXML
+    private Button penaltyDeletePrivilege;
+    @FXML
+    private Button penaltyAddPrivilege;
+    @FXML
+    private Button penaltyEditPrivilege;
+
+    @FXML
+    private Button userDeletePrivilege;
+    @FXML
+    private Button userAddPrivilege;
+    @FXML
+    private Button userDeletePrivilege1;
+    @FXML
+    private Button userAddPrivilege1;
+    @FXML
+    private Button userEditPrivilege;
+    @FXML
+    private Button userEditPrivilege1;
+
+
+    int idConnected=0;
+    String usernameConnected="";
+    String employeeNameConnected="";
+    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
+        this.idConnected = idConnected;
+        this.usernameConnected = usernameConnected;
+        this.employeeNameConnected = employeeNameConnected;
+        usernameMenu.setText("#"+employeeNameConnected);
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
+            pst.setInt(1,idConnected);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("arsa")==0){
+                    areaMenuButton.setDisable(true);
+                }else{
+                    areaMenuButton.setDisable(false);
+                }
+
+                if (rs.getInt("losa")==0){
+                    locationMenuButton.setDisable(true);
+
+                }else{
+                    locationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("prsa")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("grsa")==0){
+                    garanteeMenuButton.setDisable(true);
+
+                }else{
+                    garanteeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ocsa")==0){
+                    occupationMenuButton.setDisable(true);
+
+                }else{
+                    occupationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("emsa")==0){
+                    employeeMenuButton.setDisable(true);
+
+                }else{
+                    employeeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("absa")==0){
+                    abstractMenuButton.setDisable(true);
+
+                }else{
+                    abstractMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("desa")==0){
+                    deductionMenuButton.setDisable(true);
+
+                }else{
+                    deductionMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("pesa")==0){
+                    penaltyMenuButton.setDisable(true);
+
+                }else{
+                    penaltyMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ussa")==0){
+                    userMenuButton.setDisable(true);
+                    userAddPrivilege.setDisable(true);
+                    userAddPrivilege1.setDisable(true);
+
+                }else{
+                    userMenuButton.setDisable(false);
+                    userAddPrivilege.setDisable(false);
+                    userAddPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("usde")==0){
+                    userDeletePrivilege.setDisable(true);
+                    userDeletePrivilege1.setDisable(true);
+                    userEditPrivilege.setDisable(true);
+                    userEditPrivilege1.setDisable(true);
+
+                }else{
+                    userDeletePrivilege.setDisable(false);
+                    userDeletePrivilege1.setDisable(false);
+                    userEditPrivilege.setDisable(false);
+                    userEditPrivilege1.setDisable(false);
+
+                }
+
+                if (rs.getInt("res")==0){
+                    repportMenuButton.setDisable(true);
+
+                }else{
+                    repportMenuButton.setDisable(false);
+
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public void areas(javafx.event.ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+            AnchorPane root = loader.load();
+            AreaPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المناطق");
             primaryStage.setScene(new Scene(root));
@@ -135,9 +383,12 @@ public class UserPage implements Initializable {
     public void locations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/locationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/locationPage.fxml"));
+            AnchorPane root = loader.load();
+            LocationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المواقع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -149,9 +400,12 @@ public class UserPage implements Initializable {
     public void projects(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -163,9 +417,12 @@ public class UserPage implements Initializable {
     public void garantees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/garanteePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePage.fxml"));
+            AnchorPane root = loader.load();
+            GaranteePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الضمانات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -177,9 +434,12 @@ public class UserPage implements Initializable {
     public void occupations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/occupationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/occupationPage.fxml"));
+            AnchorPane root = loader.load();
+            OccupationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الوظائق");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -191,9 +451,12 @@ public class UserPage implements Initializable {
     public void employees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/employeePage.fxml"));
+            AnchorPane root = loader.load();
+            EmployeePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الموظفين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -205,9 +468,12 @@ public class UserPage implements Initializable {
     public void users(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/userPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/userPage.fxml"));
+            AnchorPane root = loader.load();
+            UserPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("إدارة المستخدمين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -218,35 +484,12 @@ public class UserPage implements Initializable {
     public void penalties(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/penaltyPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/penaltyPage.fxml"));
+            AnchorPane root = loader.load();
+            PenaltyPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void abstracts(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/abstractPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void deduction(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/deductionPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الغرامات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -257,9 +500,44 @@ public class UserPage implements Initializable {
     public void report(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/repportPage.fxml"));
+            AnchorPane root = loader.load();
+            RepportPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("التقارير");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void abstracts(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/abstractPage.fxml"));
+            AnchorPane root = loader.load();
+            AbstractPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المستخلصات");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void deduction(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/deductionPage.fxml"));
+            AnchorPane root = loader.load();
+            DeductionPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("الإستقطاعات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -270,9 +548,12 @@ public class UserPage implements Initializable {
     public void login(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -300,7 +581,25 @@ public class UserPage implements Initializable {
         int index = privilegeName.getSelectionModel().getSelectedIndex();
         privilegesId = privileges.get(index).getIdPrivilege();
     }
+    public String hashString(String s) throws NoSuchAlgorithmException {
+        byte[] hash = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            hash = md.digest(s.getBytes());
 
+        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hash.length; ++i) {
+            String hex = Integer.toHexString(hash[i]);
+            if (hex.length() == 1) {
+                sb.append(0);
+                sb.append(hex.charAt(hex.length() - 1));
+            } else {
+                sb.append(hex.substring(hex.length() - 2));
+            }
+        }
+        return sb.toString();
+    }
     public void addUser(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
@@ -308,14 +607,14 @@ public class UserPage implements Initializable {
                     " `phoneNumber`, `employeeNumber`, `privilegesId`) VALUES (?,?,?,?,?,?,?)");
             pst.setString(1,employeeName.getText());
             pst.setString(2,username.getText());
-            pst.setString(3,password.getText());
+            pst.setString(3, hashString(password.getText()));
             pst.setString(4,email.getText());
             pst.setString(5,phoneNumber.getText());
             pst.setString(6,employeeNumber.getText());
             pst.setInt(7,privilegesId);
             pst.execute();
 
-        } catch (SQLException throwables) {
+        } catch (SQLException | NoSuchAlgorithmException throwables) {
             throwables.printStackTrace();
         }
         addToTable();
@@ -397,7 +696,7 @@ public class UserPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
 
@@ -539,47 +838,81 @@ public class UserPage implements Initializable {
         int idArea=0,idLocation=0;
 
 
-        if (edit.getText().contains("تعديل مستخدم")){
-            edit.setText("حفظ");
+        if (userEditPrivilege.getText().contains("تعديل مستخدم")){
+            userEditPrivilege.setText("حفظ");
             privilegeName.setValue(userTableView.getItems().get(index).getPrivilegeName());
             employeeName.setText(userTableView.getItems().get(index).getEmployeeName());
             username.setText(userTableView.getItems().get(index).getUsername());
-            password.setText(userTableView.getItems().get(index).getPassword());
+            password.setText("");
             email.setText(userTableView.getItems().get(index).getEmail());
             phoneNumber.setText(userTableView.getItems().get(index).getPhoneNumber());
             employeeNumber.setText(userTableView.getItems().get(index).getEmployeeNumber());
-        }else if (edit.getText().contains("حفظ")){
-            try {
+        }else if (userEditPrivilege.getText().contains("حفظ")){
+            if (!password.getText().isEmpty()){
+                try {
 
-                for (int i=0; i<privileges.size() ;i++){
-                    if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
-                        privilegesId=privileges.get(i).getIdPrivilege();
+                    for (int i=0; i<privileges.size() ;i++){
+                        if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
+                            privilegesId=privileges.get(i).getIdPrivilege();
+                        }
                     }
+
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                    pst.setString(1, employeeName.getText());
+                    pst.setString(2, username.getText());
+                    pst.setString(3, hashString(password.getText()));
+                    pst.setString(4, email.getText());
+                    pst.setString(5, phoneNumber.getText());
+                    pst.setString(6, employeeNumber.getText());
+                    pst.setInt(7,privilegesId );
+                    pst.setInt(8, idEdit);
+                    pst.execute();
+                    userEditPrivilege.setText("تعديل مستخدم");
+                    employeeName.clear();
+                    password.clear();
+                    email.clear();
+                    phoneNumber.clear();
+                    employeeNumber.clear();
+                    username.clear();
+
+
+
+                } catch (SQLException | NoSuchAlgorithmException throwables) {
+                    throwables.printStackTrace();
                 }
+            }else{
+                try {
 
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
-                pst.setString(1, employeeName.getText());
-                pst.setString(2, username.getText());
-                pst.setString(3, password.getText());
-                pst.setString(4, email.getText());
-                pst.setString(5, phoneNumber.getText());
-                pst.setString(6, employeeNumber.getText());
-                pst.setInt(7,privilegesId );
-                pst.setInt(8, idEdit);
-                pst.execute();
-                edit.setText("تعديل مستخدم");
-                employeeName.clear();
-                password.clear();
-                email.clear();
-                phoneNumber.clear();
-                employeeNumber.clear();
-                username.clear();
+                    for (int i=0; i<privileges.size() ;i++){
+                        if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
+                            privilegesId=privileges.get(i).getIdPrivilege();
+                        }
+                    }
+
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                    pst.setString(1, employeeName.getText());
+                    pst.setString(2, username.getText());
+                    pst.setString(3, email.getText());
+                    pst.setString(4, phoneNumber.getText());
+                    pst.setString(5, employeeNumber.getText());
+                    pst.setInt(6,privilegesId );
+                    pst.setInt(7, idEdit);
+                    pst.execute();
+                    userEditPrivilege.setText("تعديل مستخدم");
+                    employeeName.clear();
+                    password.clear();
+                    email.clear();
+                    phoneNumber.clear();
+                    employeeNumber.clear();
+                    username.clear();
 
 
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
             addToTable();
             idEdit=0;
@@ -589,7 +922,7 @@ public class UserPage implements Initializable {
     }
     @FXML
     void idReset(MouseEvent event) {
-        edit.setText("تعديل مستخدم");
+        userEditPrivilege.setText("تعديل مستخدم");
     }
     @FXML
     private TextField privilegeNamee;
@@ -613,6 +946,12 @@ public class UserPage implements Initializable {
 
     @FXML
     private CheckBox prde;
+
+    @FXML
+    private CheckBox prsa1;
+
+    @FXML
+    private CheckBox prde1;
 
     @FXML
     private CheckBox grsa;
@@ -659,7 +998,7 @@ public class UserPage implements Initializable {
     @FXML
     void addPriv(ActionEvent event) {
 
-        int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+        int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
 
         if (arsa.isSelected()){
             arsai=1;
@@ -679,6 +1018,12 @@ public class UserPage implements Initializable {
         }
         if (prde.isSelected()){
             prdei=1;
+        }
+        if (prsa1.isSelected()){
+            prsai1=1;
+        }
+        if (prde1.isSelected()){
+            prdei1=1;
         }
         if (grsa.isSelected()){
             grsai=1;
@@ -731,8 +1076,8 @@ public class UserPage implements Initializable {
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arsa`, `arde`, `losa`, `lode`, " +
-                    "`prsa`, `prde`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
-                    " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    "`prsa`, `prde`,`prsa1`, `prde1`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
+                    " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1,privilegeNamee.getText());
             pst.setInt(2,arsai);
             pst.setInt(3,ardei);
@@ -740,21 +1085,23 @@ public class UserPage implements Initializable {
             pst.setInt(5,lodei);
             pst.setInt(6,prsai);
             pst.setInt(7,prdei);
-            pst.setInt(8,grsai);
-            pst.setInt(9,grdei);
-            pst.setInt(10,ocsai);
-            pst.setInt(11,ocdei);
-            pst.setInt(12,emsai);
-            pst.setInt(13,emdei);
-            pst.setInt(14,absai);
-            pst.setInt(15,abdei);
-            pst.setInt(16,desai);
-            pst.setInt(17,dedei);
-            pst.setInt(18,pesai);
-            pst.setInt(19,pedei);
-            pst.setInt(20,ussai);
-            pst.setInt(21,usdei);
-            pst.setInt(22,resi);
+            pst.setInt(8,prsai1);
+            pst.setInt(9,prdei1);
+            pst.setInt(10,grsai);
+            pst.setInt(11,grdei);
+            pst.setInt(12,ocsai);
+            pst.setInt(13,ocdei);
+            pst.setInt(14,emsai);
+            pst.setInt(15,emdei);
+            pst.setInt(16,absai);
+            pst.setInt(17,abdei);
+            pst.setInt(18,desai);
+            pst.setInt(19,dedei);
+            pst.setInt(20,pesai);
+            pst.setInt(21,pedei);
+            pst.setInt(22,ussai);
+            pst.setInt(23,usdei);
+            pst.setInt(24,resi);
             pst.execute();
 
         } catch (SQLException throwables) {
@@ -768,6 +1115,8 @@ public class UserPage implements Initializable {
         lode.setSelected(false);
         prsa.setSelected(false);
         prde.setSelected(false);
+        prsa1.setSelected(false);
+        prde1.setSelected(false);
         ocsa.setSelected(false);
         ocde.setSelected(false);
         emsa.setSelected(false);
@@ -783,6 +1132,8 @@ public class UserPage implements Initializable {
         res.setSelected(false);
         grsa.setSelected(false);
         grde.setSelected(false);
+        fillComboPrivilege();
+
 
     }
     public void deleteRow2(ActionEvent actionEvent) {
@@ -811,8 +1162,8 @@ public class UserPage implements Initializable {
         int idArea=0,idLocation=0,idEmployee=0,idProject=0;
 
 
-        if (edit2.getText().contains("تعديل الصلاحية")){
-            edit2.setText("حفظ");
+        if (userEditPrivilege1.getText().contains("تعديل الصلاحية")){
+            userEditPrivilege1.setText("حفظ");
             privilegeNamee.setText(privilegesTableView.getItems().get(index).getPrivilegeNamee());
             if (privilegesTableView.getItems().get(index).getArsa()==1){
                 arsa.setSelected(true);
@@ -831,6 +1182,12 @@ public class UserPage implements Initializable {
             }
             if (privilegesTableView.getItems().get(index).getPrde()==1){
                 prde.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrsa1()==1){
+                prsa1.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrde1()==1){
+                prde1.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getOcsa()==1){
                 ocsa.setSelected(true);
@@ -877,9 +1234,9 @@ public class UserPage implements Initializable {
             if (privilegesTableView.getItems().get(index).getGrde()==1){
                 grde.setSelected(true);
             }
-        }else if (edit2.getText().contains("حفظ")){
+        }else if (userEditPrivilege1.getText().contains("حفظ")){
             try {
-                int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+                int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
 
                 if (arsa.isSelected()){
                     arsai=1;
@@ -899,6 +1256,12 @@ public class UserPage implements Initializable {
                 }
                 if (prde.isSelected()){
                     prdei=1;
+                }
+                if (prsa1.isSelected()){
+                    prsai1=1;
+                }
+                if (prde1.isSelected()){
+                    prdei1=1;
                 }
                 if (grsa.isSelected()){
                     grsai=1;
@@ -949,7 +1312,7 @@ public class UserPage implements Initializable {
                     resi=1;
                 }
                 con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
+                pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`prsa1`=?,`prde1`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
 
                 pst.setString(1,privilegeNamee.getText());
                 pst.setInt(2,arsai);
@@ -958,25 +1321,27 @@ public class UserPage implements Initializable {
                 pst.setInt(5,lodei);
                 pst.setInt(6,prsai);
                 pst.setInt(7,prdei);
-                pst.setInt(8,grsai);
-                pst.setInt(9,grdei);
-                pst.setInt(10,ocsai);
-                pst.setInt(11,ocdei);
-                pst.setInt(12,emsai);
-                pst.setInt(13,emdei);
-                pst.setInt(14,absai);
-                pst.setInt(15,abdei);
-                pst.setInt(16,desai);
-                pst.setInt(17,dedei);
-                pst.setInt(18,pesai);
-                pst.setInt(19,pedei);
-                pst.setInt(20,ussai);
-                pst.setInt(21,usdei);
-                pst.setInt(22,resi);
-                pst.setInt(23,idEdit);
+                pst.setInt(8,prsai1);
+                pst.setInt(9,prdei1);
+                pst.setInt(10,grsai);
+                pst.setInt(11,grdei);
+                pst.setInt(12,ocsai);
+                pst.setInt(13,ocdei);
+                pst.setInt(14,emsai);
+                pst.setInt(15,emdei);
+                pst.setInt(16,absai);
+                pst.setInt(17,abdei);
+                pst.setInt(18,desai);
+                pst.setInt(19,dedei);
+                pst.setInt(20,pesai);
+                pst.setInt(21,pedei);
+                pst.setInt(22,ussai);
+                pst.setInt(23,usdei);
+                pst.setInt(24,resi);
+                pst.setInt(25,idEdit);
 
                 pst.execute();
-                edit2.setText("تعديل الصلاحية");
+                userEditPrivilege1.setText("تعديل الصلاحية");
 
 
             } catch (SQLException throwables) {
@@ -991,6 +1356,8 @@ public class UserPage implements Initializable {
             lode.setSelected(false);
             prsa.setSelected(false);
             prde.setSelected(false);
+            prsa1.setSelected(false);
+            prde1.setSelected(false);
             ocsa.setSelected(false);
             ocde.setSelected(false);
             emsa.setSelected(false);
@@ -1012,7 +1379,7 @@ public class UserPage implements Initializable {
 
     }@FXML
     void idReset2(MouseEvent event) {
-        edit2.setText("تعديل الصلاحية");
+        userEditPrivilege1.setText("تعديل الصلاحية");
         privilegeNamee.clear();
             arsa.setSelected(false);
             arde.setSelected(false);
@@ -1020,6 +1387,8 @@ public class UserPage implements Initializable {
             lode.setSelected(false);
             prsa.setSelected(false);
             prde.setSelected(false);
+            prsa1.setSelected(false);
+            prde1.setSelected(false);
             ocsa.setSelected(false);
             ocde.setSelected(false);
             emsa.setSelected(false);

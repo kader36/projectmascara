@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPage">
+<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPage">
    <children>
       <VBox prefHeight="603.0" prefWidth="1325.0">
          <children>
@@ -39,7 +39,7 @@
                                           <TextField fx:id="contractPrice" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
-                                          <Button layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <Button fx:id="projectAddPrivilege" layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="165.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="216.0" onMouseClicked="#getSelectItemTable" prefHeight="155.0" prefWidth="1019.0">
                                             <columns>
@@ -59,7 +59,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <Button fx:id="projectDeletePrivilege" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TableView fx:id="projectOccupationTableView" layoutX="340.0" layoutY="400.0" prefHeight="147.0" prefWidth="735.0">
                                             <columns>
                                               <TableColumn fx:id="occupationNameTable" editable="false" prefWidth="260.0" text="إسم الوظيفة" />
@@ -72,9 +72,9 @@
                                           </TableView>
                                           <ComboBox fx:id="occupationName" layoutX="57.0" layoutY="400.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="إختر الوظيفة" />
                                           <TextField fx:id="maxNumber" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
-                                          <Button layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <Button fx:id="edit" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
+                                          <Button fx:id="projectAddPrivilege1" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="projectDeletePrivilege1" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button fx:id="projectEditPrivilege" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
                                           <TextField fx:id="contactNumber" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                        </children>
                                     </AnchorPane>
@@ -102,9 +102,10 @@
                                           <ComboBox fx:id="projectNameEmployee" layoutX="565.0" layoutY="27.0" onAction="#selectProjectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
                                           <ComboBox fx:id="occupationNameEmployee" layoutX="848.0" layoutY="27.0" onAction="#selectOccupationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الوظيفة " />
-                                          <Button layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة العمالة" />
+                                          <Button fx:id="projectAddPrivilege2" layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="170.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موظف" />
                                           <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
-                                          <Button layoutX="591.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف العمالة" />
+                                          <Button fx:id="projectDeletePrivilege2" layoutX="484.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إستبعاد موظف" />
+                                          <Button fx:id="editPosition" layoutX="685.0" layoutY="102.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقل موظف" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
@@ -119,7 +120,7 @@
                                           <TextField fx:id="contractPrice1" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate1" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate1" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
-                                          <Button layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <Button fx:id="projectAddPrivilege3" layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
                                           <TextField fx:id="search1" layoutX="834.0" layoutY="165.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView1" fixedCellSize="0.0" layoutX="57.0" layoutY="216.0" onMouseClicked="#getSelectItemTable2" prefHeight="155.0" prefWidth="1019.0">
                                              <columns>
@@ -140,7 +141,7 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <Button fx:id="projectDeletePrivilege3" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TableView fx:id="masroufat2TableView" layoutX="340.0" layoutY="400.0" prefHeight="147.0" prefWidth="735.0">
                                              <columns>
                                                 <TableColumn fx:id="masroufatNameComboTable" editable="false" prefWidth="260.0" text="إسم المصروف" />
@@ -155,15 +156,15 @@
                                           </TableView>
                                           <ComboBox fx:id="masroufatNameCombo" layoutX="57.0" layoutY="400.0" prefHeight="35.0" prefWidth="240.0" promptText="إختر المصروف" />
                                           <TextField fx:id="masroufPrice" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="المبلغ" />
-                                          <Button layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addMasroufe" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteMasroufate2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <Button fx:id="edit1" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
+                                          <Button fx:id="projectAddPrivilege4" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addMasroufe" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="projectDeletePrivilege4" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteMasroufate2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button fx:id="projectEditPrivilege1" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
                                           <TextField fx:id="contactNumber1" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                        </children>
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab closable="false" text="المصروفات">
+                              <Tab closable="false" text="المصاريف">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -176,8 +177,8 @@
                                              </columnResizePolicy>
                                           </TableView>
                                           <TextField fx:id="searchMasrouf" layoutX="792.0" layoutY="37.0" onKeyPressed="#searchMasrouf" prefHeight="35.0" prefWidth="252.0" promptText="بحث " />
-                                          <Button layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#addMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مصروف" />
-                                          <Button layoutX="72.0" layoutY="445.0" mnemonicParsing="false" onAction="#deleteRowMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مصروف" />
+                                          <Button fx:id="projectAddPrivilege5" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#addMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مصروف" />
+                                          <Button fx:id="projectDeletePrivilege5" layoutX="72.0" layoutY="445.0" mnemonicParsing="false" onAction="#deleteRowMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مصروف" />
                                           <TextField fx:id="masroufName" layoutX="74.0" layoutY="119.0" prefHeight="37.0" prefWidth="240.0" promptText="إسم المصروف" />
                                        </children>
                                     </AnchorPane>
@@ -194,64 +195,64 @@
                               <Image url="@../imgs/login-logo.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="63.0" layoutY="134.0" style="-fx-background-color: #9351F9;" text="Username" textFill="WHITE">
+                        <Label fx:id="usernameMenu" alignment="CENTER" layoutY="134.0" prefHeight="30.0" prefWidth="216.0" style="-fx-background-color: #9351F9;" text="Username" textFill="WHITE">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
                         <VBox layoutY="183.0" prefHeight="404.0" prefWidth="216.0">
                            <children>
-                              <Button id="a" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
+                              <Button id="a" fx:id="areaMenuButton" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="locatione" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
+                              <Button fx:id="locationMenuButton" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
+                              <Button fx:id="projectMenuButton" mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
+                              <Button fx:id="garanteeMenuButton" mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
+                              <Button fx:id="occupationMenuButton" mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#employees" prefHeight="30.0" prefWidth="220.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
+                              <Button fx:id="employeeMenuButton" mnemonicParsing="false" onAction="#employees" prefHeight="30.0" prefWidth="220.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
+                              <Button fx:id="abstractMenuButton" mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                              <Button fx:id="deductionMenuButton" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                              <Button fx:id="penaltyMenuButton" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
+                              <Button fx:id="userMenuButton" mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                              <Button fx:id="repportMenuButton" mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

@@ -5,14 +5,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Mainn extends Application {
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
         primaryStage.setTitle("تسجيل الدخول");
         primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
+        primaryStage.setMaxHeight(469);
+        primaryStage.setMaxWidth(460);
         primaryStage.show();
 
 

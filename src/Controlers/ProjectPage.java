@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -133,9 +134,11 @@ public class ProjectPage implements Initializable {
         }
     }
     public void fillComboEmployee(){
+        employeeNameEmployee.getItems().clear();
+        employees.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees` ");
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `isBusy`='0' ");
             rs=pst.executeQuery();
             while (rs.next()){
                 employees.add(new EmployeeForList(rs.getInt("id"),rs.getString("employeeName")));
@@ -357,7 +360,8 @@ public class ProjectPage implements Initializable {
     }
     @FXML
     void selectEmployeeEmployee(ActionEvent event) {
-
+        int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
+        idEmployee=areas.get(index).getIdArea();
     }
     @FXML
     void selectOccupation(ActionEvent event) {
@@ -399,10 +403,308 @@ public class ProjectPage implements Initializable {
     }
 
 
+
+
+    @FXML
+    private Label usernameMenu;
+    @FXML
+    private Button areaMenuButton;//c bn
+
+    @FXML
+    private Button locationMenuButton; //c bn
+
+    @FXML
+    private Button projectMenuButton;//mazel
+
+    @FXML
+    private Button garanteeMenuButton;// cbn
+
+    @FXML
+    private Button occupationMenuButton;// c bn
+
+    @FXML
+    private Button employeeMenuButton;// cbn
+
+    @FXML
+    private Button abstractMenuButton;// c bn
+
+    @FXML
+    private Button deductionMenuButton;// c bn
+
+    @FXML
+    private Button penaltyMenuButton;// c bn
+
+    @FXML
+    private Button userMenuButton;// c bn
+
+    @FXML
+    private Button repportMenuButton;//c bn
+
+    @FXML
+    private Button areaDeletePrivilege;
+    @FXML
+    private Button areaAddPrivilege;
+    @FXML
+    private Button areaEditPrivilege;
+
+    @FXML
+    private Button locationDeletePrivilege;
+    @FXML
+    private Button locationAddPrivilege;
+    @FXML
+    private Button locationEditPrivilege;
+
+    @FXML
+    private Button projectDeletePrivilege;
+    @FXML
+    private Button projectDeletePrivilege1;
+    @FXML
+    private Button projectDeletePrivilege2;
+    @FXML
+    private Button projectDeletePrivilege3;
+    @FXML
+    private Button projectDeletePrivilege4;
+    @FXML
+    private Button projectDeletePrivilege5;
+    @FXML
+    private Button projectAddPrivilege;
+    @FXML
+    private Button projectAddPrivilege1;
+    @FXML
+    private Button projectAddPrivilege2;
+    @FXML
+    private Button projectAddPrivilege3;
+    @FXML
+    private Button projectAddPrivilege4;
+    @FXML
+    private Button projectAddPrivilege5;
+    @FXML
+    private Button projectEditPrivilege;
+    @FXML
+    private Button projectEditPrivilege1;
+
+    @FXML
+    private Button garanteeEditPrivilege;
+    @FXML
+    private Button garanteeAddPrivilege;
+    @FXML
+    private Button garanteeDeletePrivilege;
+    @FXML
+    private Button garanteeAddPrivilege1;
+    @FXML
+    private Button garanteeDeletePrivilege1;
+
+    @FXML
+    private Button occupationDeletePrivilege;
+    @FXML
+    private Button occupationAddPrivilege;
+    @FXML
+    private Button occupationEditPrivilege;
+
+    @FXML
+    private Button employeeDeletePrivilege;
+    @FXML
+    private Button employeeAddPrivilege;
+    @FXML
+    private Button employeeEditPrivilege;
+
+    @FXML
+    private Button abstractDeletePrivilege;
+    @FXML
+    private Button abstractAddPrivilege;
+    @FXML
+    private Button abstractDeletePrivilege1;
+    @FXML
+    private Button abstractAddPrivilege1;
+    @FXML
+    private Button abstractEditPrivilege;
+
+    @FXML
+    private Button deductionDeletePrivilege;
+    @FXML
+    private Button deductionAddPrivilege;
+    @FXML
+    private Button deductionDeletePrivilege1;
+    @FXML
+    private Button deductionAddPrivilege1;
+    @FXML
+    private Button deductionEditPrivilege;
+
+    @FXML
+    private Button penaltyDeletePrivilege;
+    @FXML
+    private Button penaltyAddPrivilege;
+    @FXML
+    private Button penaltyEditPrivilege;
+
+    @FXML
+    private Button userDeletePrivilege;
+    @FXML
+    private Button userAddPrivilege;
+    @FXML
+    private Button userDeletePrivilege1;
+    @FXML
+    private Button userAddPrivilege1;
+    @FXML
+    private Button userEditPrivilege;
+    @FXML
+    private Button userEditPrivilege1;
+
+
+    int idConnected=0;
+    String usernameConnected="";
+    String employeeNameConnected="";
+    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
+        this.idConnected = idConnected;
+        this.usernameConnected = usernameConnected;
+        this.employeeNameConnected = employeeNameConnected;
+        usernameMenu.setText("#"+employeeNameConnected);
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
+            pst.setInt(1,idConnected);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("arsa")==0){
+                    areaMenuButton.setDisable(true);
+                }else{
+                    areaMenuButton.setDisable(false);
+                }
+                if (rs.getInt("losa")==0){
+                    locationMenuButton.setDisable(true);
+
+                }else{
+                    locationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("prsa")==0){
+                    projectMenuButton.setDisable(true);
+                    projectAddPrivilege.setDisable(true);
+                    projectAddPrivilege1.setDisable(true);
+                    projectAddPrivilege2.setDisable(true);
+                    projectAddPrivilege3.setDisable(true);
+                    projectAddPrivilege4.setDisable(true);
+                    projectAddPrivilege5.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+                    projectAddPrivilege.setDisable(false);
+                    projectAddPrivilege1.setDisable(false);
+                    projectAddPrivilege2.setDisable(false);
+                    projectAddPrivilege3.setDisable(false);
+                    projectAddPrivilege4.setDisable(false);
+                    projectAddPrivilege5.setDisable(false);
+
+                }
+                if (rs.getInt("prde")==0){
+                    projectEditPrivilege.setDisable(true);
+                    projectEditPrivilege1.setDisable(true);
+                    projectDeletePrivilege.setDisable(true);
+                    projectDeletePrivilege1.setDisable(true);
+                    projectDeletePrivilege3.setDisable(true);
+                    projectDeletePrivilege4.setDisable(true);
+                    projectDeletePrivilege5.setDisable(true);
+
+                }else{
+                    projectEditPrivilege.setDisable(false);
+                    projectEditPrivilege1.setDisable(false);
+                    projectDeletePrivilege.setDisable(false);
+                    projectDeletePrivilege1.setDisable(false);
+                    projectDeletePrivilege3.setDisable(false);
+                    projectDeletePrivilege4.setDisable(false);
+                    projectDeletePrivilege5.setDisable(false);
+
+                }
+                if (rs.getInt("prsa1")==0){
+                    editPosition.setDisable(true);
+                }else{
+                    editPosition.setDisable(false);
+                }
+
+                if (rs.getInt("prde1")==0){
+                    projectDeletePrivilege2.setDisable(true);
+                }else{
+                    projectDeletePrivilege2.setDisable(false);
+                }
+
+                if (rs.getInt("grsa")==0){
+                    garanteeMenuButton.setDisable(true);
+
+                }else{
+                    garanteeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ocsa")==0){
+                    occupationMenuButton.setDisable(true);
+
+                }else{
+                    occupationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("emsa")==0){
+                    employeeMenuButton.setDisable(true);
+
+                }else{
+                    employeeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("absa")==0){
+                    abstractMenuButton.setDisable(true);
+
+                }else{
+                    abstractMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("desa")==0){
+                    deductionMenuButton.setDisable(true);
+
+                }else{
+                    deductionMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("pesa")==0){
+                    penaltyMenuButton.setDisable(true);
+
+                }else{
+                    penaltyMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ussa")==0){
+                    userMenuButton.setDisable(true);
+
+                }else{
+                    userMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("res")==0){
+                    repportMenuButton.setDisable(true);
+
+                }else{
+                    repportMenuButton.setDisable(false);
+
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public void areas(javafx.event.ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+            AnchorPane root = loader.load();
+            AreaPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المناطق");
             primaryStage.setScene(new Scene(root));
@@ -417,9 +719,12 @@ public class ProjectPage implements Initializable {
     public void locations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/locationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/locationPage.fxml"));
+            AnchorPane root = loader.load();
+            LocationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المواقع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -431,9 +736,12 @@ public class ProjectPage implements Initializable {
     public void projects(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -445,9 +753,12 @@ public class ProjectPage implements Initializable {
     public void garantees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/garanteePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePage.fxml"));
+            AnchorPane root = loader.load();
+            GaranteePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الضمانات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -459,9 +770,12 @@ public class ProjectPage implements Initializable {
     public void occupations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/occupationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/occupationPage.fxml"));
+            AnchorPane root = loader.load();
+            OccupationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الوظائق");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -473,9 +787,12 @@ public class ProjectPage implements Initializable {
     public void employees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/employeePage.fxml"));
+            AnchorPane root = loader.load();
+            EmployeePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الموظفين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -487,9 +804,12 @@ public class ProjectPage implements Initializable {
     public void users(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/userPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/userPage.fxml"));
+            AnchorPane root = loader.load();
+            UserPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("إدارة المستخدمين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -500,35 +820,12 @@ public class ProjectPage implements Initializable {
     public void penalties(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/penaltyPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/penaltyPage.fxml"));
+            AnchorPane root = loader.load();
+            PenaltyPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void abstracts(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/abstractPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void deduction(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/deductionPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الغرامات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -539,9 +836,44 @@ public class ProjectPage implements Initializable {
     public void report(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/repportPage.fxml"));
+            AnchorPane root = loader.load();
+            RepportPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("التقارير");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void abstracts(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/abstractPage.fxml"));
+            AnchorPane root = loader.load();
+            AbstractPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المستخلصات");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void deduction(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/deductionPage.fxml"));
+            AnchorPane root = loader.load();
+            DeductionPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("الإستقطاعات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -552,9 +884,12 @@ public class ProjectPage implements Initializable {
     public void login(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -950,6 +1285,7 @@ public class ProjectPage implements Initializable {
     public void addEmployeeProject(ActionEvent actionEvent) {
         int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
         idEmployee=employees.get(index).getId();
+
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("INSERT INTO `projectsemployees`(`idArea`, `idLocation`, `idProject`, `idOccupation`, `idEmployee`) VALUES (?,?,?,?,?)");
@@ -960,10 +1296,25 @@ public class ProjectPage implements Initializable {
             pst.setInt(5,idEmployee);
             pst.execute();
 
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `employees` SET `isBusy`=? WHERE `id`=?");
+                pst.setInt(1,1);
+                pst.setInt(2, idEmployee);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         addToTable2();
+        fillComboEmployee();
+
 
     }
 
@@ -978,7 +1329,7 @@ public class ProjectPage implements Initializable {
     private TableColumn<ProjectOcupation, Integer> realNumberTable;
     @FXML
     public void getSelectItemTable(MouseEvent mouseEvent) {
-        edit.setText("تعديل مشروع");
+        projectEditPrivilege.setText("تعديل مشروع");
         int index= projectTableView.getSelectionModel().getSelectedIndex();
         idProject=projectTableView.getItems().get(index).getProjectId();
         System.out.println(idProject);
@@ -1032,6 +1383,17 @@ public class ProjectPage implements Initializable {
     public void deleteRow3(ActionEvent actionEvent) {
         int index= projectEmployeeTableView.getSelectionModel().getSelectedIndex();
         int idDelete=projectEmployeeTableView.getItems().get(index).getId();
+        int idUpdate=projectEmployeeTableView.getItems().get(index).getIdEmployee();
+        try {
+            con = new Controlers.ConnectDB().getConnection();
+            pst = con.prepareStatement("UPDATE `employees` SET `isBusy`=? WHERE `id`=?");
+            pst.setInt(1,0);
+            pst.setInt(2, idUpdate);
+            pst.execute();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if (idDelete>0) {
             try {
                 con = new Controlers.ConnectDB().getConnection();
@@ -1043,8 +1405,11 @@ public class ProjectPage implements Initializable {
                 throwables.printStackTrace();
             }
             idDelete=0;
-            addToTable2();
+
         }
+        addToTable2();
+        fillComboEmployee();
+
     }
     @FXML
     private TextField search;
@@ -1114,8 +1479,8 @@ public class ProjectPage implements Initializable {
         }
 
 
-        if (edit.getText().contains("تعديل مشروع")){
-            edit.setText("حفظ");
+        if (projectEditPrivilege.getText().contains("تعديل مشروع")){
+            projectEditPrivilege.setText("حفظ");
             areaName.setValue(projectTableView.getItems().get(index).getAreaName());
             locationName.setValue(projectTableView.getItems().get(index).getLocationName());
             projectName.setText(projectTableView.getItems().get(index).getContractName());
@@ -1126,7 +1491,7 @@ public class ProjectPage implements Initializable {
             contactNumber.setText(projectTableView.getItems().get(index).getContractNumber());
 
 
-        }else if (edit.getText().contains("حفظ")){
+        }else if (projectEditPrivilege.getText().contains("حفظ")){
             try {
 
 
@@ -1134,7 +1499,6 @@ public class ProjectPage implements Initializable {
                 pst = con.prepareStatement("UPDATE `projects` SET `areaId`=?,`locationId`=?," +
                         "`projectType`=?,`contractName`=?,`contractPrice`=?,`contactDuration`=?" +
                         ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=? WHERE `id`=?");
-                System.out.println(idEdit+" "+idArea);
 
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
@@ -1148,7 +1512,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(10, idEdit);
 
                 pst.execute();
-                edit.setText("تعديل مشروع");
+                projectEditPrivilege.setText("تعديل مشروع");
                 projectName.clear();
                 contractPrice.clear();
                 contactDuration.clear();
@@ -1194,6 +1558,8 @@ public class ProjectPage implements Initializable {
             throwables.printStackTrace();
         }
         addToTableMasrouf();
+        fillComboMasroufat();
+
     }
 
     public void deleteRowMasrouf(ActionEvent actionEvent) {
@@ -1393,8 +1759,8 @@ public class ProjectPage implements Initializable {
         }
 
 
-        if (edit1.getText().contains("تعديل مشروع")){
-            edit1.setText("حفظ");
+        if (projectEditPrivilege1.getText().contains("تعديل مشروع")){
+            projectEditPrivilege1.setText("حفظ");
             areaName1.setValue(projectTableView1.getItems().get(index).getAreaName());
             locationName1.setValue(projectTableView1.getItems().get(index).getLocationName());
             projectName1.setText(projectTableView1.getItems().get(index).getContractName());
@@ -1405,7 +1771,7 @@ public class ProjectPage implements Initializable {
             contactNumber1.setText(projectTableView1.getItems().get(index).getContractNumber());
 
 
-        }else if (edit1.getText().contains("حفظ")){
+        }else if (projectEditPrivilege1.getText().contains("حفظ")){
             try {
 
 
@@ -1426,7 +1792,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(10, idEdit);
 
                 pst.execute();
-                edit1.setText("تعديل مشروع");
+                projectEditPrivilege1.setText("تعديل مشروع");
                 projectName1.clear();
                 contractPrice1.clear();
                 contactDuration1.clear();
@@ -1450,7 +1816,7 @@ public class ProjectPage implements Initializable {
     }
     @FXML
     public void getSelectItemTable2(MouseEvent mouseEvent) {
-        edit1.setText("تعديل مشروع");
+        projectEditPrivilege1.setText("تعديل مشروع");
         int index= projectTableView1.getSelectionModel().getSelectedIndex();
         idProject=projectTableView1.getItems().get(index).getProjectId();
         System.out.println(idProject);
@@ -1499,5 +1865,76 @@ public class ProjectPage implements Initializable {
 
             fillTableMasroufate2();
         }
+    }
+
+    @FXML
+    private Button editPosition;
+    public void edit2(ActionEvent actionEvent) {
+        int index= projectEmployeeTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=projectEmployeeTableView.getItems().get(index).getId();
+        idEmployee=projectEmployeeTableView.getItems().get(index).getIdEmployee();
+
+
+        for (int i=0; i<areas.size() ;i++){
+            if (areas.get(i).getNameArea()==areaNameEmployee.getValue()){
+                idArea=areas.get(i).getIdArea();
+            }
+        }
+        for (int i=0; i<locations.size() ;i++){
+            if (locations.get(i).getLocationName()==locationNameEmployee.getValue()){
+                idLocation=locations.get(i).getIdLocation();
+            }
+        }
+        for (int i=0; i<projects.size() ;i++){
+            if (projects.get(i).getContractName()==projectNameEmployee.getValue()){
+                idProject=projects.get(i).getIdProject();
+            }
+        }
+        for (int i=0; i<occupations.size() ;i++){
+            if (occupations.get(i).getNameOcupation()==occupationNameEmployee.getValue()){
+                idOccupation=occupations.get(i).getIdOcupation();
+            }
+        }
+
+
+
+        if (editPosition.getText().contains("نقل موظف")){
+            editPosition.setText("حفظ");
+            areaNameEmployee.setValue(projectEmployeeTableView.getItems().get(index).getAreaName());
+            locationNameEmployee.setValue(projectEmployeeTableView.getItems().get(index).getLocationName());
+            projectNameEmployee.setValue(projectEmployeeTableView.getItems().get(index).getProjectName());
+            occupationNameEmployee.setValue(projectEmployeeTableView.getItems().get(index).getOccupationName());
+
+
+        }else if (editPosition.getText().contains("حفظ")){
+            try {
+
+
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projectsemployees` SET `idArea`=?,`idLocation`=?,`idProject`=?,`idOccupation`=?,`idEmployee`=? WHERE `id`=?");
+
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                pst.setInt(4,idOccupation);
+                pst.setInt(5, idEmployee);
+                pst.setInt(6, idEdit);
+                pst.execute();
+                editPosition.setText("نقل موظف");
+
+                locationNameEmployee.setPromptText("الموقع");
+                areaNameEmployee.setPromptText("المنطقة");
+                projectNameEmployee.setPromptText("المشروع");
+                occupationNameEmployee.setPromptText("الوظيفة");
+                fillComboEmployee();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable2();
+            idEdit=0;
+        }
+
+
     }
 }

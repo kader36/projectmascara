@@ -1,6 +1,7 @@
 package Controlers;
 
 import com.mysql.jdbc.Blob;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -34,7 +36,7 @@ public class EmployeePage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
-    File file1,file2;
+    File file1=null,file2=null;
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة السياقة");
     int idOccupation=0;
@@ -94,29 +96,95 @@ public class EmployeePage implements Initializable {
     @FXML
     public void addEmployee(ActionEvent actionEvent) {
         try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
-                    " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                    " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setString(1,employeeName.getText());
-            pst.setString(2,employeeNumber.getText());
-            pst.setString(3,employeeNationality.getText());
-            pst.setString(4,identityType.getValue());
-            pst.setString(5,identityNumber.getText());
-            pst.setString(6,religion.getText());
-            pst.setString(7,residenceOccupation.getText());
-            pst.setInt(8,idOccupation);
-            pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-            pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-            pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-            FileInputStream fis1=new FileInputStream(file1);
-            pst.setBinaryStream(12, fis1,(int) file1.length());
-            FileInputStream fis2=new FileInputStream(file2);
-            pst.setBinaryStream(13, fis2,(int) file2.length());
-            pst.execute();
+            if (file1!=null && file2!=null){
+                con=new Controlers.ConnectDB().getConnection();
+
+                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,employeeNumber.getText());
+                pst.setString(3,employeeNationality.getText());
+                pst.setString(4,identityType.getValue());
+                pst.setString(5,identityNumber.getText());
+                pst.setString(6,religion.getText());
+                pst.setString(7,residenceOccupation.getText());
+                pst.setInt(8,idOccupation);
+                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                FileInputStream fis1=new FileInputStream(file1);
+                pst.setBinaryStream(12, fis1,(int) file1.length());
+                FileInputStream fis2=new FileInputStream(file2);
+                pst.setBinaryStream(13, fis2,(int) file2.length());
+                pst.execute();
+            }else if (file1== null && file2!=null){
+                con=new Controlers.ConnectDB().getConnection();
+
+                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,employeeNumber.getText());
+                pst.setString(3,employeeNationality.getText());
+                pst.setString(4,identityType.getValue());
+                pst.setString(5,identityNumber.getText());
+                pst.setString(6,religion.getText());
+                pst.setString(7,residenceOccupation.getText());
+                pst.setInt(8,idOccupation);
+                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                FileInputStream fis2=new FileInputStream(file2);
+                pst.setBinaryStream(12, fis2,(int) file2.length());
+                pst.execute();
+            }else if (file2==null && file1!=null){
+                con=new Controlers.ConnectDB().getConnection();
+
+                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,employeeNumber.getText());
+                pst.setString(3,employeeNationality.getText());
+                pst.setString(4,identityType.getValue());
+                pst.setString(5,identityNumber.getText());
+                pst.setString(6,religion.getText());
+                pst.setString(7,residenceOccupation.getText());
+                pst.setInt(8,idOccupation);
+                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                FileInputStream fis1=new FileInputStream(file1);
+                pst.setBinaryStream(12, fis1,(int) file1.length());
+
+                pst.execute();
+            }else if (file1==null && file2==null){
+                con=new Controlers.ConnectDB().getConnection();
+
+                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,employeeNumber.getText());
+                pst.setString(3,employeeNationality.getText());
+                pst.setString(4,identityType.getValue());
+                pst.setString(5,identityNumber.getText());
+                pst.setString(6,religion.getText());
+                pst.setString(7,residenceOccupation.getText());
+                pst.setInt(8,idOccupation);
+                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                pst.execute();
+            }
+
 
         } catch (SQLException | FileNotFoundException throwables) {
             throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
         addToTable();
         employeeName.clear();
@@ -134,11 +202,246 @@ public class EmployeePage implements Initializable {
 
 
 
+    @FXML
+    private Label usernameMenu;
+    @FXML
+    private Button areaMenuButton;//c bn
+
+    @FXML
+    private Button locationMenuButton; //c bn
+
+    @FXML
+    private Button projectMenuButton;//mazel
+
+    @FXML
+    private Button garanteeMenuButton;// cbn
+
+    @FXML
+    private Button occupationMenuButton;// c bn
+
+    @FXML
+    private Button employeeMenuButton;// cbn
+
+    @FXML
+    private Button abstractMenuButton;// c bn
+
+    @FXML
+    private Button deductionMenuButton;// c bn
+
+    @FXML
+    private Button penaltyMenuButton;// c bn
+
+    @FXML
+    private Button userMenuButton;// c bn
+
+    @FXML
+    private Button repportMenuButton;//c bn
+
+    @FXML
+    private Button areaDeletePrivilege;
+    @FXML
+    private Button areaAddPrivilege;
+    @FXML
+    private Button areaEditPrivilege;
+
+    @FXML
+    private Button locationDeletePrivilege;
+    @FXML
+    private Button locationAddPrivilege;
+    @FXML
+    private Button locationEditPrivilege;
+
+    @FXML
+    private Button garanteeEditPrivilege;
+    @FXML
+    private Button garanteeAddPrivilege;
+    @FXML
+    private Button garanteeDeletePrivilege;
+    @FXML
+    private Button garanteeAddPrivilege1;
+    @FXML
+    private Button garanteeDeletePrivilege1;
+
+    @FXML
+    private Button occupationDeletePrivilege;
+    @FXML
+    private Button occupationAddPrivilege;
+    @FXML
+    private Button occupationEditPrivilege;
+
+    @FXML
+    private Button employeeDeletePrivilege;
+    @FXML
+    private Button employeeAddPrivilege;
+    @FXML
+    private Button employeeEditPrivilege;
+
+    @FXML
+    private Button abstractDeletePrivilege;
+    @FXML
+    private Button abstractAddPrivilege;
+    @FXML
+    private Button abstractDeletePrivilege1;
+    @FXML
+    private Button abstractAddPrivilege1;
+    @FXML
+    private Button abstractEditPrivilege;
+
+    @FXML
+    private Button deductionDeletePrivilege;
+    @FXML
+    private Button deductionAddPrivilege;
+    @FXML
+    private Button deductionDeletePrivilege1;
+    @FXML
+    private Button deductionAddPrivilege1;
+    @FXML
+    private Button deductionEditPrivilege;
+
+    @FXML
+    private Button penaltyDeletePrivilege;
+    @FXML
+    private Button penaltyAddPrivilege;
+    @FXML
+    private Button penaltyEditPrivilege;
+
+    @FXML
+    private Button userDeletePrivilege;
+    @FXML
+    private Button userAddPrivilege;
+    @FXML
+    private Button userDeletePrivilege1;
+    @FXML
+    private Button userAddPrivilege1;
+    @FXML
+    private Button userEditPrivilege;
+    @FXML
+    private Button userEditPrivilege1;
+
+
+    int idConnected=0;
+    String usernameConnected="";
+    String employeeNameConnected="";
+    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
+        this.idConnected = idConnected;
+        this.usernameConnected = usernameConnected;
+        this.employeeNameConnected = employeeNameConnected;
+        usernameMenu.setText("#"+employeeNameConnected);
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
+            pst.setInt(1,idConnected);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("arsa")==0){
+                    areaMenuButton.setDisable(true);
+                }else{
+                    areaMenuButton.setDisable(false);
+                }
+                if (rs.getInt("losa")==0){
+                    locationMenuButton.setDisable(true);
+
+                }else{
+                    locationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("prsa")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("grsa")==0){
+                    garanteeMenuButton.setDisable(true);
+
+                }else{
+                    garanteeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ocsa")==0){
+                    occupationMenuButton.setDisable(true);
+
+                }else{
+                    occupationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("emsa")==0){
+                    employeeMenuButton.setDisable(true);
+                    employeeAddPrivilege.setDisable(true);
+
+                }else{
+                    employeeMenuButton.setDisable(false);
+                    employeeAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("emde")==0){
+                    employeeDeletePrivilege.setDisable(true);
+                    employeeEditPrivilege.setDisable(true);
+
+                }else{
+                    employeeDeletePrivilege.setDisable(false);
+                    employeeEditPrivilege.setDisable(false);
+
+                }
+
+                if (rs.getInt("absa")==0){
+                    abstractMenuButton.setDisable(true);
+
+                }else{
+                    abstractMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("desa")==0){
+                    deductionMenuButton.setDisable(true);
+
+                }else{
+                    deductionMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("pesa")==0){
+                    penaltyMenuButton.setDisable(true);
+
+                }else{
+                    penaltyMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ussa")==0){
+                    userMenuButton.setDisable(true);
+
+                }else{
+                    userMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("res")==0){
+                    repportMenuButton.setDisable(true);
+
+                }else{
+                    repportMenuButton.setDisable(false);
+
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     public void areas(javafx.event.ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+            AnchorPane root = loader.load();
+            AreaPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المناطق");
             primaryStage.setScene(new Scene(root));
@@ -153,9 +456,12 @@ public class EmployeePage implements Initializable {
     public void locations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/locationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/locationPage.fxml"));
+            AnchorPane root = loader.load();
+            LocationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المواقع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -167,9 +473,12 @@ public class EmployeePage implements Initializable {
     public void projects(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -181,9 +490,12 @@ public class EmployeePage implements Initializable {
     public void garantees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/garanteePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePage.fxml"));
+            AnchorPane root = loader.load();
+            GaranteePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الضمانات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -195,9 +507,12 @@ public class EmployeePage implements Initializable {
     public void occupations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/occupationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/occupationPage.fxml"));
+            AnchorPane root = loader.load();
+            OccupationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الوظائق");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -209,9 +524,12 @@ public class EmployeePage implements Initializable {
     public void employees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/employeePage.fxml"));
+            AnchorPane root = loader.load();
+            EmployeePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الموظفين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -223,9 +541,12 @@ public class EmployeePage implements Initializable {
     public void users(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/userPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/userPage.fxml"));
+            AnchorPane root = loader.load();
+            UserPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("إدارة المستخدمين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -236,35 +557,12 @@ public class EmployeePage implements Initializable {
     public void penalties(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/penaltyPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/penaltyPage.fxml"));
+            AnchorPane root = loader.load();
+            PenaltyPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void abstracts(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/abstractPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-    }
-    public void deduction(ActionEvent actionEvent) {
-        try {
-
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/deductionPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الغرامات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -275,9 +573,44 @@ public class EmployeePage implements Initializable {
     public void report(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/repportPage.fxml"));
+            AnchorPane root = loader.load();
+            RepportPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("التقارير");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void abstracts(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/abstractPage.fxml"));
+            AnchorPane root = loader.load();
+            AbstractPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المستخلصات");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void deduction(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/deductionPage.fxml"));
+            AnchorPane root = loader.load();
+            DeductionPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("الإستقطاعات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -288,9 +621,12 @@ public class EmployeePage implements Initializable {
     public void login(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -471,11 +807,10 @@ public class EmployeePage implements Initializable {
     public void edit(ActionEvent actionEvent) {
         int index= employeeTableView.getSelectionModel().getSelectedIndex();
         int idEdit=employeeTableView.getItems().get(index).getIdEmployee();
-        int idOccupation=0;
 
 
-        if (edit.getText().contains("تعديل موظف")){
-            edit.setText("حفظ");
+        if (employeeEditPrivilege.getText().contains("تعديل موظف")){
+            employeeEditPrivilege.setText("حفظ");
             employeeName.setText(employeeTableView.getItems().get(index).getEmployeeName());
             identityNumber.setText(employeeTableView.getItems().get(index).getIdentityNumber());
             residenceEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
@@ -487,52 +822,158 @@ public class EmployeePage implements Initializable {
             employeeNationality.setText(employeeTableView.getItems().get(index).getEmployeeNationality());
             residenceOccupation.setText(employeeTableView.getItems().get(index).getResidenceOccupation());
             religion.setText(employeeTableView.getItems().get(index).getReligion());
-        }else if (edit.getText().contains("حفظ")){
-            try {
-                for (int i=0; i<occupations.size() ;i++){
-                    if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
-                        idOccupation=occupations.get(i).getIdOcupation();
+            file1=null;file2=null;
+        }else if (employeeEditPrivilege.getText().contains("حفظ")){
+
+            if (file1!=null && file2!=null){
+                try {
+                    System.out.println(reelOccupation.getValue());
+                    for (int i=0; i<occupations.size() ;i++){
+                        System.out.println(occupations.get(i).getNameOcupation());
+                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                            idOccupation=occupations.get(i).getIdOcupation();
+                        }
                     }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=?,`identityImage`=?  WHERE `id`=?");
+
+
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                    FileInputStream fis1=new FileInputStream(file1);
+                    pst.setBinaryStream(12, fis1,(int) file1.length());
+                    FileInputStream fis2=new FileInputStream(file2);
+                    pst.setBinaryStream(13, fis2,(int) file2.length());
+                    pst.setInt(14,idEdit);
+                    pst.execute();
+
+                } catch (SQLException | FileNotFoundException throwables) {
+                    throwables.printStackTrace();
                 }
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?  WHERE `id`=?");
+            }else if (file1== null && file2==null){
+                try {
+                    System.out.println(reelOccupation.getValue());
+                    for (int i=0; i<occupations.size() ;i++){
+                        System.out.println(occupations.get(i).getNameOcupation());
+                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                            idOccupation=occupations.get(i).getIdOcupation();
+                        }
+                    }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?  WHERE `id`=?");
 
 
-                pst.setString(1,employeeName.getText());
-                pst.setString(2,employeeNumber.getText());
-                pst.setString(3,employeeNationality.getText());
-                pst.setString(4,identityType.getValue());
-                pst.setString(5,identityNumber.getText());
-                pst.setString(6,religion.getText());
-                pst.setString(7,residenceOccupation.getText());
-                pst.setInt(8,idOccupation);
-                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                pst.setInt(12,idEdit);
-                pst.execute();
-                edit.setText("تعديل إستقطاع");
-                employeeName.clear();
-                identityNumber.clear();
-                residenceEndDate.getEditor().clear();
-                HealthCertificateStartDate.getEditor().clear();
-                HealthCertificatEndDate.getEditor().clear();
-                reelOccupation.getItems().clear();
-                identityType.getItems().clear();
-                employeeNumber.clear();
-                employeeNationality.clear();
-                residenceOccupation.clear();
-                religion.clear();
-                identityType.setItems(identityTypeList);
-                fillCombo();
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                    pst.setInt(12,idEdit);
+                    pst.execute();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
 
+            }else if (file1== null && file2!=null){
+                try {
+                    System.out.println(reelOccupation.getValue());
+                    for (int i=0; i<occupations.size() ;i++){
+                        System.out.println(occupations.get(i).getNameOcupation());
+                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                            idOccupation=occupations.get(i).getIdOcupation();
+                        }
+                    }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`identityImage`=?  WHERE `id`=?");
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                    FileInputStream fis2=new FileInputStream(file2);
+                    pst.setBinaryStream(12, fis2,(int) file2.length());
+                    pst.setInt(13,idEdit);
+                    pst.execute();
+
+                } catch (SQLException | FileNotFoundException throwables) {
+                    throwables.printStackTrace();
+                }
+
+            }else if (file2==null && file1!=null){
+                try {
+                    System.out.println(reelOccupation.getValue());
+                    for (int i=0; i<occupations.size() ;i++){
+                        System.out.println(occupations.get(i).getNameOcupation());
+                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                            idOccupation=occupations.get(i).getIdOcupation();
+                        }
+                    }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=? WHERE `id`=?");
+
+
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                    FileInputStream fis1=new FileInputStream(file1);
+                    pst.setBinaryStream(12, fis1,(int) file1.length());
+
+                    pst.setInt(13,idEdit);
+                    pst.execute();
+
+                } catch (SQLException | FileNotFoundException throwables) {
+                    throwables.printStackTrace();
+                }
             }
+            employeeEditPrivilege.setText("تعديل موظف");
+            employeeName.clear();
+            identityNumber.clear();
+            residenceEndDate.getEditor().clear();
+            HealthCertificateStartDate.getEditor().clear();
+            HealthCertificatEndDate.getEditor().clear();
+            reelOccupation.getItems().clear();
+            identityType.getItems().clear();
+            employeeNumber.clear();
+            employeeNationality.clear();
+            residenceOccupation.clear();
+            religion.clear();
+            identityType.setItems(identityTypeList);
+            fillCombo();
             addToTable();
-            idOccupation=0;
         }
 
 
@@ -578,7 +1019,7 @@ public class EmployeePage implements Initializable {
     private TextField HealthCertificatEndDate1;
     @FXML
     void idReset(MouseEvent event) {
-        edit.setText("تعديل موظف");
+        employeeEditPrivilege.setText("تعديل موظف");
         int index= employeeTableView.getSelectionModel().getSelectedIndex();
         int idEmpl=employeeTableView.getItems().get(index).getIdEmployee();
 
@@ -598,24 +1039,40 @@ public class EmployeePage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
             pst.setInt(1,idEmpl);
             rs=pst.executeQuery();
+
             while (rs.next()){
                 Blob certificateImageBlob= (Blob) rs.getBlob("certificateImage");
                 Blob identityImageBlob= (Blob) rs.getBlob("identityImage");
-                InputStream inputStream1=certificateImageBlob.getBinaryStream();
-                InputStream inputStream2=identityImageBlob.getBinaryStream();
-                Image image1=new Image(inputStream1);
-                Image image2=new Image(inputStream2);
-                if (image1!=null){
+                if (certificateImageBlob==null && identityImageBlob==null){
+                    Image imageLogo=new Image("imgs/CompLogo.png");
+
+                    imageHealth1.setImage(imageLogo);
+                    imageIdentity1.setImage(imageLogo);
+
+                }else if (certificateImageBlob!=null && identityImageBlob!=null){
+                    InputStream inputStream1=certificateImageBlob.getBinaryStream();
+                    InputStream inputStream2=identityImageBlob.getBinaryStream();
+                    Image image1=new Image(inputStream1);
+                    Image image2=new Image(inputStream2);
                     imageHealth1.setImage(image1);
-                }else{
-                    imageHealth1.setImage(null);
-                }
-                if (image2!=null){
                     imageIdentity1.setImage(image2);
 
-                }else{
-                    imageIdentity1.setImage(null);
+                }else if (certificateImageBlob==null && identityImageBlob!=null){
+                    Image imageLogo=new Image("imgs/CompLogo.png");
+                    InputStream inputStream2=identityImageBlob.getBinaryStream();
+                    Image image2=new Image(inputStream2);
+                    imageHealth1.setImage(imageLogo);
+                    imageIdentity1.setImage(image2);
+
+                }else if (certificateImageBlob!=null && identityImageBlob==null){
+                    Image imageLogo=new Image("imgs/CompLogo.png");
+
+                    InputStream inputStream1=certificateImageBlob.getBinaryStream();
+                    Image image1=new Image(inputStream1);
+                    imageHealth1.setImage(image1);
+                    imageIdentity1.setImage(imageLogo);
                 }
+
             }
 
 

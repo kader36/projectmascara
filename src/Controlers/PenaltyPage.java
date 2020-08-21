@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -36,6 +37,7 @@ public class PenaltyPage implements Initializable {
     ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     int idArea=0,idLocation=0,idProject=0,idEmployee=0,idOccupation=0;
+    String nortValue=null;
 
     @FXML
     private ComboBox<String> areaName;
@@ -192,6 +194,7 @@ public class PenaltyPage implements Initializable {
     }
 
     public void fillComboArea(){
+        areaName.getItems().clear();
         try {
             con=new ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -209,25 +212,247 @@ public class PenaltyPage implements Initializable {
         }
     }
 
-    public void areas(ActionEvent actionEvent) {
+
+    @FXML
+    private Label usernameMenu;
+    @FXML
+    private Button areaMenuButton;//c bn
+
+    @FXML
+    private Button locationMenuButton; //c bn
+
+    @FXML
+    private Button projectMenuButton;//mazel
+
+    @FXML
+    private Button garanteeMenuButton;// cbn
+
+    @FXML
+    private Button occupationMenuButton;// c bn
+
+    @FXML
+    private Button employeeMenuButton;// cbn
+
+    @FXML
+    private Button abstractMenuButton;// c bn
+
+    @FXML
+    private Button deductionMenuButton;// c bn
+
+    @FXML
+    private Button penaltyMenuButton;// c bn
+
+    @FXML
+    private Button userMenuButton;// c bn
+
+    @FXML
+    private Button repportMenuButton;//c bn
+
+    @FXML
+    private Button areaDeletePrivilege;
+    @FXML
+    private Button areaAddPrivilege;
+    @FXML
+    private Button areaEditPrivilege;
+
+    @FXML
+    private Button locationDeletePrivilege;
+    @FXML
+    private Button locationAddPrivilege;
+    @FXML
+    private Button locationEditPrivilege;
+
+    @FXML
+    private Button garanteeEditPrivilege;
+    @FXML
+    private Button garanteeAddPrivilege;
+    @FXML
+    private Button garanteeDeletePrivilege;
+    @FXML
+    private Button garanteeAddPrivilege1;
+    @FXML
+    private Button garanteeDeletePrivilege1;
+
+    @FXML
+    private Button occupationDeletePrivilege;
+    @FXML
+    private Button occupationAddPrivilege;
+    @FXML
+    private Button occupationEditPrivilege;
+
+    @FXML
+    private Button employeeDeletePrivilege;
+    @FXML
+    private Button employeeAddPrivilege;
+    @FXML
+    private Button employeeEditPrivilege;
+
+    @FXML
+    private Button abstractDeletePrivilege;
+    @FXML
+    private Button abstractAddPrivilege;
+    @FXML
+    private Button abstractDeletePrivilege1;
+    @FXML
+    private Button abstractAddPrivilege1;
+    @FXML
+    private Button abstractEditPrivilege;
+
+    @FXML
+    private Button deductionDeletePrivilege;
+    @FXML
+    private Button deductionAddPrivilege;
+    @FXML
+    private Button deductionDeletePrivilege1;
+    @FXML
+    private Button deductionAddPrivilege1;
+    @FXML
+    private Button deductionEditPrivilege;
+
+    @FXML
+    private Button penaltyDeletePrivilege;
+    @FXML
+    private Button penaltyAddPrivilege;
+    @FXML
+    private Button penaltyEditPrivilege;
+
+    @FXML
+    private Button userDeletePrivilege;
+    @FXML
+    private Button userAddPrivilege;
+    @FXML
+    private Button userDeletePrivilege1;
+    @FXML
+    private Button userAddPrivilege1;
+    @FXML
+    private Button userEditPrivilege;
+    @FXML
+    private Button userEditPrivilege1;
+
+
+    int idConnected=0;
+    String usernameConnected="";
+    String employeeNameConnected="";
+    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
+        this.idConnected = idConnected;
+        this.usernameConnected = usernameConnected;
+        this.employeeNameConnected = employeeNameConnected;
+        usernameMenu.setText("#"+employeeNameConnected);
         try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
+            pst.setInt(1,idConnected);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("arsa")==0){
+                    areaMenuButton.setDisable(true);
+                }else{
+                    areaMenuButton.setDisable(false);
+                }
+                if (rs.getInt("losa")==0){
+                    locationMenuButton.setDisable(true);
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/areaPage.fxml"));
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+                }else{
+                    locationMenuButton.setDisable(false);
 
+                }
+
+                if (rs.getInt("prsa")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("grsa")==0){
+                    garanteeMenuButton.setDisable(true);
+
+                }else{
+                    garanteeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ocsa")==0){
+                    occupationMenuButton.setDisable(true);
+
+                }else{
+                    occupationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("emsa")==0){
+                    employeeMenuButton.setDisable(true);
+
+                }else{
+                    employeeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("absa")==0){
+                    abstractMenuButton.setDisable(true);
+
+                }else{
+                    abstractMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("desa")==0){
+                    deductionMenuButton.setDisable(true);
+
+                }else{
+                    deductionMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("pesa")==0){
+                    penaltyMenuButton.setDisable(true);
+                    penaltyAddPrivilege.setDisable(true);
+
+                }else{
+                    penaltyMenuButton.setDisable(false);
+                    penaltyAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("pede")==0){
+                    penaltyDeletePrivilege.setDisable(true);
+                    penaltyEditPrivilege.setDisable(true);
+
+                }else{
+                    penaltyDeletePrivilege.setDisable(false);
+                    penaltyEditPrivilege.setDisable(false);
+
+                }
+
+                if (rs.getInt("ussa")==0){
+                    userMenuButton.setDisable(true);
+
+                }else{
+                    userMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("res")==0){
+                    repportMenuButton.setDisable(true);
+
+                }else{
+                    repportMenuButton.setDisable(false);
+
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
     }
 
-    public void report(ActionEvent actionEvent) {
+    public void areas(javafx.event.ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/repportPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+            AnchorPane root = loader.load();
+            AreaPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المناطق");
             primaryStage.setScene(new Scene(root));
@@ -236,14 +461,18 @@ public class PenaltyPage implements Initializable {
             System.out.println(e.getMessage());
 
         }
+
     }
 
     public void locations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/locationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/locationPage.fxml"));
+            AnchorPane root = loader.load();
+            LocationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المواقع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -255,9 +484,12 @@ public class PenaltyPage implements Initializable {
     public void projects(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -269,9 +501,12 @@ public class PenaltyPage implements Initializable {
     public void garantees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/garanteePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePage.fxml"));
+            AnchorPane root = loader.load();
+            GaranteePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الضمانات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -283,9 +518,12 @@ public class PenaltyPage implements Initializable {
     public void occupations(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/occupationPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/occupationPage.fxml"));
+            AnchorPane root = loader.load();
+            OccupationPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الوظائق");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -297,9 +535,12 @@ public class PenaltyPage implements Initializable {
     public void employees(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/employeePage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/employeePage.fxml"));
+            AnchorPane root = loader.load();
+            EmployeePage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الموظفين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -311,9 +552,12 @@ public class PenaltyPage implements Initializable {
     public void users(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/userPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/userPage.fxml"));
+            AnchorPane root = loader.load();
+            UserPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("إدارة المستخدمين");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -324,9 +568,28 @@ public class PenaltyPage implements Initializable {
     public void penalties(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/penaltyPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/penaltyPage.fxml"));
+            AnchorPane root = loader.load();
+            PenaltyPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الغرامات");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void report(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/repportPage.fxml"));
+            AnchorPane root = loader.load();
+            RepportPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("التقارير");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -337,9 +600,12 @@ public class PenaltyPage implements Initializable {
     public void abstracts(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/abstractPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/abstractPage.fxml"));
+            AnchorPane root = loader.load();
+            AbstractPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المستخلصات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -350,9 +616,12 @@ public class PenaltyPage implements Initializable {
     public void deduction(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/deductionPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/deductionPage.fxml"));
+            AnchorPane root = loader.load();
+            DeductionPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("الإستقطاعات");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -363,9 +632,12 @@ public class PenaltyPage implements Initializable {
     public void login(ActionEvent actionEvent) {
         try {
 
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/projectPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المناطق");
+            primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
@@ -380,7 +652,7 @@ public class PenaltyPage implements Initializable {
         try {
             con=new ConnectDB().getConnection();
             if (idEmployee>0){
-                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`) VALUES (?,?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setString(3,typeDeduction.getText());
@@ -391,9 +663,10 @@ public class PenaltyPage implements Initializable {
                 pst.setString(6, sdf.format(new Date()));
                 pst.setInt(7,idEmployee);
                 pst.setString(8,"p");
-                
+                pst.setString(9,perOrCos.getValue());
+
             }else{
-                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`) VALUES (?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setString(3,typeDeduction.getText());
@@ -402,6 +675,7 @@ public class PenaltyPage implements Initializable {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
                 pst.setString(6, sdf.format(new Date()));
                 pst.setString(7,"p");
+                pst.setString(8,perOrCos.getValue());
 
             }
 
@@ -426,19 +700,25 @@ public class PenaltyPage implements Initializable {
     private TableView<DeductionForTable> deductionTableView;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> areaNameTable;
+    private TableColumn<DeductionForTable, String> areaNameTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> locationNameTable;
+    private TableColumn<DeductionForTable, String> locationNameTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> projectNameTable;
+    private TableColumn<DeductionForTable, String> projectNameTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, Float> amountOfDeductionTable;
+    private TableColumn<DeductionForTable, Float> amountOfDeductionTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> typeDeductionTable;
+    private TableColumn<DeductionForTable, String> nortTable;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> typeDeductionTable;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> employeeNameTable;
 
     ObservableList deductionsTable= FXCollections.observableArrayList();
 
@@ -455,7 +735,9 @@ public class PenaltyPage implements Initializable {
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
         amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
+        nortTable.setCellValueFactory(new PropertyValueFactory<>("nort"));
         typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
+        employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("nameEmployee"));
         deductionTableView.setItems(deductionsTable);
 
     }
@@ -466,7 +748,7 @@ public class PenaltyPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `deductions` WHERE `dorp`='p'");
             rs=pst.executeQuery();
             while (rs.next()){
-                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
+                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
             }
 
@@ -591,6 +873,7 @@ public class PenaltyPage implements Initializable {
             locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
             projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
             amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
+            nortTable.setCellValueFactory(new PropertyValueFactory<>("nort"));
             typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
             deductionTableView.setItems(deductionsTable);
         }else{
@@ -600,7 +883,7 @@ public class PenaltyPage implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM `deductions`,`projects` WHERE deductions.idProject =projects.id AND deductions.dorp='p' AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction")));
+                    deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
 
                 }
@@ -608,6 +891,7 @@ public class PenaltyPage implements Initializable {
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
                 amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
+                nortTable.setCellValueFactory(new PropertyValueFactory<>("nort"));
                 typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
                 deductionTableView.setItems(deductionsTable);
 
@@ -627,18 +911,31 @@ public class PenaltyPage implements Initializable {
         int index= deductionTableView.getSelectionModel().getSelectedIndex();
         int idEdit=deductionTableView.getItems().get(index).getIdDeduction();
         int idArea=0,idLocation=0,idEmployee=0,idProject=0;
+        String EmployeeN="موقع";
 
-
-        if (edit.getText().contains("تعديل الغرامة")){
-            edit.setText("حفظ");
+        if (penaltyEditPrivilege.getText().contains("تعديل الغرامة")){
+            penaltyEditPrivilege.setText("حفظ");
             areaName.setValue(deductionTableView.getItems().get(index).getNameArea());
             locationName.setValue(deductionTableView.getItems().get(index).getNameLocation());
             projectName.setValue(deductionTableView.getItems().get(index).getNameProject());
             employeeName.setValue(deductionTableView.getItems().get(index).getNameEmployee());
-
+            perOrCos.setValue(deductionTableView.getItems().get(index).getNort());
             typeDeduction.setText(deductionTableView.getItems().get(index).getTypeDeduction());
             amountOfDeduction.setText(deductionTableView.getItems().get(index).getAmountOfDeduction());
-        }else if (edit.getText().contains("حفظ")){
+            if (locoremp.getSelectionModel().getSelectedItem()=="موظف"){
+                occupationName.setVisible(true);
+                employeeName.setVisible(true);
+            }else{
+                occupationName.setVisible(false);
+                employeeName.setVisible(false);
+            }
+            System.out.println(deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee());
+            if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()!=null){
+                locoremp.setValue("موظف");
+            }else if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()==null){
+                locoremp.setValue("موقع");
+            }
+        }else if (penaltyEditPrivilege.getText().contains("حفظ")){
             try {
                 for (int i=0; i<areas.size() ;i++){
                     if (areas.get(i).getNameArea()==areaName.getValue()){
@@ -650,9 +947,11 @@ public class PenaltyPage implements Initializable {
                         idLocation=locations.get(i).getIdLocation();
                     }
                 }
+
                 for (int i=0; i<employees.size() ;i++){
                     if (employees.get(i).getEmployeeName()==employeeName.getValue()){
                         idEmployee=employees.get(i).getId();
+
                     }
                 }
                 for (int i=0; i<projects.size() ;i++){
@@ -662,18 +961,18 @@ public class PenaltyPage implements Initializable {
                 }
                 con = new ConnectDB().getConnection();
                 if (idEmployee>0){
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=? WHERE `id`=?");
-
+                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=?,`nort`=? WHERE `id`=?");
                     pst.setInt(1, idArea);
                     pst.setInt(2, idLocation);
                     pst.setString(3, typeDeduction.getText());
                     pst.setString(4, amountOfDeduction.getText());
                     pst.setInt(5, idEmployee);
                     pst.setInt(6, idProject);
-                    pst.setInt(7, idEdit);
-
+                    pst.setString(7, nortValue);
+                    pst.setInt(8, idEdit);
                     pst.execute();
-                    edit.setText("تعديل الغرامة");
+
+                    penaltyEditPrivilege.setText("تعديل الغرامة");
                     employeeName.getItems().clear();
                     projectName.getItems().clear();
                     locationName.getItems().clear();
@@ -682,17 +981,18 @@ public class PenaltyPage implements Initializable {
                     typeDeduction.clear();
                     fillComboArea();
                 }else{
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=? WHERE `id`=?");
-
+                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=?,`nort`=?,`idEmployeeDeduction`=? WHERE `id`=?");
                     pst.setInt(1, idArea);
                     pst.setInt(2, idLocation);
                     pst.setString(3, typeDeduction.getText());
                     pst.setString(4, amountOfDeduction.getText());
                     pst.setInt(5, idProject);
-                    pst.setInt(6, idEdit);
-
+                    pst.setString(6, nortValue);
+                    pst.setInt(7,idEmployee);
+                    pst.setInt(8, idEdit);
                     pst.execute();
-                    edit.setText("تعديل الغرامة");
+
+                    penaltyEditPrivilege.setText("تعديل الغرامة");
                     employeeName.getItems().clear();
                     projectName.getItems().clear();
                     locationName.getItems().clear();
@@ -714,7 +1014,7 @@ public class PenaltyPage implements Initializable {
     }
     @FXML
     void idReset(MouseEvent event) {
-        edit.setText("تعديل الغرامة");
+        penaltyEditPrivilege.setText("تعديل الغرامة");
     }
 
 
@@ -738,9 +1038,12 @@ public class PenaltyPage implements Initializable {
         if (perOrCos.getValue()=="نسبة"){
 //            System.out.println("thats work");
             per.setVisible(true);
+            nortValue="نسبة";
+
         }else {
 //            System.out.println("thats not work");
             per.setVisible(false);
+            nortValue="تكلفة";
 
         }
     }

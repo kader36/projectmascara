@@ -3,9 +3,9 @@ package Controlers;
 public class DeductionForTable {
     private int idDeduction,idArea,idLocation,idProject,idEmployee;
     private String nameArea,nameLocation,nameProject,nameEmployee,typeDeduction;
-    private String amountOfDeduction;
+    private String amountOfDeduction,nort;
 
-    public DeductionForTable(int idDeduction, int idArea, int idLocation, int idProject, int idEmployee, String nameArea, String nameLocation, String nameProject, String nameEmployee, String typeDeduction, String amountOfDeduction) {
+    public DeductionForTable(int idDeduction, int idArea, int idLocation, int idProject, int idEmployee, String nameArea, String nameLocation, String nameProject, String nameEmployee, String typeDeduction, String amountOfDeduction, String nort) {
         this.idDeduction = idDeduction;
         this.idArea = idArea;
         this.idLocation = idLocation;
@@ -17,6 +17,7 @@ public class DeductionForTable {
         this.nameEmployee = nameEmployee;
         this.typeDeduction = typeDeduction;
         this.amountOfDeduction = amountOfDeduction;
+        this.nort = nort;
     }
 
     public int getIdDeduction() {
@@ -61,5 +62,9 @@ public class DeductionForTable {
 
     public String getAmountOfDeduction() {
         return amountOfDeduction;
+    }
+
+    public String getNort() {
+        return nort;
     }
 }
