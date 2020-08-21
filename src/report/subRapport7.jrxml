@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subRapport7" columnCount="12" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="70" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a4f0c3b8-33b9-4783-8714-058493d5c3cc">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testbase"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT * FROM `occupations`]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="occupations"/>
+	</field>
+	<field name="occupationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="occupationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="occupations"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="38" uuid="f91cd6e2-bdd8-4253-bb40-6adab319bc8b"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{occupationName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
