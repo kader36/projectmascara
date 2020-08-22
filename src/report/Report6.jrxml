@@ -300,6 +300,10 @@
 		<property name="com.jaspersoft.studio.field.label" value="dcm"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="abstractyears"/>
 	</field>
+	<field name="remark" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="remark"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="abstractyears"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -329,9 +333,9 @@
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Title" x="520" y="9" width="134" height="28" forecolor="#000000" uuid="b64422bb-24e5-4e16-94b8-41c642937512"/>
+					<reportElement x="519" y="9" width="131" height="30" uuid="23d2a69a-dab6-4fe3-8337-640deeef12cf"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="22" isBold="true"/>
+						<font size="19" isBold="true"/>
 					</textElement>
 					<text><![CDATA[إسم المشروع :]]></text>
 				</staticText>
@@ -763,9 +767,6 @@
 			</staticText>
 		</band>
 	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
 	<detail>
 		<band height="60" splitType="Stretch">
 			<textField>
@@ -993,7 +994,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{jan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -1097,7 +1098,4 @@
 			</frame>
 		</band>
 	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>

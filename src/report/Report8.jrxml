@@ -246,13 +246,6 @@
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="134" y="66" width="421" height="32" forecolor="#000000" backcolor="#DBDBDB" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
-				<staticText>
-					<reportElement style="SubTitle" x="286" y="1" width="122" height="29" forecolor="#000000" uuid="8978eac3-c578-41c9-837e-48d2b0184642"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="22" isBold="true"/>
-					</textElement>
-					<text><![CDATA[إسم المشروع :]]></text>
-				</staticText>
 				<textField>
 					<reportElement x="24" y="2" width="260" height="30" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -260,6 +253,13 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="290" y="1" width="110" height="30" uuid="7da83e2b-c783-40fd-972d-52de1ca56ed3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="19" isBold="true"/>
+					</textElement>
+					<text><![CDATA[إسم المشروع :]]></text>
+				</staticText>
 			</frame>
 			<image>
 				<reportElement x="19" y="0" width="101" height="98" uuid="1b96ef5d-4a7c-4609-804d-9a3a13b830f0"/>

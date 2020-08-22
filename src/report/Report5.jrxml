@@ -504,20 +504,20 @@
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="138" y="0" width="417" height="39" forecolor="#000000" backcolor="#FFFFFF" uuid="42c05d9b-4100-40e5-88e9-971368450be1"/>
-				<staticText>
-					<reportElement style="SubTitle" x="300" y="1" width="109" height="31" forecolor="#000000" uuid="b28f9b59-29e4-456a-8545-613c84f9ba4c"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="19" isBold="true"/>
-					</textElement>
-					<text><![CDATA[إسم المشروع :]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="7" y="2" width="283" height="30" forecolor="#000000" uuid="d192165e-c1a9-481b-910e-2540e48527b6"/>
+					<reportElement x="7" y="4" width="283" height="30" forecolor="#000000" uuid="d192165e-c1a9-481b-910e-2540e48527b6"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="290" y="4" width="124" height="30" uuid="27f9802a-2261-49e3-94e4-a02fa8a74752"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="19" isBold="true"/>
+					</textElement>
+					<text><![CDATA[إسم المشروع :]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</detail>
