@@ -2,9 +2,9 @@ package Controlers;
 
 public class AbstractForTable2 {
     private int idAbstractYears,idAbstract;
-    private String year,janvier,fevrier,mars,avril,may,juin,juilliet,aout,septembre,octobre,novembre,decembre;
+    private String year,janvier,fevrier,mars,avril,may,juin,juilliet,aout,septembre,octobre,novembre,decembre,remark;
 
-    public AbstractForTable2(int idAbstractYears, int idAbstract, String year, String janvier, String fevrier, String mars, String avril, String may, String juin, String juilliet, String aout, String septembre, String octobre, String novembre, String decembre) {
+    public AbstractForTable2(int idAbstractYears, int idAbstract, String year, String janvier, String fevrier, String mars, String avril, String may, String juin, String juilliet, String aout, String septembre, String octobre, String novembre, String decembre, String remark) {
         this.idAbstractYears = idAbstractYears;
         this.idAbstract = idAbstract;
         this.year = year;
@@ -20,6 +20,7 @@ public class AbstractForTable2 {
         this.octobre = octobre;
         this.novembre = novembre;
         this.decembre = decembre;
+        this.remark = remark;
     }
 
     public int getIdAbstractYears() {
@@ -80,5 +81,9 @@ public class AbstractForTable2 {
 
     public String getDecembre() {
         return decembre;
+    }
+
+    public String getRemark() {
+        return remark;
     }
 }

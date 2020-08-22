@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -56,22 +57,32 @@
                                           <TextField fx:id="contractNumber" editable="false" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <DatePicker fx:id="contractStartDate" editable="false" layoutX="307.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate" editable="false" layoutX="582.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
-                                          <CheckBox fx:id="janvier" layoutX="30.0" layoutY="378.0" mnemonicParsing="false" text="January" />
-                                          <CheckBox fx:id="fevrier" layoutX="195.0" layoutY="378.0" mnemonicParsing="false" text="February" />
-                                          <CheckBox fx:id="mars" layoutX="367.0" layoutY="378.0" mnemonicParsing="false" text="March" />
-                                          <CheckBox fx:id="avril" layoutX="31.0" layoutY="403.0" mnemonicParsing="false" text="April" />
-                                          <CheckBox fx:id="may" layoutX="196.0" layoutY="403.0" mnemonicParsing="false" text="May" />
-                                          <CheckBox fx:id="juin" layoutX="368.0" layoutY="403.0" mnemonicParsing="false" text="June" />
-                                          <CheckBox fx:id="juilliet" layoutX="32.0" layoutY="428.0" mnemonicParsing="false" text="July" />
-                                          <CheckBox fx:id="aout" layoutX="197.0" layoutY="428.0" mnemonicParsing="false" text="August" />
-                                          <CheckBox fx:id="septembre" layoutX="368.0" layoutY="428.0" mnemonicParsing="false" text="September" />
-                                          <CheckBox fx:id="octobre" layoutX="33.0" layoutY="453.0" mnemonicParsing="false" text="October" />
-                                          <CheckBox fx:id="novembre" layoutX="198.0" layoutY="453.0" mnemonicParsing="false" text="November" />
-                                          <CheckBox fx:id="decembre" layoutX="369.0" layoutY="453.0" mnemonicParsing="false" text="December" />
-                                          <Button fx:id="abstractAddPrivilege1" layoutX="171.0" layoutY="489.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button fx:id="abstractDeletePrivilege1" layoutX="320.0" layoutY="489.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <ComboBox fx:id="yearAbstract" layoutX="31.0" layoutY="489.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
-                                          <TableView fx:id="yearAbstractTableView" layoutX="461.0" layoutY="379.0" onMouseClicked="#idReset2" prefHeight="147.0" prefWidth="623.0">
+                                          <CheckBox fx:id="janvier" layoutX="78.0" layoutY="378.0" mnemonicParsing="false" text="January" />
+                                          <CheckBox fx:id="fevrier" layoutX="243.0" layoutY="378.0" mnemonicParsing="false" text="February" />
+                                          <CheckBox fx:id="mars" layoutX="415.0" layoutY="378.0" mnemonicParsing="false" text="March" />
+                                          <CheckBox fx:id="avril" layoutX="79.0" layoutY="403.0" mnemonicParsing="false" text="April" />
+                                          <CheckBox fx:id="may" layoutX="244.0" layoutY="403.0" mnemonicParsing="false" text="May" />
+                                          <CheckBox fx:id="juin" layoutX="416.0" layoutY="403.0" mnemonicParsing="false" text="June" />
+                                          <CheckBox fx:id="juilliet" layoutX="592.0" layoutY="378.0" mnemonicParsing="false" text="July" />
+                                          <CheckBox fx:id="aout" layoutX="757.0" layoutY="378.0" mnemonicParsing="false" text="August" />
+                                          <CheckBox fx:id="septembre" layoutX="928.0" layoutY="378.0" mnemonicParsing="false" text="September" />
+                                          <CheckBox fx:id="octobre" layoutX="593.0" layoutY="403.0" mnemonicParsing="false" text="October" />
+                                          <CheckBox fx:id="novembre" layoutX="758.0" layoutY="403.0" mnemonicParsing="false" text="November" />
+                                          <CheckBox fx:id="decembre" layoutX="929.0" layoutY="403.0" mnemonicParsing="false" text="December" />
+                                          <Button fx:id="abstractAddPrivilege1" layoutX="589.0" layoutY="493.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="190.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="abstractDeletePrivilege1" layoutX="819.0" layoutY="493.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="190.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <ComboBox fx:id="yearAbstract" layoutX="591.0" layoutY="444.0" prefHeight="35.0" prefWidth="415.0" promptText="السنة" />
+                                          <TextField fx:id="contractType" editable="false" layoutX="859.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
+                                          <TextArea fx:id="remark" layoutX="80.0" layoutY="444.0" prefHeight="86.0" prefWidth="473.0" promptText="الملاحظة" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab closable="false" text="التأخيرات و الملاحظات">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <TableView fx:id="yearAbstractTableView" layoutX="37.0" layoutY="65.0" onMouseClicked="#idReset2" prefHeight="441.0" prefWidth="1036.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable" prefWidth="64.0" text="السنة" />
                                                 <TableColumn prefWidth="75.0" text="الأشهر">
@@ -90,13 +101,13 @@
                                                       <TableColumn fx:id="decembreTable" editable="false" prefWidth="45.0" text="12" />
                                                    </columns>
                                                 </TableColumn>
+                                                <TableColumn fx:id="remarkTable" prefWidth="413.0" text="الملاحظة" />
                                              </columns>
                                           </TableView>
-                                          <TextField fx:id="contractType" editable="false" layoutX="859.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
                                        </children>
                                     </AnchorPane>
-                              </content>
-                            </Tab>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>

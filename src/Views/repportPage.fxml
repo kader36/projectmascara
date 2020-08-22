@@ -28,10 +28,10 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <Button layoutX="32.0" layoutY="97.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
-                                          <Button layoutX="405.0" layoutY="97.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
+                                          <Button layoutX="405.0" layoutY="97.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
                                           <Button layoutX="784.0" layoutY="97.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
                                           <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
-                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFour" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
+                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false"  prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
                                           <Button layoutX="784.0" layoutY="203.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الإستقطاعات لمشروع محدد" />
                                           <ComboBox fx:id="areaName" layoutX="63.0" layoutY="26.0" onAction="#selectArea" prefHeight="37.0" prefWidth="230.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="435.0" layoutY="26.0" onAction="#selectLocation" prefHeight="37.0" prefWidth="230.0" promptText="الموقع" />

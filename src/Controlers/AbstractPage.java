@@ -108,6 +108,9 @@ public class AbstractPage implements Initializable {
     private TableColumn<AbstractForTable2, String> decembreTable;
 
     @FXML
+    private TableColumn<AbstractForTable2, String> remarkTable;
+
+    @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
@@ -697,6 +700,7 @@ public class AbstractPage implements Initializable {
         octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
         novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
         decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+        remarkTable.setCellValueFactory(new PropertyValueFactory<>("remark"));
 
         abstractTableView.setItems(abstractsTable);
         yearAbstractTableView.setItems(abstractYearsTable);
@@ -935,6 +939,9 @@ public class AbstractPage implements Initializable {
 
     @FXML
     private CheckBox decembre;
+
+    @FXML
+    private TextArea remark;
     @FXML
     public void addAbstract(ActionEvent actionEvent) {
         String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
@@ -1043,6 +1050,7 @@ public class AbstractPage implements Initializable {
             octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
             novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
             decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+            remarkTable.setCellValueFactory(new PropertyValueFactory<>("remark"));
             abstractTableView.setItems(abstractsTable);
         }else{
             abstractsTable.clear();
@@ -1073,6 +1081,7 @@ public class AbstractPage implements Initializable {
                 octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
                 novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
                 decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+                remarkTable.setCellValueFactory(new PropertyValueFactory<>("remark"));
                 abstractTableView.setItems(abstractsTable);
 
 
@@ -1145,7 +1154,7 @@ public class AbstractPage implements Initializable {
         }
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `abstractyears`(`idAbstract`, `year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst=con.prepareStatement("INSERT INTO `abstractyears`(`idAbstract`, `year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`,`remark`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pst.setInt(1,idAbstract);
             pst.setString(2,yearAbstract.getValue());
             pst.setString(3,month1);
@@ -1160,6 +1169,7 @@ public class AbstractPage implements Initializable {
             pst.setString(12,month10);
             pst.setString(13,month11);
             pst.setString(14,month12);
+            pst.setString(15,remark.getText());
             pst.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1178,7 +1188,7 @@ public class AbstractPage implements Initializable {
             pst.setInt(1,idAbstract);
             rs=pst.executeQuery();
             while (rs.next()){
-                abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm")));
+                abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
 
             }
 
