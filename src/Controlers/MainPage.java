@@ -88,9 +88,9 @@ public class MainPage implements Initializable {
 
                 try {
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/areaPage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
                     AnchorPane root = loader.load();
-                    AreaPage controller = loader.getController();
+                    Accueil controller = loader.getController();
                     controller.Init(idConnected,usernameConnected,employeeNameConnected);
                     Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
 

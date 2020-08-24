@@ -42,19 +42,43 @@ public class AreaPage implements Initializable {
 
 
 
-
     @FXML
     void addArea(ActionEvent event) {
+        int dejaExist=0;
+        int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `areas`(`areaName`) VALUES (?)");
+            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `areaName`=?");
             pst.setString(1,areaName.getText());
-            pst.execute();
-
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable();
+        if (areaName.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `areas`(`areaName`) VALUES (?)");
+                pst.setString(1,areaName.getText());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+        }
+
 
     }
     ObservableList areasTable= FXCollections.observableArrayList();
@@ -522,19 +546,22 @@ public class AreaPage implements Initializable {
         }
 
     }
-
     public void deleteRow(ActionEvent actionEvent) {
         int index= areaTableView.getSelectionModel().getSelectedIndex();
-        if (index>0) {
-            int idDelete=areaTableView.getItems().get(index).getAreaId();
+        int idDelete=areaTableView.getItems().get(index).getAreaId();
+
+        if (idDelete>0) {
             try {
                 con = new Controlers.ConnectDB().getConnection();
                 pst = con.prepareStatement("DELETE FROM `areas` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+
             }
             idDelete=0;
             addToTable();
@@ -572,10 +599,10 @@ public class AreaPage implements Initializable {
 
 
     }
-
     @FXML
     private Button edit;
     public void edit(ActionEvent actionEvent) {
+
         int index= areaTableView.getSelectionModel().getSelectedIndex();
         int idEdit=areaTableView.getItems().get(index).getAreaId();
 
@@ -589,10 +616,12 @@ public class AreaPage implements Initializable {
                 pst.setString(1, areaName.getText());
                 pst.setInt(2, idEdit);
                 pst.execute();
+                warningMsg("تعديل","تم التعديل بنجاح");
                 areaEditPrivilege.setText("تعديل منطقة");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
             addToTable();
             idEdit=0;
@@ -603,5 +632,12 @@ public class AreaPage implements Initializable {
     @FXML
     void idReset(MouseEvent event) {
         areaEditPrivilege.setText("تعديل منطقة");
+    }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

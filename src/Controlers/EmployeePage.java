@@ -30,6 +30,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class EmployeePage implements Initializable {
@@ -38,7 +39,7 @@ public class EmployeePage implements Initializable {
     ResultSet rs;
     File file1=null,file2=null;
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
-    ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة السياقة");
+    ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة الإقامة");
     int idOccupation=0;
     public void fillCombo(){
         try {
@@ -95,104 +96,133 @@ public class EmployeePage implements Initializable {
 
     @FXML
     public void addEmployee(ActionEvent actionEvent) {
+        int dejaExist=0;
+        int size=0;
         try {
-            if (file1!=null && file2!=null){
-                con=new Controlers.ConnectDB().getConnection();
-
-                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
-                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                pst.setString(1,employeeName.getText());
-                pst.setString(2,employeeNumber.getText());
-                pst.setString(3,employeeNationality.getText());
-                pst.setString(4,identityType.getValue());
-                pst.setString(5,identityNumber.getText());
-                pst.setString(6,religion.getText());
-                pst.setString(7,residenceOccupation.getText());
-                pst.setInt(8,idOccupation);
-                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                FileInputStream fis1=new FileInputStream(file1);
-                pst.setBinaryStream(12, fis1,(int) file1.length());
-                FileInputStream fis2=new FileInputStream(file2);
-                pst.setBinaryStream(13, fis2,(int) file2.length());
-                pst.execute();
-            }else if (file1== null && file2!=null){
-                con=new Controlers.ConnectDB().getConnection();
-
-                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
-                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-                pst.setString(1,employeeName.getText());
-                pst.setString(2,employeeNumber.getText());
-                pst.setString(3,employeeNationality.getText());
-                pst.setString(4,identityType.getValue());
-                pst.setString(5,identityNumber.getText());
-                pst.setString(6,religion.getText());
-                pst.setString(7,residenceOccupation.getText());
-                pst.setInt(8,idOccupation);
-                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-
-                FileInputStream fis2=new FileInputStream(file2);
-                pst.setBinaryStream(12, fis2,(int) file2.length());
-                pst.execute();
-            }else if (file2==null && file1!=null){
-                con=new Controlers.ConnectDB().getConnection();
-
-                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
-                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-                pst.setString(1,employeeName.getText());
-                pst.setString(2,employeeNumber.getText());
-                pst.setString(3,employeeNationality.getText());
-                pst.setString(4,identityType.getValue());
-                pst.setString(5,identityNumber.getText());
-                pst.setString(6,religion.getText());
-                pst.setString(7,residenceOccupation.getText());
-                pst.setInt(8,idOccupation);
-                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                FileInputStream fis1=new FileInputStream(file1);
-                pst.setBinaryStream(12, fis1,(int) file1.length());
-
-                pst.execute();
-            }else if (file1==null && file2==null){
-                con=new Controlers.ConnectDB().getConnection();
-
-                pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
-                        " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
-                        " `HealthCertificateStartDate`, `HealthCertificatEndDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                pst.setString(1,employeeName.getText());
-                pst.setString(2,employeeNumber.getText());
-                pst.setString(3,employeeNationality.getText());
-                pst.setString(4,identityType.getValue());
-                pst.setString(5,identityNumber.getText());
-                pst.setString(6,religion.getText());
-                pst.setString(7,residenceOccupation.getText());
-                pst.setInt(8,idOccupation);
-                pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-
-                pst.execute();
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+            pst.setString(1,identityNumber.getText());
+            pst.setString(2,employeeNumber.getText());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
             }
-
-
-        } catch (SQLException | FileNotFoundException throwables) {
+            if (size>0){
+                dejaExist=1;
+            }
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
-            System.out.println(throwables.getMessage());
         }
-        addToTable();
-        employeeName.clear();
-        identityNumber.clear();
-        employeeNumber.clear();
-        religion.clear();
-        employeeNationality.clear();
-        residenceOccupation.clear();
+        if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                if (file1!=null && file2!=null){
+                    con=new Controlers.ConnectDB().getConnection();
+
+                    pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                            " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                            " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                    FileInputStream fis1=new FileInputStream(file1);
+                    pst.setBinaryStream(12, fis1,(int) file1.length());
+                    FileInputStream fis2=new FileInputStream(file2);
+                    pst.setBinaryStream(13, fis2,(int) file2.length());
+                    pst.execute();
+                    warningMsg("إظافة","تمت الإظافة بنجاح");
+                }else if (file1== null && file2!=null){
+                    con=new Controlers.ConnectDB().getConnection();
+
+                    pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                            " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                            " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `identityImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                    FileInputStream fis2=new FileInputStream(file2);
+                    pst.setBinaryStream(12, fis2,(int) file2.length());
+                    pst.execute();
+                    warningMsg("إظافة","تمت الإظافة بنجاح");
+                }else if (file2==null && file1!=null){
+                    con=new Controlers.ConnectDB().getConnection();
+
+                    pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                            " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                            " `HealthCertificateStartDate`, `HealthCertificatEndDate`, `certificateImage`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                    FileInputStream fis1=new FileInputStream(file1);
+                    pst.setBinaryStream(12, fis1,(int) file1.length());
+
+                    pst.execute();
+                    warningMsg("إظافة","تمت الإظافة بنجاح");
+                }else if (file1==null && file2==null){
+                    con=new Controlers.ConnectDB().getConnection();
+
+                    pst=con.prepareStatement("INSERT INTO `employees`(`employeeName`, `employeeNumber`, `employeeNationality`," +
+                            " `identityType`, `identityNumber`, `religion`, `residenceOccupation`, `reelOccupation`, `residenceEndDate`," +
+                            " `HealthCertificateStartDate`, `HealthCertificatEndDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                    pst.setString(1,employeeName.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    pst.setString(3,employeeNationality.getText());
+                    pst.setString(4,identityType.getValue());
+                    pst.setString(5,identityNumber.getText());
+                    pst.setString(6,religion.getText());
+                    pst.setString(7,residenceOccupation.getText());
+                    pst.setInt(8,idOccupation);
+                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                    pst.execute();
+                    warningMsg("إظافة","تمت الإظافة بنجاح");
+                }
+
+
+            } catch (SQLException | FileNotFoundException throwables) {
+                throwables.printStackTrace();
+                System.out.println(throwables.getMessage());
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+            employeeName.clear();
+            identityNumber.clear();
+            employeeNumber.clear();
+            religion.clear();
+            employeeNationality.clear();
+            residenceOccupation.clear();
+        }
+
     }
     @FXML
     void selectOccupation(ActionEvent event) {
@@ -742,13 +772,21 @@ public class EmployeePage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `employees` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
-
+                warningMsg("حذف","تم الحذف بنجاح");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable();
         }
+    }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     @FXML
@@ -813,9 +851,9 @@ public class EmployeePage implements Initializable {
             employeeEditPrivilege.setText("حفظ");
             employeeName.setText(employeeTableView.getItems().get(index).getEmployeeName());
             identityNumber.setText(employeeTableView.getItems().get(index).getIdentityNumber());
-            residenceEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
-            HealthCertificateStartDate.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
-            HealthCertificatEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+            residenceEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getResidenceEndDate()));
+            HealthCertificateStartDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getHealthCertificateStartDate()));
+            HealthCertificatEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getResidenceEndDate()));
             reelOccupation.setValue(employeeTableView.getItems().get(index).getReelOccupationName());
             identityType.setValue(employeeTableView.getItems().get(index).getIdentityType());
             employeeNumber.setText(employeeTableView.getItems().get(index).getEmployeeNumber());
@@ -855,9 +893,10 @@ public class EmployeePage implements Initializable {
                     pst.setBinaryStream(13, fis2,(int) file2.length());
                     pst.setInt(14,idEdit);
                     pst.execute();
-
+                    warningMsg("تعديل","تم التعديل بنجاح");
                 } catch (SQLException | FileNotFoundException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
             }else if (file1== null && file2==null){
                 try {
@@ -885,9 +924,10 @@ public class EmployeePage implements Initializable {
                     pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
                     pst.setInt(12,idEdit);
                     pst.execute();
-
+                    warningMsg("تعديل","تم التعديل بنجاح");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
 
 
@@ -920,9 +960,11 @@ public class EmployeePage implements Initializable {
                     pst.setBinaryStream(12, fis2,(int) file2.length());
                     pst.setInt(13,idEdit);
                     pst.execute();
+                    warningMsg("تعديل","تم التعديل بنجاح");
 
                 } catch (SQLException | FileNotFoundException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
 
             }else if (file2==null && file1!=null){
@@ -954,9 +996,10 @@ public class EmployeePage implements Initializable {
 
                     pst.setInt(13,idEdit);
                     pst.execute();
-
+                    warningMsg("تعديل","تم التعديل بنجاح");
                 } catch (SQLException | FileNotFoundException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
             }
             employeeEditPrivilege.setText("تعديل موظف");

@@ -38,6 +38,7 @@ public class PenaltyPage implements Initializable {
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     int idArea=0,idLocation=0,idProject=0,idEmployee=0,idOccupation=0;
     String nortValue=null;
+    int isChanged=0;
 
     @FXML
     private ComboBox<String> areaName;
@@ -82,6 +83,7 @@ public class PenaltyPage implements Initializable {
     void selectEmployee(ActionEvent event) {
         int index= employeeName.getSelectionModel().getSelectedIndex();
         idEmployee=employees.get(index).getId();
+        isChanged=1;
 
 
     }
@@ -194,6 +196,7 @@ public class PenaltyPage implements Initializable {
     }
 
     public void fillComboArea(){
+        areas.clear();
         areaName.getItems().clear();
         try {
             con=new ConnectDB().getConnection();
@@ -649,53 +652,76 @@ public class PenaltyPage implements Initializable {
 
 
     public void addDeduction(ActionEvent actionEvent) {
-        try {
-            con=new ConnectDB().getConnection();
-            if (idEmployee>0){
-                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?)");
-                pst.setInt(1,idArea);
-                pst.setInt(2,idLocation);
-                pst.setString(3,typeDeduction.getText());
-                pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
-                pst.setInt(5,idProject);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
+        if (amountOfDeduction.getText().isEmpty()||typeDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||locoremp.getSelectionModel().isEmpty()||perOrCos.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                if (idEmployee>0){
+                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?)");
+                    pst.setInt(1,idArea);
+                    pst.setInt(2,idLocation);
+                    pst.setString(3,typeDeduction.getText());
+                    pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
+                    pst.setInt(5,idProject);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
 
-                pst.setString(6, sdf.format(new Date()));
-                pst.setInt(7,idEmployee);
-                pst.setString(8,"p");
-                pst.setString(9,perOrCos.getValue());
+                    pst.setString(6, sdf.format(new Date()));
+                    pst.setInt(7,idEmployee);
+                    pst.setString(8,"p");
+                    pst.setString(9,perOrCos.getValue());
 
-            }else{
-                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
-                pst.setInt(1,idArea);
-                pst.setInt(2,idLocation);
-                pst.setString(3,typeDeduction.getText());
-                pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
-                pst.setInt(5,idProject);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
-                pst.setString(6, sdf.format(new Date()));
-                pst.setString(7,"p");
-                pst.setString(8,perOrCos.getValue());
+                }else{
+                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
+                    pst.setInt(1,idArea);
+                    pst.setInt(2,idLocation);
+                    pst.setString(3,typeDeduction.getText());
+                    pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
+                    pst.setInt(5,idProject);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
+                    pst.setString(6, sdf.format(new Date()));
+                    pst.setString(7,"p");
+                    pst.setString(8,perOrCos.getValue());
 
+                }
+
+
+
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                employeeName.getItems().clear();
+                projectName.getItems().clear();
+                locationName.getItems().clear();
+                areaName.getItems().clear();
+                amountOfDeduction.clear();
+                typeDeduction.clear();
+                fillComboArea();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
 
-
-
-            pst.execute();
-            employeeName.getItems().clear();
-            projectName.getItems().clear();
-            locationName.getItems().clear();
-            areaName.getItems().clear();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable();
             amountOfDeduction.clear();
-            typeDeduction.clear();
-            fillComboArea();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
-        addToTable();
-        amountOfDeduction.clear();
-    }
 
+    }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     @FXML
     private TableView<DeductionForTable> deductionTableView;
 
@@ -853,11 +879,25 @@ public class PenaltyPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `deductions` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            int idProject=deductionTableView.getItems().get(index).getIdProject();
+
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            idDelete=0;
             addToTable();
         }
     }
@@ -960,8 +1000,9 @@ public class PenaltyPage implements Initializable {
                     }
                 }
                 con = new ConnectDB().getConnection();
-                if (idEmployee>0){
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=?,`nort`=? WHERE `id`=?");
+
+                if (isChanged==1){
+                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=?,`nort`=?,`empoyeeNameDed`=? WHERE `id`=?");
                     pst.setInt(1, idArea);
                     pst.setInt(2, idLocation);
                     pst.setString(3, typeDeduction.getText());
@@ -969,7 +1010,8 @@ public class PenaltyPage implements Initializable {
                     pst.setInt(5, idEmployee);
                     pst.setInt(6, idProject);
                     pst.setString(7, nortValue);
-                    pst.setInt(8, idEdit);
+                    pst.setString(8, employeeName.getValue());
+                    pst.setInt(9, idEdit);
                     pst.execute();
 
                     penaltyEditPrivilege.setText("تعديل الغرامة");
@@ -980,15 +1022,15 @@ public class PenaltyPage implements Initializable {
                     amountOfDeduction.clear();
                     typeDeduction.clear();
                     fillComboArea();
-                }else{
-                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=?,`nort`=?,`idEmployeeDeduction`=? WHERE `id`=?");
+                }else if (idEmployee<1){
+                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=?,`nort`=?,`empoyeeNameDed`=? WHERE `id`=?");
                     pst.setInt(1, idArea);
                     pst.setInt(2, idLocation);
                     pst.setString(3, typeDeduction.getText());
                     pst.setString(4, amountOfDeduction.getText());
                     pst.setInt(5, idProject);
                     pst.setString(6, nortValue);
-                    pst.setInt(7,idEmployee);
+                    pst.setString(7, employeeName.getValue());
                     pst.setInt(8, idEdit);
                     pst.execute();
 
@@ -1002,10 +1044,22 @@ public class PenaltyPage implements Initializable {
                     fillComboArea();
                 }
 
+                warningMsg("تعديل","تم التعديل بنجاح");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
+            }
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+            isChanged=0;
             addToTable();
             idEdit=0;
         }

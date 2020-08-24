@@ -58,27 +58,52 @@ public class LocationPage implements Initializable {
     }
 
 
-
     @FXML
     void addLocation(ActionEvent event) {
-
+        int dejaExist=0;
+        int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `locations`(`locationName`, `areaId`) VALUES (?,?)");
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName`=? AND `areaId`=?");
             pst.setString(1,locationName.getText());
             pst.setInt(2,idArea);
-            pst.execute();
-
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable();
+        if (locationName.getText().isEmpty() || areaName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `locations`(`locationName`, `areaId`) VALUES (?,?)");
+                pst.setString(1,locationName.getText());
+                pst.setInt(2,idArea);
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
 
-        locationName.clear();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+
+            locationName.clear();
+        }
+
+
     }
     @FXML
     void selectArea(ActionEvent event) {
-        int index= areaName.getSelectionModel().getSelectedIndex();
+        int index=areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
     }
     @FXML
@@ -571,6 +596,13 @@ public class LocationPage implements Initializable {
         return result;
 
     }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     @FXML
     public void deleteRow(ActionEvent actionEvent) {
         int index= locationTableView.getSelectionModel().getSelectedIndex();
@@ -581,9 +613,11 @@ public class LocationPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `locations` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable();
@@ -623,13 +657,11 @@ public class LocationPage implements Initializable {
 
 
     }
-
     @FXML
     private Button edit;
     public void edit(ActionEvent actionEvent) {
         int index= locationTableView.getSelectionModel().getSelectedIndex();
         int idEdit=locationTableView.getItems().get(index).getIdLocation();
-        int idArea=0;
 
         if (locationEditPrivilege.getText().contains("تعديل موقع")){
             locationEditPrivilege.setText("حفظ");
@@ -649,9 +681,12 @@ public class LocationPage implements Initializable {
                 pst.setInt(3, idEdit);
                 pst.execute();
                 locationEditPrivilege.setText("تعديل موقع");
+                warningMsg("تعديل","تم التعديل بنجاح");
+
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
             addToTable();
             idEdit=0;

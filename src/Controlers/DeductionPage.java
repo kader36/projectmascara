@@ -145,6 +145,8 @@ public class DeductionPage implements Initializable {
     }
 
     public void fillComboArea(){
+        areas.clear();
+        areaName.getItems().clear();
         try {
             con=new ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -602,22 +604,12 @@ public class DeductionPage implements Initializable {
 
 
     public void addDeduction(ActionEvent actionEvent) {
-        try {
-            con=new ConnectDB().getConnection();
-            if (idEmployee>0){
-                pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,'تكلفة')");
-                pst.setInt(1,idArea);
-                pst.setInt(2,idLocation);
-                pst.setString(3,typeDeduction.getValue());
-                pst.setFloat(4, Float.parseFloat(amountOfDeduction.getText()));
-                pst.setInt(5,idProject);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
 
-                pst.setString(6, sdf.format(new Date()));
-                pst.setInt(7,idEmployee);
-                pst.setString(8,"d");
-
-            }else{
+        if (amountOfDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||typeDeduction.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
                 pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,'تكلفة')");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
@@ -627,22 +619,31 @@ public class DeductionPage implements Initializable {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
                 pst.setString(6, sdf.format(new Date()));
                 pst.setString(7,"d");
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                try {
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                    pst.setInt(1,idProject);
+                    pst.setInt(2,idProject);
+                    pst.execute();
 
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                projectName.getItems().clear();
+                locationName.getItems().clear();
+                areaName.getItems().clear();
+                amountOfDeduction.clear();
+                fillComboArea();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
-
-
-
-            pst.execute();
-            projectName.getItems().clear();
-            locationName.getItems().clear();
-            areaName.getItems().clear();
+            addToTable();
             amountOfDeduction.clear();
-            fillComboArea();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
-        addToTable();
-        amountOfDeduction.clear();
+
     }
 
     @FXML
@@ -816,6 +817,19 @@ public class DeductionPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `deductions` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            int idProject=deductionTableView.getItems().get(index).getIdProject();
+
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -911,6 +925,7 @@ public class DeductionPage implements Initializable {
                 pst.setInt(6, idEdit);
 
                 pst.execute();
+                warningMsg("تعديل","تم التعديل بنجاح");
                 deductionEditPrivilege.setText("تعديل إستقطاع");
                 projectName.getItems().clear();
                 locationName.getItems().clear();
@@ -923,10 +938,22 @@ public class DeductionPage implements Initializable {
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
+            }
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
             addToTable();
             idEdit=0;
         }
+
 
 
     }
@@ -936,23 +963,54 @@ public class DeductionPage implements Initializable {
     }
 
 
-
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
 
     @FXML
     private TextField nameDeductionn;
 
     public void addDeductionn(ActionEvent actionEvent) {
+        int dejaExist=0;
+        int size=0;
         try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `deductionnames`(`deductionName`) VALUES (?)");
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `deductionnames` WHERE `deductionName`=?");
             pst.setString(1,nameDeductionn.getText());
-            pst.execute();
-
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable2();
-        fillComboDeductionType();
+        if (nameDeductionn.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `deductionnames`(`deductionName`) VALUES (?)");
+                pst.setString(1,nameDeductionn.getText());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable2();
+            fillComboDeductionType();
+        }
+
     }
 
 
@@ -966,9 +1024,11 @@ public class DeductionPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `deductionnames` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable2();

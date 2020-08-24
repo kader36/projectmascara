@@ -27,18 +27,20 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <Button layoutX="32.0" layoutY="97.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
-                                          <Button layoutX="405.0" layoutY="97.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
-                                          <Button layoutX="784.0" layoutY="97.0" mnemonicParsing="false" onAction="#printThree" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
-                                          <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFour" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
-                                          <Button layoutX="405.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFive" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
-                                          <Button layoutX="784.0" layoutY="203.0" mnemonicParsing="false" onAction="#printSix" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الإستقطاعات لمشروع محدد" />
                                           <ComboBox fx:id="areaName" layoutX="63.0" layoutY="26.0" onAction="#selectArea" prefHeight="37.0" prefWidth="230.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="435.0" layoutY="26.0" onAction="#selectLocation" prefHeight="37.0" prefWidth="230.0" promptText="الموقع" />
                                           <ComboBox fx:id="projectName" layoutX="819.0" layoutY="26.0" onAction="#selectProject" prefHeight="37.0" prefWidth="230.0" promptText="المشروع" />
                                           <Separator layoutY="87.0" prefHeight="0.0" prefWidth="1107.0" />
-                                          <Button layoutX="32.0" layoutY="310.0" mnemonicParsing="false" onAction="#printEight" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المصاريف لمشروع محدد" />
-                                          <Button layoutX="406.0" layoutY="310.0" mnemonicParsing="false" onAction="#printNine" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات" />
+                                          <Button layoutX="32.0" layoutY="123.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
+                                          <Button layoutX="405.0" layoutY="123.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لجميع المناطق" />
+                                          <Button layoutX="784.0" layoutY="123.0" mnemonicParsing="false" onAction="#printThree" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
+                                          <Button layoutX="32.0" layoutY="229.0" mnemonicParsing="false" onAction="#printFour" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
+                                          <Button layoutX="405.0" layoutY="229.0" mnemonicParsing="false" onAction="#printFive" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
+                                          <Button layoutX="784.0" layoutY="229.0" mnemonicParsing="false" onAction="#printSix" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لمشروع محدد" />
+                                          <Button layoutX="32.0" layoutY="336.0" mnemonicParsing="false" onAction="#printEight" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المصاريف لمشروع محدد" />
+                                          <Button layoutX="406.0" layoutY="336.0" mnemonicParsing="false" onAction="#printNine" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات" />
+                                          <Button layoutX="784.0" layoutY="336.0" mnemonicParsing="false" onAction="#printSeven" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقص العمالة لجميع المناطق" />
+                                          <Button layoutX="32.0" layoutY="445.0" mnemonicParsing="false" onAction="#printTen" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لجميع المشاريع" />
                                        </children>
                                     </AnchorPane>
                               </content>

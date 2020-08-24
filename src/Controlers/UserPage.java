@@ -601,23 +601,47 @@ public class UserPage implements Initializable {
         return sb.toString();
     }
     public void addUser(ActionEvent actionEvent) {
+        int dejaExist=0;
+        int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `users`(`employeeName`, `username`, `password`, `email`," +
-                    " `phoneNumber`, `employeeNumber`, `privilegesId`) VALUES (?,?,?,?,?,?,?)");
-            pst.setString(1,employeeName.getText());
-            pst.setString(2,username.getText());
-            pst.setString(3, hashString(password.getText()));
-            pst.setString(4,email.getText());
-            pst.setString(5,phoneNumber.getText());
-            pst.setString(6,employeeNumber.getText());
-            pst.setInt(7,privilegesId);
-            pst.execute();
-
-        } catch (SQLException | NoSuchAlgorithmException throwables) {
+            pst=con.prepareStatement("SELECT * FROM `users` WHERE `username`=?");
+            pst.setString(1,username.getText());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable();
+        if (employeeName.getText().isEmpty() ||username.getText().isEmpty() ||password.getText().isEmpty()||employeeNumber.getText().isEmpty() ||email.getText().isEmpty() ||phoneNumber.getText().isEmpty() || privilegeName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `users`(`employeeName`, `username`, `password`, `email`," +
+                        " `phoneNumber`, `employeeNumber`, `privilegesId`) VALUES (?,?,?,?,?,?,?)");
+                pst.setString(1,employeeName.getText());
+                pst.setString(2,username.getText());
+                pst.setString(3, hashString(password.getText()));
+                pst.setString(4,email.getText());
+                pst.setString(5,phoneNumber.getText());
+                pst.setString(6,employeeNumber.getText());
+                pst.setInt(7,privilegesId);
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+            } catch (SQLException | NoSuchAlgorithmException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+        }
+
     }
 
     @FXML
@@ -779,13 +803,22 @@ public class UserPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `users` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable();
         }
+    }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
     @FXML
     private TextField search;
@@ -875,11 +908,12 @@ public class UserPage implements Initializable {
                     phoneNumber.clear();
                     employeeNumber.clear();
                     username.clear();
-
+                    warningMsg("تعديل","تم التعديل بنجاح");
 
 
                 } catch (SQLException | NoSuchAlgorithmException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
             }else{
                 try {
@@ -907,11 +941,12 @@ public class UserPage implements Initializable {
                     phoneNumber.clear();
                     employeeNumber.clear();
                     username.clear();
-
+                    warningMsg("تعديل","تم التعديل بنجاح");
 
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
             }
             addToTable();
@@ -1073,66 +1108,91 @@ public class UserPage implements Initializable {
         if (res.isSelected()){
             resi=1;
         }
+        int dejaExist=0;
+        int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arsa`, `arde`, `losa`, `lode`, " +
-                    "`prsa`, `prde`,`prsa1`, `prde1`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
-                    " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `privilegeName`=?");
             pst.setString(1,privilegeNamee.getText());
-            pst.setInt(2,arsai);
-            pst.setInt(3,ardei);
-            pst.setInt(4,losai);
-            pst.setInt(5,lodei);
-            pst.setInt(6,prsai);
-            pst.setInt(7,prdei);
-            pst.setInt(8,prsai1);
-            pst.setInt(9,prdei1);
-            pst.setInt(10,grsai);
-            pst.setInt(11,grdei);
-            pst.setInt(12,ocsai);
-            pst.setInt(13,ocdei);
-            pst.setInt(14,emsai);
-            pst.setInt(15,emdei);
-            pst.setInt(16,absai);
-            pst.setInt(17,abdei);
-            pst.setInt(18,desai);
-            pst.setInt(19,dedei);
-            pst.setInt(20,pesai);
-            pst.setInt(21,pedei);
-            pst.setInt(22,ussai);
-            pst.setInt(23,usdei);
-            pst.setInt(24,resi);
-            pst.execute();
-
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable2();
-        privilegeNamee.clear();
-        arsa.setSelected(false);
-        arde.setSelected(false);
-        losa.setSelected(false);
-        lode.setSelected(false);
-        prsa.setSelected(false);
-        prde.setSelected(false);
-        prsa1.setSelected(false);
-        prde1.setSelected(false);
-        ocsa.setSelected(false);
-        ocde.setSelected(false);
-        emsa.setSelected(false);
-        emde.setSelected(false);
-        absa.setSelected(false);
-        abde.setSelected(false);
-        desa.setSelected(false);
-        dede.setSelected(false);
-        pesa.setSelected(false);
-        pede.setSelected(false);
-        ussa.setSelected(false);
-        usde.setSelected(false);
-        res.setSelected(false);
-        grsa.setSelected(false);
-        grde.setSelected(false);
-        fillComboPrivilege();
+        if (privilegeNamee.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arsa`, `arde`, `losa`, `lode`, " +
+                        "`prsa`, `prde`,`prsa1`, `prde1`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
+                        " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setString(1,privilegeNamee.getText());
+                pst.setInt(2,arsai);
+                pst.setInt(3,ardei);
+                pst.setInt(4,losai);
+                pst.setInt(5,lodei);
+                pst.setInt(6,prsai);
+                pst.setInt(7,prdei);
+                pst.setInt(8,prsai1);
+                pst.setInt(9,prdei1);
+                pst.setInt(10,grsai);
+                pst.setInt(11,grdei);
+                pst.setInt(12,ocsai);
+                pst.setInt(13,ocdei);
+                pst.setInt(14,emsai);
+                pst.setInt(15,emdei);
+                pst.setInt(16,absai);
+                pst.setInt(17,abdei);
+                pst.setInt(18,desai);
+                pst.setInt(19,dedei);
+                pst.setInt(20,pesai);
+                pst.setInt(21,pedei);
+                pst.setInt(22,ussai);
+                pst.setInt(23,usdei);
+                pst.setInt(24,resi);
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable2();
+            privilegeNamee.clear();
+            arsa.setSelected(false);
+            arde.setSelected(false);
+            losa.setSelected(false);
+            lode.setSelected(false);
+            prsa.setSelected(false);
+            prde.setSelected(false);
+            prsa1.setSelected(false);
+            prde1.setSelected(false);
+            ocsa.setSelected(false);
+            ocde.setSelected(false);
+            emsa.setSelected(false);
+            emde.setSelected(false);
+            absa.setSelected(false);
+            abde.setSelected(false);
+            desa.setSelected(false);
+            dede.setSelected(false);
+            pesa.setSelected(false);
+            pede.setSelected(false);
+            ussa.setSelected(false);
+            usde.setSelected(false);
+            res.setSelected(false);
+            grsa.setSelected(false);
+            grde.setSelected(false);
+            fillComboPrivilege();
+        }
+
 
 
     }
@@ -1145,9 +1205,12 @@ public class UserPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `privileges` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+
             }
             idDelete=0;
             addToTable2();
@@ -1341,11 +1404,13 @@ public class UserPage implements Initializable {
                 pst.setInt(25,idEdit);
 
                 pst.execute();
+                warningMsg("تعديل","تم التعديل بنجاح");
                 userEditPrivilege1.setText("تعديل الصلاحية");
 
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
             addToTable2();
             idEdit=0;

@@ -188,13 +188,14 @@ public class AbstractPage implements Initializable {
     }
     public void fillComboProject(){
         projects.clear();
+        projectName.getItems().clear();
         for (int i =0;i<projects.size();i++){
             projectName.getItems().add(projects.get(i).getContractName());
         }
-        contractStartDate.getEditor().setText("");
-        contractEndDate.getEditor().setText("");
-        contractNumber.setText("");
-        contractType.setText("");
+        contractStartDate.getEditor().clear();
+        contractEndDate.getEditor().clear();
+        contractNumber.clear();
+        contractType.clear();
         try {
 
             con=new ConnectDB().getConnection();
@@ -704,6 +705,9 @@ public class AbstractPage implements Initializable {
 
         abstractTableView.setItems(abstractsTable);
         yearAbstractTableView.setItems(abstractYearsTable);
+        contractStartDate.getEditor().setEditable(false);
+        contractEndDate.getEditor().setEditable(false);
+
 
     }
     public void addToTable(){
@@ -943,6 +947,8 @@ public class AbstractPage implements Initializable {
     @FXML
     private TextArea remark;
     @FXML
+    int dejaExist=0;
+    int size=0;
     public void addAbstract(ActionEvent actionEvent) {
         String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
         if (janvier.isSelected()){
@@ -970,23 +976,50 @@ public class AbstractPage implements Initializable {
         }if (decembre.isSelected()){
             month12="X";
         }
+        dejaExist=0;
+        size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`) VALUES (?,?,?)");
+            pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=?");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             pst.setInt(3,idProject);
-
-            pst.execute();
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable();
-        areaName.getItems().clear();
-        areas.clear();
-        locationName.getItems().clear();
-        projectName.getItems().clear();
-        fillComboArea();
+        if (areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`) VALUES (?,?,?)");
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+            areaName.getItems().clear();
+            areas.clear();
+            locationName.getItems().clear();
+            projectName.getItems().clear();
+            fillComboArea();
+        }
+
 
 
     }
@@ -999,9 +1032,10 @@ public class AbstractPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `abstractyears` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
-
+                warningMsg("حذف","تم الحذف بنجاح");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable2();
@@ -1016,9 +1050,12 @@ public class AbstractPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `abstract` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+
             }
             idDelete=0;
             addToTable();
@@ -1152,30 +1189,444 @@ public class AbstractPage implements Initializable {
         }if (decembre.isSelected()){
             month12="X";
         }
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `abstractyears`(`idAbstract`, `year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`,`remark`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setInt(1,idAbstract);
-            pst.setString(2,yearAbstract.getValue());
-            pst.setString(3,month1);
-            pst.setString(4,month2);
-            pst.setString(5,month3);
-            pst.setString(6,month4);
-            pst.setString(7,month5);
-            pst.setString(8,month6);
-            pst.setString(9,month7);
-            pst.setString(10,month8);
-            pst.setString(11,month9);
-            pst.setString(12,month10);
-            pst.setString(13,month11);
-            pst.setString(14,month12);
-            pst.setString(15,remark.getText());
-            pst.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        addToTable2();
 
+        if ((!janvier.isSelected()&&!fevrier.isSelected()&&!mars.isSelected()&&!avril.isSelected()&&!may.isSelected()&&!juin.isSelected()&&!juilliet.isSelected()&&!aout.isSelected()&&!septembre.isSelected()&&!octobre.isSelected()&&!novembre.isSelected()&&!decembre.isSelected()) || yearAbstract.getSelectionModel().isEmpty() ){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `abstractyears`(`idAbstract`, `year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`,`remark`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setInt(1,idAbstract);
+                pst.setString(2,yearAbstract.getValue());
+                pst.setString(3,month1);
+                pst.setString(4,month2);
+                pst.setString(5,month3);
+                pst.setString(6,month4);
+                pst.setString(7,month5);
+                pst.setString(8,month6);
+                pst.setString(9,month7);
+                pst.setString(10,month8);
+                pst.setString(11,month9);
+                pst.setString(12,month10);
+                pst.setString(13,month11);
+                pst.setString(14,month12);
+                pst.setString(15,remark.getText());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable2();
+            janvier.setSelected(false);
+            fevrier.setSelected(false);
+            mars.setSelected(false);
+            avril.setSelected(false);
+            may.setSelected(false);
+            juin.setSelected(false);
+            juilliet.setSelected(false);
+            aout.setSelected(false);
+            septembre.setSelected(false);
+            octobre.setSelected(false);
+            novembre.setSelected(false);
+            decembre.setSelected(false);
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+            remark.clear();
+
+        }
+
+
+    }
+
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+    @FXML
+    void ja1(ActionEvent event) {
+        if (janvier.isSelected()){
+            janvier.setDisable(false);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja2(ActionEvent event) {
+        if (fevrier.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(false);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja3(ActionEvent event) {
+        if (mars.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(false);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja4(ActionEvent event) {
+        if (avril.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(false);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja5(ActionEvent event) {
+        if (may.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(false);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja6(ActionEvent event) {
+        if (juin.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(false);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja7(ActionEvent event) {
+        if (juilliet.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(false);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja8(ActionEvent event) {
+        if (aout.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(false);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja9(ActionEvent event) {
+        if (septembre.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(false);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja10(ActionEvent event) {
+        if (octobre.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(false);
+            novembre.setDisable(true);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja11(ActionEvent event) {
+        if (novembre.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(false);
+            decembre.setDisable(true);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
+
+    }
+    @FXML
+    void ja12(ActionEvent event) {
+        if (decembre.isSelected()){
+            janvier.setDisable(true);
+            fevrier.setDisable(true);
+            mars.setDisable(true);
+            avril.setDisable(true);
+            may.setDisable(true);
+            juin.setDisable(true);
+            juilliet.setDisable(true);
+            aout.setDisable(true);
+            septembre.setDisable(true);
+            octobre.setDisable(true);
+            novembre.setDisable(true);
+            decembre.setDisable(false);
+        }else{
+            janvier.setDisable(false);
+            fevrier.setDisable(false);
+            mars.setDisable(false);
+            avril.setDisable(false);
+            may.setDisable(false);
+            juin.setDisable(false);
+            juilliet.setDisable(false);
+            aout.setDisable(false);
+            septembre.setDisable(false);
+            octobre.setDisable(false);
+            novembre.setDisable(false);
+            decembre.setDisable(false);
+        }
 
     }
     public void addToTable2(){
@@ -1203,7 +1654,6 @@ public class AbstractPage implements Initializable {
     public void edit(ActionEvent actionEvent) {
         int index= abstractTableView.getSelectionModel().getSelectedIndex();
         int idEdit=abstractTableView.getItems().get(index).getIdAbstract();
-        int idArea=0,idLocation=0,idProject=0;
 
 
         if (abstractEditPrivilege.getText().contains("تعديل مستخلص")){
@@ -1242,6 +1692,7 @@ public class AbstractPage implements Initializable {
                 pst.setInt(3, idProject);
                 pst.setInt(4, idEdit);
                 pst.execute();
+                warningMsg("تعديل","تم التعديل بنجاح");
                 abstractEditPrivilege.setText("تعديل مستخلص");
                 projectName.getItems().clear();
                 locationName.getItems().clear();
@@ -1252,6 +1703,7 @@ public class AbstractPage implements Initializable {
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
             addToTable();
             idEdit=0;

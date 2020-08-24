@@ -579,26 +579,50 @@ public class GaranteePage implements Initializable {
 
 
     public void addGarantee(ActionEvent actionEvent) {
+        int dejaExist=0;
+        int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`) VALUES (?,?,?,?,?)");
-            pst.setInt(1,idArea);
-            pst.setInt(2,idLocation);
-            pst.setInt(3,idProject);
-            pst.setString(4,garanteeNumber.getText());
-            pst.setString(5,garanteeType.getValue());
-            pst.execute();
+            pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=?");
+            pst.setString(1,garanteeNumber.getText());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            if (size>0){
+                dejaExist=1;
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        addToTable();
-        areaName.getItems().clear();
-        locationName.getItems().clear();
-        projectName.getItems().clear();
-        garanteeNumber.clear();
-        garanteeType.getItems().clear();
-        garanteeType.setItems(garantees);
-        fillComboArea();
+        if (garanteeNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`) VALUES (?,?,?,?,?)");
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                pst.setString(4,garanteeNumber.getText());
+                pst.setString(5,garanteeType.getValue());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTable();
+            areaName.getItems().clear();
+            locationName.getItems().clear();
+            projectName.getItems().clear();
+            garanteeNumber.clear();
+            garanteeType.setItems(garantees);
+            fillComboArea();
+        }
+
     }
     @FXML
     private TableView<GaranteeForTable> garanteeTableView;
@@ -727,6 +751,13 @@ public class GaranteePage implements Initializable {
         return result;
 
     }
+    public void warningMsg(String title,String message ){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     @FXML
     public void deleteRow(ActionEvent actionEvent) {
         int index= garanteeTableView.getSelectionModel().getSelectedIndex();
@@ -737,9 +768,11 @@ public class GaranteePage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `garantees` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
             }
             idDelete=0;
             addToTable();
@@ -833,13 +866,13 @@ public class GaranteePage implements Initializable {
                 locationName.getItems().clear();
                 projectName.getItems().clear();
                 garanteeNumber.clear();
-                garanteeType.getItems().clear();
                 garanteeType.setItems(garantees);
-
+                warningMsg("تعديل","تم التعديل بنجاح");
 
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
             addToTable();
             idEdit=0;
@@ -881,7 +914,7 @@ public class GaranteePage implements Initializable {
             pst.setInt(1,idGarantee);
             rs=pst.executeQuery();
             while (rs.next()){
-                historicalGarantee.add(new HistoricalGaranteeForTable(rs.getInt("id"),idConnected,rs.getInt("idGarantee"),rs.getString("dateHistorical"),rs.getString("description"),employeeNameConnected));
+                historicalGarantee.add(new HistoricalGaranteeForTable(rs.getInt("id"),idConnected,rs.getInt("idGarantee"),rs.getString("dateHistorical"),rs.getString("description"),rs.getString("idUser")));
 
             }
 
@@ -897,22 +930,29 @@ public class GaranteePage implements Initializable {
     }
 
     public void addHistorical(ActionEvent actionEvent) {
-        if (idGarantee>0) {
-            try {
-                con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `historicalgarantees`(`dateHistorical`, `description`, `idUser`, `idGarantee`) VALUES (?,?,?,?)");
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
+        if (description.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            if (idGarantee>0) {
+                try {
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("INSERT INTO `historicalgarantees`(`dateHistorical`, `description`, `idUser`, `idGarantee`) VALUES (?,?,?,?)");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
 
-                pst.setString(1, sdf.format(new Date()));
-                pst.setString(2,description.getText());
-                pst.setString(3,employeeNameConnected);
-                pst.setInt(4,idGarantee);
-                pst.execute();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                    pst.setString(1, sdf.format(new Date()));
+                    pst.setString(2,description.getText());
+                    pst.setString(3,employeeNameConnected);
+                    pst.setInt(4,idGarantee);
+                    pst.execute();
+                    warningMsg("إظافة","تمت الإظافة بنجاح");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+                }
+                fillTableHistoricalGarantee();
             }
-            fillTableHistoricalGarantee();
         }
+
 
     }
     @FXML
@@ -925,9 +965,12 @@ public class GaranteePage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `historicalgarantees` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+
             }
             idDelete=0;
             fillTableHistoricalGarantee();

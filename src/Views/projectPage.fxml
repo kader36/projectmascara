@@ -32,18 +32,21 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField fx:id="projectName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المشروع" />
+                                          <TextField fx:id="projectName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم العقد" />
                                           <ComboBox fx:id="areaName" layoutX="301.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="570.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="contactDuration" layoutX="840.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
+                                          <TextField fx:id="contactNumber" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <TextField fx:id="contractPrice" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
                                           <Button fx:id="projectAddPrivilege" layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <Button fx:id="projectEditPrivilege" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
+                                          <Button fx:id="projectDeletePrivilege" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="165.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="216.0" onMouseClicked="#getSelectItemTable" prefHeight="155.0" prefWidth="1019.0">
                                             <columns>
-                                              <TableColumn fx:id="projectNameTable" editable="false" prefWidth="118.0" text="إسم المشروع" />
+                                              <TableColumn fx:id="projectNameTable" editable="false" prefWidth="118.0" text="إسم العقد" />
                                                 <TableColumn fx:id="contractNumberTable" prefWidth="112.0" text="رقم العقد" />
                                               <TableColumn fx:id="areaNameTable" editable="false" prefWidth="95.0" text="المنطقة" />
                                                 <TableColumn fx:id="locationNameTable" editable="false" minWidth="6.0" prefWidth="81.0" text="الموقع" />
@@ -59,7 +62,10 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button fx:id="projectDeletePrivilege" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <ComboBox fx:id="occupationName" layoutX="57.0" layoutY="400.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="إختر الوظيفة" />
+                                          <TextField fx:id="maxNumber" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
+                                          <Button fx:id="projectAddPrivilege1" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="projectDeletePrivilege1" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <TableView fx:id="projectOccupationTableView" layoutX="340.0" layoutY="400.0" prefHeight="147.0" prefWidth="735.0">
                                             <columns>
                                               <TableColumn fx:id="occupationNameTable" editable="false" prefWidth="260.0" text="إسم الوظيفة" />
@@ -70,12 +76,6 @@
                                                 <DropShadow color="#9351f9" />
                                              </effect>
                                           </TableView>
-                                          <ComboBox fx:id="occupationName" layoutX="57.0" layoutY="400.0" onAction="#selectOccupation" prefHeight="35.0" prefWidth="240.0" promptText="إختر الوظيفة" />
-                                          <TextField fx:id="maxNumber" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="العدد" />
-                                          <Button fx:id="projectAddPrivilege1" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addProjectOccupation" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button fx:id="projectDeletePrivilege1" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <Button fx:id="projectEditPrivilege" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
-                                          <TextField fx:id="contactNumber" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -84,7 +84,16 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
+                                          <ComboBox fx:id="areaNameEmployee" layoutX="25.0" layoutY="27.0" onAction="#selectAreaEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة " />
+                                          <ComboBox fx:id="locationNameEmployee" layoutX="303.0" layoutY="27.0" onAction="#selectLocationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الموقع " />
+                                          <ComboBox fx:id="projectNameEmployee" layoutX="565.0" layoutY="27.0" onAction="#selectProjectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
+                                          <ComboBox fx:id="occupationNameEmployee" layoutX="848.0" layoutY="27.0" onAction="#selectOccupationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الوظيفة " />
+                                          <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
                                           <ListView fx:id="employeeNameEmployee" layoutX="24.0" layoutY="146.0" onEditStart="#selectEmployeeEmployee" prefHeight="411.0" prefWidth="216.0" />
+                                          <Button fx:id="projectAddPrivilege2" layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="170.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موظف" />
+                                          <Button fx:id="projectDeletePrivilege2" layoutX="484.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إستبعاد موظف" />
+                                          <Button fx:id="editPosition" layoutX="685.0" layoutY="102.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقل موظف" />
+                                          <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
                                           <TableView fx:id="projectEmployeeTableView" layoutX="281.0" layoutY="144.0" prefHeight="415.0" prefWidth="818.0">
                                             <columns>
                                               <TableColumn fx:id="employeeNameEmployeeTable" prefWidth="75.0" text="اسم العامل " />
@@ -97,15 +106,6 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <ComboBox fx:id="areaNameEmployee" layoutX="25.0" layoutY="27.0" onAction="#selectAreaEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة " />
-                                          <ComboBox fx:id="locationNameEmployee" layoutX="303.0" layoutY="27.0" onAction="#selectLocationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الموقع " />
-                                          <ComboBox fx:id="projectNameEmployee" layoutX="565.0" layoutY="27.0" onAction="#selectProjectEmployee" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
-                                          <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
-                                          <ComboBox fx:id="occupationNameEmployee" layoutX="848.0" layoutY="27.0" onAction="#selectOccupationEmployee" prefHeight="35.0" prefWidth="240.0" promptText="الوظيفة " />
-                                          <Button fx:id="projectAddPrivilege2" layoutX="282.0" layoutY="102.0" mnemonicParsing="false" onAction="#addEmployeeProject" prefHeight="35.0" prefWidth="170.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة موظف" />
-                                          <Label layoutX="24.0" layoutY="116.0" prefHeight="23.0" prefWidth="63.0" text="الموظفين" />
-                                          <Button fx:id="projectDeletePrivilege2" layoutX="484.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إستبعاد موظف" />
-                                          <Button fx:id="editPosition" layoutX="685.0" layoutY="102.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقل موظف" />
                                        </children></AnchorPane>
                               </content>
                             </Tab>
@@ -113,18 +113,21 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <TextField fx:id="projectName1" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المشروع" />
+                                          <TextField fx:id="projectName1" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم العقد" />
                                           <ComboBox fx:id="areaName1" layoutX="301.0" layoutY="23.0" onAction="#selectArea2" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName1" layoutX="570.0" layoutY="23.0" onAction="#selectLocation2" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="contactDuration1" layoutX="840.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
+                                          <TextField fx:id="contactNumber1" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <TextField fx:id="contractPrice1" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate1" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate1" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
                                           <Button fx:id="projectAddPrivilege3" layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <Button fx:id="projectEditPrivilege1" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
+                                          <Button fx:id="projectDeletePrivilege3" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TextField fx:id="search1" layoutX="834.0" layoutY="165.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView1" fixedCellSize="0.0" layoutX="57.0" layoutY="216.0" onMouseClicked="#getSelectItemTable2" prefHeight="155.0" prefWidth="1019.0">
                                              <columns>
-                                                <TableColumn fx:id="projectNameTable1" editable="false" prefWidth="118.0" text="إسم المشروع" />
+                                                <TableColumn fx:id="projectNameTable1" editable="false" prefWidth="118.0" text="إسم العقد" />
                                                 <TableColumn fx:id="contractNumberTable1" prefWidth="112.0" text="رقم العقد" />
                                                 <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="95.0" text="المنطقة" />
                                                 <TableColumn fx:id="locationNameTable1" editable="false" minWidth="6.0" prefWidth="81.0" text="الموقع" />
@@ -141,7 +144,10 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <Button fx:id="projectDeletePrivilege3" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <ComboBox fx:id="masroufatNameCombo" layoutX="57.0" layoutY="400.0" prefHeight="35.0" prefWidth="240.0" promptText="إختر المصروف" />
+                                          <TextField fx:id="masroufPrice" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="المبلغ" />
+                                          <Button fx:id="projectAddPrivilege4" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addMasroufe" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="projectDeletePrivilege4" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteMasroufate2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <TableView fx:id="masroufat2TableView" layoutX="340.0" layoutY="400.0" prefHeight="147.0" prefWidth="735.0">
                                              <columns>
                                                 <TableColumn fx:id="masroufatNameComboTable" editable="false" prefWidth="260.0" text="إسم المصروف" />
@@ -154,12 +160,6 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <ComboBox fx:id="masroufatNameCombo" layoutX="57.0" layoutY="400.0" prefHeight="35.0" prefWidth="240.0" promptText="إختر المصروف" />
-                                          <TextField fx:id="masroufPrice" layoutX="56.0" layoutY="450.0" prefHeight="35.0" prefWidth="240.0" promptText="المبلغ" />
-                                          <Button fx:id="projectAddPrivilege4" layoutX="56.0" layoutY="512.0" mnemonicParsing="false" onAction="#addMasroufe" prefHeight="35.0" prefWidth="110.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button fx:id="projectDeletePrivilege4" layoutX="185.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteMasroufate2" prefHeight="35.0" prefWidth="110.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <Button fx:id="projectEditPrivilege1" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
-                                          <TextField fx:id="contactNumber1" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -168,6 +168,10 @@
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
+                                          <TextField fx:id="masroufName" layoutX="74.0" layoutY="119.0" prefHeight="37.0" prefWidth="240.0" promptText="إسم المصروف" />
+                                          <Button fx:id="projectAddPrivilege5" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#addMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مصروف" />
+                                          <Button fx:id="projectDeletePrivilege5" layoutX="72.0" layoutY="445.0" mnemonicParsing="false" onAction="#deleteRowMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مصروف" />
+                                          <TextField fx:id="searchMasrouf" layoutX="792.0" layoutY="37.0" onKeyPressed="#searchMasrouf" prefHeight="35.0" prefWidth="252.0" promptText="بحث " />
                                           <TableView fx:id="masroufNameTableView" layoutX="384.0" layoutY="105.0" prefHeight="413.0" prefWidth="676.0">
                                              <columns>
                                                 <TableColumn fx:id="masroufNameTable" prefWidth="75.0" text="إسم المصروف" />
@@ -176,10 +180,6 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <TextField fx:id="searchMasrouf" layoutX="792.0" layoutY="37.0" onKeyPressed="#searchMasrouf" prefHeight="35.0" prefWidth="252.0" promptText="بحث " />
-                                          <Button fx:id="projectAddPrivilege5" layoutX="74.0" layoutY="281.0" mnemonicParsing="false" onAction="#addMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مصروف" />
-                                          <Button fx:id="projectDeletePrivilege5" layoutX="72.0" layoutY="445.0" mnemonicParsing="false" onAction="#deleteRowMasrouf" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مصروف" />
-                                          <TextField fx:id="masroufName" layoutX="74.0" layoutY="119.0" prefHeight="37.0" prefWidth="240.0" promptText="إسم المصروف" />
                                        </children>
                                     </AnchorPane>
                                  </content>
