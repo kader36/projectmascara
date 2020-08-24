@@ -138,7 +138,8 @@ public class ProjectPage implements Initializable {
         employees.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `isBusy`='0' ");
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `isBusy`='0' AND `reelOccupation`=?");
+            pst.setInt(1,idOccupation);
             rs=pst.executeQuery();
             while (rs.next()){
                 employees.add(new EmployeeForList(rs.getInt("id"),rs.getString("employeeName")));
@@ -372,6 +373,8 @@ public class ProjectPage implements Initializable {
     void selectOccupationEmployee(ActionEvent event) {
         int index= occupationNameEmployee.getSelectionModel().getSelectedIndex();
         idOccupation=projectOccupation.get(index).getIdOccupation();
+        fillComboEmployee();
+
     }
 
     @FXML
@@ -1267,7 +1270,6 @@ public class ProjectPage implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
         fillComboArea2();
-        fillComboEmployee();
         fillProject();
         fillComboOccupation();
         fillComboMasroufat();
