@@ -485,7 +485,7 @@ public class RepportPage implements Initializable {
 
         try {
             String path=System.getProperty("user.dir")+"\\src\\report\\Report2.jrxml";
-            String querry="SELECT * FROM `projects`,`areas`,`users`,`privileges` WHERE areas.id=projects.areaId AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY areas.id";
+            String querry="SELECT * FROM `projects`,`areas`, `users`,`privileges`,`locations`  WHERE areas.id=projects.areaId AND locations.id=projects.locationId AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY areas.id";
             JasperDesign jd=  JRXmlLoader.load(path);
             JRDesignQuery query=new JRDesignQuery();
             query.setText(querry);
