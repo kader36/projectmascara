@@ -272,7 +272,7 @@
 	<columnHeader>
 		<band height="30">
 			<staticText>
-				<reportElement x="480" y="0" width="75" height="30" uuid="091889ce-1c4f-4295-8d54-8595a36e9220">
+				<reportElement x="500" y="0" width="55" height="30" uuid="091889ce-1c4f-4295-8d54-8595a36e9220">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -287,7 +287,7 @@
 				<text><![CDATA[المنطقة]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="0" width="80" height="30" uuid="c7d0c01e-6b4a-44c0-a4e0-c737ac7ccefe">
+				<reportElement x="359" y="0" width="141" height="30" uuid="c7d0c01e-6b4a-44c0-a4e0-c737ac7ccefe">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -302,7 +302,7 @@
 				<text><![CDATA[الموقع]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="0" width="160" height="30" uuid="5e4e4f98-0f25-46b9-90c6-9d1c4c39eb13">
+				<reportElement x="199" y="0" width="160" height="30" uuid="5e4e4f98-0f25-46b9-90c6-9d1c4c39eb13">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -317,7 +317,7 @@
 				<text><![CDATA[المشروع]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="0" width="140" height="30" uuid="236a7c39-0b45-4a82-97df-96564c87ab93">
+				<reportElement x="50" y="0" width="149" height="30" uuid="236a7c39-0b45-4a82-97df-96564c87ab93">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -332,7 +332,7 @@
 				<text><![CDATA[الوظيفة]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="ceba2a5d-7b4f-4e2a-afd1-04c45c16ca80">
+				<reportElement x="0" y="0" width="50" height="30" uuid="ceba2a5d-7b4f-4e2a-afd1-04c45c16ca80">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -349,9 +349,9 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="480" y="0" width="75" height="30" uuid="fdcb2364-df07-46df-ad59-1f729a3be6ae">
+		<band height="20" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="500" y="0" width="55" height="20" uuid="fdcb2364-df07-46df-ad59-1f729a3be6ae">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -363,8 +363,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="400" y="0" width="80" height="30" uuid="e670491d-4c14-4a5b-acc8-9c4ebac3a192">
+			<textField textAdjust="StretchHeight">
+				<reportElement isPrintRepeatedValues="false" x="359" y="0" width="141" height="20" uuid="e670491d-4c14-4a5b-acc8-9c4ebac3a192">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -376,8 +376,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="240" y="0" width="160" height="30" uuid="b0baf179-b156-4b1b-8041-533811d1ae2c">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="199" y="0" width="160" height="20" uuid="b0baf179-b156-4b1b-8041-533811d1ae2c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -389,8 +389,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="100" y="0" width="140" height="30" uuid="6ca9fb23-76a2-43e5-9597-3e9c7f0c5b9c">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="50" y="0" width="149" height="20" uuid="6ca9fb23-76a2-43e5-9597-3e9c7f0c5b9c">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>
@@ -402,8 +402,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{occupationName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="100" height="30" uuid="c5047c3d-2ca0-4d54-af28-e03b4341e86f">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="0" width="50" height="20" uuid="c5047c3d-2ca0-4d54-af28-e03b4341e86f">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<box>

@@ -44,6 +44,7 @@ public class MainPage implements Initializable {
 
     @FXML
     private PasswordField password;
+
     @FXML
     private Label erreur;
     public String hashString(String s) throws NoSuchAlgorithmException {

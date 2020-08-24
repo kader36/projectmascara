@@ -959,8 +959,9 @@ public class ProjectPage implements Initializable {
         int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idOccupation`=?");
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idOccupation`=?,`idProject`=?");
             pst.setInt(1,idOccupation);
+            pst.setInt(2,idProject);
             rs=pst.executeQuery();
             while(rs.next()){
                 size++;
@@ -1697,6 +1698,7 @@ public class ProjectPage implements Initializable {
             }
             addToTableMasrouf();
             fillComboMasroufat();
+            masroufName.clear();
 
         }
 
@@ -1896,27 +1898,9 @@ public class ProjectPage implements Initializable {
 
         int index= projectTableView1.getSelectionModel().getSelectedIndex();
         if (Float.parseFloat(masroufPrice.getText())<=Float.parseFloat(projectTableView1.getItems().get(index).getContractPriceRest())){
-            int dejaExist=0;
-            int size=0;
-            try {
-                con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projectmasroufate` WHERE `projectId`=? AND `masroufName`=?");
-                pst.setInt(1,idProject);
-                pst.setString(2,masroufatNameCombo.getValue());
-                rs=pst.executeQuery();
-                while(rs.next()){
-                    size++;
-                }
-                if (size>0){
-                    dejaExist=1;
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+
             if (masroufPrice.getText().isEmpty()|| masroufatNameCombo.getSelectionModel().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
-            }else if(dejaExist==1){
-                warningMsg("تنبيه","المعلومات موجودة من قبل");
             }else{
                 try {
                     con=new Controlers.ConnectDB().getConnection();

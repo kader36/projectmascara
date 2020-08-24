@@ -658,7 +658,7 @@ public class PenaltyPage implements Initializable {
             try {
                 con=new ConnectDB().getConnection();
                 if (idEmployee>0){
-                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?)");
+                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`,`empoyeeNameDed`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                     pst.setInt(1,idArea);
                     pst.setInt(2,idLocation);
                     pst.setString(3,typeDeduction.getText());
@@ -668,8 +668,9 @@ public class PenaltyPage implements Initializable {
 
                     pst.setString(6, sdf.format(new Date()));
                     pst.setInt(7,idEmployee);
-                    pst.setString(8,"p");
-                    pst.setString(9,perOrCos.getValue());
+                    pst.setString(8,employeeName.getValue());
+                    pst.setString(9,"p");
+                    pst.setString(10,perOrCos.getValue());
 
                 }else{
                     pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");

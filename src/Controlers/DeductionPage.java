@@ -1009,6 +1009,7 @@ public class DeductionPage implements Initializable {
             }
             addToTable2();
             fillComboDeductionType();
+            nameDeductionn.clear();
         }
 
     }

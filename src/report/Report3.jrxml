@@ -377,7 +377,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contractPrice}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contractPrice}+ " ر.س"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="278" y="8" width="173" height="20" uuid="1be15837-37aa-4f31-956a-490f5946cb54"/>
@@ -391,7 +391,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="278" y="62" width="170" height="20" uuid="c20ba854-26dc-484d-8dfd-7977400d1389"/>
