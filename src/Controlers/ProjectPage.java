@@ -1339,21 +1339,22 @@ public class ProjectPage implements Initializable {
         alert.setHeaderText(null);
         alert.showAndWait();
     }
+    int resultMax=-1;int resultMin=-1;
+    int dejaExist=0;
+    int size=0;
     @FXML
     public void addEmployeeProject(ActionEvent actionEvent) {
         int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
         idEmployee=employees.get(index).getId();
-        int dejaExist=0;
-        int size=0;
-        int resultMax=-1;
-        int resultMin=-1;
+
+
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=? AND `idOccupation`=?");
             pst.setInt(1,idProject);
             pst.setInt(2,idOccupation);
             rs=pst.executeQuery();
-            while(rs.first()){
+            while(rs.next()){
                 resultMax=rs.getInt("maxNumber");
                 resultMin=rs.getInt("realNumber");
             }
@@ -1363,7 +1364,7 @@ public class ProjectPage implements Initializable {
         }
         if (areaNameEmployee.getSelectionModel().isEmpty()||locationNameEmployee.getSelectionModel().isEmpty()||projectNameEmployee.getSelectionModel().isEmpty()||occupationNameEmployee.getSelectionModel().isEmpty()||employeeNameEmployee.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else if(resultMax>=resultMin){
+        }else if(resultMax<=resultMin){
             warningMsg("تنبيه","وصلت للحد الأقصى للعمالة في هذه الوظيفة للمشروع المحدد");
         }else{
             try {
@@ -1408,7 +1409,10 @@ public class ProjectPage implements Initializable {
             fillComboEmployee();
         }
 
-
+        resultMax=-1;
+        resultMin=-1;
+        dejaExist=0;
+        size=0;
 
     }
 
