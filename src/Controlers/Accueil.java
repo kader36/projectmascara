@@ -73,7 +73,7 @@ public class Accueil  {
         this.idConnected = idConnected;
         this.usernameConnected = usernameConnected;
         this.employeeNameConnected = employeeNameConnected;
-        usernameMenu.setText("#"+employeeNameConnected);
+        usernameMenu.setText(employeeNameConnected);
         usernameMenu1.setText(employeeNameConnected);
         try {
             con=new ConnectDB().getConnection();

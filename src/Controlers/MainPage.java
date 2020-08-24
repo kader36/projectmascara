@@ -94,7 +94,7 @@ public class MainPage implements Initializable {
                     controller.Init(idConnected,usernameConnected,employeeNameConnected);
                     Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
 
-                    primaryStage.setTitle("المناطق");
+                    primaryStage.setTitle("الصفحة الرئيسية");
                     primaryStage.setX(10);
                     primaryStage.setY(20);
                     primaryStage.setMaxHeight(636);

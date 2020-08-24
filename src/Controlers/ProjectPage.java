@@ -561,7 +561,7 @@ public class ProjectPage implements Initializable {
         this.idConnected = idConnected;
         this.usernameConnected = usernameConnected;
         this.employeeNameConnected = employeeNameConnected;
-        usernameMenu.setText("#"+employeeNameConnected);
+        usernameMenu.setText(employeeNameConnected);
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
@@ -1343,9 +1343,28 @@ public class ProjectPage implements Initializable {
     public void addEmployeeProject(ActionEvent actionEvent) {
         int index= employeeNameEmployee.getSelectionModel().getSelectedIndex();
         idEmployee=employees.get(index).getId();
+        int dejaExist=0;
+        int size=0;
+        int resultMax=-1;
+        int resultMin=-1;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=? AND `idOccupation`=?");
+            pst.setInt(1,idProject);
+            pst.setInt(2,idOccupation);
+            rs=pst.executeQuery();
+            while(rs.first()){
+                resultMax=rs.getInt("maxNumber");
+                resultMin=rs.getInt("realNumber");
+            }
 
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if (areaNameEmployee.getSelectionModel().isEmpty()||locationNameEmployee.getSelectionModel().isEmpty()||projectNameEmployee.getSelectionModel().isEmpty()||occupationNameEmployee.getSelectionModel().isEmpty()||employeeNameEmployee.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(resultMax>=resultMin){
+            warningMsg("تنبيه","وصلت للحد الأقصى للعمالة في هذه الوظيفة للمشروع المحدد");
         }else{
             try {
                 con=new Controlers.ConnectDB().getConnection();

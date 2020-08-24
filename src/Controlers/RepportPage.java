@@ -159,7 +159,7 @@ public class RepportPage implements Initializable {
         this.idConnected = idConnected;
         this.usernameConnected = usernameConnected;
         this.employeeNameConnected = employeeNameConnected;
-        usernameMenu.setText("#"+employeeNameConnected);
+        usernameMenu.setText(employeeNameConnected);
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
