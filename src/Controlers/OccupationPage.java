@@ -609,21 +609,44 @@ public class OccupationPage implements Initializable {
             occupationEditPrivilege.setText("حفظ");
             occupationName.setText(occupationTableView.getItems().get(index).getOccupationName());
         }else if (occupationEditPrivilege.getText().contains("حفظ")){
+            int dejaExist=0;
+            int size=0;
             try {
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `occupations` SET `occupationName`=? WHERE `id`=?");
-                pst.setString(1, occupationName.getText());
-                pst.setInt(2, idEdit);
-                pst.execute();
-                occupationEditPrivilege.setText("تعديل وظيفة");
-                warningMsg("تعديل","تم التعديل بنجاح");
-
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `occupationName`=?");
+                pst.setString(1,occupationName.getText());
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
+                }
+                if (size>0){
+                    dejaExist=1;
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
-            addToTable();
-            idEdit=0;
+            if (occupationName.getText().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `occupations` SET `occupationName`=? WHERE `id`=?");
+                    pst.setString(1, occupationName.getText());
+                    pst.setInt(2, idEdit);
+                    pst.execute();
+                    occupationEditPrivilege.setText("تعديل وظيفة");
+                    warningMsg("تعديل","تم التعديل بنجاح");
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTable();
+                idEdit=0;
+            }
+
         }
 
 

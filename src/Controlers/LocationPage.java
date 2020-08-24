@@ -82,6 +82,7 @@ public class LocationPage implements Initializable {
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
         }else{
+
             try {
                 con=new Controlers.ConnectDB().getConnection();
                 pst=con.prepareStatement("INSERT INTO `locations`(`locationName`, `areaId`) VALUES (?,?)");
@@ -668,28 +669,52 @@ public class LocationPage implements Initializable {
             areaName.setValue(locationTableView.getItems().get(index).getAreaName());
             locationName.setText(locationTableView.getItems().get(index).getLocationName());
         }else if (locationEditPrivilege.getText().contains("حفظ")){
+            int dejaExist=0;
+            int size=0;
             try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
-                    }
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName`=? AND `areaId`=?");
+                pst.setString(1,locationName.getText());
+                pst.setInt(2,idArea);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
                 }
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `locations` SET `locationName`=?,`areaId`=? WHERE `id`=?");
-                pst.setString(1, locationName.getText());
-                pst.setInt(2, idArea);
-                pst.setInt(3, idEdit);
-                pst.execute();
-                locationEditPrivilege.setText("تعديل موقع");
-                warningMsg("تعديل","تم التعديل بنجاح");
-
-
+                if (size>0){
+                    dejaExist=1;
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
-            addToTable();
-            idEdit=0;
+            if (locationName.getText().isEmpty() || areaName.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
+                    }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `locations` SET `locationName`=?,`areaId`=? WHERE `id`=?");
+                    pst.setString(1, locationName.getText());
+                    pst.setInt(2, idArea);
+                    pst.setInt(3, idEdit);
+                    pst.execute();
+                    locationEditPrivilege.setText("تعديل موقع");
+                    warningMsg("تعديل","تم التعديل بنجاح");
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTable();
+                idEdit=0;
+            }
+
         }
 
 

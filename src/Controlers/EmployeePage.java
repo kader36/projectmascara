@@ -864,143 +864,239 @@ public class EmployeePage implements Initializable {
         }else if (employeeEditPrivilege.getText().contains("حفظ")){
 
             if (file1!=null && file2!=null){
+                int dejaExist=0;
+                int size=0;
                 try {
-                    System.out.println(reelOccupation.getValue());
-                    for (int i=0; i<occupations.size() ;i++){
-                        System.out.println(occupations.get(i).getNameOcupation());
-                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
-                            idOccupation=occupations.get(i).getIdOcupation();
-                        }
-                    }
-                    con = new Controlers.ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=?,`identityImage`=?  WHERE `id`=?");
-
-
-                    pst.setString(1,employeeName.getText());
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
-                    pst.setString(3,employeeNationality.getText());
-                    pst.setString(4,identityType.getValue());
-                    pst.setString(5,identityNumber.getText());
-                    pst.setString(6,religion.getText());
-                    pst.setString(7,residenceOccupation.getText());
-                    pst.setInt(8,idOccupation);
-                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                    FileInputStream fis1=new FileInputStream(file1);
-                    pst.setBinaryStream(12, fis1,(int) file1.length());
-                    FileInputStream fis2=new FileInputStream(file2);
-                    pst.setBinaryStream(13, fis2,(int) file2.length());
-                    pst.setInt(14,idEdit);
-                    pst.execute();
-                    warningMsg("تعديل","تم التعديل بنجاح");
-                } catch (SQLException | FileNotFoundException throwables) {
-                    throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
-                }
-            }else if (file1== null && file2==null){
-                try {
-                    System.out.println(reelOccupation.getValue());
-                    for (int i=0; i<occupations.size() ;i++){
-                        System.out.println(occupations.get(i).getNameOcupation());
-                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
-                            idOccupation=occupations.get(i).getIdOcupation();
-                        }
+                    rs=pst.executeQuery();
+                    while(rs.next()){
+                        size++;
                     }
-                    con = new Controlers.ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?  WHERE `id`=?");
-
-
-                    pst.setString(1,employeeName.getText());
-                    pst.setString(2,employeeNumber.getText());
-                    pst.setString(3,employeeNationality.getText());
-                    pst.setString(4,identityType.getValue());
-                    pst.setString(5,identityNumber.getText());
-                    pst.setString(6,religion.getText());
-                    pst.setString(7,residenceOccupation.getText());
-                    pst.setInt(8,idOccupation);
-                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                    pst.setInt(12,idEdit);
-                    pst.execute();
-                    warningMsg("تعديل","تم التعديل بنجاح");
+                    if (size>0){
+                        dejaExist=1;
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
+                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+                    warningMsg("تنبيه","يرجى ملء الفراغات");
+                }else if(dejaExist==1){
+                    warningMsg("تنبيه","المعلومات موجودة من قبل");
+                }else{
+                    try {
+                        System.out.println(reelOccupation.getValue());
+                        for (int i=0; i<occupations.size() ;i++){
+                            System.out.println(occupations.get(i).getNameOcupation());
+                            if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                                idOccupation=occupations.get(i).getIdOcupation();
+                            }
+                        }
+                        con = new Controlers.ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=?,`identityImage`=?  WHERE `id`=?");
+
+
+                        pst.setString(1,employeeName.getText());
+                        pst.setString(2,employeeNumber.getText());
+                        pst.setString(3,employeeNationality.getText());
+                        pst.setString(4,identityType.getValue());
+                        pst.setString(5,identityNumber.getText());
+                        pst.setString(6,religion.getText());
+                        pst.setString(7,residenceOccupation.getText());
+                        pst.setInt(8,idOccupation);
+                        pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                        pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                        pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                        FileInputStream fis1=new FileInputStream(file1);
+                        pst.setBinaryStream(12, fis1,(int) file1.length());
+                        FileInputStream fis2=new FileInputStream(file2);
+                        pst.setBinaryStream(13, fis2,(int) file2.length());
+                        pst.setInt(14,idEdit);
+                        pst.execute();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+                    } catch (SQLException | FileNotFoundException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }
+
+            }else if (file1== null && file2==null){
+                int dejaExist=0;
+                int size=0;
+                try {
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst.setString(1,identityNumber.getText());
+                    pst.setString(2,employeeNumber.getText());
+                    rs=pst.executeQuery();
+                    while(rs.next()){
+                        size++;
+                    }
+                    if (size>0){
+                        dejaExist=1;
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+                    warningMsg("تنبيه","يرجى ملء الفراغات");
+                }else if(dejaExist==1){
+                    warningMsg("تنبيه","المعلومات موجودة من قبل");
+                }else{
+                    try {
+                        System.out.println(reelOccupation.getValue());
+                        for (int i=0; i<occupations.size() ;i++){
+                            System.out.println(occupations.get(i).getNameOcupation());
+                            if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                                idOccupation=occupations.get(i).getIdOcupation();
+                            }
+                        }
+                        con = new Controlers.ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?  WHERE `id`=?");
+
+
+                        pst.setString(1,employeeName.getText());
+                        pst.setString(2,employeeNumber.getText());
+                        pst.setString(3,employeeNationality.getText());
+                        pst.setString(4,identityType.getValue());
+                        pst.setString(5,identityNumber.getText());
+                        pst.setString(6,religion.getText());
+                        pst.setString(7,residenceOccupation.getText());
+                        pst.setInt(8,idOccupation);
+                        pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                        pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                        pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                        pst.setInt(12,idEdit);
+                        pst.execute();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }
+
 
 
             }else if (file1== null && file2!=null){
+                int dejaExist=0;
+                int size=0;
                 try {
-                    System.out.println(reelOccupation.getValue());
-                    for (int i=0; i<occupations.size() ;i++){
-                        System.out.println(occupations.get(i).getNameOcupation());
-                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
-                            idOccupation=occupations.get(i).getIdOcupation();
-                        }
-                    }
-                    con = new Controlers.ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`identityImage`=?  WHERE `id`=?");
-
-
-                    pst.setString(1,employeeName.getText());
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
-                    pst.setString(3,employeeNationality.getText());
-                    pst.setString(4,identityType.getValue());
-                    pst.setString(5,identityNumber.getText());
-                    pst.setString(6,religion.getText());
-                    pst.setString(7,residenceOccupation.getText());
-                    pst.setInt(8,idOccupation);
-                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-
-                    FileInputStream fis2=new FileInputStream(file2);
-                    pst.setBinaryStream(12, fis2,(int) file2.length());
-                    pst.setInt(13,idEdit);
-                    pst.execute();
-                    warningMsg("تعديل","تم التعديل بنجاح");
-
-                } catch (SQLException | FileNotFoundException throwables) {
+                    rs=pst.executeQuery();
+                    while(rs.next()){
+                        size++;
+                    }
+                    if (size>0){
+                        dejaExist=1;
+                    }
+                } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
+                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+                    warningMsg("تنبيه","يرجى ملء الفراغات");
+                }else if(dejaExist==1){
+                    warningMsg("تنبيه","المعلومات موجودة من قبل");
+                }else{
+                    try {
+                        System.out.println(reelOccupation.getValue());
+                        for (int i=0; i<occupations.size() ;i++){
+                            System.out.println(occupations.get(i).getNameOcupation());
+                            if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                                idOccupation=occupations.get(i).getIdOcupation();
+                            }
+                        }
+                        con = new Controlers.ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`identityImage`=?  WHERE `id`=?");
+
+
+                        pst.setString(1,employeeName.getText());
+                        pst.setString(2,employeeNumber.getText());
+                        pst.setString(3,employeeNationality.getText());
+                        pst.setString(4,identityType.getValue());
+                        pst.setString(5,identityNumber.getText());
+                        pst.setString(6,religion.getText());
+                        pst.setString(7,residenceOccupation.getText());
+                        pst.setInt(8,idOccupation);
+                        pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                        pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                        pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+
+                        FileInputStream fis2=new FileInputStream(file2);
+                        pst.setBinaryStream(12, fis2,(int) file2.length());
+                        pst.setInt(13,idEdit);
+                        pst.execute();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+
+                    } catch (SQLException | FileNotFoundException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }
+
 
             }else if (file2==null && file1!=null){
+                int dejaExist=0;
+                int size=0;
                 try {
-                    System.out.println(reelOccupation.getValue());
-                    for (int i=0; i<occupations.size() ;i++){
-                        System.out.println(occupations.get(i).getNameOcupation());
-                        if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
-                            idOccupation=occupations.get(i).getIdOcupation();
-                        }
-                    }
-                    con = new Controlers.ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=? WHERE `id`=?");
-
-
-                    pst.setString(1,employeeName.getText());
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
-                    pst.setString(3,employeeNationality.getText());
-                    pst.setString(4,identityType.getValue());
-                    pst.setString(5,identityNumber.getText());
-                    pst.setString(6,religion.getText());
-                    pst.setString(7,residenceOccupation.getText());
-                    pst.setInt(8,idOccupation);
-                    pst.setString(9, String.valueOf(residenceEndDate.getValue()));
-                    pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
-                    pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
-                    FileInputStream fis1=new FileInputStream(file1);
-                    pst.setBinaryStream(12, fis1,(int) file1.length());
-
-                    pst.setInt(13,idEdit);
-                    pst.execute();
-                    warningMsg("تعديل","تم التعديل بنجاح");
-                } catch (SQLException | FileNotFoundException throwables) {
+                    rs=pst.executeQuery();
+                    while(rs.next()){
+                        size++;
+                    }
+                    if (size>0){
+                        dejaExist=1;
+                    }
+                } catch (SQLException throwables) {
                     throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
+                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+                    warningMsg("تنبيه","يرجى ملء الفراغات");
+                }else if(dejaExist==1){
+                    warningMsg("تنبيه","المعلومات موجودة من قبل");
+                }else{
+                    try {
+                        System.out.println(reelOccupation.getValue());
+                        for (int i=0; i<occupations.size() ;i++){
+                            System.out.println(occupations.get(i).getNameOcupation());
+                            if (occupations.get(i).getNameOcupation()==reelOccupation.getValue()){
+                                idOccupation=occupations.get(i).getIdOcupation();
+                            }
+                        }
+                        con = new Controlers.ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `employees` SET `employeeName`=?,`employeeNumber`=?,`employeeNationality`=?,`identityType`=?,`identityNumber`=?,`religion`=?,`residenceOccupation`=?,`reelOccupation`=?,`residenceEndDate`=?,`HealthCertificateStartDate`=?,`HealthCertificatEndDate`=?,`certificateImage`=? WHERE `id`=?");
+
+
+                        pst.setString(1,employeeName.getText());
+                        pst.setString(2,employeeNumber.getText());
+                        pst.setString(3,employeeNationality.getText());
+                        pst.setString(4,identityType.getValue());
+                        pst.setString(5,identityNumber.getText());
+                        pst.setString(6,religion.getText());
+                        pst.setString(7,residenceOccupation.getText());
+                        pst.setInt(8,idOccupation);
+                        pst.setString(9, String.valueOf(residenceEndDate.getValue()));
+                        pst.setString(10, String.valueOf(HealthCertificateStartDate.getValue()));
+                        pst.setString(11, String.valueOf(HealthCertificatEndDate.getValue()));
+                        FileInputStream fis1=new FileInputStream(file1);
+                        pst.setBinaryStream(12, fis1,(int) file1.length());
+
+                        pst.setInt(13,idEdit);
+                        pst.execute();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+                    } catch (SQLException | FileNotFoundException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }
+
             }
             employeeEditPrivilege.setText("تعديل موظف");
             employeeName.clear();

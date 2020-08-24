@@ -610,21 +610,44 @@ public class AreaPage implements Initializable {
             areaEditPrivilege.setText("حفظ");
             areaName.setText(areaTableView.getItems().get(index).getAreaName());
         }else if (areaEditPrivilege.getText().contains("حفظ")){
+            int dejaExist=0;
+            int size=0;
             try {
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `areas` SET `areaName`=? WHERE `id`=?");
-                pst.setString(1, areaName.getText());
-                pst.setInt(2, idEdit);
-                pst.execute();
-                warningMsg("تعديل","تم التعديل بنجاح");
-                areaEditPrivilege.setText("تعديل منطقة");
-
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `areas` WHERE `areaName`=?");
+                pst.setString(1,areaName.getText());
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
+                }
+                if (size>0){
+                    dejaExist=1;
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
-            addToTable();
-            idEdit=0;
+            if (areaName.getText().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `areas` SET `areaName`=? WHERE `id`=?");
+                    pst.setString(1, areaName.getText());
+                    pst.setInt(2, idEdit);
+                    pst.execute();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    areaEditPrivilege.setText("تعديل منطقة");
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTable();
+                idEdit=0;
+            }
+
         }
 
 

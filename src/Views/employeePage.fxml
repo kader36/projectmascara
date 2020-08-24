@@ -82,46 +82,46 @@
                                           </AnchorPane>
                                           <AnchorPane layoutX="25.0" layoutY="15.0" prefHeight="301.0" prefWidth="166.0">
                                              <children>
-                                                <ImageView fx:id="imageIdentity1" fitHeight="301.0" fitWidth="207.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="imageIdentity1" fitHeight="301.0" fitWidth="226.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true" />
                                              </children>
                                           </AnchorPane>
                                           <Separator layoutX="510.0" orientation="VERTICAL" prefHeight="582.0" prefWidth="13.0" />
-                                          <Label layoutX="257.0" layoutY="18.0" text="إسم الموظف">
+                                          <Label layoutX="274.0" layoutY="18.0" text="إسم الموظف">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="employeeName1" editable="false" layoutX="251.0" layoutY="42.0" prefHeight="30.0" prefWidth="216.0" promptText="إسم الموظف">
+                                          <TextField fx:id="employeeName1" editable="false" layoutX="268.0" layoutY="42.0" prefHeight="30.0" prefWidth="216.0" promptText="إسم الموظف">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="257.0" layoutY="100.0" text="رقم الموظف">
+                                          <Label layoutX="274.0" layoutY="100.0" text="رقم الموظف">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="employeeNumber1" editable="false" layoutX="251.0" layoutY="124.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الموظف">
+                                          <TextField fx:id="employeeNumber1" editable="false" layoutX="268.0" layoutY="124.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الموظف">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="257.0" layoutY="177.0" text="الجنسية">
+                                          <Label layoutX="274.0" layoutY="177.0" text="الجنسية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="employeeNationality1" editable="false" layoutX="251.0" layoutY="201.0" prefHeight="30.0" prefWidth="216.0" promptText="الجنسية">
+                                          <TextField fx:id="employeeNationality1" editable="false" layoutX="268.0" layoutY="201.0" prefHeight="30.0" prefWidth="216.0" promptText="الجنسية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="257.0" layoutY="259.0" text="الديانة">
+                                          <Label layoutX="274.0" layoutY="259.0" text="الديانة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="religion1" editable="false" layoutX="251.0" layoutY="283.0" prefHeight="30.0" prefWidth="216.0" promptText="الديانة">
+                                          <TextField fx:id="religion1" editable="false" layoutX="268.0" layoutY="283.0" prefHeight="30.0" prefWidth="216.0" promptText="الديانة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>

@@ -1666,45 +1666,70 @@ public class AbstractPage implements Initializable {
             contractStartDate.setValue(LocalDate.parse(abstractTableView.getItems().get(index).getContractStartDate()));
             contractEndDate.setValue(LocalDate.parse(abstractTableView.getItems().get(index).getContractEndDate()));
         }else if (abstractEditPrivilege.getText().contains("حفظ")){
+            dejaExist=0;
+            size=0;
             try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
-                    }
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=?");
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
                 }
-                for (int i=0; i<locations.size() ;i++){
-                    if (locations.get(i).getLocationName()==locationName.getValue()){
-                        idLocation=locations.get(i).getIdLocation();
-                    }
+                if (size>0){
+                    dejaExist=1;
                 }
-
-                for (int i=0; i<projects.size() ;i++){
-                    if (projects.get(i).getContractName()==projectName.getValue()){
-                        idProject=projects.get(i).getIdProject();
-                    }
-                }
-
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `abstract` SET `idArea`=?,`idLocation`=?,`idProject`=? WHERE `id`=?");
-
-                pst.setInt(1, idArea);
-                pst.setInt(2, idLocation);
-                pst.setInt(3, idProject);
-                pst.setInt(4, idEdit);
-                pst.execute();
-                warningMsg("تعديل","تم التعديل بنجاح");
-                abstractEditPrivilege.setText("تعديل مستخلص");
-                projectName.getItems().clear();
-                locationName.getItems().clear();
-                areaName.getItems().clear();
-
-                areaName.setValue("");
-                fillComboArea();
-
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
+            if (areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
+                    }
+                    for (int i=0; i<locations.size() ;i++){
+                        if (locations.get(i).getLocationName()==locationName.getValue()){
+                            idLocation=locations.get(i).getIdLocation();
+                        }
+                    }
+
+                    for (int i=0; i<projects.size() ;i++){
+                        if (projects.get(i).getContractName()==projectName.getValue()){
+                            idProject=projects.get(i).getIdProject();
+                        }
+                    }
+
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `abstract` SET `idArea`=?,`idLocation`=?,`idProject`=? WHERE `id`=?");
+
+                    pst.setInt(1, idArea);
+                    pst.setInt(2, idLocation);
+                    pst.setInt(3, idProject);
+                    pst.setInt(4, idEdit);
+                    pst.execute();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    abstractEditPrivilege.setText("تعديل مستخلص");
+                    projectName.getItems().clear();
+                    locationName.getItems().clear();
+                    areaName.getItems().clear();
+
+                    areaName.setValue("");
+                    fillComboArea();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+            }
+
             addToTable();
             idEdit=0;
         }

@@ -94,7 +94,7 @@
                                           <Button fx:id="projectDeletePrivilege2" layoutX="484.0" layoutY="102.0" mnemonicParsing="false" onAction="#deleteRow3" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إستبعاد موظف" />
                                           <Button fx:id="editPosition" layoutX="685.0" layoutY="102.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقل موظف" />
                                           <TextField layoutX="898.0" layoutY="104.0" prefHeight="35.0" prefWidth="200.0" promptText="بحث " />
-                                          <TableView fx:id="projectEmployeeTableView" layoutX="281.0" layoutY="144.0" prefHeight="415.0" prefWidth="818.0">
+                                          <TableView fx:id="projectEmployeeTableView" layoutX="281.0" layoutY="144.0" onMouseClicked="#nakl" prefHeight="415.0" prefWidth="818.0">
                                             <columns>
                                               <TableColumn fx:id="employeeNameEmployeeTable" prefWidth="75.0" text="اسم العامل " />
                                               <TableColumn fx:id="occupationNameEmployeeTable" prefWidth="75.0" text="الوظيفة " />

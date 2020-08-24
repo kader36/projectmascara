@@ -614,7 +614,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report8.jrxml";
-                String querry="SELECT * FROM `projectmasroufate`,`projects`, `occupations`,`areas`,`users`,`privileges` WHERE  projects.id="+idProject+" AND projectmasroufate.projectId=projects.id AND projects.areaId=areas.id  AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id";
+                String querry="SELECT * FROM `projectmasroufate`,`projects`,`areas`,`users`,`privileges` WHERE  projects.id="+idProject+" AND projectmasroufate.projectId=projects.id AND projects.areaId=areas.id  AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -632,21 +632,26 @@ public class RepportPage implements Initializable {
 
     }
     public void printNine(ActionEvent actionEvent)  {
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report9.jrxml";
-            String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
+        if (projectName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار المشروع");
+        }else{
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report9.jrxml";
+                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
 
-        } catch (JRException e) {
-            e.printStackTrace();
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
     public void printTen(ActionEvent actionEvent)  {

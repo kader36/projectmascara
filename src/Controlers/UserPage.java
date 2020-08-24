@@ -881,76 +881,99 @@ public class UserPage implements Initializable {
             phoneNumber.setText(userTableView.getItems().get(index).getPhoneNumber());
             employeeNumber.setText(userTableView.getItems().get(index).getEmployeeNumber());
         }else if (userEditPrivilege.getText().contains("حفظ")){
-            if (!password.getText().isEmpty()){
-                try {
-
-                    for (int i=0; i<privileges.size() ;i++){
-                        if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
-                            privilegesId=privileges.get(i).getIdPrivilege();
-                        }
-                    }
-
-                    con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
-                    pst.setString(1, employeeName.getText());
-                    pst.setString(2, username.getText());
-                    pst.setString(3, hashString(password.getText()));
-                    pst.setString(4, email.getText());
-                    pst.setString(5, phoneNumber.getText());
-                    pst.setString(6, employeeNumber.getText());
-                    pst.setInt(7,privilegesId );
-                    pst.setInt(8, idEdit);
-                    pst.execute();
-                    userEditPrivilege.setText("تعديل مستخدم");
-                    employeeName.clear();
-                    password.clear();
-                    email.clear();
-                    phoneNumber.clear();
-                    employeeNumber.clear();
-                    username.clear();
-                    warningMsg("تعديل","تم التعديل بنجاح");
-
-
-                } catch (SQLException | NoSuchAlgorithmException throwables) {
-                    throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+            int dejaExist=0;
+            int size=0;
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `users` WHERE `username`=?");
+                pst.setString(1,username.getText());
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
                 }
-            }else{
-                try {
-
-                    for (int i=0; i<privileges.size() ;i++){
-                        if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
-                            privilegesId=privileges.get(i).getIdPrivilege();
-                        }
-                    }
-
-                    con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
-                    pst.setString(1, employeeName.getText());
-                    pst.setString(2, username.getText());
-                    pst.setString(3, email.getText());
-                    pst.setString(4, phoneNumber.getText());
-                    pst.setString(5, employeeNumber.getText());
-                    pst.setInt(6,privilegesId );
-                    pst.setInt(7, idEdit);
-                    pst.execute();
-                    userEditPrivilege.setText("تعديل مستخدم");
-                    employeeName.clear();
-                    password.clear();
-                    email.clear();
-                    phoneNumber.clear();
-                    employeeNumber.clear();
-                    username.clear();
-                    warningMsg("تعديل","تم التعديل بنجاح");
-
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                if (size>0){
+                    dejaExist=1;
                 }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-            addToTable();
-            idEdit=0;
+            if (employeeName.getText().isEmpty() ||username.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||email.getText().isEmpty() ||phoneNumber.getText().isEmpty() || privilegeName.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                if (!password.getText().isEmpty()){
+                    try {
+
+                        for (int i=0; i<privileges.size() ;i++){
+                            if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
+                                privilegesId=privileges.get(i).getIdPrivilege();
+                            }
+                        }
+
+                        con = new ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`password`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                        pst.setString(1, employeeName.getText());
+                        pst.setString(2, username.getText());
+                        pst.setString(3, hashString(password.getText()));
+                        pst.setString(4, email.getText());
+                        pst.setString(5, phoneNumber.getText());
+                        pst.setString(6, employeeNumber.getText());
+                        pst.setInt(7,privilegesId );
+                        pst.setInt(8, idEdit);
+                        pst.execute();
+                        userEditPrivilege.setText("تعديل مستخدم");
+                        employeeName.clear();
+                        password.clear();
+                        email.clear();
+                        phoneNumber.clear();
+                        employeeNumber.clear();
+                        username.clear();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+
+
+                    } catch (SQLException | NoSuchAlgorithmException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }else{
+                    try {
+
+                        for (int i=0; i<privileges.size() ;i++){
+                            if (privileges.get(i).getPrivilegeNamee()==privilegeName.getValue()){
+                                privilegesId=privileges.get(i).getIdPrivilege();
+                            }
+                        }
+
+                        con = new ConnectDB().getConnection();
+                        pst = con.prepareStatement("UPDATE `users` SET  `employeeName`=?,`username`=?,`email`=?,`phoneNumber`=?,`employeeNumber`=?,`privilegesId`=? WHERE `id`=?");
+                        pst.setString(1, employeeName.getText());
+                        pst.setString(2, username.getText());
+                        pst.setString(3, email.getText());
+                        pst.setString(4, phoneNumber.getText());
+                        pst.setString(5, employeeNumber.getText());
+                        pst.setInt(6,privilegesId );
+                        pst.setInt(7, idEdit);
+                        pst.execute();
+                        userEditPrivilege.setText("تعديل مستخدم");
+                        employeeName.clear();
+                        password.clear();
+                        email.clear();
+                        phoneNumber.clear();
+                        employeeNumber.clear();
+                        username.clear();
+                        warningMsg("تعديل","تم التعديل بنجاح");
+
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                    }
+                }
+                addToTable();
+                idEdit=0;
+            }
+
         }
 
 
@@ -1108,25 +1131,25 @@ public class UserPage implements Initializable {
         if (res.isSelected()){
             resi=1;
         }
-        int dejaExist=0;
-        int size=0;
+        int dejaExist2=0;
+        int size2=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `privilegeName`=?");
             pst.setString(1,privilegeNamee.getText());
             rs=pst.executeQuery();
             while(rs.next()){
-                size++;
+                size2++;
             }
-            if (size>0){
-                dejaExist=1;
+            if (size2>0){
+                dejaExist2=1;
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         if (privilegeNamee.getText().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else if(dejaExist==1){
+        }else if(dejaExist2==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
         }else{
             try {
@@ -1298,146 +1321,169 @@ public class UserPage implements Initializable {
                 grde.setSelected(true);
             }
         }else if (userEditPrivilege1.getText().contains("حفظ")){
+            int dejaExist2=0;
+            int size2=0;
             try {
-                int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
-
-                if (arsa.isSelected()){
-                    arsai=1;
-                }
-                if (arde.isSelected()){
-                    ardei=1;
-                }
-                if (losa.isSelected()){
-                    losai=1;
-                }
-
-                if (lode.isSelected()){
-                    lodei=1;
-                }
-                if (prsa.isSelected()){
-                    prsai=1;
-                }
-                if (prde.isSelected()){
-                    prdei=1;
-                }
-                if (prsa1.isSelected()){
-                    prsai1=1;
-                }
-                if (prde1.isSelected()){
-                    prdei1=1;
-                }
-                if (grsa.isSelected()){
-                    grsai=1;
-                }
-                if (grde.isSelected()){
-                    grdei=1;
-                }
-                if (ocsa.isSelected()){
-                    ocsai=1;
-                }
-                if (ocde.isSelected()){
-                    ocdei=1;
-                }
-
-                if (emsa.isSelected()){
-                    emsai=1;
-                }
-                if (emde.isSelected()){
-                    emdei=1;
-                }
-                if (absa.isSelected()){
-                    absai=1;
-                }
-
-                if (abde.isSelected()){
-                    abdei=1;
-                }
-                if (desa.isSelected()){
-                    desai=1;
-                }
-                if (dede.isSelected()){
-                    dedei=1;
-                }
-
-                if (pesa.isSelected()){
-                    pesai=1;
-                }
-                if (pede.isSelected()){
-                    pedei=1;
-                }
-                if (ussa.isSelected()){
-                    ussai=1;
-                }
-                if (usde.isSelected()){
-                    usdei=1;
-                }
-                if (res.isSelected()){
-                    resi=1;
-                }
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`prsa1`=?,`prde1`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
-
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `privilegeName`=?");
                 pst.setString(1,privilegeNamee.getText());
-                pst.setInt(2,arsai);
-                pst.setInt(3,ardei);
-                pst.setInt(4,losai);
-                pst.setInt(5,lodei);
-                pst.setInt(6,prsai);
-                pst.setInt(7,prdei);
-                pst.setInt(8,prsai1);
-                pst.setInt(9,prdei1);
-                pst.setInt(10,grsai);
-                pst.setInt(11,grdei);
-                pst.setInt(12,ocsai);
-                pst.setInt(13,ocdei);
-                pst.setInt(14,emsai);
-                pst.setInt(15,emdei);
-                pst.setInt(16,absai);
-                pst.setInt(17,abdei);
-                pst.setInt(18,desai);
-                pst.setInt(19,dedei);
-                pst.setInt(20,pesai);
-                pst.setInt(21,pedei);
-                pst.setInt(22,ussai);
-                pst.setInt(23,usdei);
-                pst.setInt(24,resi);
-                pst.setInt(25,idEdit);
-
-                pst.execute();
-                warningMsg("تعديل","تم التعديل بنجاح");
-                userEditPrivilege1.setText("تعديل الصلاحية");
-
-
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size2++;
+                }
+                if (size2>0){
+                    dejaExist2=1;
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
-            addToTable2();
-            idEdit=0;
-            privilegeNamee.clear();
-            arsa.setSelected(false);
-            arde.setSelected(false);
-            losa.setSelected(false);
-            lode.setSelected(false);
-            prsa.setSelected(false);
-            prde.setSelected(false);
-            prsa1.setSelected(false);
-            prde1.setSelected(false);
-            ocsa.setSelected(false);
-            ocde.setSelected(false);
-            emsa.setSelected(false);
-            emde.setSelected(false);
-            absa.setSelected(false);
-            abde.setSelected(false);
-            desa.setSelected(false);
-            dede.setSelected(false);
-            pesa.setSelected(false);
-            pede.setSelected(false);
-            ussa.setSelected(false);
-            usde.setSelected(false);
-            res.setSelected(false);
-            grsa.setSelected(false);
-            grde.setSelected(false);
+            if (privilegeNamee.getText().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist2==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+
+                    if (arsa.isSelected()){
+                        arsai=1;
+                    }
+                    if (arde.isSelected()){
+                        ardei=1;
+                    }
+                    if (losa.isSelected()){
+                        losai=1;
+                    }
+
+                    if (lode.isSelected()){
+                        lodei=1;
+                    }
+                    if (prsa.isSelected()){
+                        prsai=1;
+                    }
+                    if (prde.isSelected()){
+                        prdei=1;
+                    }
+                    if (prsa1.isSelected()){
+                        prsai1=1;
+                    }
+                    if (prde1.isSelected()){
+                        prdei1=1;
+                    }
+                    if (grsa.isSelected()){
+                        grsai=1;
+                    }
+                    if (grde.isSelected()){
+                        grdei=1;
+                    }
+                    if (ocsa.isSelected()){
+                        ocsai=1;
+                    }
+                    if (ocde.isSelected()){
+                        ocdei=1;
+                    }
+
+                    if (emsa.isSelected()){
+                        emsai=1;
+                    }
+                    if (emde.isSelected()){
+                        emdei=1;
+                    }
+                    if (absa.isSelected()){
+                        absai=1;
+                    }
+
+                    if (abde.isSelected()){
+                        abdei=1;
+                    }
+                    if (desa.isSelected()){
+                        desai=1;
+                    }
+                    if (dede.isSelected()){
+                        dedei=1;
+                    }
+
+                    if (pesa.isSelected()){
+                        pesai=1;
+                    }
+                    if (pede.isSelected()){
+                        pedei=1;
+                    }
+                    if (ussa.isSelected()){
+                        ussai=1;
+                    }
+                    if (usde.isSelected()){
+                        usdei=1;
+                    }
+                    if (res.isSelected()){
+                        resi=1;
+                    }
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`prsa1`=?,`prde1`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
+
+                    pst.setString(1,privilegeNamee.getText());
+                    pst.setInt(2,arsai);
+                    pst.setInt(3,ardei);
+                    pst.setInt(4,losai);
+                    pst.setInt(5,lodei);
+                    pst.setInt(6,prsai);
+                    pst.setInt(7,prdei);
+                    pst.setInt(8,prsai1);
+                    pst.setInt(9,prdei1);
+                    pst.setInt(10,grsai);
+                    pst.setInt(11,grdei);
+                    pst.setInt(12,ocsai);
+                    pst.setInt(13,ocdei);
+                    pst.setInt(14,emsai);
+                    pst.setInt(15,emdei);
+                    pst.setInt(16,absai);
+                    pst.setInt(17,abdei);
+                    pst.setInt(18,desai);
+                    pst.setInt(19,dedei);
+                    pst.setInt(20,pesai);
+                    pst.setInt(21,pedei);
+                    pst.setInt(22,ussai);
+                    pst.setInt(23,usdei);
+                    pst.setInt(24,resi);
+                    pst.setInt(25,idEdit);
+
+                    pst.execute();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    userEditPrivilege1.setText("تعديل الصلاحية");
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTable2();
+                idEdit=0;
+                privilegeNamee.clear();
+                arsa.setSelected(false);
+                arde.setSelected(false);
+                losa.setSelected(false);
+                lode.setSelected(false);
+                prsa.setSelected(false);
+                prde.setSelected(false);
+                prsa1.setSelected(false);
+                prde1.setSelected(false);
+                ocsa.setSelected(false);
+                ocde.setSelected(false);
+                emsa.setSelected(false);
+                emde.setSelected(false);
+                absa.setSelected(false);
+                abde.setSelected(false);
+                desa.setSelected(false);
+                dede.setSelected(false);
+                pesa.setSelected(false);
+                pede.setSelected(false);
+                ussa.setSelected(false);
+                usde.setSelected(false);
+                res.setSelected(false);
+                grsa.setSelected(false);
+                grde.setSelected(false);
+            }
+
         }
 
 

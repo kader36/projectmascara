@@ -104,7 +104,7 @@ public class DeductionPage implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=?");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع صحي'");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -896,62 +896,67 @@ public class DeductionPage implements Initializable {
             typeDeduction.setValue(deductionTableView.getItems().get(index).getTypeDeduction());
             amountOfDeduction.setText(deductionTableView.getItems().get(index).getAmountOfDeduction());
         }else if (deductionEditPrivilege.getText().contains("حفظ")){
-            try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
+            if (amountOfDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||typeDeduction.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
                     }
-                }
-                for (int i=0; i<locations.size() ;i++){
-                    if (locations.get(i).getLocationName()==locationName.getValue()){
-                        idLocation=locations.get(i).getIdLocation();
+                    for (int i=0; i<locations.size() ;i++){
+                        if (locations.get(i).getLocationName()==locationName.getValue()){
+                            idLocation=locations.get(i).getIdLocation();
+                        }
                     }
-                }
 
-                for (int i=0; i<projects.size() ;i++){
-                    if (projects.get(i).getContractName()==projectName.getValue()){
-                        idProject=projects.get(i).getIdProject();
+                    for (int i=0; i<projects.size() ;i++){
+                        if (projects.get(i).getContractName()==projectName.getValue()){
+                            idProject=projects.get(i).getIdProject();
+                        }
                     }
+                    con = new Controlers.ConnectDB().getConnection();
+
+                    pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=? WHERE `id`=?");
+
+                    pst.setInt(1, idArea);
+                    pst.setInt(2, idLocation);
+                    pst.setString(3, typeDeduction.getValue());
+                    pst.setString(4, amountOfDeduction.getText());
+                    pst.setInt(5, idProject);
+                    pst.setInt(6, idEdit);
+
+                    pst.execute();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    deductionEditPrivilege.setText("تعديل إستقطاع");
+                    projectName.getItems().clear();
+                    locationName.getItems().clear();
+                    areaName.getItems().clear();
+                    amountOfDeduction.clear();
+
+                    fillComboArea();
+
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
                 }
-                con = new Controlers.ConnectDB().getConnection();
+                try {
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                    pst.setInt(1,idProject);
+                    pst.setInt(2,idProject);
+                    pst.execute();
 
-                pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=? WHERE `id`=?");
-
-                pst.setInt(1, idArea);
-                pst.setInt(2, idLocation);
-                pst.setString(3, typeDeduction.getValue());
-                pst.setString(4, amountOfDeduction.getText());
-                pst.setInt(5, idProject);
-                pst.setInt(6, idEdit);
-
-                pst.execute();
-                warningMsg("تعديل","تم التعديل بنجاح");
-                deductionEditPrivilege.setText("تعديل إستقطاع");
-                projectName.getItems().clear();
-                locationName.getItems().clear();
-                areaName.getItems().clear();
-                amountOfDeduction.clear();
-
-                fillComboArea();
-
-
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                addToTable();
+                idEdit=0;
             }
-            try {
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
-                pst.setInt(1,idProject);
-                pst.setInt(2,idProject);
-                pst.execute();
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            addToTable();
-            idEdit=0;
         }
 
 

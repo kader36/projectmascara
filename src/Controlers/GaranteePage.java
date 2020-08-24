@@ -583,8 +583,9 @@ public class GaranteePage implements Initializable {
         int size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=?");
+            pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=? OR `idProject`=?");
             pst.setString(1,garanteeNumber.getText());
+            pst.setInt(2,idProject);
             rs=pst.executeQuery();
             while(rs.next()){
                 size++;
@@ -834,48 +835,72 @@ public class GaranteePage implements Initializable {
             garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
             garanteeNumber.setText(garanteeTableView.getItems().get(index).getGaranteeNumber());
         }else if (garanteeEditPrivilege.getText().contains("حفظ")){
+            int dejaExist=0;
+            int size=0;
             try {
-                for (int i=0; i<areas.size() ;i++){
-                    if (areas.get(i).getNameArea()==areaName.getValue()){
-                        idArea=areas.get(i).getIdArea();
-                    }
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=? OR `idProject`=?");
+                pst.setString(1,garanteeNumber.getText());
+                pst.setInt(2,idProject);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
                 }
-                for (int i=0; i<locations.size() ;i++){
-                    if (locations.get(i).getLocationName()==locationName.getValue()){
-                        idLocation=locations.get(i).getIdLocation();
-                    }
+                if (size>0){
+                    dejaExist=1;
                 }
-
-                for (int i=0; i<projects.size() ;i++){
-                    if (projects.get(i).getContractName()==projectName.getValue()){
-                        idProject=projects.get(i).getIdProject();
-                    }
-                }
-                con = new Controlers.ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=? WHERE `id`=?");
-
-
-                pst.setInt(1,idArea);
-                pst.setInt(2,idLocation);
-                pst.setInt(3,idProject);
-                pst.setString(4,garanteeNumber.getText());
-                pst.setString(5,garanteeType.getValue());
-                pst.setInt(6,idEdit);
-                pst.execute();
-                garanteeEditPrivilege.setText("تعديل ضمان");
-                locationName.getItems().clear();
-                projectName.getItems().clear();
-                garanteeNumber.clear();
-                garanteeType.setItems(garantees);
-                warningMsg("تعديل","تم التعديل بنجاح");
-
-
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
             }
-            addToTable();
-            idEdit=0;
+            if (garanteeNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
+                    }
+                    for (int i=0; i<locations.size() ;i++){
+                        if (locations.get(i).getLocationName()==locationName.getValue()){
+                            idLocation=locations.get(i).getIdLocation();
+                        }
+                    }
+
+                    for (int i=0; i<projects.size() ;i++){
+                        if (projects.get(i).getContractName()==projectName.getValue()){
+                            idProject=projects.get(i).getIdProject();
+                        }
+                    }
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=? WHERE `id`=?");
+
+
+                    pst.setInt(1,idArea);
+                    pst.setInt(2,idLocation);
+                    pst.setInt(3,idProject);
+                    pst.setString(4,garanteeNumber.getText());
+                    pst.setString(5,garanteeType.getValue());
+                    pst.setInt(6,idEdit);
+                    pst.execute();
+                    garanteeEditPrivilege.setText("تعديل ضمان");
+                    locationName.getItems().clear();
+                    projectName.getItems().clear();
+                    garanteeNumber.clear();
+                    garanteeType.setItems(garantees);
+                    warningMsg("تعديل","تم التعديل بنجاح");
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTable();
+                idEdit=0;
+            }
+
         }
 
 

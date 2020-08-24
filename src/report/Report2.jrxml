@@ -717,14 +717,14 @@
 					</textElement>
 					<text><![CDATA[التوقيع :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="6" width="357" height="20" uuid="8a3996ed-3b36-450c-a7dd-2d3fe4332312"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{privilegeName}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="32" width="283" height="20" uuid="a7616185-4205-4d29-856d-3b92d2a9c910"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>

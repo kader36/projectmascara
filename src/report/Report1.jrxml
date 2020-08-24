@@ -291,8 +291,8 @@
 					</textElement>
 					<text><![CDATA[إسم المنطقة :]]></text>
 				</staticText>
-				<textField>
-					<reportElement x="470" y="1" width="100" height="30" forecolor="#000000" uuid="460b16a2-1c13-4085-bb70-3c3180c7a1b3"/>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="10" y="1" width="560" height="30" forecolor="#000000" uuid="460b16a2-1c13-4085-bb70-3c3180c7a1b3"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Arial" size="14"/>
 					</textElement>
@@ -311,7 +311,7 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement x="663" y="0" width="138" height="36" forecolor="#000000" uuid="8806ec59-f813-471a-a8a9-668de9b374e1">
+				<reportElement x="632" y="0" width="169" height="36" forecolor="#000000" uuid="8806ec59-f813-471a-a8a9-668de9b374e1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22034691-0506-45f1-ba61-8fd24c651f52"/>
 				</reportElement>
 				<box>
@@ -326,7 +326,7 @@
 				<text><![CDATA[إسم المشروع]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="551" y="0" width="112" height="36" forecolor="#000000" uuid="6661e26a-aafc-42f5-a22e-aa3bb6fdee6b">
+				<reportElement x="520" y="0" width="112" height="36" forecolor="#000000" uuid="6661e26a-aafc-42f5-a22e-aa3bb6fdee6b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
 				</reportElement>
 				<box>
@@ -341,7 +341,7 @@
 				<text><![CDATA[نوع المشروع]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="431" y="0" width="120" height="36" forecolor="#000000" uuid="0e0df911-0e79-478f-93c7-c6dae749f562">
+				<reportElement x="400" y="0" width="120" height="36" forecolor="#000000" uuid="0e0df911-0e79-478f-93c7-c6dae749f562">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26e2aab4-3b6f-4040-a576-58d805953e24"/>
 				</reportElement>
 				<box>
@@ -356,7 +356,7 @@
 				<text><![CDATA[رقم العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="331" y="0" width="100" height="36" forecolor="#000000" uuid="b8f6b796-36bb-4745-ba88-be7ac69c76b8">
+				<reportElement x="300" y="0" width="100" height="36" forecolor="#000000" uuid="b8f6b796-36bb-4745-ba88-be7ac69c76b8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38a156fc-5f9d-443e-badf-4c5d3e4a2444"/>
 				</reportElement>
 				<box>
@@ -371,7 +371,7 @@
 				<text><![CDATA[قيمة العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="0" width="109" height="36" forecolor="#000000" uuid="96434686-91ca-4ea6-9526-6096bab63b7f">
+				<reportElement x="222" y="0" width="78" height="36" forecolor="#000000" uuid="96434686-91ca-4ea6-9526-6096bab63b7f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad29855-59ac-469a-947b-fff8a9ae0da7"/>
 				</reportElement>
 				<box>
@@ -420,7 +420,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="663" y="0" width="138" height="20" uuid="babfc74d-6dcc-4b4c-bf2e-86f95c0e6a2d">
+				<reportElement stretchType="RelativeToTallestObject" x="632" y="0" width="169" height="20" uuid="babfc74d-6dcc-4b4c-bf2e-86f95c0e6a2d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="22034691-0506-45f1-ba61-8fd24c651f52"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -434,7 +434,7 @@
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="551" y="0" width="112" height="20" uuid="4f133cef-8e7b-444d-ac34-d0347d6092fc">
+				<reportElement stretchType="RelativeToTallestObject" x="520" y="0" width="112" height="20" uuid="4f133cef-8e7b-444d-ac34-d0347d6092fc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -448,7 +448,7 @@
 				<textFieldExpression><![CDATA[$F{projectType}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="431" y="0" width="120" height="20" uuid="d5a71b21-e8d8-47fd-b9ee-7e33796f6a08">
+				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="120" height="20" uuid="d5a71b21-e8d8-47fd-b9ee-7e33796f6a08">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26e2aab4-3b6f-4040-a576-58d805953e24"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -462,7 +462,7 @@
 				<textFieldExpression><![CDATA[$F{contractNumber}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="331" y="0" width="100" height="20" uuid="aa083d8e-29f2-4988-9927-700a0e42d15f">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="20" uuid="aa083d8e-29f2-4988-9927-700a0e42d15f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38a156fc-5f9d-443e-badf-4c5d3e4a2444"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -476,7 +476,7 @@
 				<textFieldExpression><![CDATA[$F{contractPrice}+ " ر.س"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="222" y="0" width="109" height="20" uuid="bc7da58f-1eeb-4d60-94bb-73d2cd380d82">
+				<reportElement stretchType="RelativeToTallestObject" x="222" y="0" width="78" height="20" uuid="bc7da58f-1eeb-4d60-94bb-73d2cd380d82">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad29855-59ac-469a-947b-fff8a9ae0da7"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -589,14 +589,14 @@
 					</textElement>
 					<text><![CDATA[التوقيع :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="9" y="6" width="353" height="20" uuid="5df19c76-bf67-499f-a412-c134a523f94d"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{privilegeName}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="9" y="32" width="281" height="20" uuid="58b90c60-554b-4eb5-8bbd-c9a4c9290152"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>

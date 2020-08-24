@@ -274,15 +274,15 @@
 			</frame>
 			<frame>
 				<reportElement mode="Opaque" x="138" y="66" width="417" height="32" forecolor="#000000" backcolor="#DBDBDB" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
-				<textField>
-					<reportElement x="23" y="2" width="248" height="28" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="10" y="2" width="282" height="28" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="16"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="280" y="1" width="131" height="30" uuid="beb3cd57-5829-4e80-a627-7da4cf9578fa"/>
+					<reportElement x="300" y="1" width="111" height="30" uuid="beb3cd57-5829-4e80-a627-7da4cf9578fa"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="19" isBold="true"/>
 					</textElement>
@@ -395,7 +395,7 @@
 					</textElement>
 					<text><![CDATA[نهاية العقد :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="62" width="132" height="20" uuid="1d71bad0-0777-4210-8da4-41b05c3cca7a"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -408,7 +408,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="8" width="132" height="20" uuid="5da169b6-0ffa-487a-b8a8-775dd099364f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -421,7 +421,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractPrice}+ " ر.س"]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="288" y="8" width="163" height="20" uuid="1be15837-37aa-4f31-956a-490f5946cb54"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -434,7 +434,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{projectType}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="288" y="35" width="160" height="20" uuid="3f872936-eb48-4c73-b803-6d7e35999e6e"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -447,7 +447,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="288" y="62" width="160" height="20" uuid="c20ba854-26dc-484d-8dfd-7977400d1389"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -460,7 +460,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractNumber}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="288" y="89" width="160" height="20" uuid="446284fd-9f54-4e77-93b7-96ed27e8df6c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -473,7 +473,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractEndDate}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="35" width="132" height="20" uuid="91ff56e5-41ad-4720-aea8-1c6e966fca32"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -500,7 +500,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[إسم الموضف]]></text>
+				<text><![CDATA[إسم الموظف]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="140" width="210" height="30" uuid="5c96c32b-7d9d-4957-9a0d-71d995573b8d">
@@ -579,7 +579,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empoyeeNameDed}]]></textFieldExpression>
 			</textField>
@@ -596,7 +596,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{typeDeduction}]]></textFieldExpression>
 			</textField>
@@ -613,7 +613,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amountOfDeduction}]]></textFieldExpression>
 			</textField>
@@ -630,7 +630,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{deductionDate}]]></textFieldExpression>
 			</textField>
@@ -647,7 +647,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nort}]]></textFieldExpression>
 			</textField>
@@ -695,14 +695,14 @@
 					</textElement>
 					<text><![CDATA[التوقيع :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="35" width="226" height="20" uuid="5f576bc2-0ce3-44b6-87e7-12ef6b31789a"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="5" width="301" height="20" uuid="129c98a8-1770-483a-a10d-b7cb46caeff0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
@@ -749,7 +749,7 @@
 				</textElement>
 				<text><![CDATA[إجمالي عدد السجلات:]]></text>
 			</staticText>
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement x="334" y="28" width="88" height="30" uuid="51755768-c42b-4b94-be25-c1bd83982b83"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

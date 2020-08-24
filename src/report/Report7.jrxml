@@ -459,14 +459,14 @@
 					</textElement>
 					<text><![CDATA[التوقيع :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="34" width="222" height="20" uuid="795d731d-635d-408d-8e35-49153ac01ae1"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="12"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="4" width="296" height="20" uuid="53623775-3959-4a8d-ab14-d1c138c6f900"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>

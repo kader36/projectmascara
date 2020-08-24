@@ -906,14 +906,14 @@
 					</textElement>
 					<text><![CDATA[التوقيع :]]></text>
 				</staticText>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="11" y="35" width="257" height="20" uuid="5f576bc2-0ce3-44b6-87e7-12ef6b31789a"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField textAdjust="ScaleFont">
 					<reportElement x="11" y="5" width="333" height="20" uuid="129c98a8-1770-483a-a10d-b7cb46caeff0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
