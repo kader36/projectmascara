@@ -434,19 +434,6 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<staticText>
-					<reportElement x="241" y="4" width="65" height="20" uuid="542796ba-da1b-4ec8-a9c9-c5e6810ddc50"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="15" isBold="true"/>
-					</textElement>
-					<text><![CDATA[المنصب :]]></text>
-				</staticText>
-				<staticText>
 					<reportElement x="241" y="34" width="65" height="20" uuid="1fb6a397-5a99-41a9-a302-358a0fcc077c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -480,9 +467,9 @@
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="10" y="4" width="222" height="20" uuid="53623775-3959-4a8d-ab14-d1c138c6f900"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="14"/>
+					<reportElement x="10" y="4" width="296" height="20" uuid="53623775-3959-4a8d-ab14-d1c138c6f900"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{privilegeName}]]></textFieldExpression>
 				</textField>
