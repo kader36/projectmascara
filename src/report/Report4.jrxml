@@ -567,9 +567,10 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="458" y="0" width="95" height="19" uuid="2a59beff-594c-4802-bb87-0328861260c7">
+				<reportElement stretchType="RelativeToTallestObject" x="458" y="0" width="95" height="20" uuid="2a59beff-594c-4802-bb87-0328861260c7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b6fb831-bc52-4c6c-a76f-379fc00eadd8"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -583,9 +584,10 @@
 				<textFieldExpression><![CDATA[$F{empoyeeNameDed}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="210" height="19" uuid="5e2d6dcb-a719-4acc-9a39-111405d79c29">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="210" height="20" uuid="5e2d6dcb-a719-4acc-9a39-111405d79c29">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40283ce9-16ec-4ccc-b7b1-fef6514ce067"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -599,9 +601,10 @@
 				<textFieldExpression><![CDATA[$F{typeDeduction}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="80" height="19" uuid="6f1f4d71-8b37-48b2-9410-2c3996d19c83">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="80" height="20" uuid="6f1f4d71-8b37-48b2-9410-2c3996d19c83">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d7c7292-2c97-4522-9579-49c8a7d738fb"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -615,9 +618,10 @@
 				<textFieldExpression><![CDATA[$F{amountOfDeduction}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="210" y="0" width="90" height="19" uuid="e82397f4-c19d-425b-a843-b02a7083513f">
+				<reportElement stretchType="RelativeToTallestObject" x="210" y="0" width="90" height="20" uuid="e82397f4-c19d-425b-a843-b02a7083513f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6c2633c-bc22-4904-b996-6222a5ecb5cd"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -631,9 +635,10 @@
 				<textFieldExpression><![CDATA[$F{deductionDate}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="380" y="0" width="77" height="19" uuid="b64f1343-5946-4a31-8a34-6af0f379458f">
+				<reportElement stretchType="RelativeToTallestObject" x="380" y="0" width="78" height="20" uuid="b64f1343-5946-4a31-8a34-6af0f379458f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40283ce9-16ec-4ccc-b7b1-fef6514ce067"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
