@@ -73,7 +73,7 @@
 		</field>
 	</subDataset>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `projects`,`areas`,`users`,`privileges` WHERE projects.areaId=areas.id AND projects.areaId =17 AND users.id=5 AND users.privilegesId=privileges.id]]>
+		<![CDATA[SELECT * FROM `projects`,`areas`,`users`,`privileges`,`locations` WHERE locations.id=projects.locationId AND projects.areaId=areas.id AND projects.areaId =1 AND users.id=1 AND users.privilegesId=privileges.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -263,6 +263,18 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
+	<field name="COLUMN_48" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="locationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_50" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
 	<group name="areaName">
 		<groupExpression><![CDATA[$F{areaName}]]></groupExpression>
 	</group>
@@ -323,10 +335,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[إسم المشروع]]></text>
+				<text><![CDATA[إسم العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="520" y="0" width="112" height="36" forecolor="#000000" uuid="6661e26a-aafc-42f5-a22e-aa3bb6fdee6b">
+				<reportElement x="442" y="0" width="88" height="36" forecolor="#000000" uuid="6661e26a-aafc-42f5-a22e-aa3bb6fdee6b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
 				</reportElement>
 				<box>
@@ -338,10 +350,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[نوع المشروع]]></text>
+				<text><![CDATA[نوع العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="0" width="120" height="36" forecolor="#000000" uuid="0e0df911-0e79-478f-93c7-c6dae749f562">
+				<reportElement x="322" y="0" width="120" height="36" forecolor="#000000" uuid="0e0df911-0e79-478f-93c7-c6dae749f562">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26e2aab4-3b6f-4040-a576-58d805953e24"/>
 				</reportElement>
 				<box>
@@ -356,7 +368,7 @@
 				<text><![CDATA[رقم العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="0" width="100" height="36" forecolor="#000000" uuid="b8f6b796-36bb-4745-ba88-be7ac69c76b8">
+				<reportElement x="222" y="0" width="100" height="36" forecolor="#000000" uuid="b8f6b796-36bb-4745-ba88-be7ac69c76b8">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38a156fc-5f9d-443e-badf-4c5d3e4a2444"/>
 				</reportElement>
 				<box>
@@ -371,7 +383,7 @@
 				<text><![CDATA[قيمة العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="0" width="78" height="36" forecolor="#000000" uuid="96434686-91ca-4ea6-9526-6096bab63b7f">
+				<reportElement x="160" y="0" width="62" height="36" forecolor="#000000" uuid="96434686-91ca-4ea6-9526-6096bab63b7f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad29855-59ac-469a-947b-fff8a9ae0da7"/>
 				</reportElement>
 				<box>
@@ -386,7 +398,7 @@
 				<text><![CDATA[مدة العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="122" y="0" width="100" height="36" forecolor="#000000" uuid="19914183-6eef-4e06-9d07-8d8368a1ca2a">
+				<reportElement x="80" y="0" width="80" height="36" forecolor="#000000" uuid="19914183-6eef-4e06-9d07-8d8368a1ca2a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e99c517-3d5d-433e-8c8c-f68cf745df45"/>
 				</reportElement>
 				<box>
@@ -401,7 +413,7 @@
 				<text><![CDATA[بداية العقد]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="122" height="36" forecolor="#000000" uuid="6d25e4e1-568c-4c7f-9bde-bceebc34d3c3">
+				<reportElement x="0" y="0" width="80" height="36" forecolor="#000000" uuid="6d25e4e1-568c-4c7f-9bde-bceebc34d3c3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1631b242-90da-4c1b-b866-8bea5c899b22"/>
 				</reportElement>
 				<box>
@@ -414,6 +426,21 @@
 					<font size="19" isBold="true"/>
 				</textElement>
 				<text><![CDATA[نهاية العقد]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="530" y="0" width="102" height="36" forecolor="#000000" uuid="f5834a68-f1c6-48d8-b90d-8e74a93b10f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الموقع]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -434,7 +461,7 @@
 				<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="520" y="0" width="112" height="20" uuid="4f133cef-8e7b-444d-ac34-d0347d6092fc">
+				<reportElement stretchType="RelativeToTallestObject" x="442" y="0" width="88" height="20" uuid="4f133cef-8e7b-444d-ac34-d0347d6092fc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -448,7 +475,7 @@
 				<textFieldExpression><![CDATA[$F{projectType}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="400" y="0" width="120" height="20" uuid="d5a71b21-e8d8-47fd-b9ee-7e33796f6a08">
+				<reportElement stretchType="RelativeToTallestObject" x="322" y="0" width="120" height="20" uuid="d5a71b21-e8d8-47fd-b9ee-7e33796f6a08">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="26e2aab4-3b6f-4040-a576-58d805953e24"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -462,7 +489,7 @@
 				<textFieldExpression><![CDATA[$F{contractNumber}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="100" height="20" uuid="aa083d8e-29f2-4988-9927-700a0e42d15f">
+				<reportElement stretchType="RelativeToTallestObject" x="222" y="0" width="100" height="20" uuid="aa083d8e-29f2-4988-9927-700a0e42d15f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38a156fc-5f9d-443e-badf-4c5d3e4a2444"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -476,7 +503,7 @@
 				<textFieldExpression><![CDATA[$F{contractPrice}+ " ر.س"]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="222" y="0" width="78" height="20" uuid="bc7da58f-1eeb-4d60-94bb-73d2cd380d82">
+				<reportElement stretchType="RelativeToTallestObject" x="160" y="0" width="62" height="20" uuid="bc7da58f-1eeb-4d60-94bb-73d2cd380d82">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3ad29855-59ac-469a-947b-fff8a9ae0da7"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -487,10 +514,10 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="122" y="0" width="100" height="20" uuid="9ed31454-940e-44d7-918a-3eb9590cab7a">
+				<reportElement stretchType="RelativeToTallestObject" x="80" y="0" width="80" height="20" uuid="9ed31454-940e-44d7-918a-3eb9590cab7a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e99c517-3d5d-433e-8c8c-f68cf745df45"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -504,7 +531,7 @@
 				<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="122" height="20" uuid="c65c7a05-19b6-47f8-8199-95c309ee0f74">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="80" height="20" uuid="c65c7a05-19b6-47f8-8199-95c309ee0f74">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1631b242-90da-4c1b-b866-8bea5c899b22"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
@@ -516,6 +543,20 @@
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{contractEndDate}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="530" y="0" width="102" height="20" uuid="1f33606a-2feb-4d3f-8efc-79bff0843b28">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c1aa3a6d-fc87-47e8-94a8-401ed8f0017d"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

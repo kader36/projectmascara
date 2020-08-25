@@ -11,7 +11,7 @@ public class ConnectDB {
      public Connection getConnection(){
          try {
              Class.forName("com.mysql.jdbc.Driver");
-             Connection con= DriverManager.getConnection("jdbc:mysql://localhost/kara?useSSL=false","root","akader01");
+             Connection con= DriverManager.getConnection("jdbc:mysql://localhost/kader?useSSL=false","admin","admin");
              return con;
          } catch (Exception e) {
              warningMsg("قاعدة البيانات","خطأ في الإتصال بقاعدة البيانات");

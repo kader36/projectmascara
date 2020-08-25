@@ -868,9 +868,11 @@ public class EmployeePage implements Initializable {
                 int size=0;
                 try {
                     con=new Controlers.ConnectDB().getConnection();
-                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE (`identityNumber`=? OR `employeeNumber`=?) AND id!=?");
                     pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
+                    pst.setInt(3,idEdit);
+
                     rs=pst.executeQuery();
                     while(rs.next()){
                         size++;
@@ -927,9 +929,11 @@ public class EmployeePage implements Initializable {
                 int size=0;
                 try {
                     con=new Controlers.ConnectDB().getConnection();
-                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE (`identityNumber`=? OR `employeeNumber`=?) AND id!=?");
                     pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
+                    pst.setInt(3,idEdit);
+
                     rs=pst.executeQuery();
                     while(rs.next()){
                         size++;
@@ -984,9 +988,11 @@ public class EmployeePage implements Initializable {
                 int size=0;
                 try {
                     con=new Controlers.ConnectDB().getConnection();
-                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE (`identityNumber`=? OR `employeeNumber`=?) AND id!=?");
                     pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
+                    pst.setInt(3,idEdit);
+
                     rs=pst.executeQuery();
                     while(rs.next()){
                         size++;
@@ -1044,9 +1050,11 @@ public class EmployeePage implements Initializable {
                 int size=0;
                 try {
                     con=new Controlers.ConnectDB().getConnection();
-                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE `identityNumber`=? OR `employeeNumber`=?");
+                    pst=con.prepareStatement("SELECT * FROM `employees` WHERE (`identityNumber`=? OR `employeeNumber`=?) AND id!=?");
                     pst.setString(1,identityNumber.getText());
                     pst.setString(2,employeeNumber.getText());
+                    pst.setInt(3,idEdit);
+
                     rs=pst.executeQuery();
                     while(rs.next()){
                         size++;

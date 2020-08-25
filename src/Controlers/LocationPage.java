@@ -673,9 +673,11 @@ public class LocationPage implements Initializable {
             int size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName`=? AND `areaId`=?");
+                pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName`=? AND `areaId`=? AND id!=?");
                 pst.setString(1,locationName.getText());
                 pst.setInt(2,idArea);
+                pst.setInt(3,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;

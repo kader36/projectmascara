@@ -613,8 +613,10 @@ public class OccupationPage implements Initializable {
             int size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `occupationName`=?");
+                pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `occupationName`=? AND id!=?");
                 pst.setString(1,occupationName.getText());
+                pst.setInt(2,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;

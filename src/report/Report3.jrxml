@@ -13,7 +13,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `projectoccupations`,`projects`, `occupations`,`areas`,`users`,`privileges`   WHERE projectoccupations.idProject=projects.id AND projects.id=17 AND projectoccupations.idOccupation=occupations.id AND projects.areaId=areas.id  AND users.id=5 AND users.privilegesId=privileges.id]]>
+		<![CDATA[SELECT * FROM `projectoccupations`,`projects`, `occupations`,`areas`,`users`,`privileges`,`locations`   WHERE projectoccupations.idProject=projects.id AND projects.id=17 AND projectoccupations.idOccupation=occupations.id AND projects.areaId=areas.id   AND  projects.locationId=locations.id AND users.id=5 AND users.privilegesId=privileges.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -231,6 +231,18 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
+	<field name="COLUMN_55" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="locationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_57" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
 	<variable name="maxNumber1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{maxNumber}]]></variableExpression>
 	</variable>
@@ -349,7 +361,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[بداية العقد :]]></text>
+					<text><![CDATA[الموقع :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="456" y="62" width="84" height="20" uuid="3fff90b9-4fec-43b7-b55f-bcd67aab1a76"/>
@@ -370,7 +382,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="8" width="132" height="20" uuid="5da169b6-0ffa-487a-b8a8-775dd099364f"/>
@@ -391,7 +403,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="278" y="62" width="170" height="20" uuid="c20ba854-26dc-484d-8dfd-7977400d1389"/>
@@ -413,6 +425,20 @@
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="136" y="90" width="142" height="20" uuid="68cf8feb-7c6e-40e3-b0d0-15f0cd3a7ccd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[بداية العقد :]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="0" y="90" width="132" height="20" uuid="5482d748-c7eb-4a47-bb1c-63ed1a087801"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>

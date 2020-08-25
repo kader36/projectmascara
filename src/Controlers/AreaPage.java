@@ -614,8 +614,9 @@ public class AreaPage implements Initializable {
             int size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `areas` WHERE `areaName`=?");
+                pst=con.prepareStatement("SELECT * FROM `areas` WHERE `areaName`=? AND id!=?");
                 pst.setString(1,areaName.getText());
+                pst.setInt(2,idEdit);
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;

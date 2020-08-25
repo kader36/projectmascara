@@ -885,8 +885,10 @@ public class UserPage implements Initializable {
             int size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `users` WHERE `username`=?");
+                pst=con.prepareStatement("SELECT * FROM `users` WHERE `username`=? AND id!=?");
                 pst.setString(1,username.getText());
+                pst.setInt(2,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;
@@ -1245,7 +1247,6 @@ public class UserPage implements Initializable {
     public void edit2(ActionEvent actionEvent) {
         int index= privilegesTableView.getSelectionModel().getSelectedIndex();
         int idEdit=privilegesTableView.getItems().get(index).getIdPrivilege();
-        int idArea=0,idLocation=0,idEmployee=0,idProject=0;
 
 
         if (userEditPrivilege1.getText().contains("تعديل الصلاحية")){
@@ -1325,8 +1326,10 @@ public class UserPage implements Initializable {
             int size2=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `privilegeName`=?");
+                pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `privilegeName`=? AND id !=?");
                 pst.setString(1,privilegeNamee.getText());
+                pst.setInt(2,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size2++;

@@ -464,7 +464,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report1.jrxml";
-                String querry="SELECT * FROM `projects`,`areas`,`users`,`privileges` WHERE projects.areaId=areas.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id AND projects.areaId ="+idArea;
+                String querry="SELECT * FROM `projects`,`areas`,`users`,`privileges`,`locations` WHERE locations.id=projects.locationId AND projects.areaId=areas.id AND projects.areaId ="+idArea+" AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -506,7 +506,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report3.jrxml";
-                String querry="SELECT * FROM `projectoccupations`,`projects`, `occupations`,`areas`,`users`,`privileges`   WHERE projectoccupations.idProject=projects.id AND projects.id="+idProject+" AND projectoccupations.idOccupation=occupations.id AND projects.areaId=areas.id  AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `projectoccupations`,`projects`, `occupations`,`areas`,`users`,`privileges`,`locations`   WHERE projectoccupations.idProject=projects.id AND projects.id="+idProject+" AND projectoccupations.idOccupation=occupations.id AND projects.areaId=areas.id   AND  projects.locationId=locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -529,7 +529,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report4.jrxml";
-                String querry="SELECT * FROM `deductions`,projects,areas,`users`,`privileges`  WHERE deductions.idProject="+idProject+" AND projects.id=deductions.idProject AND deductions.idArea=areas.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `deductions`,projects,areas,`users`,`privileges`,`locations`  WHERE deductions.idProject="+idProject+" AND projects.id=deductions.idProject AND  projects.locationId=locations.id AND deductions.idArea=areas.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -549,7 +549,7 @@ public class RepportPage implements Initializable {
     public void printFive(ActionEvent actionEvent)  {
         try {
             String path=System.getProperty("user.dir")+"\\src\\report\\Report5.jrxml";
-            String querry="SELECT * FROM `deductions`,`projects`,`areas` ,`users`,`privileges` WHERE  deductions.idArea=areas.id AND deductions.idProject=projects.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY deductions.idProject";
+            String querry="SELECT * FROM `deductions`,`projects`,`areas` ,`users`,`privileges`,`locations`  WHERE  deductions.idArea=areas.id AND  projects.locationId=locations.id AND deductions.idProject=projects.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY deductions.idProject";
             JasperDesign jd=  JRXmlLoader.load(path);
             JRDesignQuery query=new JRDesignQuery();
             query.setText(querry);
@@ -614,7 +614,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report8.jrxml";
-                String querry="SELECT * FROM `projectmasroufate`,`projects`,`areas`,`users`,`privileges` WHERE  projects.id="+idProject+" AND projectmasroufate.projectId=projects.id AND projects.areaId=areas.id  AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id";
+                String querry="SELECT * FROM `projectmasroufate`,`projects`, `areas`,`users`,`privileges`,`locations`   WHERE  projects.id="+idProject+" AND projectmasroufate.projectId=projects.id AND  projects.locationId=locations.id AND projects.areaId=areas.id  AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);

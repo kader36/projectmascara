@@ -13,7 +13,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `deductions`,projects,areas,`users`,`privileges`  WHERE deductions.idProject=37 AND projects.id=deductions.idProject AND deductions.idArea=areas.id AND users.id=5 AND users.privilegesId=privileges.id]]>
+		<![CDATA[SELECT * FROM `deductions`,projects,areas,`users`,`privileges`,`locations`  WHERE deductions.idProject=37 AND projects.id=deductions.idProject AND  projects.locationId=locations.id AND deductions.idArea=areas.id AND users.id=5 AND users.privilegesId=privileges.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -247,6 +247,18 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
+	<field name="COLUMN_59" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="locationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_61" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
 	<variable name="amountOfDeduction1" class="java.lang.Float" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{amountOfDeduction}]]></variableExpression>
 	</variable>
@@ -367,7 +379,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[بداية العقد :]]></text>
+					<text><![CDATA[الموقع :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="456" y="62" width="84" height="20" uuid="3fff90b9-4fec-43b7-b55f-bcd67aab1a76"/>
@@ -406,7 +418,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="8" width="132" height="20" uuid="5da169b6-0ffa-487a-b8a8-775dd099364f"/>
@@ -445,7 +457,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="288" y="62" width="160" height="20" uuid="c20ba854-26dc-484d-8dfd-7977400d1389"/>
@@ -485,6 +497,32 @@
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="136" y="91" width="142" height="20" uuid="5d70347a-08ba-4fff-8c9e-2979e56114e1"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[بداية العقد :]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="0" y="91" width="132" height="20" uuid="38c2e4eb-16a9-4ccf-9428-9695ac969e58"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>

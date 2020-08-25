@@ -1612,9 +1612,11 @@ public class ProjectPage implements Initializable {
             int size1=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects` WHERE `locationId`=? AND `contractName`=?");
+                pst=con.prepareStatement("SELECT * FROM `projects` WHERE `locationId`=? AND `contractName`=? AND id!=?");
                 pst.setInt(1,idLocation);
                 pst.setString(2,projectName.getText());
+                pst.setInt(3,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size1++;
@@ -1986,9 +1988,11 @@ public class ProjectPage implements Initializable {
             int size4=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects` WHERE `locationId`=? AND `contractName`=?");
+                pst=con.prepareStatement("SELECT * FROM `projects` WHERE `locationId`=? AND `contractName`=? AND id!=?");
                 pst.setInt(1,idLocation2);
                 pst.setString(2,projectName1.getText());
+                pst.setInt(3,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size4++;
@@ -2147,9 +2151,11 @@ public class ProjectPage implements Initializable {
         }else if (editPosition.getText().contains("حفظ")){
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=? AND `idOccupation`=?");
+                pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=? AND `idOccupation`=? AND id!=?");
                 pst.setInt(1,idProject);
                 pst.setInt(2,idOccupation);
+                pst.setInt(3,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     resultMax=rs.getInt("maxNumber");

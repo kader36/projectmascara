@@ -587,7 +587,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="RelativeToTallestObject" x="70" y="0" width="70" height="20" isRemoveLineWhenBlank="true" uuid="a4111867-40a7-4553-9b12-686352ff0e7e">

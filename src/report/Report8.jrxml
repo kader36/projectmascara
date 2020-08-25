@@ -9,7 +9,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `projectmasroufate`,`projects`, `areas`,`users`,`privileges`   WHERE  projects.id=3 AND projectmasroufate.projectId=projects.id AND projects.areaId=areas.id  AND users.id=1 AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id]]>
+		<![CDATA[SELECT * FROM `projectmasroufate`,`projects`, `areas`,`users`,`privileges`,`locations`   WHERE  projects.id=3 AND projectmasroufate.projectId=projects.id AND  projects.locationId=locations.id AND projects.areaId=areas.id  AND users.id=1 AND users.privilegesId=privileges.id GROUP BY projectmasroufate.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -215,6 +215,18 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
+	<field name="COLUMN_52" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="locationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_54" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
 	<variable name="amountOfDeduction1" class="java.lang.Float" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
@@ -314,7 +326,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[بداية العقد :]]></text>
+					<text><![CDATA[الموقع :]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="456" y="62" width="84" height="20" uuid="e5f1673c-7817-4294-ad62-fbefa773bbdf"/>
@@ -335,7 +347,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="0" y="8" width="132" height="20" uuid="e57cf603-c742-4900-88f5-b5740cdf1000"/>
@@ -356,7 +368,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contactDuration}+" (أشهر)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="278" y="62" width="170" height="20" uuid="8d275426-c3f5-4705-b2f5-0f16a4f8a6b5"/>
@@ -378,6 +390,20 @@
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="135" y="89" width="142" height="20" uuid="15ff0b85-60e8-4b15-bfa1-0e9cd428161e"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[بداية العقد :]]></text>
+				</staticText>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="-1" y="89" width="132" height="20" uuid="4d3d890c-79e8-4fdb-b0f0-17608374a953"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{contractStartDate}]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>

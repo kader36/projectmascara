@@ -951,7 +951,7 @@ public class PenaltyPage implements Initializable {
     public void edit(ActionEvent actionEvent) {
         int index= deductionTableView.getSelectionModel().getSelectedIndex();
         int idEdit=deductionTableView.getItems().get(index).getIdDeduction();
-        int idArea=0,idLocation=0,idEmployee=0,idProject=0;
+
         String EmployeeN="موقع";
 
         if (penaltyEditPrivilege.getText().contains("تعديل الغرامة")){

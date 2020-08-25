@@ -1670,10 +1670,11 @@ public class AbstractPage implements Initializable {
             size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=?");
+                pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=? AND id!=?");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setInt(3,idProject);
+                pst.setInt(4,idEdit);
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;

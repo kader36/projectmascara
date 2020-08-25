@@ -824,7 +824,6 @@ public class GaranteePage implements Initializable {
     public void edit(ActionEvent actionEvent) {
         int index= garanteeTableView.getSelectionModel().getSelectedIndex();
         int idEdit=garanteeTableView.getItems().get(index).getIdGarantee();
-        int idArea=0,idLocation=0,idProject=0;
 
 
         if (garanteeEditPrivilege.getText().contains("تعديل ضمان")){
@@ -839,9 +838,11 @@ public class GaranteePage implements Initializable {
             int size=0;
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=? OR `idProject`=?");
+                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE (`garanteeNumber`=? OR `idProject`=?) AND id!=?");
                 pst.setString(1,garanteeNumber.getText());
                 pst.setInt(2,idProject);
+                pst.setInt(3,idEdit);
+
                 rs=pst.executeQuery();
                 while(rs.next()){
                     size++;

@@ -22,7 +22,7 @@
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `abstract`,`areas`,`locations`,`projects`,`users`,`privileges`,`abstractyears` WHERE abstract.idProject=projects.id AND abstract.id=abstractyears.idAbstract AND projects.id=37 AND abstract.idArea = areas.id AND abstract.idLocation=locations.id AND users.id=5 AND users.privilegesId=privileges.id]]>
+		<![CDATA[SELECT * FROM `abstract`,`areas`,`locations`,`projects`,`users`,`privileges`,`abstractyears`,`locations`  WHERE abstract.idProject=projects.id AND abstract.id=abstractyears.idAbstract AND  projects.locationId=locations.id AND projects.id=37 AND abstract.idArea = areas.id AND abstract.idLocation=locations.id AND users.id=5 AND users.privilegesId=privileges.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -489,7 +489,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{contactDuration} + " (أشهر)"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{contactDuration}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="534" y="61" width="160" height="20" uuid="c20ba854-26dc-484d-8dfd-7977400d1389"/>
@@ -530,6 +530,32 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
 				</textField>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="5" y="61" width="373" height="20" uuid="86bb4662-58ee-4f5b-9b38-fc679e626f8e"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{locationName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="382" y="61" width="142" height="20" uuid="b22ef46e-d2a3-476f-a32b-672ca57d20da"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[الموقع :]]></text>
+				</staticText>
 			</frame>
 			<staticText>
 				<reportElement x="8" y="232" width="719" height="25" uuid="227a3062-4156-4a9c-99a3-6a28025030ba">
