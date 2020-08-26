@@ -85,65 +85,120 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <VBox layoutY="179.0" prefHeight="422.0" prefWidth="216.0">
-                           <children>
-                              <Button id="a" fx:id="areaMenuButton" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="locationMenuButton" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="projectMenuButton" mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="garanteeMenuButton" mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="occupationMenuButton" mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="employeeMenuButton" mnemonicParsing="false" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="abstractMenuButton" mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="deductionMenuButton" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="penaltyMenuButton" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="userMenuButton" mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="repportMenuButton" mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </VBox>
+                         <VBox alignment="CENTER" layoutY="185.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="409.0" prefWidth="216.0">
+                             <children>
+                                 <Button id="a" fx:id="areaMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="locationMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="projectMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="garanteeMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="occupationMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="employeeMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="abstractMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="deductionMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="penaltyMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="userMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                                 <Button fx:id="repportMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                                     <font>
+                                         <Font size="14.0" />
+                                     </font>
+                                 </Button>
+                             </children>
+                         </VBox>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="154.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/areaIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/locationIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/projectIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/garanteeIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="156.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/occupationIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/employeeIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="158.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/abstractIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/deductionIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="154.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/penaltyIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/userIcon.png" />
+                             </image>
+                         </ImageView>
+                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="156.0" layoutY="562.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="@../imgs/menu/reportIcon.png" />
+                             </image>
+                         </ImageView>
                      </children>
                   </AnchorPane>
               </items>

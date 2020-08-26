@@ -377,5 +377,17 @@ public class Accueil  {
         }
 
     }
+    @FXML
+    private AnchorPane info;
+
+    @FXML
+    void showInfo(MouseEvent event) {
+        if (info.isVisible()){
+            info.setVisible(false);
+        }else{
+            info.setVisible(true);
+
+        }
+    }
 
 }

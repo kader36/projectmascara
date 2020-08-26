@@ -152,6 +152,8 @@ public class AbstractPage implements Initializable {
                 contractType.setText(rs.getString("projectType"));
                 contractStartDate.setValue(LocalDate.parse(rs.getString("contractStartDate")));
                 contractEndDate.setValue(LocalDate.parse(rs.getString("contractEndDate")));
+                contractStartDate.getEditor().setText(rs.getString("contractStartDate"));
+                contractEndDate.getEditor().setText(rs.getString("contractEndDate"));
             }
 
 
@@ -1665,6 +1667,8 @@ public class AbstractPage implements Initializable {
             contractNumber.setText(abstractTableView.getItems().get(index).getContractNumber());
             contractStartDate.setValue(LocalDate.parse(abstractTableView.getItems().get(index).getContractStartDate()));
             contractEndDate.setValue(LocalDate.parse(abstractTableView.getItems().get(index).getContractEndDate()));
+            contractStartDate.getEditor().setText(abstractTableView.getItems().get(index).getContractStartDate());
+            contractEndDate.getEditor().setText(abstractTableView.getItems().get(index).getContractEndDate());
         }else if (abstractEditPrivilege.getText().contains("حفظ")){
             dejaExist=0;
             size=0;

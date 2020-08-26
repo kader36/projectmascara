@@ -80,12 +80,13 @@
                                                 <ImageView fx:id="imageHealth1" fitHeight="559.0" fitWidth="430.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane layoutX="25.0" layoutY="15.0" prefHeight="301.0" prefWidth="166.0">
+                                          <AnchorPane layoutX="38.0" layoutY="15.0" prefHeight="215.0" prefWidth="195.0">
                                              <children>
-                                                <ImageView fx:id="imageIdentity1" fitHeight="301.0" fitWidth="226.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="imageIdentity1" fitHeight="215.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" />
                                              </children>
                                           </AnchorPane>
                                           <Separator layoutX="510.0" orientation="VERTICAL" prefHeight="582.0" prefWidth="13.0" />
+                                          <Separator layoutX="30.0" layoutY="12.0" orientation="VERTICAL" prefHeight="219.0" prefWidth="6.0" />
                                           <Label layoutX="274.0" layoutY="18.0" text="إسم الموظف">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
@@ -126,76 +127,79 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="27.0" layoutY="329.0" text="نوع الهوية">
+                                          <Label layoutX="27.0" layoutY="260.0" text="نوع الهوية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="identityType1" editable="false" layoutX="21.0" layoutY="353.0" prefHeight="30.0" prefWidth="216.0" promptText="نوع الهوية">
+                                          <TextField fx:id="identityType1" editable="false" layoutX="21.0" layoutY="284.0" prefHeight="30.0" prefWidth="216.0" promptText="نوع الهوية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="273.0" layoutY="329.0" text="رقم الهوية">
+                                          <Label layoutX="273.0" layoutY="339.0" text="رقم الهوية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="identityNumber1" editable="false" layoutX="267.0" layoutY="353.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الهوية">
+                                          <TextField fx:id="identityNumber1" editable="false" layoutX="267.0" layoutY="363.0" prefHeight="30.0" prefWidth="216.0" promptText="رقم الهوية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="28.0" layoutY="392.0" text="مهنة الإقامة">
+                                          <Label layoutX="28.0" layoutY="339.0" text="مهنة الإقامة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="residenceOccupation1" editable="false" layoutX="22.0" layoutY="416.0" prefHeight="30.0" prefWidth="216.0" promptText="مهنة الإقامة">
+                                          <TextField fx:id="residenceOccupation1" editable="false" layoutX="22.0" layoutY="363.0" prefHeight="30.0" prefWidth="216.0" promptText="مهنة الإقامة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="274.0" layoutY="392.0" text="المهنة الفعلية">
+                                          <Label layoutX="274.0" layoutY="418.0" text="المهنة الفعلية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="reelOccupation1" editable="false" layoutX="268.0" layoutY="416.0" prefHeight="30.0" prefWidth="216.0" promptText="المهنة الفعلية">
+                                          <TextField fx:id="reelOccupation1" editable="false" layoutX="268.0" layoutY="442.0" prefHeight="30.0" prefWidth="216.0" promptText="المهنة الفعلية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="28.0" layoutY="457.0" text="تاريخ إنتهاء الإقامة">
+                                          <Label layoutX="28.0" layoutY="419.0" text="تاريخ إنتهاء الإقامة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="residenceEndDate1" editable="false" layoutX="22.0" layoutY="481.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ إنتهاء الإقامة">
+                                          <TextField fx:id="residenceEndDate1" editable="false" layoutX="22.0" layoutY="443.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ إنتهاء الإقامة">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="274.0" layoutY="457.0" text="تاريخ بداية الشهادة الصحية">
+                                          <Label layoutX="274.0" layoutY="494.0" text="تاريخ بداية الشهادة الصحية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="HealthCertificateStartDate1" editable="false" layoutX="268.0" layoutY="481.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ بداية الشهادة الصحية">
+                                          <TextField fx:id="HealthCertificateStartDate1" editable="false" layoutX="268.0" layoutY="518.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ بداية الشهادة الصحية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
-                                          <Label layoutX="28.0" layoutY="515.0" text="تاريخ نهاية الشهادة الصحية">
+                                          <Label layoutX="28.0" layoutY="494.0" text="تاريخ نهاية الشهادة الصحية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="HealthCertificatEndDate1" editable="false" layoutX="22.0" layoutY="539.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ نهاية الشهادة الصحية">
+                                          <TextField fx:id="HealthCertificatEndDate1" editable="false" layoutX="22.0" layoutY="518.0" prefHeight="30.0" prefWidth="216.0" promptText="تاريخ نهاية الشهادة الصحية">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </TextField>
+                                          <Separator layoutX="30.0" layoutY="13.0" prefHeight="3.0" prefWidth="208.0" />
+                                          <Separator layoutX="235.0" layoutY="12.0" orientation="VERTICAL" prefHeight="222.0" prefWidth="6.0" />
+                                          <Separator layoutX="30.0" layoutY="230.0" prefHeight="5.0" prefWidth="208.0" />
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -216,65 +220,120 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <VBox layoutY="187.0" prefHeight="414.0" prefWidth="216.0">
+                        <VBox alignment="CENTER" layoutY="185.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="409.0" prefWidth="216.0">
                            <children>
-                              <Button id="a" fx:id="areaMenuButton" mnemonicParsing="false" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
+                              <Button id="a" fx:id="areaMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#areas" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المناطق" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="locationMenuButton" mnemonicParsing="false" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
+                              <Button fx:id="locationMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#locations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المواقع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="projectMenuButton" mnemonicParsing="false" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
+                              <Button fx:id="projectMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#projects" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المشاريع" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="garanteeMenuButton" mnemonicParsing="false" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
+                              <Button fx:id="garanteeMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#garantees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الضمانات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="occupationMenuButton" mnemonicParsing="false" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
+                              <Button fx:id="occupationMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#occupations" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الوظائف" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="employeeMenuButton" mnemonicParsing="false" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
+                              <Button fx:id="employeeMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#employees" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenuSelected" stylesheets="@../css/style.css" text="الموظفين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="abstractMenuButton" mnemonicParsing="false" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
+                              <Button fx:id="abstractMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#abstracts" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="المستخلصات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="deductionMenuButton" mnemonicParsing="false" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
+                              <Button fx:id="deductionMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#deduction" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الإستقطاعات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="penaltyMenuButton" mnemonicParsing="false" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
+                              <Button fx:id="penaltyMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#penalties" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="الغرامات" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="userMenuButton" mnemonicParsing="false" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
+                              <Button fx:id="userMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#users" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="إدارة المستخدمين" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="repportMenuButton" mnemonicParsing="false" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
+                              <Button fx:id="repportMenuButton" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#report" prefHeight="37.0" prefWidth="216.0" styleClass="buttonMenu" stylesheets="@../css/style.css" text="التقارير" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
                            </children>
                         </VBox>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="154.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/areaIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/locationIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/projectIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/garanteeIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="156.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/occupationIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/employeeIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="158.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/abstractIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="155.0" layoutY="451.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/deductionIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="154.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/penaltyIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="157.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/userIcon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="156.0" layoutY="562.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imgs/menu/reportIcon.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
               </items>

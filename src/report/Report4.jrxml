@@ -288,7 +288,7 @@
 				<reportElement mode="Opaque" x="138" y="66" width="417" height="32" forecolor="#000000" backcolor="#DBDBDB" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="2" width="282" height="28" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="16"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
@@ -769,7 +769,7 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{penaltDaduct} + " ر,س"]]></textFieldExpression>
@@ -795,7 +795,7 @@
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{amountOfDeduction2}]]></textFieldExpression>

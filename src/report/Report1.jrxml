@@ -305,7 +305,7 @@
 				</staticText>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="1" width="560" height="30" forecolor="#000000" uuid="460b16a2-1c13-4085-bb70-3c3180c7a1b3"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{areaName}]]></textFieldExpression>
@@ -639,7 +639,7 @@
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="9" y="32" width="281" height="20" uuid="58b90c60-554b-4eb5-8bbd-c9a4c9290152"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>

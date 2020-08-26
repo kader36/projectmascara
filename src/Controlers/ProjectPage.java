@@ -1598,6 +1598,8 @@ public class ProjectPage implements Initializable {
             projectEditPrivilege.setText("حفظ");
             contractStartDate.setValue(LocalDate.parse(projectTableView.getItems().get(index).getContractStartDate()));
             contractEndDate.setValue(LocalDate.parse(projectTableView.getItems().get(index).getContractEndDate()));
+            contractStartDate.getEditor().setText(projectTableView.getItems().get(index).getContractStartDate());
+            contractEndDate.getEditor().setText(projectTableView.getItems().get(index).getContractEndDate());
 
             areaName.setValue(projectTableView.getItems().get(index).getAreaName());
             locationName.setValue(projectTableView.getItems().get(index).getLocationName());
@@ -1980,6 +1982,8 @@ public class ProjectPage implements Initializable {
             contactDuration1.setText(String.valueOf(projectTableView1.getItems().get(index).getContactDuration()));
             contractStartDate1.setValue(LocalDate.parse(projectTableView1.getItems().get(index).getContractStartDate()));
             contractEndDate1.setValue(LocalDate.parse(projectTableView1.getItems().get(index).getContractEndDate()));
+            contractStartDate1.getEditor().setText(projectTableView1.getItems().get(index).getContractStartDate());
+            contractEndDate1.getEditor().setText(projectTableView1.getItems().get(index).getContractEndDate());
             contactNumber1.setText(projectTableView1.getItems().get(index).getContractNumber());
 
 

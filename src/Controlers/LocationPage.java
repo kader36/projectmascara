@@ -94,6 +94,7 @@ public class LocationPage implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+                System.out.println(throwables.getMessage());
             }
             addToTable();
 
@@ -562,16 +563,17 @@ public class LocationPage implements Initializable {
         locationsTable.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations`");
+            pst=con.prepareStatement("SELECT * FROM `locations`,`areas` WHERE locations.areaId=areas.id");
             rs=pst.executeQuery();
             while (rs.next()){
-                locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),getAreaName(rs.getInt("areaId")),rs.getString("locationName")));
+                locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),rs.getString("areaName"),rs.getString("locationName")));
 
             }
 
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            System.out.println("here is problem");
         }
 
 

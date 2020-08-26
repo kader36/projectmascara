@@ -98,8 +98,8 @@ public class MainPage implements Initializable {
                     primaryStage.setTitle("الصفحة الرئيسية");
                     primaryStage.setX(10);
                     primaryStage.setY(20);
-                    primaryStage.setMaxHeight(636);
-                    primaryStage.setMaxWidth(1325);
+                    primaryStage.setMaxHeight(640);
+                    primaryStage.setMaxWidth(1340);
                     primaryStage.setScene(new Scene(root));
                     primaryStage.show();
 

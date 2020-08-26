@@ -61,16 +61,23 @@ Button{
     -fx-text-fill:#FFF;
     -fx-border-color:#FFF;
     -fx-border-width: 0px 7px  0px 0px;
+    -fx-label-padding: 0px 60px 0px 0px;
 }
 .buttonMenu{
     -fx-background-color: #9351F9;
     -fx-text-fill:#FFF;
+    -fx-label-padding: 0px 60px 0px 0px;
+
 }
 .buttonMenu:hover{
     -fx-background-color:  #7339E0;
+    -fx-label-padding: 0px 60px 0px 0px;
+
 
 }
 .buttonMenu:pressed{
     -fx-background-color:  #7339E0;
+    -fx-label-padding: 0px 60px 0px 0px;
+    
 
 }

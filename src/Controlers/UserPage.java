@@ -61,23 +61,6 @@ public class UserPage implements Initializable {
     private TextField password;
 
 
-    public void fillComboArea(){
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas`");
-            rs=pst.executeQuery();
-            while (rs.next()){
-                areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
-
-            }
-            for (int i=0;i<areas.size();i++){
-                areaName.getItems().add(areas.get(i).getNameArea());
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
     public void fillComboPrivilege(){
         privileges.clear();
         privilegeName.getItems().clear();
@@ -700,10 +683,10 @@ public class UserPage implements Initializable {
             usersTable.clear();
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `users`");
+                pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.privilegesId=privileges.id ");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getPrivilegeName(rs.getInt("privilegesId"))));
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),rs.getString("privilegeName")));
 
                 }
 
@@ -772,27 +755,7 @@ public class UserPage implements Initializable {
         return result;
 
     }
-    public String getPrivilegeName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `privileges` WHERE `id`=?");
-            pst.setInt(1,id);
 
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("privilegeName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
 
     public void deleteRow(ActionEvent actionEvent) {
         int index= userTableView.getSelectionModel().getSelectedIndex();
@@ -840,10 +803,10 @@ public class UserPage implements Initializable {
             usersTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `users` WHERE `employeeName` LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.privilegesId=privileges.id AND `employeeName` LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),getPrivilegeName(rs.getInt("privilegesId"))));
+                    usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),rs.getString("privilegeName")));
                 }
                 employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
                 usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));

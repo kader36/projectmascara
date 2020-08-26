@@ -726,7 +726,7 @@
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="32" width="283" height="20" uuid="a7616185-4205-4d29-856d-3b92d2a9c910"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>

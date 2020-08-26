@@ -277,8 +277,8 @@
 			<frame>
 				<reportElement mode="Opaque" x="134" y="66" width="421" height="32" forecolor="#000000" backcolor="#DBDBDB" uuid="e3c14156-5b51-4201-918b-97fdc012e5d4"/>
 				<textField textAdjust="ScaleFont">
-					<reportElement x="24" y="2" width="260" height="30" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<reportElement x="12" y="2" width="272" height="30" forecolor="#000000" uuid="9a53d285-fe39-4393-b3cc-c47b54a01edb"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="16"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{contractName}]]></textFieldExpression>
@@ -588,7 +588,7 @@
 				</textField>
 				<textField textAdjust="ScaleFont">
 					<reportElement x="10" y="34" width="227" height="20" uuid="faeb5ef2-611b-4256-93d0-21959b203032"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{employeeName}]]></textFieldExpression>

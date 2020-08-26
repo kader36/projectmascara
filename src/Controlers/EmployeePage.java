@@ -854,6 +854,9 @@ public class EmployeePage implements Initializable {
             residenceEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getResidenceEndDate()));
             HealthCertificateStartDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getHealthCertificateStartDate()));
             HealthCertificatEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getResidenceEndDate()));
+            residenceEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
+            HealthCertificateStartDate.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
+            HealthCertificatEndDate.getEditor().setText(employeeTableView.getItems().get(index).getResidenceEndDate());
             reelOccupation.setValue(employeeTableView.getItems().get(index).getReelOccupationName());
             identityType.setValue(employeeTableView.getItems().get(index).getIdentityType());
             employeeNumber.setText(employeeTableView.getItems().get(index).getEmployeeNumber());
@@ -1113,12 +1116,10 @@ public class EmployeePage implements Initializable {
             HealthCertificateStartDate.getEditor().clear();
             HealthCertificatEndDate.getEditor().clear();
             reelOccupation.getItems().clear();
-            identityType.getItems().clear();
             employeeNumber.clear();
             employeeNationality.clear();
             residenceOccupation.clear();
             religion.clear();
-            identityType.setItems(identityTypeList);
             fillCombo();
             addToTable();
         }
