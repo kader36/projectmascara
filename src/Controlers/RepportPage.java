@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
@@ -607,6 +608,25 @@ public class RepportPage implements Initializable {
 
 
 
+    }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
     }
     public void printEight(ActionEvent actionEvent)  {
         if (projectName.getSelectionModel().isEmpty()){

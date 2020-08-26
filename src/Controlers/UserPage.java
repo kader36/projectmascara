@@ -714,47 +714,6 @@ public class UserPage implements Initializable {
 
     }
 
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getLocationName(int idArea,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("locationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
 
 
     public void deleteRow(ActionEvent actionEvent) {
@@ -774,6 +733,25 @@ public class UserPage implements Initializable {
             }
             idDelete=0;
             addToTable();
+        }
+    }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
         }
     }
     public void warningMsg(String title,String message ){

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -356,6 +357,24 @@ public class Accueil  {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
             System.out.println(e.getMessage());
 
         }

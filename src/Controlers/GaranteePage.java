@@ -674,11 +674,10 @@ public class GaranteePage implements Initializable {
         garanteesTable.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `garantees`");
+            pst=con.prepareStatement("SELECT * FROM `garantees`,`areas`,`locations`,`projects` WHERE garantees.areaId=areas.id AND garantees.locationId=locations.id AND garantees.idProject=projects.id ");
             rs=pst.executeQuery();
             while (rs.next()){
-                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
-
+                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
             }
 
 
@@ -689,69 +688,7 @@ public class GaranteePage implements Initializable {
 
 
     }
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
-
-    }
-    public String getLocationName(int idArea,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("locationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getProjectName(int idArea,int idLocation,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            pst.setInt(3,idLocation);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -797,10 +734,11 @@ public class GaranteePage implements Initializable {
             garanteesTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber` LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM  `garantees`,`areas`,`locations`,`projects` WHERE garantees.areaId=areas.id AND garantees.locationId=locations.id AND garantees.idProject=projects.id AND garantees.garanteeNumber LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),getProjectName(rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject")),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
+                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
+
                 }
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
@@ -818,7 +756,25 @@ public class GaranteePage implements Initializable {
 
 
     }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
 
+            System.out.println(e.getMessage());
+
+        }
+    }
     @FXML
     private Button edit;
     public void edit(ActionEvent actionEvent) {

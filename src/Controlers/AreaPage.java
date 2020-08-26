@@ -567,6 +567,23 @@ public class AreaPage implements Initializable {
             addToTable();
         }
     }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
+            AnchorPane root = loader.load();
+            MainPage controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("المشاريع");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
+    }
 
     @FXML
     private TextField search;

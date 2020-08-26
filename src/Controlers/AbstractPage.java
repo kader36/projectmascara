@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -716,10 +717,10 @@ public class AbstractPage implements Initializable {
         abstractsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `abstract`");
+            pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id");
             rs=pst.executeQuery();
             while (rs.next()){
-                abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),getContractType(rs.getInt("idProject")),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject"))));
+                abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
 
             }
 
@@ -767,149 +768,7 @@ public class AbstractPage implements Initializable {
         return result;
 
     }
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
-
-    }
-    public String getContractNumber(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractNumber");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getContractStartDate(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractStartDate");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getContractEndDate(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractEndDate");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getContractType(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("projectType");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getLocationName(int idArea,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("locationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getProjectName(int idArea,int idLocation,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            pst.setInt(3,idLocation);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
     @FXML
     private CheckBox janvier;
 
@@ -1095,10 +954,10 @@ public class AbstractPage implements Initializable {
             abstractsTable.clear();
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `abstract`,`projects` WHERE abstract.idProject =projects.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("`abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getContractNumber(rs.getInt("idProject")),getContractType(rs.getInt("idProject")),getContractStartDate(rs.getInt("idProject")),getContractEndDate(rs.getInt("idProject"))));
+                    abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
 
                 }
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
@@ -1131,6 +990,25 @@ public class AbstractPage implements Initializable {
         }
 
 
+    }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
     }
     @FXML
     void idReset(MouseEvent event) {

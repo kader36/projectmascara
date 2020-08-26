@@ -35,6 +35,8 @@ public class MainPage implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    FXMLLoader loader;
+    Stage primary;
 
 
     @Override
@@ -66,6 +68,7 @@ public class MainPage implements Initializable {
         }
         return sb.toString();
     }
+    AnchorPane root;
     public void login(ActionEvent actionEvent) {
         try {
             con=new Controlers.ConnectDB().getConnection();
@@ -84,24 +87,27 @@ public class MainPage implements Initializable {
 
                 size++;
             }
+
             if (size>0){
                 erreur.setVisible(false);
 
                 try {
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
-                    AnchorPane root = loader.load();
+                    loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
+                    root = loader.load();
                     Accueil controller = loader.getController();
                     controller.Init(idConnected,usernameConnected,employeeNameConnected);
-                    Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+                    primary= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
 
-                    primaryStage.setTitle("الصفحة الرئيسية");
-                    primaryStage.setX(10);
-                    primaryStage.setY(20);
-                    primaryStage.setMaxHeight(640);
-                    primaryStage.setMaxWidth(1340);
-                    primaryStage.setScene(new Scene(root));
-                    primaryStage.show();
+                    primary.setTitle("الصفحة الرئيسية");
+                    primary.setX(10);
+                    primary.setY(20);
+                    primary.setHeight(640);
+                    primary.setWidth(1340);
+                    primary.setMaxHeight(640);
+                    primary.setMaxWidth(1340);
+                    primary.setScene(new Scene(root));
+                    primary.show();
 
                 }catch (Exception e){
                     System.out.println(e.getMessage());
@@ -120,5 +126,15 @@ public class MainPage implements Initializable {
 
     }
 
+    int idConnected=0;
+    String usernameConnected="";
+    String employeeNameConnected="";
+    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
+        this.idConnected = idConnected;
+        this.usernameConnected = usernameConnected;
+        this.employeeNameConnected = employeeNameConnected;
+        primary.close();
+
+    }
 
 }

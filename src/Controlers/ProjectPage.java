@@ -181,11 +181,11 @@ public class ProjectPage implements Initializable {
 
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations`,`occupations` WHERE projectoccupations.idOccupation=occupations.id AND `idProject`=?");
             pst.setInt(1,idProject);
             rs=pst.executeQuery();
             while (rs.next()){
-                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),getOccupationName(rs.getInt("idOccupation"))));
+                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("occupationName")));
 
             }
             for (int i=0;i<projectOccupation.size();i++){
@@ -321,11 +321,11 @@ public class ProjectPage implements Initializable {
         try {
 
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations`,`occupations` WHERE  projectoccupations.idOccupation=occupations.id AND projectoccupations.idProject=?");
             pst.setInt(1,idProject);
             rs=pst.executeQuery();
             while (rs.next()){
-                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),getOccupationName(rs.getInt("idOccupation"))));
+                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("occupationName")));
 
             }
 
@@ -941,14 +941,39 @@ public class ProjectPage implements Initializable {
                 pst.setString(9, contactNumber.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
-
+                projectName.clear();
+                contactNumber.clear();
+                contractPrice.clear();
+                contactDuration.clear();
+                contractStartDate.getEditor().clear();
+                contractEndDate.getEditor().clear();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
             addToTable();
+
         }
 
+    }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
     }
     int dejaExist=0;
     int size=0;
@@ -1097,10 +1122,10 @@ public class ProjectPage implements Initializable {
         projectsTable.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `projectType`='مشروع قطاع صحي'");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع قطاع صحي'");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber")));
+                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber")));
             }
 
 
@@ -1113,109 +1138,11 @@ public class ProjectPage implements Initializable {
 
     }
 
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
 
-    }
-    public String getOccupationName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `occupations` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("occupationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
 
-    }
-    public String getEmployeeName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("employeeName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
-
-    }
-    public String getLocationName(int idArea,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("locationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getProjectName(int idArea,int idLocation,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            pst.setInt(3,idLocation);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
 
 
 
@@ -1320,10 +1247,10 @@ public class ProjectPage implements Initializable {
         projectEmployeesTable.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees`");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getOccupationName(rs.getInt("idOccupation")),getEmployeeName(rs.getInt("idEmployee"))));
+                projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
 
             }
 
@@ -1547,10 +1474,10 @@ public class ProjectPage implements Initializable {
             projectsTable.clear();
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects` WHERE projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
 
 
                 }
@@ -1842,11 +1769,19 @@ public class ProjectPage implements Initializable {
                 pst.setString(8, String.valueOf(contractEndDate1.getValue()));
                 pst.setString(9, contactNumber1.getText());
                 pst.execute();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                projectName1.clear();
+                contactNumber1.clear();
+                contractPrice1.clear();
+                contactDuration1.clear();
+                contractStartDate1.getEditor().clear();
+                contractEndDate1.getEditor().clear();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
+
             addToTableMilitaire();
         }
 
@@ -1855,10 +1790,10 @@ public class ProjectPage implements Initializable {
         projectsTable2.clear();
         try {
             con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `projectType`='مشروع قطاع عسكري'");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع قطاع عسكري'");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),getAreaName(rs.getInt("areaId")),getLocationName(rs.getInt("areaId"),rs.getInt("locationId")),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
             }
 
 

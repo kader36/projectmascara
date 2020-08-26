@@ -579,26 +579,7 @@ public class LocationPage implements Initializable {
 
 
     }
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new Controlers.ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
 
-        }
-        return result;
-
-    }
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -641,11 +622,10 @@ public class LocationPage implements Initializable {
             locationsTable.clear();
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `locations` WHERE `locationName` LIKE '%"+key+"%' ");
+                pst=con.prepareStatement("SELECT * FROM `locations`,`areas` WHERE locations.locationName LIKE '%"+key+"%' ");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),getAreaName(rs.getInt("areaId")),rs.getString("locationName")));
-
+                    locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),rs.getString("areaName"),rs.getString("locationName")));
                 }
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
@@ -659,6 +639,25 @@ public class LocationPage implements Initializable {
         }
 
 
+    }
+    @FXML
+    public void LogoutButton(MouseEvent event) {
+        try {
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
     }
     @FXML
     private Button edit;

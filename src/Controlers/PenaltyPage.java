@@ -154,12 +154,12 @@ public class PenaltyPage implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees` WHERE `idProject`=? AND `idOccupation`=?");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`employees` WHERE projectsemployees.idEmployee=employees.id AND projectsemployees.idProject=? AND `idOccupation`=?");
             pst.setInt(1,idProject);
             pst.setInt(2,idOccupation);
             rs=pst.executeQuery();
             while (rs.next()){
-                employees.add(new EmployeeForList(rs.getInt("idEmployee"),getEmployeeName(rs.getInt("idEmployee"))));
+                employees.add(new EmployeeForList(rs.getInt("idEmployee"),rs.getString("employeeName")));
 
             }
             for (int i=0;i<employees.size();i++){
@@ -772,10 +772,10 @@ public class PenaltyPage implements Initializable {
         deductionsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `deductions` WHERE `dorp`='p'");
+            pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p'");
             rs=pst.executeQuery();
             while (rs.next()){
-                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
+                deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
             }
 
@@ -787,88 +787,24 @@ public class PenaltyPage implements Initializable {
 
 
     }
-    public String getAreaName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
+    @FXML
+    public void LogoutButton(MouseEvent event) {
         try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("areaName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
+            Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
+            primaryStage.show();
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
 
         }
-        return result;
-
-    }
-    public String getEmployeeName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
-            pst.setInt(1,id);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("employeeName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getLocationName(int idArea,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `id`=? AND `areaId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("locationName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
-    }
-    public String getProjectName(int idArea,int idLocation,int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `areaId`=? AND `locationId`=?");
-            pst.setInt(1,id);
-            pst.setInt(2,idArea);
-            pst.setInt(3,idLocation);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                return result= rs.getString("contractName");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
-        }
-        return result;
-
     }
     @FXML
     public void deleteRow(ActionEvent actionEvent) {
@@ -921,10 +857,10 @@ public class PenaltyPage implements Initializable {
             deductionsTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `deductions`,`projects` WHERE deductions.idProject =projects.id AND deductions.dorp='p' AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p' AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),getAreaName(rs.getInt("idArea")),getLocationName(rs.getInt("idArea"),rs.getInt("idLocation")),getProjectName(rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject")),getEmployeeName(rs.getInt("idEmployeeDeduction")),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
+                    deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
 
                 }
