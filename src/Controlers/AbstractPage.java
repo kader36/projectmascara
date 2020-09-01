@@ -713,6 +713,7 @@ public class AbstractPage implements Initializable {
 
 
     }
+
     public void addToTable(){
         abstractsTable.clear();
         try {
@@ -723,6 +724,8 @@ public class AbstractPage implements Initializable {
                 abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
 
             }
+            con.close();
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -866,13 +869,14 @@ public class AbstractPage implements Initializable {
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setInt(3,idProject);
-
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
+
             addToTable();
             areaName.getItems().clear();
             areas.clear();
@@ -1098,6 +1102,7 @@ public class AbstractPage implements Initializable {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
+
             addToTable2();
             janvier.setSelected(false);
             fevrier.setSelected(false);
@@ -1137,378 +1142,8 @@ public class AbstractPage implements Initializable {
         alert.setHeaderText(null);
         alert.showAndWait();
     }
-    @FXML
-    void ja1(ActionEvent event) {
-        if (janvier.isSelected()){
-            janvier.setDisable(false);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
 
-    }
-    @FXML
-    void ja2(ActionEvent event) {
-        if (fevrier.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(false);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
 
-    }
-    @FXML
-    void ja3(ActionEvent event) {
-        if (mars.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(false);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja4(ActionEvent event) {
-        if (avril.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(false);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja5(ActionEvent event) {
-        if (may.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(false);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja6(ActionEvent event) {
-        if (juin.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(false);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja7(ActionEvent event) {
-        if (juilliet.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(false);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja8(ActionEvent event) {
-        if (aout.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(false);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja9(ActionEvent event) {
-        if (septembre.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(false);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja10(ActionEvent event) {
-        if (octobre.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(false);
-            novembre.setDisable(true);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja11(ActionEvent event) {
-        if (novembre.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(false);
-            decembre.setDisable(true);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
-    @FXML
-    void ja12(ActionEvent event) {
-        if (decembre.isSelected()){
-            janvier.setDisable(true);
-            fevrier.setDisable(true);
-            mars.setDisable(true);
-            avril.setDisable(true);
-            may.setDisable(true);
-            juin.setDisable(true);
-            juilliet.setDisable(true);
-            aout.setDisable(true);
-            septembre.setDisable(true);
-            octobre.setDisable(true);
-            novembre.setDisable(true);
-            decembre.setDisable(false);
-        }else{
-            janvier.setDisable(false);
-            fevrier.setDisable(false);
-            mars.setDisable(false);
-            avril.setDisable(false);
-            may.setDisable(false);
-            juin.setDisable(false);
-            juilliet.setDisable(false);
-            aout.setDisable(false);
-            septembre.setDisable(false);
-            octobre.setDisable(false);
-            novembre.setDisable(false);
-            decembre.setDisable(false);
-        }
-
-    }
     public void addToTable2(){
         abstractYearsTable.clear();
         int index= abstractTableView.getSelectionModel().getSelectedIndex();

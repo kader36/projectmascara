@@ -124,7 +124,7 @@
                                           <Button fx:id="projectAddPrivilege3" layoutX="58.0" layoutY="166.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
                                           <Button fx:id="projectEditPrivilege1" layoutX="315.0" layoutY="165.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
                                           <Button fx:id="projectDeletePrivilege3" layoutX="573.0" layoutY="165.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
-                                          <TextField fx:id="search1" layoutX="834.0" layoutY="165.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TextField fx:id="search1" layoutX="834.0" layoutY="165.0" onKeyReleased="#search1" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView1" fixedCellSize="0.0" layoutX="57.0" layoutY="216.0" onMouseClicked="#getSelectItemTable2" prefHeight="155.0" prefWidth="1019.0">
                                              <columns>
                                                 <TableColumn fx:id="projectNameTable1" editable="false" prefWidth="118.0" text="إسم العقد" />

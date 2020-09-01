@@ -32,7 +32,6 @@ public class GaranteePage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
-    ObservableList<String> contracts= FXCollections.observableArrayList("طهي","توريد");
     ObservableList<String> garantees= FXCollections.observableArrayList("الافراج عن الضمان","تخفيض 5% من الضمان");
     int idArea=0,idLocation=0,idProject=0,idGarantee=0,idHistorical;
 

@@ -573,7 +573,6 @@ public class AreaPage implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
             AnchorPane root = loader.load();
             MainPage controller = loader.getController();
-            controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
             primaryStage.setTitle("المشاريع");
             primaryStage.setScene(new Scene(root));

@@ -85,6 +85,8 @@ public class ProjectPage implements Initializable {
                 areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
 
             }
+            con.close();
+
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
                 areaNameEmployee.getItems().add(areas.get(i).getNameArea());
@@ -106,6 +108,8 @@ public class ProjectPage implements Initializable {
                 areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
 
             }
+            con.close();
+
             for (int i=0;i<areas.size();i++){
                 areaName1.getItems().add(areas.get(i).getNameArea());
             }
@@ -125,6 +129,8 @@ public class ProjectPage implements Initializable {
                 masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
 
             }
+            con.close();
+
             for (int i=0;i<masroufats.size();i++){
                 masroufatNameCombo.getItems().add(masroufats.get(i).getMasroufName());
             }
@@ -145,6 +151,8 @@ public class ProjectPage implements Initializable {
                 employees.add(new EmployeeForList(rs.getInt("id"),rs.getString("employeeName")));
 
             }
+            con.close();
+
             for (int i=0;i<employees.size();i++){
                 employeeNameEmployee.getItems().add(employees.get(i).getEmployeeName());
             }
@@ -165,6 +173,8 @@ public class ProjectPage implements Initializable {
                 occupations.add(new Occupation(rs.getInt("id"),rs.getString("occupationName")));
 
             }
+            con.close();
+
             for (int i=0;i<occupations.size();i++){
                 occupationName.getItems().add(occupations.get(i).getNameOcupation());
             }
@@ -188,6 +198,8 @@ public class ProjectPage implements Initializable {
                 projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("occupationName")));
 
             }
+            con.close();
+
             for (int i=0;i<projectOccupation.size();i++){
                 occupationNameEmployee.getItems().add(projectOccupation.get(i).getOccupationName());
             }
@@ -210,6 +222,7 @@ public class ProjectPage implements Initializable {
                 locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
 
             }
+            con.close();
 
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
@@ -233,6 +246,7 @@ public class ProjectPage implements Initializable {
                 locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
 
             }
+            con.close();
 
             for (int i=0;i<locations.size();i++){
                 locationName1.getItems().add(locations.get(i).getLocationName());
@@ -259,6 +273,7 @@ public class ProjectPage implements Initializable {
                 locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
 
             }
+            con.close();
 
             for (int i=0;i<locations.size();i++){
                 locationNameEmployee.getItems().add(locations.get(i).getLocationName());
@@ -284,6 +299,7 @@ public class ProjectPage implements Initializable {
                 projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
 
             }
+            con.close();
 
             for (int i=0;i<projects.size();i++){
                 projectNameEmployee.getItems().add(projects.get(i).getContractName());
@@ -307,6 +323,7 @@ public class ProjectPage implements Initializable {
                 projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
 
             }
+            con.close();
 
 
         } catch (SQLException throwables) {
@@ -328,6 +345,7 @@ public class ProjectPage implements Initializable {
                 projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("occupationName")));
 
             }
+            con.close();
 
 
         } catch (SQLException throwables) {
@@ -991,6 +1009,7 @@ public class ProjectPage implements Initializable {
             while(rs.next()){
                 size++;
             }
+
             if (size>0){
                 dejaExist=1;
             }
@@ -1097,6 +1116,7 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
             }
+            con.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1112,6 +1132,7 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 masroufats2.add(new Masrouf2(rs.getInt("id"),rs.getInt("projectId"),rs.getString("masroufName"),rs.getFloat("masroufPrice")));
             }
+            con.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1127,9 +1148,7 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber")));
             }
-
-
-
+            con.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -1253,6 +1272,7 @@ public class ProjectPage implements Initializable {
                 projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
 
             }
+            con.close();
 
 
         } catch (SQLException throwables) {
@@ -1457,48 +1477,59 @@ public class ProjectPage implements Initializable {
     private TextField search;
     @FXML
     public void search(KeyEvent keyEvent) {
-        String key=search.getText().trim();
+
+            String key=search.getText().trim();
+            if (key.isEmpty()){
+                addToTable();
+                projectTableView.setItems(projectsTable);
+            }else{
+                projectsTable.clear();
+                try {
+                    con=new Controlers.ConnectDB().getConnection();
+                    pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع قطاع صحي' AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                    rs=pst.executeQuery();
+                    while (rs.next()){
+                        projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+                    }
+                    con.close();
+
+                    projectTableView.setItems(projectsTable);
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+
+            }
+
+    }
+
+    @FXML
+    private TextField search1;
+    @FXML
+    public void search1(KeyEvent keyEvent) {
+
+        String key=search1.getText().trim();
+
         if (key.isEmpty()){
-            addToTable();
-            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
-            projectNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
-            projectTypeTable.setCellValueFactory(new PropertyValueFactory<>("projectType"));
-            contactDurationTable.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
-            contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
-            contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
-            contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
-            contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
-            projectTableView.setItems(projectsTable);
+            addToTableMilitaire();
+            projectTableView1.setItems(projectsTable2);
         }else{
-            projectsTable.clear();
+            projectsTable2.clear();
+
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع قطاع عسكري' AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
-
-
+                    projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
                 }
-                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
-                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
-                projectNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
-                projectTypeTable.setCellValueFactory(new PropertyValueFactory<>("projectType"));
-                contactDurationTable.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
-                contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
-                contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
-                contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
-                contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
-                projectTableView.setItems(projectsTable);
-
-
+                con.close();
+                projectTableView1.setItems(projectsTable2);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
         }
-
 
     }
 
@@ -1602,11 +1633,9 @@ public class ProjectPage implements Initializable {
                 addToTable();
                 idEdit=0;
             }
-
         }
-
-
     }
+
     @FXML
     private TableView<Masrouf> masroufNameTableView;
 
@@ -1696,6 +1725,8 @@ public class ProjectPage implements Initializable {
                 while (rs.next()){
                     masroufats.add(new Masrouf(rs.getInt("id"),rs.getString("masroufName")));
                 }
+                con.close();
+
                 masroufNameTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
                 masroufNameTableView.setItems(masroufats);
 
@@ -1795,6 +1826,7 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
             }
+            con.close();
 
 
 
@@ -2018,6 +2050,8 @@ public class ProjectPage implements Initializable {
                 masroufats2.add(new Masrouf2(rs.getInt("id"),rs.getInt("projectId"),rs.getString("masroufName"),rs.getFloat("masroufPrice")));
 
             }
+            con.close();
+
 
 
         } catch (SQLException throwables) {

@@ -126,15 +126,5 @@ public class MainPage implements Initializable {
 
     }
 
-    int idConnected=0;
-    String usernameConnected="";
-    String employeeNameConnected="";
-    public void Init(int idConnected,String usernameConnected,String employeeNameConnected){
-        this.idConnected = idConnected;
-        this.usernameConnected = usernameConnected;
-        this.employeeNameConnected = employeeNameConnected;
-        primary.close();
-
-    }
 
 }

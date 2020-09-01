@@ -34,6 +34,8 @@ public class RepportPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
+    ObservableList<String> contracts= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع قطاع عسكري");
+
     int idArea=0,idLocation=0,idProject=0;
 
     @FXML
@@ -460,12 +462,15 @@ public class RepportPage implements Initializable {
     }
 
     public void printOne(ActionEvent actionEvent)  {
-        if (areaName.getSelectionModel().isEmpty()){
+
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else if (areaName.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى إختيار المنطقة");
-        }else{
+        }else {
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report1.jrxml";
-                String querry="SELECT * FROM `projects`,`areas`,`users`,`privileges`,`locations` WHERE locations.id=projects.locationId AND projects.areaId=areas.id AND projects.areaId ="+idArea+" AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `projects`,`areas`,`users`,`privileges`,`locations` WHERE projects.locationId=locations.id AND projects.projectType='"+areaName1.getValue()+"' AND projects.areaId=areas.id AND projects.areaId ="+idArea+" AND users.id="+idConnected+" AND users.privilegesId=privileges.id ";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -697,11 +702,14 @@ public class RepportPage implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         con=new Controlers.ConnectDB().getConnection();
-        fillComboArea();
+        areaName1.setItems(contracts);
+
     }
 
     @FXML
     private ComboBox<String> areaName;
+    @FXML
+    private ComboBox<String> areaName1;
     @FXML
     private ComboBox<String> locationName;
     @FXML
@@ -712,6 +720,13 @@ public class RepportPage implements Initializable {
         alert.setContentText(message);
         alert.setHeaderText(null);
         alert.showAndWait();
+    }
+    @FXML
+    void selectType(ActionEvent event) {
+        areaName.getItems().clear();
+        locationName.getItems().clear();
+        projectName.getItems().clear();
+        fillComboArea();
     }
     @FXML
     void selectArea(ActionEvent event) {
@@ -757,18 +772,20 @@ public class RepportPage implements Initializable {
             }
 
         } catch (SQLException throwables) {
-            System.out.println("No Connection with DB");
+            System.out.println(throwables.getMessage());
         }
     }
     public void fillComboProject(){
         projects.clear();
         projectName.getItems().clear();
+        System.out.println(areaName1.getValue());
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=?");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`=?");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
+            pst.setString(3,areaName1.getValue());
             rs=pst.executeQuery();
             while (rs.next()){
                 projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
@@ -780,24 +797,31 @@ public class RepportPage implements Initializable {
             }
 
         } catch (SQLException throwables) {
-            System.out.println("No Connection with DB");
+            throwables.getStackTrace();
+            System.out.println(throwables.getMessage());
+
         }
     }
     public void fillComboArea(){
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `areas`");
-            rs=pst.executeQuery();
-            while (rs.next()){
-                areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `areas`");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
 
-            }
-            for (int i=0;i<areas.size();i++){
-                areaName.getItems().add(areas.get(i).getNameArea());
-            }
+                }
+                for (int i=0;i<areas.size();i++){
+                    areaName.getItems().add(areas.get(i).getNameArea());
+                }
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
+
     }
 }

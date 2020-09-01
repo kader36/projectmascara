@@ -59,18 +59,18 @@
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
                                              </effect>
                                           </TableView>
-                                          <CheckBox fx:id="janvier" layoutX="30.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja1" text="January" />
-                                          <CheckBox fx:id="fevrier" layoutX="195.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja2" text="February" />
-                                          <CheckBox fx:id="mars" layoutX="367.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja3" text="March" />
-                                          <CheckBox fx:id="avril" layoutX="526.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja4" text="April" />
-                                          <CheckBox fx:id="may" layoutX="691.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja5" text="May" />
-                                          <CheckBox fx:id="juin" layoutX="863.0" layoutY="325.0" mnemonicParsing="false" onAction="#ja6" text="June" />
-                                          <CheckBox fx:id="juilliet" layoutX="32.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja7" text="July" />
-                                          <CheckBox fx:id="aout" layoutX="197.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja8" text="August" />
-                                          <CheckBox fx:id="septembre" layoutX="368.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja9" text="September" />
-                                          <CheckBox fx:id="octobre" layoutX="526.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja10" text="October" />
-                                          <CheckBox fx:id="novembre" layoutX="691.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja11" text="November" />
-                                          <CheckBox fx:id="decembre" layoutX="862.0" layoutY="359.0" mnemonicParsing="false" onAction="#ja12" text="December" />
+                                          <CheckBox fx:id="janvier" layoutX="30.0" layoutY="325.0" mnemonicParsing="false" text="January" />
+                                          <CheckBox fx:id="fevrier" layoutX="195.0" layoutY="325.0" mnemonicParsing="false" text="February" />
+                                          <CheckBox fx:id="mars" layoutX="367.0" layoutY="325.0" mnemonicParsing="false" text="March" />
+                                          <CheckBox fx:id="avril" layoutX="526.0" layoutY="325.0" mnemonicParsing="false" text="April" />
+                                          <CheckBox fx:id="may" layoutX="691.0" layoutY="325.0" mnemonicParsing="false" text="May" />
+                                          <CheckBox fx:id="juin" layoutX="863.0" layoutY="325.0" mnemonicParsing="false" text="June" />
+                                          <CheckBox fx:id="juilliet" layoutX="32.0" layoutY="359.0" mnemonicParsing="false" text="July" />
+                                          <CheckBox fx:id="aout" layoutX="197.0" layoutY="359.0" mnemonicParsing="false" text="August" />
+                                          <CheckBox fx:id="septembre" layoutX="368.0" layoutY="359.0" mnemonicParsing="false" text="September" />
+                                          <CheckBox fx:id="octobre" layoutX="526.0" layoutY="359.0" mnemonicParsing="false" text="October" />
+                                          <CheckBox fx:id="novembre" layoutX="691.0" layoutY="359.0" mnemonicParsing="false" text="November" />
+                                          <CheckBox fx:id="decembre" layoutX="862.0" layoutY="359.0" mnemonicParsing="false" text="December" />
                                           <ComboBox fx:id="yearAbstract" layoutX="22.0" layoutY="389.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
                                           <TextArea fx:id="remark" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
                                           <Button fx:id="abstractAddPrivilege1" layoutX="22.0" layoutY="445.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
