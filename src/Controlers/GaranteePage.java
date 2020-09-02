@@ -89,6 +89,7 @@ public class GaranteePage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -112,6 +113,7 @@ public class GaranteePage implements Initializable {
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -131,6 +133,7 @@ public class GaranteePage implements Initializable {
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -369,6 +372,7 @@ public class GaranteePage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -592,6 +596,8 @@ public class GaranteePage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -610,6 +616,8 @@ public class GaranteePage implements Initializable {
                 pst.setString(5,garanteeType.getValue());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
@@ -678,6 +686,7 @@ public class GaranteePage implements Initializable {
             while (rs.next()){
                 garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -706,6 +715,7 @@ public class GaranteePage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -739,6 +749,8 @@ public class GaranteePage implements Initializable {
                     garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType")));
 
                 }
+                pst.close();
+
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -805,6 +817,8 @@ public class GaranteePage implements Initializable {
                 if (size>0){
                     dejaExist=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -847,6 +861,8 @@ public class GaranteePage implements Initializable {
                     garanteeNumber.clear();
                     garanteeType.setItems(garantees);
                     warningMsg("تعديل","تم التعديل بنجاح");
+                    pst.close();
+
 
 
                 } catch (SQLException throwables) {
@@ -898,6 +914,7 @@ public class GaranteePage implements Initializable {
                 historicalGarantee.add(new HistoricalGaranteeForTable(rs.getInt("id"),idConnected,rs.getInt("idGarantee"),rs.getString("dateHistorical"),rs.getString("description"),rs.getString("idUser")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -926,6 +943,8 @@ public class GaranteePage implements Initializable {
                     pst.setInt(4,idGarantee);
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                     warningMsg("إظافة","حدث خطأ أثناء الإظافة");
@@ -947,6 +966,7 @@ public class GaranteePage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

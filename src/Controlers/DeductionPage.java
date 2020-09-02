@@ -92,6 +92,7 @@ public class DeductionPage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -116,6 +117,7 @@ public class DeductionPage implements Initializable {
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -138,6 +140,7 @@ public class DeductionPage implements Initializable {
             for (int i=0;i<deductionNames.size();i++){
                 typeDeduction.getItems().add(deductionNames.get(i).getDeductionName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -158,6 +161,7 @@ public class DeductionPage implements Initializable {
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -395,6 +399,7 @@ public class DeductionPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -621,12 +626,15 @@ public class DeductionPage implements Initializable {
                 pst.setString(7,"d");
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
                 try {
                     con = new Controlers.ConnectDB().getConnection();
                     pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
                     pst.setInt(1,idProject);
                     pst.setInt(2,idProject);
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -696,6 +704,7 @@ public class DeductionPage implements Initializable {
                 deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -734,6 +743,7 @@ public class DeductionPage implements Initializable {
                 deductionNamesTable.add(new DeductionNames(rs.getString("deductionName"), rs.getInt("id")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -755,6 +765,8 @@ public class DeductionPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("حذف","حدث خطأ أثناء الحذف");
@@ -767,6 +779,7 @@ public class DeductionPage implements Initializable {
                 pst.setInt(1,idProject);
                 pst.setInt(2,idProject);
                 pst.execute();
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -800,6 +813,8 @@ public class DeductionPage implements Initializable {
                     deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
                 }
+                pst.close();
+
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -874,6 +889,7 @@ public class DeductionPage implements Initializable {
 
                     fillComboArea();
 
+                    pst.close();
 
 
                 } catch (SQLException throwables) {
@@ -886,6 +902,7 @@ public class DeductionPage implements Initializable {
                     pst.setInt(1,idProject);
                     pst.setInt(2,idProject);
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -930,6 +947,8 @@ public class DeductionPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -944,6 +963,7 @@ public class DeductionPage implements Initializable {
                 pst.setString(1,nameDeductionn.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -968,6 +988,7 @@ public class DeductionPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -996,6 +1017,8 @@ public class DeductionPage implements Initializable {
                 while (rs.next()){
                     deductionNamesTable.add(new DeductionNames(rs.getString("deductionName"), rs.getInt("id")));
                 }
+                pst.close();
+
                 nameDeductionnTable.setCellValueFactory(new PropertyValueFactory<>("deductionName"));
                 deductionNamesTableView.setItems(deductionNamesTable);
 

@@ -51,6 +51,7 @@ public class LocationPage implements Initializable {
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -74,6 +75,8 @@ public class LocationPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -90,6 +93,7 @@ public class LocationPage implements Initializable {
                 pst.setInt(2,idArea);
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -335,6 +339,7 @@ public class LocationPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -569,6 +574,7 @@ public class LocationPage implements Initializable {
                 locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),rs.getString("areaName"),rs.getString("locationName")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -598,6 +604,7 @@ public class LocationPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -627,6 +634,8 @@ public class LocationPage implements Initializable {
                 while (rs.next()){
                     locationsTable.add(new LocationForTable(rs.getInt("areaId"),rs.getInt("id"),rs.getString("areaName"),rs.getString("locationName")));
                 }
+                pst.close();
+
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("locationName"));
                 locationTableView.setItems(locationsTable);
@@ -686,6 +695,8 @@ public class LocationPage implements Initializable {
                 if (size>0){
                     dejaExist=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -706,6 +717,8 @@ public class LocationPage implements Initializable {
                     pst.setInt(2, idArea);
                     pst.setInt(3, idEdit);
                     pst.execute();
+                    pst.close();
+
                     locationEditPrivilege.setText("تعديل موقع");
                     warningMsg("تعديل","تم التعديل بنجاح");
 

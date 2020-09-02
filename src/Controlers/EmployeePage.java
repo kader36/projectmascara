@@ -53,6 +53,7 @@ public class EmployeePage implements Initializable {
             for (int i=0;i<occupations.size();i++){
                 reelOccupation.getItems().add(occupations.get(i).getNameOcupation());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -110,6 +111,8 @@ public class EmployeePage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -142,6 +145,8 @@ public class EmployeePage implements Initializable {
                     pst.setBinaryStream(13, fis2,(int) file2.length());
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
+
                 }else if (file1== null && file2!=null){
                     con=new Controlers.ConnectDB().getConnection();
 
@@ -164,6 +169,8 @@ public class EmployeePage implements Initializable {
                     pst.setBinaryStream(12, fis2,(int) file2.length());
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
+
                 }else if (file2==null && file1!=null){
                     con=new Controlers.ConnectDB().getConnection();
 
@@ -186,6 +193,8 @@ public class EmployeePage implements Initializable {
 
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
+
                 }else if (file1==null && file2==null){
                     con=new Controlers.ConnectDB().getConnection();
 
@@ -206,6 +215,8 @@ public class EmployeePage implements Initializable {
 
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
+
                 }
 
 
@@ -459,6 +470,7 @@ public class EmployeePage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -732,6 +744,7 @@ public class EmployeePage implements Initializable {
             while (rs.next()){
                 employeesTable.add(new EmployeeForTable(rs.getInt("id"),rs.getInt("reelOccupation"),rs.getString("employeeName"),rs.getString("employeeNumber"),rs.getString("employeeNationality"),rs.getString("identityType"),rs.getString("identityNumber"),rs.getString("religion"),getOccupationName(rs.getInt("reelOccupation")),rs.getString("residenceOccupation"),rs.getString("residenceEndDate"),rs.getString("HealthCertificateStartDate"),rs.getString("HealthCertificatEndDate")));
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -754,6 +767,8 @@ public class EmployeePage implements Initializable {
             while (rs.next()){
                 return result= rs.getString("occupationName");
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
 
@@ -773,6 +788,8 @@ public class EmployeePage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("حذف","حدث خطأ أثناء الحذف");
@@ -829,6 +846,7 @@ public class EmployeePage implements Initializable {
                 HealthCertificateStartDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificateStartDate"));
                 HealthCertificatEndDateTable.setCellValueFactory(new PropertyValueFactory<>("healthCertificatEndDate"));
                 employeeTableView.setItems(employeesTable);
+                pst.close();
 
 
             } catch (SQLException throwables) {
@@ -883,6 +901,8 @@ public class EmployeePage implements Initializable {
                     if (size>0){
                         dejaExist=1;
                     }
+                    pst.close();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -921,6 +941,8 @@ public class EmployeePage implements Initializable {
                         pst.setInt(14,idEdit);
                         pst.execute();
                         warningMsg("تعديل","تم التعديل بنجاح");
+                        pst.close();
+
                     } catch (SQLException | FileNotFoundException throwables) {
                         throwables.printStackTrace();
                         warningMsg("تعديل","حدث خطأ أثناء التعديل");
@@ -944,6 +966,8 @@ public class EmployeePage implements Initializable {
                     if (size>0){
                         dejaExist=1;
                     }
+                    pst.close();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -978,6 +1002,8 @@ public class EmployeePage implements Initializable {
                         pst.setInt(12,idEdit);
                         pst.execute();
                         warningMsg("تعديل","تم التعديل بنجاح");
+                        pst.close();
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                         warningMsg("تعديل","حدث خطأ أثناء التعديل");
@@ -1003,6 +1029,8 @@ public class EmployeePage implements Initializable {
                     if (size>0){
                         dejaExist=1;
                     }
+                    pst.close();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -1040,6 +1068,7 @@ public class EmployeePage implements Initializable {
                         pst.setInt(13,idEdit);
                         pst.execute();
                         warningMsg("تعديل","تم التعديل بنجاح");
+                        pst.close();
 
                     } catch (SQLException | FileNotFoundException throwables) {
                         throwables.printStackTrace();
@@ -1065,6 +1094,8 @@ public class EmployeePage implements Initializable {
                     if (size>0){
                         dejaExist=1;
                     }
+                    pst.close();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -1102,6 +1133,8 @@ public class EmployeePage implements Initializable {
                         pst.setInt(13,idEdit);
                         pst.execute();
                         warningMsg("تعديل","تم التعديل بنجاح");
+                        pst.close();
+
                     } catch (SQLException | FileNotFoundException throwables) {
                         throwables.printStackTrace();
                         warningMsg("تعديل","حدث خطأ أثناء التعديل");
@@ -1241,6 +1274,7 @@ public class EmployeePage implements Initializable {
 
             }
 
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

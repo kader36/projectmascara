@@ -713,6 +713,7 @@ public class ProjectPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -936,6 +937,8 @@ public class ProjectPage implements Initializable {
             if (size1>0){
                 dejaExist1=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -958,6 +961,8 @@ public class ProjectPage implements Initializable {
                 pst.setString(8, String.valueOf(contractEndDate.getValue()));
                 pst.setString(9, contactNumber.getText());
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
                 projectName.clear();
                 contactNumber.clear();
@@ -1013,6 +1018,8 @@ public class ProjectPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -1031,6 +1038,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(4,0);
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -1307,6 +1315,7 @@ public class ProjectPage implements Initializable {
                 resultMax=rs.getInt("maxNumber");
                 resultMin=rs.getInt("realNumber");
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1325,6 +1334,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(4,idOccupation);
                 pst.setInt(5,idEmployee);
                 pst.execute();
+                pst.close();
 
                 try {
                     con = new Controlers.ConnectDB().getConnection();
@@ -1332,6 +1342,7 @@ public class ProjectPage implements Initializable {
                     pst.setInt(1,idProject);
                     pst.setInt(2, idOccupation);
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -1343,6 +1354,7 @@ public class ProjectPage implements Initializable {
                     pst.setInt(1,1);
                     pst.setInt(2, idEmployee);
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -1398,6 +1410,8 @@ public class ProjectPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `projects` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                pst.close();
+
                 warningMsg("حذف","تم الحذف بنجاح");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -1419,6 +1433,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -1440,6 +1455,7 @@ public class ProjectPage implements Initializable {
             pst.setInt(1,0);
             pst.setInt(2, idUpdate);
             pst.execute();
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1450,6 +1466,7 @@ public class ProjectPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `projectsemployees` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                pst.close();
 
 
                 try {
@@ -1458,6 +1475,7 @@ public class ProjectPage implements Initializable {
                     pst.setInt(1,projectEmployeeTableView.getItems().get(index).getIdProject());
                     pst.setInt(2, projectEmployeeTableView.getItems().get(index).getIdOccupation());
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -1584,6 +1602,8 @@ public class ProjectPage implements Initializable {
                 if (size1>0){
                     dejaExist1=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -1611,6 +1631,8 @@ public class ProjectPage implements Initializable {
                     pst.setInt(10, idEdit);
 
                     pst.execute();
+                    pst.close();
+
                     warningMsg("تعديل","تم التعديل بنجاح");
                     projectEditPrivilege.setText("تعديل مشروع");
                     projectName.clear();
@@ -1662,6 +1684,8 @@ public class ProjectPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -1676,6 +1700,7 @@ public class ProjectPage implements Initializable {
                 pst.setString(1,masroufName.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -1699,6 +1724,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -1778,6 +1804,8 @@ public class ProjectPage implements Initializable {
             if (size4>0){
                 dejaExist4=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -1800,6 +1828,7 @@ public class ProjectPage implements Initializable {
                 pst.setString(8, String.valueOf(contractEndDate1.getValue()));
                 pst.setString(9, contactNumber1.getText());
                 pst.execute();
+                pst.close();
 
                 warningMsg("إظافة","تمت الإظافة بنجاح");
                 projectName1.clear();
@@ -1850,6 +1879,8 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 somme= String.valueOf(rs.getFloat("SOMME"));
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
 
@@ -1862,6 +1893,8 @@ public class ProjectPage implements Initializable {
             while (rs.next()){
                 prixCont= rs.getString("contractPrice");
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
 
@@ -1879,6 +1912,8 @@ public class ProjectPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 warningMsg("حذف","حدث خطأ أثناء الحذف");
@@ -1906,6 +1941,7 @@ public class ProjectPage implements Initializable {
                     pst.setString(3,masroufPrice.getText());
                     pst.execute();
                     warningMsg("إظافة","تمت الإظافة بنجاح");
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -1971,6 +2007,8 @@ public class ProjectPage implements Initializable {
                 if (size4>0){
                     dejaExist4=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -1999,6 +2037,8 @@ public class ProjectPage implements Initializable {
                     pst.setInt(10, idEdit);
 
                     pst.execute();
+                    pst.close();
+
                     warningMsg("تعديل","تم التعديل بنجاح");
                     projectEditPrivilege1.setText("تعديل مشروع");
                     projectName1.clear();
@@ -2068,6 +2108,7 @@ public class ProjectPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -2134,6 +2175,7 @@ public class ProjectPage implements Initializable {
                     resultMax=rs.getInt("maxNumber");
                     resultMin=rs.getInt("realNumber");
                 }
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -2155,12 +2197,16 @@ public class ProjectPage implements Initializable {
                     pst.setInt(4, idEmployee);
                     pst.setInt(5, idEdit);
                     pst.execute();
+                    pst.close();
+
                     try {
                         con = new Controlers.ConnectDB().getConnection();
                         pst = con.prepareStatement("UPDATE `projectoccupations` SET `realNumber`=`realNumber`-1 WHERE idProject=? AND idOccupation=?");
                         pst.setInt(1,projectEmployeeTableView.getItems().get(index).getIdProject());
                         pst.setInt(2, projectEmployeeTableView.getItems().get(index).getIdOccupation());
                         pst.execute();
+                        pst.close();
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -2171,6 +2217,7 @@ public class ProjectPage implements Initializable {
                         pst.setInt(1,idProject);
                         pst.setInt(2, idOccupation);
                         pst.execute();
+                        pst.close();
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();

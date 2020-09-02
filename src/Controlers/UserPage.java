@@ -73,6 +73,7 @@ public class UserPage implements Initializable {
                 privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
+            pst.close();
 
             for (int i=0;i<privileges.size();i++){
                 privilegeName.getItems().add(privileges.get(i).getPrivilegeNamee());
@@ -99,6 +100,7 @@ public class UserPage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -339,6 +341,7 @@ public class UserPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -597,6 +600,8 @@ public class UserPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -617,6 +622,8 @@ public class UserPage implements Initializable {
                 pst.setString(6,employeeNumber.getText());
                 pst.setInt(7,privilegesId);
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
             } catch (SQLException | NoSuchAlgorithmException throwables) {
                 throwables.printStackTrace();
@@ -689,6 +696,7 @@ public class UserPage implements Initializable {
                     usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),rs.getString("privilegeName")));
 
                 }
+                pst.close();
 
 
             } catch (SQLException throwables) {
@@ -706,6 +714,7 @@ public class UserPage implements Initializable {
                 privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -726,6 +735,7 @@ public class UserPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -786,6 +796,8 @@ public class UserPage implements Initializable {
                 while (rs.next()){
                     usersTable.add(new UserForTable(rs.getInt("id"),rs.getInt("privilegesId"),rs.getString("employeeName"),rs.getString("username"),rs.getString("password"),rs.getString("email"),rs.getString("phoneNumber"),rs.getString("employeeNumber"),rs.getString("privilegeName")));
                 }
+                pst.close();
+
                 employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
                 usernameTable.setCellValueFactory(new PropertyValueFactory<>("username"));
                 emailTable.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -837,6 +849,8 @@ public class UserPage implements Initializable {
                 if (size>0){
                     dejaExist=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -865,6 +879,8 @@ public class UserPage implements Initializable {
                         pst.setInt(7,privilegesId );
                         pst.setInt(8, idEdit);
                         pst.execute();
+                        pst.close();
+
                         userEditPrivilege.setText("تعديل مستخدم");
                         employeeName.clear();
                         password.clear();
@@ -898,6 +914,8 @@ public class UserPage implements Initializable {
                         pst.setInt(6,privilegesId );
                         pst.setInt(7, idEdit);
                         pst.execute();
+                        pst.close();
+
                         userEditPrivilege.setText("تعديل مستخدم");
                         employeeName.clear();
                         password.clear();
@@ -1087,6 +1105,8 @@ public class UserPage implements Initializable {
             if (size2>0){
                 dejaExist2=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -1125,6 +1145,8 @@ public class UserPage implements Initializable {
                 pst.setInt(23,usdei);
                 pst.setInt(24,resi);
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
 
             } catch (SQLException throwables) {
@@ -1171,6 +1193,8 @@ public class UserPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `privileges` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                pst.close();
+
                 warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
@@ -1278,6 +1302,8 @@ public class UserPage implements Initializable {
                 if (size2>0){
                     dejaExist2=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -1392,6 +1418,8 @@ public class UserPage implements Initializable {
                     pst.setInt(25,idEdit);
 
                     pst.execute();
+                    pst.close();
+
                     warningMsg("تعديل","تم التعديل بنجاح");
                     userEditPrivilege1.setText("تعديل الصلاحية");
 

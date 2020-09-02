@@ -48,6 +48,8 @@ public class OccupationPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -62,6 +64,7 @@ public class OccupationPage implements Initializable {
                 pst.setString(1,occupationName.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -309,6 +312,7 @@ public class OccupationPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -538,6 +542,7 @@ public class OccupationPage implements Initializable {
                 occupationsTable.add(new OccupationForTable(rs.getString("occupationName"), rs.getInt("id")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -557,6 +562,7 @@ public class OccupationPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -586,6 +592,8 @@ public class OccupationPage implements Initializable {
                     occupationsTable.add(new OccupationForTable(rs.getString("occupationName"), rs.getInt("id")));
 
                 }
+                pst.close();
+
                 occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
                 occupationTableView.setItems(occupationsTable);
 
@@ -624,6 +632,8 @@ public class OccupationPage implements Initializable {
                 if (size>0){
                     dejaExist=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -640,6 +650,7 @@ public class OccupationPage implements Initializable {
                     pst.execute();
                     occupationEditPrivilege.setText("تعديل وظيفة");
                     warningMsg("تعديل","تم التعديل بنجاح");
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

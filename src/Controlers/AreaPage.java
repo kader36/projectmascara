@@ -57,6 +57,8 @@ public class AreaPage implements Initializable {
             if (size>0){
                 dejaExist=1;
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -71,6 +73,7 @@ public class AreaPage implements Initializable {
                 pst.setString(1,areaName.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -103,6 +106,7 @@ public class AreaPage implements Initializable {
                 areasTable.add(new AreaForTable(rs.getString("areaName"), rs.getInt("id")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -340,6 +344,7 @@ public class AreaPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -557,6 +562,7 @@ public class AreaPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -570,12 +576,15 @@ public class AreaPage implements Initializable {
     @FXML
     public void LogoutButton(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
-            AnchorPane root = loader.load();
-            MainPage controller = loader.getController();
+            Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
             Stage primaryStage= (Stage)((Node) event.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المشاريع");
-            primaryStage.setScene(new Scene(root));
+            primaryStage.setTitle("تسجيل الدخول");
+            primaryStage.setScene(new Scene(loader));
+            primaryStage.setResizable(true);
+            primaryStage.setX(400);
+            primaryStage.setY(100);
+            primaryStage.setMaxHeight(469);
+            primaryStage.setMaxWidth(460);
             primaryStage.show();
         }catch (Exception e){
 
@@ -605,6 +614,7 @@ public class AreaPage implements Initializable {
                 }
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("areaName"));
                 areaTableView.setItems(areasTable);
+                pst.close();
 
 
             } catch (SQLException throwables) {
@@ -640,6 +650,8 @@ public class AreaPage implements Initializable {
                 if (size>0){
                     dejaExist=1;
                 }
+                pst.close();
+
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -656,6 +668,8 @@ public class AreaPage implements Initializable {
                     pst.execute();
                     warningMsg("تعديل","تم التعديل بنجاح");
                     areaEditPrivilege.setText("تعديل منطقة");
+                    pst.close();
+
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

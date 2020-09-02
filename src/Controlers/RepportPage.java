@@ -254,6 +254,7 @@ public class RepportPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -770,6 +771,7 @@ public class RepportPage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -795,6 +797,7 @@ public class RepportPage implements Initializable {
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.getStackTrace();
@@ -817,6 +820,7 @@ public class RepportPage implements Initializable {
                 for (int i=0;i<areas.size();i++){
                     areaName.getItems().add(areas.get(i).getNameArea());
                 }
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

@@ -156,6 +156,7 @@ public class AbstractPage implements Initializable {
                 contractStartDate.getEditor().setText(rs.getString("contractStartDate"));
                 contractEndDate.getEditor().setText(rs.getString("contractEndDate"));
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -184,6 +185,7 @@ public class AbstractPage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -214,6 +216,7 @@ public class AbstractPage implements Initializable {
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -232,6 +235,7 @@ public class AbstractPage implements Initializable {
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -469,6 +473,7 @@ public class AbstractPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -745,6 +750,8 @@ public class AbstractPage implements Initializable {
             while (rs.next()){
                 abstractYearsTable.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("idOccupation")));
             }
+            pst.close();
+
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -764,6 +771,8 @@ public class AbstractPage implements Initializable {
             while (rs.next()){
                 return result= rs.getString("employeeName");
             }
+            pst.close();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
 
@@ -852,6 +861,8 @@ public class AbstractPage implements Initializable {
             while(rs.next()){
                 size++;
             }
+            pst.close();
+
             if (size>0){
                 dejaExist=1;
             }
@@ -870,6 +881,8 @@ public class AbstractPage implements Initializable {
                 pst.setInt(2,idLocation);
                 pst.setInt(3,idProject);
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
 
             } catch (SQLException throwables) {
@@ -897,6 +910,8 @@ public class AbstractPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `abstractyears` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                pst.close();
+
                 warningMsg("حذف","تم الحذف بنجاح");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -915,6 +930,8 @@ public class AbstractPage implements Initializable {
                 pst = con.prepareStatement("DELETE FROM `abstract` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
+                pst.close();
+
                 warningMsg("حذف","تم الحذف بنجاح");
 
             } catch (SQLException throwables) {
@@ -964,6 +981,8 @@ public class AbstractPage implements Initializable {
                     abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
 
                 }
+                pst.close();
+
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -1096,6 +1115,8 @@ public class AbstractPage implements Initializable {
                 pst.setString(14,month12);
                 pst.setString(15,remark.getText());
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
 
             } catch (SQLException throwables) {
@@ -1157,6 +1178,8 @@ public class AbstractPage implements Initializable {
                 abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
 
             }
+            pst.close();
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -1196,6 +1219,8 @@ public class AbstractPage implements Initializable {
                 while(rs.next()){
                     size++;
                 }
+                pst.close();
+
                 if (size>0){
                     dejaExist=1;
                 }
@@ -1233,12 +1258,12 @@ public class AbstractPage implements Initializable {
                     pst.setInt(3, idProject);
                     pst.setInt(4, idEdit);
                     pst.execute();
+                    pst.close();
                     warningMsg("تعديل","تم التعديل بنجاح");
                     abstractEditPrivilege.setText("تعديل مستخلص");
                     projectName.getItems().clear();
                     locationName.getItems().clear();
                     areaName.getItems().clear();
-
                     areaName.setValue("");
                     fillComboArea();
 

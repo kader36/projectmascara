@@ -120,6 +120,7 @@ public class PenaltyPage implements Initializable {
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -143,6 +144,7 @@ public class PenaltyPage implements Initializable {
                 occupationName.getItems().add(occupations.get(i).getNameOcupation());
                 System.out.println(occupations.get(i).getIdOcupation());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -165,6 +167,7 @@ public class PenaltyPage implements Initializable {
             for (int i=0;i<employees.size();i++){
                 employeeName.getItems().add(employees.get(i).getEmployeeName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -189,6 +192,7 @@ public class PenaltyPage implements Initializable {
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             System.out.println("No Connection with DB");
@@ -209,6 +213,7 @@ public class PenaltyPage implements Initializable {
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -443,6 +448,7 @@ public class PenaltyPage implements Initializable {
 
                 }
             }
+            pst.close();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -689,6 +695,8 @@ public class PenaltyPage implements Initializable {
 
 
                 pst.execute();
+                pst.close();
+
                 warningMsg("إظافة","تمت الإظافة بنجاح");
                 employeeName.getItems().clear();
                 projectName.getItems().clear();
@@ -707,6 +715,7 @@ public class PenaltyPage implements Initializable {
                 pst.setInt(1,idProject);
                 pst.setInt(2,idProject);
                 pst.execute();
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -778,6 +787,7 @@ public class PenaltyPage implements Initializable {
                 deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
             }
+            pst.close();
 
 
         } catch (SQLException throwables) {
@@ -817,6 +827,7 @@ public class PenaltyPage implements Initializable {
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -831,6 +842,7 @@ public class PenaltyPage implements Initializable {
                 pst.setInt(1,idProject);
                 pst.setInt(2,idProject);
                 pst.execute();
+                pst.close();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -864,6 +876,8 @@ public class PenaltyPage implements Initializable {
 
 
                 }
+                pst.close();
+
                 areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
                 locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
                 projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -953,6 +967,7 @@ public class PenaltyPage implements Initializable {
                         pst.setString(8, employeeName.getValue());
                         pst.setInt(9, idEdit);
                         pst.execute();
+                        pst.close();
 
                         penaltyEditPrivilege.setText("تعديل الغرامة");
                         employeeName.getItems().clear();
@@ -973,6 +988,7 @@ public class PenaltyPage implements Initializable {
                         pst.setString(7, employeeName.getValue());
                         pst.setInt(8, idEdit);
                         pst.execute();
+                        pst.close();
 
                         penaltyEditPrivilege.setText("تعديل الغرامة");
                         employeeName.getItems().clear();
@@ -995,6 +1011,7 @@ public class PenaltyPage implements Initializable {
                     pst.setInt(1,idProject);
                     pst.setInt(2,idProject);
                     pst.execute();
+                    pst.close();
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
