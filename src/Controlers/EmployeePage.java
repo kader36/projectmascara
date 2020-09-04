@@ -116,7 +116,7 @@ public class EmployeePage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+        if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -906,7 +906,7 @@ public class EmployeePage implements Initializable {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()){
+                if (employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||employeeNationality.getText().isEmpty() ||identityNumber.getText().isEmpty() ||religion.getText().isEmpty() ||residenceOccupation.getText().isEmpty() ||identityType.getSelectionModel().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()){
                     warningMsg("تنبيه","يرجى ملء الفراغات");
                 }else if(dejaExist==1){
                     warningMsg("تنبيه","المعلومات موجودة من قبل");

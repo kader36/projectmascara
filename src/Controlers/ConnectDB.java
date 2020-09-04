@@ -11,7 +11,7 @@ public class ConnectDB {
      public Connection getConnection(){
          try {
              Class.forName("com.mysql.jdbc.Driver");
-             Connection con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kader?useSSL=false","root","akader01");
+             Connection con= DriverManager.getConnection("jdbc:mysql://192.168.1.118:3306/kader?useSSL=false","root","akader01");
 
 //             Connection con= DriverManager.getConnection("jdbc:mysql://192.168.1.118:3306/kara?useSSL=false","root","akader01");
 
