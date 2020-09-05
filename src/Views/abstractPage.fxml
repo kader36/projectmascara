@@ -73,8 +73,8 @@
                                           <CheckBox fx:id="decembre" layoutX="862.0" layoutY="359.0" mnemonicParsing="false" text="December" />
                                           <ComboBox fx:id="yearAbstract" layoutX="22.0" layoutY="389.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
                                           <TextArea fx:id="remark" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
-                                          <Button fx:id="abstractAddPrivilege1" layoutX="22.0" layoutY="445.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button fx:id="abstractDeletePrivilege1" layoutX="22.0" layoutY="500.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button fx:id="abstractAddPrivilege1" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="abstractDeletePrivilege1" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <TableView fx:id="yearAbstractTableView" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset2" prefHeight="127.0" prefWidth="913.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable" prefWidth="64.0" text="السنة" />
@@ -98,6 +98,7 @@
                                              </columns>
                                           </TableView>
                                           <Separator layoutX="6.0" layoutY="314.0" prefHeight="4.0" prefWidth="1088.0" />
+                                          <Button fx:id="abstractEditPrivilege2" layoutX="22.0" layoutY="481.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="127.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل" />
                                        </children>
                                     </AnchorPane>
                               </content>

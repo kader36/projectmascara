@@ -1057,7 +1057,7 @@ public class AbstractPage implements Initializable {
     }
     @FXML
     void idReset2(MouseEvent event) {
-//        abstractEditPrivilege.setText("تعديل الغرامة");
+        abstractEditPrivilege2.setText("تعديل");
 
     }
 
@@ -1092,9 +1092,29 @@ public class AbstractPage implements Initializable {
         }if (decembre.isSelected()){
             month12="X";
         }
+        dejaExist=0;
+        size=0;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE `year`=? AND `idAbstract`=?");
+            pst.setString(1,yearAbstract.getValue());
+            pst.setInt(2,yearAbstractTableView.getItems().get(index).getIdAbstract());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            pst.close();
 
+            if (size>0){
+                dejaExist=1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if ((!janvier.isSelected()&&!fevrier.isSelected()&&!mars.isSelected()&&!avril.isSelected()&&!may.isSelected()&&!juin.isSelected()&&!juilliet.isSelected()&&!aout.isSelected()&&!septembre.isSelected()&&!octobre.isSelected()&&!novembre.isSelected()&&!decembre.isSelected()) || yearAbstract.getSelectionModel().isEmpty() ){
             warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","السنة موجودة من قبل");
         }else{
             try {
                 con=new Controlers.ConnectDB().getConnection();
@@ -1274,6 +1294,204 @@ public class AbstractPage implements Initializable {
             }
 
             addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    private Button abstractEditPrivilege2;
+    public void edit2(ActionEvent actionEvent) {
+        int index= yearAbstractTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=yearAbstractTableView.getItems().get(index).getIdAbstractYears();
+
+
+        if (abstractEditPrivilege2.getText().contains("تعديل")){
+            abstractEditPrivilege2.setText("حفظ");
+            remark.setText(yearAbstractTableView.getItems().get(index).getRemark());
+
+            if (!yearAbstractTableView.getItems().get(index).getJanvier().isEmpty()){
+                janvier.setSelected(true);
+            }else{
+                janvier.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getFevrier().isEmpty()){
+                fevrier.setSelected(true);
+            }else{
+                fevrier.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getMars().isEmpty()){
+                mars.setSelected(true);
+            }else{
+                mars.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getAvril().isEmpty()){
+                avril.setSelected(true);
+            }else{
+                avril.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getMay().isEmpty()){
+                may.setSelected(true);
+            }else{
+                may.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getJuin().isEmpty()){
+                juin.setSelected(true);
+            }else{
+                juin.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getJuilliet().isEmpty()){
+                juilliet.setSelected(true);
+            }else{
+                juilliet.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getAout().isEmpty()){
+                aout.setSelected(true);
+            }else{
+                aout.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getSeptembre().isEmpty()){
+                septembre.setSelected(true);
+            }else{
+                septembre.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getOctobre().isEmpty()){
+                octobre.setSelected(true);
+            }else{
+                octobre.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getNovembre().isEmpty()){
+                novembre.setSelected(true);
+            }else{
+                novembre.setSelected(false);
+
+            }
+            if (!yearAbstractTableView.getItems().get(index).getDecembre().isEmpty()){
+                decembre.setSelected(true);
+            }else{
+                decembre.setSelected(false);
+
+            }
+            yearAbstract.setValue(yearAbstractTableView.getItems().get(index).getYear());
+
+        }else if (abstractEditPrivilege2.getText().contains("حفظ")){
+            String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
+            if (janvier.isSelected()){
+                month1="X";
+            }if (fevrier.isSelected()){
+                month2="X";
+            }if (mars.isSelected()){
+                month3="X";
+            }if (avril.isSelected()){
+                month4="X";
+            }if (may.isSelected()){
+                month5="X";
+            }if (juin.isSelected()){
+                month6="X";
+            }if (juilliet.isSelected()){
+                month7="X";
+            }if (aout.isSelected()){
+                month8="X";
+            }if (septembre.isSelected()){
+                month9="X";
+            }if (octobre.isSelected()){
+                month10="X";
+            }if (novembre.isSelected()){
+                month11="X";
+            }if (decembre.isSelected()){
+                month12="X";
+            }
+            dejaExist=0;
+            size=0;
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE `year`=? AND `idAbstract`=? AND `id`!=?");
+                pst.setString(1,yearAbstract.getValue());
+                pst.setInt(2,yearAbstractTableView.getItems().get(index).getIdAbstract());
+                pst.setInt(3,idEdit);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
+                }
+                pst.close();
+
+                if (size>0){
+                    dejaExist=1;
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            if ((!janvier.isSelected()&&!fevrier.isSelected()&&!mars.isSelected()&&!avril.isSelected()&&!may.isSelected()&&!juin.isSelected()&&!juilliet.isSelected()&&!aout.isSelected()&&!septembre.isSelected()&&!octobre.isSelected()&&!novembre.isSelected()&&!decembre.isSelected()) || yearAbstract.getSelectionModel().isEmpty() ){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","السنة موجودة من قبل");
+            }else{
+                try {
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `abstractyears` SET `year`=? ,`jan`=?,`feb`=?,`mar`=?,`apr`=?,`may`=?,`jun`=?,`jul`=?,`aug`=?,`sep`=?,`oct`=?,`nov`=?,`dcm`=?,`remark`=? WHERE `id`=?");
+                    pst.setString(1,yearAbstract.getValue());
+                    pst.setString(2,month1);
+                    pst.setString(3,month2);
+                    pst.setString(4,month3);
+                    pst.setString(5,month4);
+                    pst.setString(6,month5);
+                    pst.setString(7,month6);
+                    pst.setString(8,month7);
+                    pst.setString(9,month8);
+                    pst.setString(10,month9);
+                    pst.setString(11,month10);
+                    pst.setString(12,month11);
+                    pst.setString(13,month12);
+                    pst.setString(14,remark.getText());
+                    pst.setInt(15, idEdit);
+                    pst.execute();
+                    pst.close();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    abstractEditPrivilege2.setText("تعديل");
+
+                    addToTable2();
+                    janvier.setSelected(false);
+                    fevrier.setSelected(false);
+                    mars.setSelected(false);
+                    avril.setSelected(false);
+                    may.setSelected(false);
+                    juin.setSelected(false);
+                    juilliet.setSelected(false);
+                    aout.setSelected(false);
+                    septembre.setSelected(false);
+                    octobre.setSelected(false);
+                    novembre.setSelected(false);
+                    decembre.setSelected(false);
+                    janvier.setDisable(false);
+                    fevrier.setDisable(false);
+                    mars.setDisable(false);
+                    avril.setDisable(false);
+                    may.setDisable(false);
+                    juin.setDisable(false);
+                    juilliet.setDisable(false);
+                    aout.setDisable(false);
+                    septembre.setDisable(false);
+                    octobre.setDisable(false);
+                    novembre.setDisable(false);
+                    decembre.setDisable(false);
+                    remark.clear();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+            }
+
             idEdit=0;
         }
 
