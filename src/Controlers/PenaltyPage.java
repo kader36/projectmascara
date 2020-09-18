@@ -37,8 +37,8 @@ public class PenaltyPage implements Initializable {
     ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     int idArea=0,idLocation=0,idProject=0,idEmployee=0,idOccupation=0;
-    String nortValue=null;
-    int isChanged=0;
+    String nortValue=null,nortValue1=null;
+    int isChanged=0,isChanged1=0;
 
     @FXML
     private ComboBox<String> areaName;
@@ -60,6 +60,27 @@ public class PenaltyPage implements Initializable {
     @FXML
     private ComboBox<String> projectName;
 
+
+    @FXML
+    private ComboBox<String> areaName1;
+    @FXML
+    private ComboBox<String> locationName1;
+    @FXML
+    private ComboBox<String> occupationName1;
+    @FXML
+    private ComboBox<String> locoremp1;
+    @FXML
+    private ComboBox<String> perOrCos1;
+
+    @FXML
+    private ComboBox<String> employeeName1;
+    @FXML
+    private TextField amountOfDeduction1;
+    @FXML
+    private TextField typeDeduction1;
+    @FXML
+    private ComboBox<String> projectName1;
+
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
@@ -70,6 +91,19 @@ public class PenaltyPage implements Initializable {
         employeeName.setValue("");
 
     }
+
+
+    @FXML
+    void selectArea1(ActionEvent event) {
+        int index= areaName1.getSelectionModel().getSelectedIndex();
+        idArea=areas.get(index).getIdArea();
+        fillComboLocation1();
+        employeeName1.getItems().clear();
+        projectName1.getItems().clear();
+        employeeName1.setValue("");
+
+    }
+
     @FXML
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
@@ -79,11 +113,33 @@ public class PenaltyPage implements Initializable {
         employeeName.setValue("");
 
     }
+
+
+    @FXML
+    void selectLocation1(ActionEvent event) {
+        int index= locationName1.getSelectionModel().getSelectedIndex();
+        idLocation=locations.get(index).getIdLocation();
+        fillComboProject1();
+        employeeName1.getItems().clear();
+        employeeName1.setValue("");
+
+    }
+
     @FXML
     void selectEmployee(ActionEvent event) {
         int index= employeeName.getSelectionModel().getSelectedIndex();
         idEmployee=employees.get(index).getId();
         isChanged=1;
+
+
+    }
+
+
+    @FXML
+    void selectEmployee1(ActionEvent event) {
+        int index= employeeName1.getSelectionModel().getSelectedIndex();
+        idEmployee=employees.get(index).getId();
+        isChanged1=1;
 
 
     }
@@ -94,12 +150,29 @@ public class PenaltyPage implements Initializable {
         fillComboOccupation();
 
     }
+
+    @FXML
+    void selectProject1(ActionEvent event) {
+        int index= projectName1.getSelectionModel().getSelectedIndex();
+        idProject=projects.get(index).getIdProject();
+        fillComboOccupation1();
+
+    }
     @FXML
     void selectOccupation(ActionEvent event) {
         int index= occupationName.getSelectionModel().getSelectedIndex();
         idOccupation=occupations.get(index).getIdOcupation();
         fillComboEmployee();
         employeeName.setValue("");
+
+    }
+
+    @FXML
+    void selectOccupation1(ActionEvent event) {
+        int index= occupationName1.getSelectionModel().getSelectedIndex();
+        idOccupation=occupations.get(index).getIdOcupation();
+        fillComboEmployee1();
+        employeeName1.setValue("");
 
     }
 
@@ -119,6 +192,30 @@ public class PenaltyPage implements Initializable {
 
             for (int i=0;i<locations.size();i++){
                 locationName.getItems().add(locations.get(i).getLocationName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+
+    public void fillComboLocation1(){
+        locations.clear();
+        locationName1.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `areaId`=?");
+            pst.setInt(1,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
+
+            }
+
+            for (int i=0;i<locations.size();i++){
+                locationName1.getItems().add(locations.get(i).getLocationName());
             }
             pst.close();
 
@@ -150,6 +247,30 @@ public class PenaltyPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
+
+
+    public void fillComboOccupation1(){
+        occupations.clear();
+        occupationName1.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations`, `occupations` WHERE projectoccupations.idProject=? AND projectoccupations.idOccupation=occupations.id");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                occupations.add(new Occupation(rs.getInt(6),rs.getString("occupationName")));
+
+            }
+            for (int i=0;i<occupations.size();i++){
+                occupationName1.getItems().add(occupations.get(i).getNameOcupation());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
     public void fillComboEmployee(){
         employees.clear();
         employeeName.getItems().clear();
@@ -166,6 +287,31 @@ public class PenaltyPage implements Initializable {
             }
             for (int i=0;i<employees.size();i++){
                 employeeName.getItems().add(employees.get(i).getEmployeeName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+
+
+    public void fillComboEmployee1(){
+        employees.clear();
+        employeeName1.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`employees` WHERE projectsemployees.idEmployee=employees.id AND projectsemployees.idProject=? AND `idOccupation`=?");
+            pst.setInt(1,idProject);
+            pst.setInt(2,idOccupation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                employees.add(new EmployeeForList(rs.getInt("idEmployee"),rs.getString("employeeName")));
+
+            }
+            for (int i=0;i<employees.size();i++){
+                employeeName1.getItems().add(employees.get(i).getEmployeeName());
             }
             pst.close();
 
@@ -199,6 +345,32 @@ public class PenaltyPage implements Initializable {
         }
     }
 
+
+    public void fillComboProject1(){
+        projects.clear();
+        projectName1.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع عسكري'");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+
+            }
+
+            for (int i=0;i<projects.size();i++){
+                projectName1.getItems().add(projects.get(i).getContractName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+
     public void fillComboArea(){
         areas.clear();
         areaName.getItems().clear();
@@ -212,6 +384,30 @@ public class PenaltyPage implements Initializable {
             }
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
+
+    public void fillComboArea1(){
+        areas.clear();
+        areaName1.getItems().clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
+
+            }
+            for (int i=0;i<areas.size();i++){
+                areaName1.getItems().add(areas.get(i).getNameArea());
             }
             pst.close();
 
@@ -256,66 +452,6 @@ public class PenaltyPage implements Initializable {
     @FXML
     private Button repportMenuButton;//c bn
 
-    @FXML
-    private Button areaDeletePrivilege;
-    @FXML
-    private Button areaAddPrivilege;
-    @FXML
-    private Button areaEditPrivilege;
-
-    @FXML
-    private Button locationDeletePrivilege;
-    @FXML
-    private Button locationAddPrivilege;
-    @FXML
-    private Button locationEditPrivilege;
-
-    @FXML
-    private Button garanteeEditPrivilege;
-    @FXML
-    private Button garanteeAddPrivilege;
-    @FXML
-    private Button garanteeDeletePrivilege;
-    @FXML
-    private Button garanteeAddPrivilege1;
-    @FXML
-    private Button garanteeDeletePrivilege1;
-
-    @FXML
-    private Button occupationDeletePrivilege;
-    @FXML
-    private Button occupationAddPrivilege;
-    @FXML
-    private Button occupationEditPrivilege;
-
-    @FXML
-    private Button employeeDeletePrivilege;
-    @FXML
-    private Button employeeAddPrivilege;
-    @FXML
-    private Button employeeEditPrivilege;
-
-    @FXML
-    private Button abstractDeletePrivilege;
-    @FXML
-    private Button abstractAddPrivilege;
-    @FXML
-    private Button abstractDeletePrivilege1;
-    @FXML
-    private Button abstractAddPrivilege1;
-    @FXML
-    private Button abstractEditPrivilege;
-
-    @FXML
-    private Button deductionDeletePrivilege;
-    @FXML
-    private Button deductionAddPrivilege;
-    @FXML
-    private Button deductionDeletePrivilege1;
-    @FXML
-    private Button deductionAddPrivilege1;
-    @FXML
-    private Button deductionEditPrivilege;
 
     @FXML
     private Button penaltyDeletePrivilege;
@@ -323,19 +459,6 @@ public class PenaltyPage implements Initializable {
     private Button penaltyAddPrivilege;
     @FXML
     private Button penaltyEditPrivilege;
-
-    @FXML
-    private Button userDeletePrivilege;
-    @FXML
-    private Button userAddPrivilege;
-    @FXML
-    private Button userDeletePrivilege1;
-    @FXML
-    private Button userAddPrivilege1;
-    @FXML
-    private Button userEditPrivilege;
-    @FXML
-    private Button userEditPrivilege1;
 
 
     int idConnected=0;
@@ -725,6 +848,75 @@ public class PenaltyPage implements Initializable {
         }
 
     }
+
+    public void addDeduction1(ActionEvent actionEvent) {
+        if (amountOfDeduction1.getText().isEmpty()||typeDeduction1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()||locoremp1.getSelectionModel().isEmpty()||perOrCos1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                if (idEmployee>0){
+                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `idEmployeeDeduction`,`empoyeeNameDed`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                    pst.setInt(1,idArea);
+                    pst.setInt(2,idLocation);
+                    pst.setString(3,typeDeduction1.getText());
+                    pst.setFloat(4, Float.parseFloat(amountOfDeduction1.getText()));
+                    pst.setInt(5,idProject);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
+
+                    pst.setString(6, sdf.format(new Date()));
+                    pst.setInt(7,idEmployee);
+                    pst.setString(8,employeeName1.getValue());
+                    pst.setString(9,"p");
+                    pst.setString(10,perOrCos1.getValue());
+
+                }else{
+                    pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
+                    pst.setInt(1,idArea);
+                    pst.setInt(2,idLocation);
+                    pst.setString(3,typeDeduction1.getText());
+                    pst.setFloat(4, Float.parseFloat(amountOfDeduction1.getText()));
+                    pst.setInt(5,idProject);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
+                    pst.setString(6, sdf.format(new Date()));
+                    pst.setString(7,"p");
+                    pst.setString(8,perOrCos1.getValue());
+
+                }
+
+
+
+                pst.execute();
+                pst.close();
+
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                employeeName1.getItems().clear();
+                projectName1.getItems().clear();
+                locationName1.getItems().clear();
+                areaName1.getItems().clear();
+                amountOfDeduction1.clear();
+                typeDeduction1.clear();
+                fillComboArea1();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable1();
+            amountOfDeduction1.clear();
+        }
+
+    }
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -756,17 +948,50 @@ public class PenaltyPage implements Initializable {
     @FXML
     private TableColumn<DeductionForTable, String> employeeNameTable;
 
+
+    @FXML
+    private TableView<DeductionForTable> deductionTableView1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> areaNameTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> projectNameTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, Float> amountOfDeductionTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> nortTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> typeDeductionTable1;
+
+    @FXML
+    private TableColumn<DeductionForTable, String> employeeNameTable1;
+
     ObservableList deductionsTable= FXCollections.observableArrayList();
+    ObservableList deductionsTable1= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
+        fillComboArea1();
         occupationName.setVisible(false);
+        occupationName1.setVisible(false);
         per.setVisible(false);
+        per1.setVisible(false);
         employeeName.setVisible(false);
+        employeeName1.setVisible(false);
         perOrCos.setItems(perOrCoss);
+        perOrCos1.setItems(perOrCoss);
         locoremp.setItems(locoremps);
+        locoremp1.setItems(locoremps);
         addToTable();
+        addToTable1();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -776,15 +1001,44 @@ public class PenaltyPage implements Initializable {
         employeeNameTable.setCellValueFactory(new PropertyValueFactory<>("nameEmployee"));
         deductionTableView.setItems(deductionsTable);
 
+        areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+        locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        amountOfDeductionTable1.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
+        nortTable1.setCellValueFactory(new PropertyValueFactory<>("nort"));
+        typeDeductionTable1.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
+        employeeNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameEmployee"));
+        deductionTableView1.setItems(deductionsTable1);
+
     }
     public void addToTable(){
         deductionsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p'");
+            pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p' AND projects.projectType='مشروع قطاع صحي'");
             rs=pst.executeQuery();
             while (rs.next()){
                 deductionsTable.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
+
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+    public void addToTable1(){
+        deductionsTable1.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p' AND projects.projectType='مشروع قطاع عسكري'");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                deductionsTable1.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
 
             }
             pst.close();
@@ -852,18 +1106,48 @@ public class PenaltyPage implements Initializable {
     }
 
     @FXML
+    public void deleteRow1(ActionEvent actionEvent) {
+        int index= deductionTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=deductionTableView1.getItems().get(index).getIdDeduction();
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `deductions` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            int idProject=deductionTableView1.getItems().get(index).getIdProject();
+
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idProject);
+                pst.execute();
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            addToTable1();
+        }
+    }
+
+    @FXML
     private TextField search;
     @FXML
     public void search(KeyEvent keyEvent) {
         String key=search.getText().trim();
         if (key.isEmpty()){
             addToTable();
-            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
-            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
-            projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-            amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
-            nortTable.setCellValueFactory(new PropertyValueFactory<>("nort"));
-            typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
+
             deductionTableView.setItems(deductionsTable);
         }else{
             deductionsTable.clear();
@@ -878,12 +1162,41 @@ public class PenaltyPage implements Initializable {
                 }
                 pst.close();
 
-                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
-                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
-                projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-                amountOfDeductionTable.setCellValueFactory(new PropertyValueFactory<>("amountOfDeduction"));
-                nortTable.setCellValueFactory(new PropertyValueFactory<>("nort"));
-                typeDeductionTable.setCellValueFactory(new PropertyValueFactory<>("typeDeduction"));
+
+                deductionTableView.setItems(deductionsTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private TextField search1;
+    @FXML
+    public void search1(KeyEvent keyEvent) {
+        String key=search1.getText().trim();
+        if (key.isEmpty()){
+            addToTable1();
+
+            deductionTableView1.setItems(deductionsTable1);
+        }else{
+            deductionsTable1.clear();
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p' AND projects.contractName LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    deductionsTable1.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
+
+
+                }
+                pst.close();
+
                 deductionTableView.setItems(deductionsTable);
 
 
@@ -913,18 +1226,18 @@ public class PenaltyPage implements Initializable {
             perOrCos.setValue(deductionTableView.getItems().get(index).getNort());
             typeDeduction.setText(deductionTableView.getItems().get(index).getTypeDeduction());
             amountOfDeduction.setText(deductionTableView.getItems().get(index).getAmountOfDeduction());
+
+            if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()!=null){
+                locoremp.setValue("موظف");
+            }else if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()==null){
+                locoremp.setValue("موقع");
+            }
             if (locoremp.getSelectionModel().getSelectedItem()=="موظف"){
                 occupationName.setVisible(true);
                 employeeName.setVisible(true);
             }else{
                 occupationName.setVisible(false);
                 employeeName.setVisible(false);
-            }
-            System.out.println(deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee());
-            if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()!=null){
-                locoremp.setValue("موظف");
-            }else if (deductionTableView.getSelectionModel().getSelectedItem().getNameEmployee()==null){
-                locoremp.setValue("موقع");
             }
         }else if (penaltyEditPrivilege.getText().contains("حفظ")){
             if (amountOfDeduction.getText().isEmpty()||typeDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||locoremp.getSelectionModel().isEmpty()||perOrCos.getSelectionModel().isEmpty()){
@@ -1025,9 +1338,143 @@ public class PenaltyPage implements Initializable {
 
 
     }
+
+
+    @FXML
+    private Button penaltyEditPrivilege1;
+    public void edit1(ActionEvent actionEvent) {
+        int index= deductionTableView1.getSelectionModel().getSelectedIndex();
+        int idEdit=deductionTableView1.getItems().get(index).getIdDeduction();
+
+
+        if (penaltyEditPrivilege1.getText().contains("تعديل الغرامة")){
+            penaltyEditPrivilege1.setText("حفظ");
+            areaName1.setValue(deductionTableView1.getItems().get(index).getNameArea());
+            locationName1.setValue(deductionTableView1.getItems().get(index).getNameLocation());
+            projectName1.setValue(deductionTableView1.getItems().get(index).getNameProject());
+            employeeName1.setValue(deductionTableView1.getItems().get(index).getNameEmployee());
+            perOrCos1.setValue(deductionTableView1.getItems().get(index).getNort());
+            typeDeduction1.setText(deductionTableView1.getItems().get(index).getTypeDeduction());
+            amountOfDeduction1.setText(deductionTableView1.getItems().get(index).getAmountOfDeduction());
+            if (locoremp1.getSelectionModel().getSelectedItem()=="موظف"){
+                occupationName1.setVisible(true);
+                employeeName1.setVisible(true);
+            }else{
+                occupationName1.setVisible(false);
+                employeeName1.setVisible(false);
+            }
+            if (deductionTableView1.getSelectionModel().getSelectedItem().getNameEmployee()!=null){
+                locoremp1.setValue("موظف");
+            }else if (deductionTableView1.getSelectionModel().getSelectedItem().getNameEmployee()==null){
+                locoremp1.setValue("موقع");
+            }
+        }else if (penaltyEditPrivilege1.getText().contains("حفظ")){
+            if (amountOfDeduction1.getText().isEmpty()||typeDeduction1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()||locoremp1.getSelectionModel().isEmpty()||perOrCos1.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName1.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
+                    }
+                    for (int i=0; i<locations.size() ;i++){
+                        if (locations.get(i).getLocationName()==locationName1.getValue()){
+                            idLocation=locations.get(i).getIdLocation();
+                        }
+                    }
+
+                    for (int i=0; i<employees.size() ;i++){
+                        if (employees.get(i).getEmployeeName()==employeeName1.getValue()){
+                            idEmployee=employees.get(i).getId();
+
+                        }
+                    }
+                    for (int i=0; i<projects.size() ;i++){
+                        if (projects.get(i).getContractName()==projectName1.getValue()){
+                            idProject=projects.get(i).getIdProject();
+                        }
+                    }
+                    con = new ConnectDB().getConnection();
+
+                    if (isChanged1==1){
+                        pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idEmployeeDeduction`=?,`idProject`=?,`nort`=?,`empoyeeNameDed`=? WHERE `id`=?");
+                        pst.setInt(1, idArea);
+                        pst.setInt(2, idLocation);
+                        pst.setString(3, typeDeduction1.getText());
+                        pst.setString(4, amountOfDeduction1.getText());
+                        pst.setInt(5, idEmployee);
+                        pst.setInt(6, idProject);
+                        pst.setString(7, nortValue1);
+                        pst.setString(8, employeeName1.getValue());
+                        pst.setInt(9, idEdit);
+                        pst.execute();
+                        pst.close();
+
+                        penaltyEditPrivilege1.setText("تعديل الغرامة");
+                        employeeName1.getItems().clear();
+                        projectName1.getItems().clear();
+                        locationName1.getItems().clear();
+                        areaName1.getItems().clear();
+                        amountOfDeduction1.clear();
+                        typeDeduction1.clear();
+                        fillComboArea1();
+                    }else if (idEmployee<1){
+                        pst = con.prepareStatement("UPDATE `deductions` SET `idArea`=?,`idLocation`=?,`typeDeduction`=?,`amountOfDeduction`=?,`idProject`=?,`nort`=?,`empoyeeNameDed`=? WHERE `id`=?");
+                        pst.setInt(1, idArea);
+                        pst.setInt(2, idLocation);
+                        pst.setString(3, typeDeduction1.getText());
+                        pst.setString(4, amountOfDeduction1.getText());
+                        pst.setInt(5, idProject);
+                        pst.setString(6, nortValue1);
+                        pst.setString(7, employeeName1.getValue());
+                        pst.setInt(8, idEdit);
+                        pst.execute();
+                        pst.close();
+
+                        penaltyEditPrivilege1.setText("تعديل الغرامة");
+                        employeeName1.getItems().clear();
+                        projectName1.getItems().clear();
+                        locationName1.getItems().clear();
+                        areaName1.getItems().clear();
+                        amountOfDeduction1.clear();
+                        typeDeduction1.clear();
+                        fillComboArea1();
+                    }
+
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                try {
+                    con = new Controlers.ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `projects` SET `penaltDaduct`=(SELECT SUM(`amountOfDeduction`) FROM `deductions` WHERE `idProject`=? AND `nort`='تكلفة' ) WHERE id=?");
+                    pst.setInt(1,idProject);
+                    pst.setInt(2,idProject);
+                    pst.execute();
+                    pst.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                isChanged1=0;
+                addToTable1();
+                idEdit=0;
+            }
+
+        }
+
+
+    }
     @FXML
     void idReset(MouseEvent event) {
         penaltyEditPrivilege.setText("تعديل الغرامة");
+    }
+
+    @FXML
+    void idReset1(MouseEvent event) {
+        penaltyEditPrivilege1.setText("تعديل الغرامة");
     }
 
 
@@ -1044,8 +1491,25 @@ public class PenaltyPage implements Initializable {
         }
     }
 
+
+    public void selectLocOrEmp1(ActionEvent actionEvent) {
+        if (locoremp1.getValue()=="موظف"){
+//            System.out.println("thats work");
+            occupationName1.setVisible(true);
+            employeeName1.setVisible(true);
+        }else {
+//            System.out.println("thats not work");
+            occupationName1.setVisible(false);
+            employeeName1.setVisible(false);
+
+        }
+    }
+
     @FXML
     private Label per;
+
+    @FXML
+    private Label per1;
 
     public void selectPerOrCos(ActionEvent actionEvent) {
         if (perOrCos.getValue()=="نسبة"){
@@ -1060,4 +1524,21 @@ public class PenaltyPage implements Initializable {
 
         }
     }
+
+
+    public void selectPerOrCos1(ActionEvent actionEvent) {
+        if (perOrCos1.getValue()=="نسبة"){
+//            System.out.println("thats work");
+            per1.setVisible(true);
+            nortValue1="نسبة";
+
+        }else {
+//            System.out.println("thats not work");
+            per1.setVisible(false);
+            nortValue1="تكلفة";
+
+        }
+    }
+
+
 }

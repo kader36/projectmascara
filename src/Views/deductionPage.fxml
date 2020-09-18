@@ -26,7 +26,7 @@
                      <children>
                         <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
                           <tabs>
-                            <Tab closable="false" text="تطبيق إستقطاع">
+                            <Tab closable="false" text="تطبيق إستقطاع صحي">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
@@ -55,6 +55,35 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab closable="false" text="تطبيق إستقطاع عسكري">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <ComboBox fx:id="areaName1" layoutX="31.0" layoutY="23.0" onAction="#selectArea1" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName1" layoutX="426.0" layoutY="23.0" onAction="#selectLocation1" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectName1" layoutX="815.0" layoutY="23.0" onAction="#selectProject1" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
+                                          <ComboBox fx:id="typeDeduction1" layoutX="31.0" layoutY="81.0" onAction="#selectDeduction1" prefHeight="35.0" prefWidth="240.0" promptText="نوع الإستقطاع" />
+                                          <TextField fx:id="amountOfDeduction1" layoutX="427.0" layoutY="75.0" prefHeight="37.0" prefWidth="240.0" promptText="مبلغ الإستقطاع" />
+                                          <Button fx:id="deductionAddPrivilege2" layoutX="22.0" layoutY="138.0" mnemonicParsing="false" onAction="#addDeduction1" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة إستقطاع" />
+                                          <Button fx:id="deductionEditPrivilege1" layoutX="291.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل إستقطاع" />
+                                          <Button fx:id="deductionDeletePrivilege2" layoutX="567.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف إستقطاع" />
+                                          <TextField fx:id="search1" layoutX="834.0" layoutY="137.0" onKeyReleased="#search1" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="deductionTableView1" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" onMouseClicked="#idReset1" prefHeight="360.0" prefWidth="1089.0">
+                                             <columns>
+                                                <TableColumn fx:id="projectNameTable1" prefWidth="217.0" text="المشروع" />
+                                                <TableColumn fx:id="amountOfDeductionTable1" prefWidth="239.0" text="تكلفة الإستقطاع " />
+                                                <TableColumn fx:id="typeDeductionTable1" prefWidth="255.0" text="نوع الإستقطاع" />
+                                                <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="192.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable1" editable="false" prefWidth="185.0" text="إسم الموقع" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                               <Tab closable="false" text="إستقطاعات">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">

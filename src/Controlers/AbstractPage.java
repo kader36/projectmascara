@@ -111,12 +111,101 @@ public class AbstractPage implements Initializable {
     @FXML
     private TableColumn<AbstractForTable2, String> remarkTable;
 
+
+    @FXML
+    private ComboBox<String> areaName1;
+    @FXML
+    private ComboBox<String> locationName1;
+    @FXML
+    private TextField contractType1;
+
+    @FXML
+    private ComboBox<String> projectName1;
+
+
+
+    @FXML
+    private TableView<AbstractForTable> abstractTableView1;
+    @FXML
+    private TableView<AbstractForTable2> yearAbstractTableView1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> projectNameTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractNumberTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractTypeTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> areaNameTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractStartDateTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable, String> contractEndDateTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> yearTable1;
+    @FXML
+    private TableColumn<AbstractForTable2, String> janvierTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> fevrierTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> marsTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> avrilTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> mayTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> juinTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> juillietTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> aoutTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> septembreTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> octobreTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> novembreTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> decembreTable1;
+
+    @FXML
+    private TableColumn<AbstractForTable2, String> remarkTable1;
+
     @FXML
     void selectArea(ActionEvent event) {
         int index= areaName.getSelectionModel().getSelectedIndex();
         idArea=areas.get(index).getIdArea();
 
         fillComboLocation();
+
+
+    }
+    @FXML
+    void selectArea1(ActionEvent event) {
+        int index= areaName1.getSelectionModel().getSelectedIndex();
+        idArea=areas.get(index).getIdArea();
+
+        fillComboLocation1();
 
 
     }
@@ -129,6 +218,15 @@ public class AbstractPage implements Initializable {
 
 
     }
+    @FXML
+    void selectLocation1(ActionEvent event) {
+        int index= locationName1.getSelectionModel().getSelectedIndex();
+        idLocation=locations.get(index).getIdLocation();
+
+        fillComboProject1();
+
+
+    }
 
     @FXML
     private TextField contractNumber;
@@ -138,6 +236,15 @@ public class AbstractPage implements Initializable {
 
     @FXML
     private DatePicker contractEndDate;
+
+    @FXML
+    private TextField contractNumber1;
+
+    @FXML
+    private DatePicker contractStartDate1;
+
+    @FXML
+    private DatePicker contractEndDate1;
     @FXML
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
@@ -145,7 +252,7 @@ public class AbstractPage implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=?");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `projectType`='مشروع قطاع صحي'");
             pst.setInt(1,idProject);
             rs=pst.executeQuery();
             while (rs.next()){
@@ -155,6 +262,32 @@ public class AbstractPage implements Initializable {
                 contractEndDate.setValue(LocalDate.parse(rs.getString("contractEndDate")));
                 contractStartDate.getEditor().setText(rs.getString("contractStartDate"));
                 contractEndDate.getEditor().setText(rs.getString("contractEndDate"));
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+        }
+    }
+
+    @FXML
+    void selectProject1(ActionEvent event) {
+        int index= projectName1.getSelectionModel().getSelectedIndex();
+        idProject=projects.get(index).getIdProject();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `id`=? AND `projectType`='مشروع قطاع عسكري'");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                contractNumber1.setText(rs.getString("contractNumber"));
+                contractType1.setText(rs.getString("projectType"));
+                contractStartDate1.setValue(LocalDate.parse(rs.getString("contractStartDate")));
+                contractEndDate1.setValue(LocalDate.parse(rs.getString("contractEndDate")));
+                contractStartDate1.getEditor().setText(rs.getString("contractStartDate"));
+                contractEndDate1.getEditor().setText(rs.getString("contractEndDate"));
             }
             pst.close();
 
@@ -191,6 +324,33 @@ public class AbstractPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
+    public void fillComboLocation1(){
+        locations.clear();
+        locationName1.getItems().clear();
+        contractStartDate1.getEditor().clear();
+        contractEndDate1.getEditor().clear();
+        contractNumber1.clear();
+        contractType1.clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `locations` WHERE `areaId`=?");
+            pst.setInt(1,idArea);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                locations.add(new Location(rs.getInt("areaId"),rs.getInt("id"),rs.getString("locationName")));
+
+            }
+
+            for (int i=0;i<locations.size();i++){
+                locationName1.getItems().add(locations.get(i).getLocationName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
     public void fillComboProject(){
         projects.clear();
         projectName.getItems().clear();
@@ -204,7 +364,7 @@ public class AbstractPage implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=?");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع صحي'");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -215,6 +375,38 @@ public class AbstractPage implements Initializable {
 
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+
+    public void fillComboProject1(){
+        projects.clear();
+        projectName1.getItems().clear();
+        for (int i =0;i<projects.size();i++){
+            projectName1.getItems().add(projects.get(i).getContractName());
+        }
+        contractStartDate1.getEditor().clear();
+        contractEndDate1.getEditor().clear();
+        contractNumber1.clear();
+        contractType1.clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع عسكري'");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+
+            }
+
+            for (int i=0;i<projects.size();i++){
+                projectName1.getItems().add(projects.get(i).getContractName());
             }
             pst.close();
 
@@ -234,6 +426,24 @@ public class AbstractPage implements Initializable {
             }
             for (int i=0;i<areas.size();i++){
                 areaName.getItems().add(areas.get(i).getNameArea());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public void fillComboArea1(){
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `areas`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                areas.add(new Area(rs.getInt("id"),rs.getString("areaName")));
+
+            }
+            for (int i=0;i<areas.size();i++){
+                areaName1.getItems().add(areas.get(i).getNameArea());
             }
             pst.close();
 
@@ -278,45 +488,6 @@ public class AbstractPage implements Initializable {
     private Button repportMenuButton;//c bn
 
     @FXML
-    private Button areaDeletePrivilege;
-    @FXML
-    private Button areaAddPrivilege;
-    @FXML
-    private Button areaEditPrivilege;
-
-    @FXML
-    private Button locationDeletePrivilege;
-    @FXML
-    private Button locationAddPrivilege;
-    @FXML
-    private Button locationEditPrivilege;
-
-    @FXML
-    private Button garanteeEditPrivilege;
-    @FXML
-    private Button garanteeAddPrivilege;
-    @FXML
-    private Button garanteeDeletePrivilege;
-    @FXML
-    private Button garanteeAddPrivilege1;
-    @FXML
-    private Button garanteeDeletePrivilege1;
-
-    @FXML
-    private Button occupationDeletePrivilege;
-    @FXML
-    private Button occupationAddPrivilege;
-    @FXML
-    private Button occupationEditPrivilege;
-
-    @FXML
-    private Button employeeDeletePrivilege;
-    @FXML
-    private Button employeeAddPrivilege;
-    @FXML
-    private Button employeeEditPrivilege;
-
-    @FXML
     private Button abstractDeletePrivilege;
     @FXML
     private Button abstractAddPrivilege;
@@ -326,37 +497,6 @@ public class AbstractPage implements Initializable {
     private Button abstractAddPrivilege1;
     @FXML
     private Button abstractEditPrivilege;
-
-    @FXML
-    private Button deductionDeletePrivilege;
-    @FXML
-    private Button deductionAddPrivilege;
-    @FXML
-    private Button deductionDeletePrivilege1;
-    @FXML
-    private Button deductionAddPrivilege1;
-    @FXML
-    private Button deductionEditPrivilege;
-
-    @FXML
-    private Button penaltyDeletePrivilege;
-    @FXML
-    private Button penaltyAddPrivilege;
-    @FXML
-    private Button penaltyEditPrivilege;
-
-    @FXML
-    private Button userDeletePrivilege;
-    @FXML
-    private Button userAddPrivilege;
-    @FXML
-    private Button userDeletePrivilege1;
-    @FXML
-    private Button userAddPrivilege1;
-    @FXML
-    private Button userEditPrivilege;
-    @FXML
-    private Button userEditPrivilege1;
 
 
     int idConnected=0;
@@ -684,11 +824,15 @@ public class AbstractPage implements Initializable {
 
     ObservableList abstractsTable= FXCollections.observableArrayList();
     ObservableList abstractYearsTable= FXCollections.observableArrayList();
+    ObservableList abstractsTable1= FXCollections.observableArrayList();
+    ObservableList abstractYearsTable1= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
+        fillComboArea1();
         addToTable();
+        addToTable1();
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
@@ -716,6 +860,32 @@ public class AbstractPage implements Initializable {
         contractStartDate.getEditor().setEditable(false);
         contractEndDate.getEditor().setEditable(false);
 
+        areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+        locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        contractNumberTable1.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+        contractTypeTable1.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+        contractStartDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+        contractEndDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        yearTable1.setCellValueFactory(new PropertyValueFactory<>("year"));
+        janvierTable1.setCellValueFactory(new PropertyValueFactory<>("janvier"));
+        fevrierTable1.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
+        marsTable1.setCellValueFactory(new PropertyValueFactory<>("mars"));
+        avrilTable1.setCellValueFactory(new PropertyValueFactory<>("avril"));
+        mayTable1.setCellValueFactory(new PropertyValueFactory<>("may"));
+        juinTable1.setCellValueFactory(new PropertyValueFactory<>("juin"));
+        juillietTable1.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
+        aoutTable1.setCellValueFactory(new PropertyValueFactory<>("aout"));
+        septembreTable1.setCellValueFactory(new PropertyValueFactory<>("septembre"));
+        octobreTable1.setCellValueFactory(new PropertyValueFactory<>("octobre"));
+        novembreTable1.setCellValueFactory(new PropertyValueFactory<>("novembre"));
+        decembreTable1.setCellValueFactory(new PropertyValueFactory<>("decembre"));
+        remarkTable1.setCellValueFactory(new PropertyValueFactory<>("remark"));
+
+        abstractTableView1.setItems(abstractsTable1);
+        yearAbstractTableView1.setItems(abstractYearsTable1);
+        contractStartDate1.getEditor().setEditable(false);
+        contractEndDate1.getEditor().setEditable(false);
 
     }
 
@@ -723,10 +893,28 @@ public class AbstractPage implements Initializable {
         abstractsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id");
+            pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND `projects`.`projectType`='مشروع قطاع صحي'");
             rs=pst.executeQuery();
             while (rs.next()){
                 abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
+
+            }
+            con.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+    public void addToTable1(){
+        abstractsTable1.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND `projects`.`projectType`='مشروع قطاع عسكري'");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                abstractsTable1.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
 
             }
             con.close();
@@ -757,29 +945,26 @@ public class AbstractPage implements Initializable {
             System.out.println("No Connection with DB");
         }
     }
-
-    public String getEmployeeName(int id){
-        Connection con;
-        PreparedStatement pst;
-        ResultSet rs;
-        String result = null;
+    public void fillTableAbstractYears1(){
+        abstractYearsTable1.clear();
+        yearAbstractTableView1.getItems().clear();
         try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `id`=?");
-            pst.setInt(1,id);
+
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idProject`=?");
+            pst.setInt(1,idAbstract);
             rs=pst.executeQuery();
             while (rs.next()){
-                return result= rs.getString("employeeName");
+                abstractYearsTable1.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("idOccupation")));
             }
             pst.close();
 
+
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
-
+            System.out.println("No Connection with DB");
         }
-        return result;
-
     }
+
 
     @FXML
     private CheckBox janvier;
@@ -921,6 +1106,26 @@ public class AbstractPage implements Initializable {
             addToTable2();
         }
     }
+    public void deleteRow21(ActionEvent actionEvent) {
+        int index= yearAbstractTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=yearAbstractTableView1.getItems().get(index).getIdAbstractYears();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `abstractyears` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                pst.close();
+
+                warningMsg("حذف","تم الحذف بنجاح");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            addToTable21();
+        }
+    }
     public void deleteRow(ActionEvent actionEvent) {
         int index= abstractTableView.getSelectionModel().getSelectedIndex();
         int idDelete=abstractTableView.getItems().get(index).getIdAbstract();
@@ -943,6 +1148,28 @@ public class AbstractPage implements Initializable {
             addToTable();
         }
     }
+    public void deleteRow1(ActionEvent actionEvent) {
+        int index= abstractTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=abstractTableView1.getItems().get(index).getIdAbstract();
+        if (idDelete>0) {
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `abstract` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                pst.close();
+
+                warningMsg("حذف","تم الحذف بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+
+            }
+            idDelete=0;
+            addToTable1();
+        }
+    }
     @FXML
     private TextField search;
     @FXML
@@ -950,32 +1177,13 @@ public class AbstractPage implements Initializable {
         String key=search.getText().trim();
         if (key.isEmpty()){
             addToTable();
-            areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
-            locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
-            projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-            contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
-            contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
-            contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
-            contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
-            janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
-            fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
-            marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
-            avrilTable.setCellValueFactory(new PropertyValueFactory<>("avril"));
-            mayTable.setCellValueFactory(new PropertyValueFactory<>("may"));
-            juinTable.setCellValueFactory(new PropertyValueFactory<>("juin"));
-            juillietTable.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
-            aoutTable.setCellValueFactory(new PropertyValueFactory<>("aout"));
-            septembreTable.setCellValueFactory(new PropertyValueFactory<>("septembre"));
-            octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
-            novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
-            decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
-            remarkTable.setCellValueFactory(new PropertyValueFactory<>("remark"));
+
             abstractTableView.setItems(abstractsTable);
         }else{
             abstractsTable.clear();
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("`abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND projects.projectType='مشروع قطاع صحي' AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
                     abstractsTable.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
@@ -983,27 +1191,42 @@ public class AbstractPage implements Initializable {
                 }
                 pst.close();
 
-                areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
-                locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
-                projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-                contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
-                contractTypeTable.setCellValueFactory(new PropertyValueFactory<>("contractType"));
-                contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
-                contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
-                janvierTable.setCellValueFactory(new PropertyValueFactory<>("janvier"));
-                fevrierTable.setCellValueFactory(new PropertyValueFactory<>("fevrier"));
-                marsTable.setCellValueFactory(new PropertyValueFactory<>("mars"));
-                avrilTable.setCellValueFactory(new PropertyValueFactory<>("avril"));
-                mayTable.setCellValueFactory(new PropertyValueFactory<>("may"));
-                juinTable.setCellValueFactory(new PropertyValueFactory<>("juin"));
-                juillietTable.setCellValueFactory(new PropertyValueFactory<>("juilliet"));
-                aoutTable.setCellValueFactory(new PropertyValueFactory<>("aout"));
-                septembreTable.setCellValueFactory(new PropertyValueFactory<>("septembre"));
-                octobreTable.setCellValueFactory(new PropertyValueFactory<>("octobre"));
-                novembreTable.setCellValueFactory(new PropertyValueFactory<>("novembre"));
-                decembreTable.setCellValueFactory(new PropertyValueFactory<>("decembre"));
-                remarkTable.setCellValueFactory(new PropertyValueFactory<>("remark"));
+
                 abstractTableView.setItems(abstractsTable);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    @FXML
+    private TextField search1;
+    @FXML
+    public void search1(KeyEvent keyEvent) {
+        String key=search1.getText().trim();
+        if (key.isEmpty()){
+            addToTable1();
+
+            abstractTableView1.setItems(abstractsTable1);
+        }else{
+            abstractsTable1.clear();
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstract`,`areas`,`locations`,`projects` WHERE abstract.idArea=areas.id AND abstract.idLocation=locations.id AND abstract.idProject=projects.id AND projects.projectType='مشروع قطاع عسكري' AND projects.contractName LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    abstractsTable1.add(new AbstractForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate")));
+
+                }
+                pst.close();
+
+
+                abstractTableView1.setItems(abstractsTable1);
 
 
             } catch (SQLException throwables) {
@@ -1056,16 +1279,38 @@ public class AbstractPage implements Initializable {
         yearAbstract.setItems(years);
     }
     @FXML
-    void idReset2(MouseEvent event) {
-        abstractEditPrivilege2.setText("تعديل");
+    void idReset1(MouseEvent event) {
+        abstractEditPrivilege1.setText("تعديل مستخلص");
+        ObservableList<String> years1= FXCollections.observableArrayList();
 
+        fillTableAbstractYears1();
+        addToTable21();
+        yearAbstract1.setItems(null);
+        years1.clear();
+        int index= abstractTableView1.getSelectionModel().getSelectedIndex();
+        String beginDate=abstractTableView1.getItems().get(index).getContractStartDate();
+        beginDate=beginDate.substring(0,4);
+        String endDate=abstractTableView1.getItems().get(index).getContractEndDate();
+        endDate=endDate.substring(0,4);
+        int begin=Integer.parseInt(beginDate);
+        int end=Integer.parseInt(endDate);
+
+        for (int i =begin;i<=end;i++){
+            years1.add(String.valueOf(i));
+        }
+        yearAbstract1.setItems(years1);
     }
+
+
 
     @FXML
     private ComboBox<String> yearAbstract;
+    @FXML
+    private ComboBox<String> yearAbstract1;
     public void addAbstractYears(ActionEvent actionEvent) {
         int index= abstractTableView.getSelectionModel().getSelectedIndex();
         int idAbstract=abstractTableView.getItems().get(index).getIdAbstract();
+
         String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
         if (janvier.isSelected()){
             month1="X";
@@ -1093,12 +1338,13 @@ public class AbstractPage implements Initializable {
             month12="X";
         }
         dejaExist=0;
+
         size=0;
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE `year`=? AND `idAbstract`=?");
             pst.setString(1,yearAbstract.getValue());
-            pst.setInt(2,yearAbstractTableView.getItems().get(index).getIdAbstract());
+            pst.setInt(2,abstractTableView.getItems().get(index).getIdAbstract());
             rs=pst.executeQuery();
             while(rs.next()){
                 size++;
@@ -1175,7 +1421,120 @@ public class AbstractPage implements Initializable {
 
 
     }
+    public void addAbstractYears1(ActionEvent actionEvent) {
+        int index= abstractTableView1.getSelectionModel().getSelectedIndex();
+        int idAbstract=abstractTableView1.getItems().get(index).getIdAbstract();
 
+        String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
+        if (janvier1.isSelected()){
+            month1="X";
+        }if (fevrier1.isSelected()){
+            month2="X";
+        }if (mars1.isSelected()){
+            month3="X";
+        }if (avril1.isSelected()){
+            month4="X";
+        }if (may1.isSelected()){
+            month5="X";
+        }if (juin1.isSelected()){
+            month6="X";
+        }if (juilliet1.isSelected()){
+            month7="X";
+        }if (aout1.isSelected()){
+            month8="X";
+        }if (septembre1.isSelected()){
+            month9="X";
+        }if (octobre1.isSelected()){
+            month10="X";
+        }if (novembre1.isSelected()){
+            month11="X";
+        }if (decembre1.isSelected()){
+            month12="X";
+        }
+        dejaExist=0;
+
+        size=0;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE `year`=? AND `idAbstract`=?");
+            pst.setString(1,yearAbstract1.getValue());
+            pst.setInt(2,abstractTableView1.getItems().get(index).getIdAbstract());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            pst.close();
+
+            if (size>0){
+                dejaExist=1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if ((!janvier1.isSelected()&&!fevrier1.isSelected()&&!mars1.isSelected()&&!avril1.isSelected()&&!may1.isSelected()&&!juin1.isSelected()&&!juilliet1.isSelected()&&!aout1.isSelected()&&!septembre1.isSelected()&&!octobre1.isSelected()&&!novembre1.isSelected()&&!decembre1.isSelected()) || yearAbstract1.getSelectionModel().isEmpty() ){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","السنة موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `abstractyears`(`idAbstract`, `year`, `jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dcm`,`remark`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst.setInt(1,idAbstract);
+                pst.setString(2,yearAbstract1.getValue());
+                pst.setString(3,month1);
+                pst.setString(4,month2);
+                pst.setString(5,month3);
+                pst.setString(6,month4);
+                pst.setString(7,month5);
+                pst.setString(8,month6);
+                pst.setString(9,month7);
+                pst.setString(10,month8);
+                pst.setString(11,month9);
+                pst.setString(12,month10);
+                pst.setString(13,month11);
+                pst.setString(14,month12);
+                pst.setString(15,remark1.getText());
+                pst.execute();
+                pst.close();
+
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+
+            addToTable21();
+            janvier1.setSelected(false);
+            fevrier1.setSelected(false);
+            mars1.setSelected(false);
+            avril1.setSelected(false);
+            may1.setSelected(false);
+            juin1.setSelected(false);
+            juilliet1.setSelected(false);
+            aout1.setSelected(false);
+            septembre1.setSelected(false);
+            octobre1.setSelected(false);
+            novembre1.setSelected(false);
+            decembre1.setSelected(false);
+            janvier1.setDisable(false);
+            fevrier1.setDisable(false);
+            mars1.setDisable(false);
+            avril1.setDisable(false);
+            may1.setDisable(false);
+            juin1.setDisable(false);
+            juilliet1.setDisable(false);
+            aout1.setDisable(false);
+            septembre1.setDisable(false);
+            octobre1.setDisable(false);
+            novembre1.setDisable(false);
+            decembre1.setDisable(false);
+            remark1.clear();
+
+        }
+
+
+    }
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -1196,6 +1555,27 @@ public class AbstractPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
+
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+    public void addToTable21(){
+        abstractYearsTable1.clear();
+        int index= abstractTableView1.getSelectionModel().getSelectedIndex();
+        int idAbstract=abstractTableView1.getItems().get(index).getIdAbstract();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE idAbstract=?");
+            pst.setInt(1,idAbstract);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                abstractYearsTable1.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
 
             }
             pst.close();
@@ -1294,6 +1674,97 @@ public class AbstractPage implements Initializable {
             }
 
             addToTable();
+            idEdit=0;
+        }
+
+
+    }
+    @FXML
+    private Button abstractEditPrivilege1;
+    public void edit1(ActionEvent actionEvent) {
+        int index= abstractTableView1.getSelectionModel().getSelectedIndex();
+        int idEdit=abstractTableView1.getItems().get(index).getIdAbstract();
+
+
+        if (abstractEditPrivilege1.getText().contains("تعديل مستخلص")){
+            abstractEditPrivilege1.setText("حفظ");
+            areaName1.setValue(abstractTableView1.getItems().get(index).getNameArea());
+            locationName1.setValue(abstractTableView1.getItems().get(index).getNameLocation());
+            projectName1.setValue(abstractTableView1.getItems().get(index).getNameProject());
+            contractType1.setText(abstractTableView1.getItems().get(index).getContractType());
+            contractNumber1.setText(abstractTableView1.getItems().get(index).getContractNumber());
+            contractStartDate1.setValue(LocalDate.parse(abstractTableView1.getItems().get(index).getContractStartDate()));
+            contractEndDate1.setValue(LocalDate.parse(abstractTableView1.getItems().get(index).getContractEndDate()));
+            contractStartDate1.getEditor().setText(abstractTableView1.getItems().get(index).getContractStartDate());
+            contractEndDate1.getEditor().setText(abstractTableView1.getItems().get(index).getContractEndDate());
+        }else if (abstractEditPrivilege1.getText().contains("حفظ")){
+            dejaExist=0;
+            size=0;
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=? AND id!=?");
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                pst.setInt(4,idEdit);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
+                }
+                pst.close();
+
+                if (size>0){
+                    dejaExist=1;
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            if (areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","المعلومات موجودة من قبل");
+            }else{
+                try {
+                    for (int i=0; i<areas.size() ;i++){
+                        if (areas.get(i).getNameArea()==areaName.getValue()){
+                            idArea=areas.get(i).getIdArea();
+                        }
+                    }
+                    for (int i=0; i<locations.size() ;i++){
+                        if (locations.get(i).getLocationName()==locationName.getValue()){
+                            idLocation=locations.get(i).getIdLocation();
+                        }
+                    }
+
+                    for (int i=0; i<projects.size() ;i++){
+                        if (projects.get(i).getContractName()==projectName.getValue()){
+                            idProject=projects.get(i).getIdProject();
+                        }
+                    }
+
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `abstract` SET `idArea`=?,`idLocation`=?,`idProject`=? WHERE `id`=?");
+
+                    pst.setInt(1, idArea);
+                    pst.setInt(2, idLocation);
+                    pst.setInt(3, idProject);
+                    pst.setInt(4, idEdit);
+                    pst.execute();
+                    pst.close();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    abstractEditPrivilege1.setText("تعديل مستخلص");
+                    projectName1.getItems().clear();
+                    locationName1.getItems().clear();
+                    areaName1.getItems().clear();
+                    fillComboArea1();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+            }
+
+            addToTable1();
             idEdit=0;
         }
 
@@ -1498,4 +1969,380 @@ public class AbstractPage implements Initializable {
 
     }
 
+    @FXML
+    private Button abstractEditPrivilege21;
+    public void edit21(ActionEvent actionEvent) {
+        int index= yearAbstractTableView1.getSelectionModel().getSelectedIndex();
+        int idEdit=yearAbstractTableView1.getItems().get(index).getIdAbstractYears();
+
+
+        if (abstractEditPrivilege21.getText().contains("تعديل")){
+            abstractEditPrivilege21.setText("حفظ");
+            remark1.setText(yearAbstractTableView1.getItems().get(index).getRemark());
+
+            if (!yearAbstractTableView1.getItems().get(index).getJanvier().isEmpty()){
+                janvier1.setSelected(true);
+            }else{
+                janvier1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getFevrier().isEmpty()){
+                fevrier1.setSelected(true);
+            }else{
+                fevrier1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getMars().isEmpty()){
+                mars1.setSelected(true);
+            }else{
+                mars1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getAvril().isEmpty()){
+                avril1.setSelected(true);
+            }else{
+                avril1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getMay().isEmpty()){
+                may1.setSelected(true);
+            }else{
+                may1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getJuin().isEmpty()){
+                juin1.setSelected(true);
+            }else{
+                juin1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getJuilliet().isEmpty()){
+                juilliet1.setSelected(true);
+            }else{
+                juilliet1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getAout().isEmpty()){
+                aout1.setSelected(true);
+            }else{
+                aout1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getSeptembre().isEmpty()){
+                septembre1.setSelected(true);
+            }else{
+                septembre1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getOctobre().isEmpty()){
+                octobre1.setSelected(true);
+            }else{
+                octobre1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getNovembre().isEmpty()){
+                novembre1.setSelected(true);
+            }else{
+                novembre1.setSelected(false);
+
+            }
+            if (!yearAbstractTableView1.getItems().get(index).getDecembre().isEmpty()){
+                decembre1.setSelected(true);
+            }else{
+                decembre1.setSelected(false);
+
+            }
+            yearAbstract1.setValue(yearAbstractTableView1.getItems().get(index).getYear());
+
+        }else if (abstractEditPrivilege21.getText().contains("حفظ")){
+            String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
+            if (janvier1.isSelected()){
+                month1="X";
+            }if (fevrier1.isSelected()){
+                month2="X";
+            }if (mars1.isSelected()){
+                month3="X";
+            }if (avril1.isSelected()){
+                month4="X";
+            }if (may1.isSelected()){
+                month5="X";
+            }if (juin1.isSelected()){
+                month6="X";
+            }if (juilliet1.isSelected()){
+                month7="X";
+            }if (aout1.isSelected()){
+                month8="X";
+            }if (septembre1.isSelected()){
+                month9="X";
+            }if (octobre1.isSelected()){
+                month10="X";
+            }if (novembre1.isSelected()){
+                month11="X";
+            }if (decembre1.isSelected()){
+                month12="X";
+            }
+            dejaExist=0;
+            size=0;
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `abstractyears` WHERE `year`=? AND `idAbstract`=? AND `id`!=?");
+                pst.setString(1,yearAbstract1.getValue());
+                pst.setInt(2,yearAbstractTableView1.getItems().get(index).getIdAbstract());
+                pst.setInt(3,idEdit);
+                rs=pst.executeQuery();
+                while(rs.next()){
+                    size++;
+                }
+                pst.close();
+
+                if (size>0){
+                    dejaExist=1;
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            if ((!janvier1.isSelected()&&!fevrier1.isSelected()&&!mars1.isSelected()&&!avril1.isSelected()&&!may1.isSelected()&&!juin1.isSelected()&&!juilliet1.isSelected()&&!aout1.isSelected()&&!septembre1.isSelected()&&!octobre1.isSelected()&&!novembre1.isSelected()&&!decembre1.isSelected()) || yearAbstract1.getSelectionModel().isEmpty() ){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else if(dejaExist==1){
+                warningMsg("تنبيه","السنة موجودة من قبل");
+            }else{
+                try {
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `abstractyears` SET `year`=? ,`jan`=?,`feb`=?,`mar`=?,`apr`=?,`may`=?,`jun`=?,`jul`=?,`aug`=?,`sep`=?,`oct`=?,`nov`=?,`dcm`=?,`remark`=? WHERE `id`=?");
+                    pst.setString(1,yearAbstract1.getValue());
+                    pst.setString(2,month1);
+                    pst.setString(3,month2);
+                    pst.setString(4,month3);
+                    pst.setString(5,month4);
+                    pst.setString(6,month5);
+                    pst.setString(7,month6);
+                    pst.setString(8,month7);
+                    pst.setString(9,month8);
+                    pst.setString(10,month9);
+                    pst.setString(11,month10);
+                    pst.setString(12,month11);
+                    pst.setString(13,month12);
+                    pst.setString(14,remark1.getText());
+                    pst.setInt(15, idEdit);
+                    pst.execute();
+                    pst.close();
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    abstractEditPrivilege21.setText("تعديل");
+
+                    addToTable21();
+                    janvier1.setSelected(false);
+                    fevrier1.setSelected(false);
+                    mars1.setSelected(false);
+                    avril1.setSelected(false);
+                    may1.setSelected(false);
+                    juin1.setSelected(false);
+                    juilliet1.setSelected(false);
+                    aout1.setSelected(false);
+                    septembre1.setSelected(false);
+                    octobre1.setSelected(false);
+                    novembre1.setSelected(false);
+                    decembre1.setSelected(false);
+                    janvier1.setDisable(false);
+                    fevrier1.setDisable(false);
+                    mars1.setDisable(false);
+                    avril1.setDisable(false);
+                    may1.setDisable(false);
+                    juin1.setDisable(false);
+                    juilliet1.setDisable(false);
+                    aout1.setDisable(false);
+                    septembre1.setDisable(false);
+                    octobre1.setDisable(false);
+                    novembre1.setDisable(false);
+                    decembre1.setDisable(false);
+                    remark1.clear();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+            }
+
+            idEdit=0;
+        }
+
+
+    }
+
+
+    @FXML
+    private CheckBox janvier1;
+
+    @FXML
+    private CheckBox fevrier1;
+
+    @FXML
+    private CheckBox mars1;
+
+    @FXML
+    private CheckBox avril1;
+
+    @FXML
+    private CheckBox may1;
+
+    @FXML
+    private CheckBox juin1;
+
+    @FXML
+    private CheckBox juilliet1;
+
+    @FXML
+    private CheckBox aout1;
+
+    @FXML
+    private CheckBox septembre1;
+
+    @FXML
+    private CheckBox octobre1;
+
+    @FXML
+    private CheckBox novembre1;
+
+    @FXML
+    private CheckBox decembre1;
+
+    @FXML
+    private TextArea remark1;
+    @FXML
+    public void addAbstract1(ActionEvent actionEvent) {
+        String month1="",month2="",month3="",month4="",month5="",month6="",month7="",month8="",month9="",month10="",month11="",month12="";
+        if (janvier1.isSelected()){
+            month1="X";
+        }if (fevrier1.isSelected()){
+            month2="X";
+        }if (mars1.isSelected()){
+            month3="X";
+        }if (avril1.isSelected()){
+            month4="X";
+        }if (may1.isSelected()){
+            month5="X";
+        }if (juin1.isSelected()){
+            month6="X";
+        }if (juilliet1.isSelected()){
+            month7="X";
+        }if (aout1.isSelected()){
+            month8="X";
+        }if (septembre1.isSelected()){
+            month9="X";
+        }if (octobre1.isSelected()){
+            month10="X";
+        }if (novembre1.isSelected()){
+            month11="X";
+        }if (decembre1.isSelected()){
+            month12="X";
+        }
+        dejaExist=0;
+        size=0;
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `abstract` WHERE `idArea`=? AND `idLocation`=? AND `idProject`=?");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            pst.setInt(3,idProject);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+            pst.close();
+
+            if (size>0){
+                dejaExist=1;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if (areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new Controlers.ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `abstract`(`idArea`, `idLocation`, `idProject`) VALUES (?,?,?)");
+                pst.setInt(1,idArea);
+                pst.setInt(2,idLocation);
+                pst.setInt(3,idProject);
+                pst.execute();
+                pst.close();
+
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+
+            addToTable1();
+            areaName1.getItems().clear();
+            areas.clear();
+            locationName1.getItems().clear();
+            projectName1.getItems().clear();
+            fillComboArea1();
+        }
+
+
+
+    }
+
+    public void idReset21(MouseEvent mouseEvent) {
+        abstractEditPrivilege21.setText("تعديل");
+        janvier1.setSelected(false);
+        fevrier1.setSelected(false);
+        mars1.setSelected(false);
+        avril1.setSelected(false);
+        may1.setSelected(false);
+        juin1.setSelected(false);
+        juilliet1.setSelected(false);
+        aout1.setSelected(false);
+        septembre1.setSelected(false);
+        octobre1.setSelected(false);
+        novembre1.setSelected(false);
+        decembre1.setSelected(false);
+        janvier1.setDisable(false);
+        fevrier1.setDisable(false);
+        mars1.setDisable(false);
+        avril1.setDisable(false);
+        may1.setDisable(false);
+        juin1.setDisable(false);
+        juilliet1.setDisable(false);
+        aout1.setDisable(false);
+        septembre1.setDisable(false);
+        octobre1.setDisable(false);
+        novembre1.setDisable(false);
+        decembre1.setDisable(false);
+        remark1.clear();
+    }
+
+    public void idReset2(MouseEvent mouseEvent) {
+        abstractEditPrivilege2.setText("تعديل");
+        janvier.setSelected(false);
+        fevrier.setSelected(false);
+        mars.setSelected(false);
+        avril.setSelected(false);
+        may.setSelected(false);
+        juin.setSelected(false);
+        juilliet.setSelected(false);
+        aout.setSelected(false);
+        septembre.setSelected(false);
+        octobre.setSelected(false);
+        novembre.setSelected(false);
+        decembre.setSelected(false);
+        janvier.setDisable(false);
+        fevrier.setDisable(false);
+        mars.setDisable(false);
+        avril.setDisable(false);
+        may.setDisable(false);
+        juin.setDisable(false);
+        juilliet.setDisable(false);
+        aout.setDisable(false);
+        septembre.setDisable(false);
+        octobre.setDisable(false);
+        novembre.setDisable(false);
+        decembre.setDisable(false);
+        remark.clear();
+    }
 }

@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ProjectPage implements Initializable {
+public class ProjectPageM implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
@@ -760,7 +760,7 @@ public class ProjectPage implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
             AnchorPane root = loader.load();
-            ProjectPage controller = loader.getController();
+            ProjectPageM controller = loader.getController();
             controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المشاريع");
@@ -908,7 +908,7 @@ public class ProjectPage implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
             AnchorPane root = loader.load();
-            ProjectPage controller = loader.getController();
+            ProjectPageM controller = loader.getController();
             controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المشاريع");

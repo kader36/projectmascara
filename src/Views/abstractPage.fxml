@@ -30,7 +30,7 @@
                      <children>
                         <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
                           <tabs>
-                            <Tab closable="false" text="مستخلصات">
+                            <Tab closable="false" text="مستخلصات القطاع الصحي">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
@@ -73,8 +73,8 @@
                                           <CheckBox fx:id="decembre" layoutX="862.0" layoutY="359.0" mnemonicParsing="false" text="December" />
                                           <ComboBox fx:id="yearAbstract" layoutX="22.0" layoutY="389.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
                                           <TextArea fx:id="remark" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
-                                          <Button fx:id="abstractAddPrivilege1" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
-                                          <Button fx:id="abstractDeletePrivilege1" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button fx:id="abstractAddPrivilege2" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="abstractDeletePrivilege2" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                           <TableView fx:id="yearAbstractTableView" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset2" prefHeight="127.0" prefWidth="913.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable" prefWidth="64.0" text="السنة" />
@@ -103,6 +103,79 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab closable="false" text="مستخلصات القطاع العسكري">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <ComboBox fx:id="areaName1" layoutX="31.0" layoutY="23.0" onAction="#selectArea1" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName1" layoutX="306.0" layoutY="23.0" onAction="#selectLocation1" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectName1" layoutX="583.0" layoutY="23.0" onAction="#selectProject1" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
+                                          <TextField fx:id="contractType1" editable="false" layoutX="859.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع العقد" />
+                                          <TextField fx:id="contractNumber1" editable="false" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
+                                          <DatePicker fx:id="contractStartDate1" accessibleRole="TEXT_FIELD" editable="false" layoutX="307.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
+                                          <DatePicker fx:id="contractEndDate1" accessibleRole="TEXT_FIELD" editable="false" layoutX="582.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
+                                          <Button fx:id="abstractAddPrivilege1" layoutX="22.0" layoutY="119.0" mnemonicParsing="false" onAction="#addAbstract1" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مستخلص" />
+                                          <Button fx:id="abstractEditPrivilege1" layoutX="291.0" layoutY="119.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مستخلص" />
+                                          <Button fx:id="abstractDeletePrivilege1" layoutX="567.0" layoutY="119.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مستخلص" />
+                                          <TextField fx:id="search1" layoutX="834.0" layoutY="118.0" onKeyReleased="#search1" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="abstractTableView1" fixedCellSize="0.0" layoutX="10.0" layoutY="168.0" onMouseClicked="#idReset1" prefHeight="135.0" prefWidth="1089.0">
+                                             <columns>
+                                                <TableColumn fx:id="projectNameTable1" prefWidth="167.0" text="المشروع" />
+                                                <TableColumn fx:id="contractNumberTable1" prefWidth="150.0" text="رقم العقد" />
+                                                <TableColumn fx:id="contractTypeTable1" prefWidth="150.0" text="نوع العقد" />
+                                                <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="140.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable1" editable="false" prefWidth="129.0" text="إسم الموقع" />
+                                                <TableColumn fx:id="contractStartDateTable1" editable="false" prefWidth="179.0" text="بداية العقد" />
+                                                <TableColumn fx:id="contractEndDateTable1" editable="false" prefWidth="173.0" text="نهاية العقد" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                          </TableView>
+                                          <CheckBox fx:id="janvier1" layoutX="30.0" layoutY="325.0" mnemonicParsing="false" text="January" />
+                                          <CheckBox fx:id="fevrier1" layoutX="195.0" layoutY="325.0" mnemonicParsing="false" text="February" />
+                                          <CheckBox fx:id="mars1" layoutX="367.0" layoutY="325.0" mnemonicParsing="false" text="March" />
+                                          <CheckBox fx:id="avril1" layoutX="526.0" layoutY="325.0" mnemonicParsing="false" text="April" />
+                                          <CheckBox fx:id="may1" layoutX="691.0" layoutY="325.0" mnemonicParsing="false" text="May" />
+                                          <CheckBox fx:id="juin1" layoutX="863.0" layoutY="325.0" mnemonicParsing="false" text="June" />
+                                          <CheckBox fx:id="juilliet1" layoutX="32.0" layoutY="359.0" mnemonicParsing="false" text="July" />
+                                          <CheckBox fx:id="aout1" layoutX="197.0" layoutY="359.0" mnemonicParsing="false" text="August" />
+                                          <CheckBox fx:id="septembre1" layoutX="368.0" layoutY="359.0" mnemonicParsing="false" text="September" />
+                                          <CheckBox fx:id="octobre1" layoutX="526.0" layoutY="359.0" mnemonicParsing="false" text="October" />
+                                          <CheckBox fx:id="novembre1" layoutX="691.0" layoutY="359.0" mnemonicParsing="false" text="November" />
+                                          <CheckBox fx:id="decembre1" layoutX="862.0" layoutY="359.0" mnemonicParsing="false" text="December" />
+                                          <ComboBox fx:id="yearAbstract1" layoutX="22.0" layoutY="389.0" prefHeight="35.0" prefWidth="127.0" promptText="السنة" />
+                                          <TextArea fx:id="remark1" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
+                                          <Button fx:id="abstractAddPrivilege11" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears1" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="abstractDeletePrivilege11" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow21" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <TableView fx:id="yearAbstractTableView1" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset21" prefHeight="127.0" prefWidth="913.0">
+                                             <columns>
+                                                <TableColumn fx:id="yearTable1" prefWidth="64.0" text="السنة" />
+                                                <TableColumn prefWidth="300.0" resizable="false" text="الأشهر">
+                                                   <columns>
+                                                      <TableColumn fx:id="janvierTable1" editable="false" prefWidth="25.0" text="1" />
+                                                      <TableColumn fx:id="fevrierTable1" editable="false" minWidth="2.0" prefWidth="25.0" text="2" />
+                                                      <TableColumn fx:id="marsTable1" editable="false" minWidth="9.0" prefWidth="25.0" text="3" />
+                                                      <TableColumn fx:id="avrilTable1" editable="false" prefWidth="25.0" text="4" />
+                                                      <TableColumn fx:id="mayTable1" editable="false" minWidth="0.0" prefWidth="25.0" text="5" />
+                                                      <TableColumn fx:id="juinTable1" editable="false" prefWidth="25.0" text="6" />
+                                                      <TableColumn fx:id="juillietTable1" editable="false" minWidth="0.0" prefWidth="25.0" text="7" />
+                                                      <TableColumn fx:id="aoutTable1" editable="false" prefWidth="25.0" text="8" />
+                                                      <TableColumn fx:id="septembreTable1" editable="false" prefWidth="25.0" text="9" />
+                                                      <TableColumn fx:id="octobreTable1" editable="false" prefWidth="25.0" text="10" />
+                                                      <TableColumn fx:id="novembreTable1" editable="false" prefWidth="25.0" text="11" />
+                                                      <TableColumn fx:id="decembreTable1" editable="false" prefWidth="25.0" text="12" />
+                                                   </columns>
+                                                </TableColumn>
+                                                <TableColumn fx:id="remarkTable1" prefWidth="548.0" text="الملاحظة" />
+                                             </columns>
+                                          </TableView>
+                                          <Separator layoutX="6.0" layoutY="314.0" prefHeight="4.0" prefWidth="1088.0" />
+                                          <Button fx:id="abstractEditPrivilege21" layoutX="22.0" layoutY="481.0" mnemonicParsing="false" onAction="#edit21" prefHeight="35.0" prefWidth="127.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>

@@ -26,7 +26,7 @@
                      <children>
                         <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
                           <tabs>
-                            <Tab closable="false" text="غرامات">
+                            <Tab closable="false" text="غرامات القطاع الصحي">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
@@ -69,6 +69,49 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab closable="false" text="غرامات القطاع العسكري">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                       <children>
+                                          <ComboBox fx:id="areaName1" layoutX="31.0" layoutY="23.0" onAction="#selectArea1" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName1" layoutX="309.0" layoutY="23.0" onAction="#selectLocation1" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectName1" layoutX="584.0" layoutY="23.0" onAction="#selectProject1" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
+                                          <ComboBox fx:id="locoremp1" layoutX="856.0" layoutY="23.0" onAction="#selectLocOrEmp1" prefHeight="35.0" prefWidth="240.0" promptText="موقع / موظف" />
+                                          <ComboBox fx:id="perOrCos1" layoutX="31.0" layoutY="70.0" onAction="#selectPerOrCos1" prefHeight="35.0" prefWidth="240.0" promptText="نسبة / تكلفة" />
+                                          <TextField fx:id="amountOfDeduction1" layoutX="310.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تكلفة الغرامة" />
+                                          <Label fx:id="per1" layoutX="397.0" layoutY="72.0" text="\%">
+                                             <font>
+                                                <Font name="System Bold" size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="typeDeduction1" layoutX="580.0" layoutY="70.0" prefHeight="35.0" prefWidth="517.0" promptText="نوع الغرامة " />
+                                          <ComboBox fx:id="occupationName1" layoutX="31.0" layoutY="118.0" onAction="#selectOccupation1" prefHeight="35.0" prefWidth="240.0" promptText="وظيفة الموظف" />
+                                          <ComboBox fx:id="employeeName1" layoutX="309.0" layoutY="118.0" onAction="#selectEmployee1" prefHeight="35.0" prefWidth="240.0" promptText="الموظف" />
+                                          <Button fx:id="penaltyAddPrivilege1" layoutX="22.0" layoutY="181.0" mnemonicParsing="false" onAction="#addDeduction1" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة غرامة" />
+                                          <Button fx:id="penaltyEditPrivilege1" layoutX="291.0" layoutY="181.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل الغرامة" />
+                                          <Button fx:id="penaltyDeletePrivilege1" layoutX="567.0" layoutY="181.0" mnemonicParsing="false" onAction="#deleteRow1" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف الغرامة" />
+                                          <TextField fx:id="search1" layoutX="834.0" layoutY="180.0" onKeyReleased="#search1" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
+                                          <TableView fx:id="deductionTableView1" fixedCellSize="0.0" layoutX="10.0" layoutY="229.0" onMouseClicked="#idReset1" prefHeight="314.0" prefWidth="1089.0">
+                                             <columns>
+                                                <TableColumn fx:id="projectNameTable1" prefWidth="217.0" text="المشروع" />
+                                                <TableColumn fx:id="amountOfDeductionTable1" prefWidth="239.0" text="تكلفة الغرامة" />
+                                                <TableColumn fx:id="typeDeductionTable1" prefWidth="255.0" text="نوع الغرامة" />
+                                                <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="192.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable1" editable="false" prefWidth="185.0" text="إسم الموقع" />
+                                                <TableColumn fx:id="employeeNameTable1" editable="false" prefWidth="185.0" text="الموظف" />
+                                                <TableColumn fx:id="nortTable1" prefWidth="239.0" text="نسبة / تكلفة" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>
