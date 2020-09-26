@@ -241,12 +241,13 @@ public class ProjectPageM implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -254,47 +255,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-                    projectAddPrivilege2.setDisable(true);
-                    projectAddPrivilege3.setDisable(true);
-                    projectAddPrivilege4.setDisable(true);
-                    projectAddPrivilege5.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-                    projectAddPrivilege2.setDisable(false);
-                    projectAddPrivilege3.setDisable(false);
-                    projectAddPrivilege4.setDisable(false);
-                    projectAddPrivilege5.setDisable(false);
-
-                }
-                if (rs.getInt("prde")==0){
-                    projectEditPrivilege1.setDisable(true);
-                    projectDeletePrivilege3.setDisable(true);
-                    projectDeletePrivilege4.setDisable(true);
-                    projectDeletePrivilege5.setDisable(true);
-
-                }else{
-                    projectEditPrivilege1.setDisable(false);
-                    projectDeletePrivilege3.setDisable(false);
-                    projectDeletePrivilege4.setDisable(false);
-                    projectDeletePrivilege5.setDisable(false);
-
-                }
-                if (rs.getInt("prsa1")==0){
-                    editPosition.setDisable(true);
-                }else{
-                    editPosition.setDisable(false);
-                }
-
-                if (rs.getInt("prde1")==0){
-                    projectDeletePrivilege2.setDisable(true);
-                }else{
-                    projectDeletePrivilege2.setDisable(false);
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -302,7 +263,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -310,7 +271,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -318,7 +279,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -326,7 +287,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -334,7 +295,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -342,7 +303,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -356,6 +317,54 @@ public class ProjectPageM implements Initializable {
                 }else{
                     repportMenuButton.setDisable(false);
 
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prma")==0){
+                    projectAddPrivilege3.setDisable(true);
+                    projectAddPrivilege4.setDisable(true);
+                    projectAddPrivilege2.setDisable(true);
+                    projectAddPrivilege5.setDisable(true);
+
+                }else{
+                    projectAddPrivilege3.setDisable(false);
+                    projectAddPrivilege4.setDisable(false);
+                    projectAddPrivilege2.setDisable(false);
+                    projectAddPrivilege5.setDisable(false);
+
+                }
+                if (rs.getInt("prmd")==0){
+                    projectDeletePrivilege4.setDisable(true);
+                    projectDeletePrivilege5.setDisable(true);
+
+                }else{
+                    projectDeletePrivilege4.setDisable(false);
+                    projectDeletePrivilege5.setDisable(false);
+
+                }
+                if (rs.getInt("prme")==0){
+                    projectEditPrivilege1.setDisable(true);
+
+                }else{
+                    projectEditPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("prmt")==0){
+                    editPosition.setDisable(true);
+
+                }else{
+                    editPosition.setDisable(false);
+
+                }
+                if (rs.getInt("prmi")==0){
+                    projectDeletePrivilege2.setDisable(true);
+                }else{
+                    projectDeletePrivilege2.setDisable(false);
                 }
             }
             pst.close();

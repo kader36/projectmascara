@@ -301,7 +301,7 @@
                                           <TextField fx:id="searchNationality" layoutX="820.0" layoutY="50.0" onKeyReleased="#searchNationality" prefHeight="35.0" prefWidth="240.0" promptText="بحث ..." />
                                           <TextField fx:id="newNationality" layoutX="57.0" layoutY="141.0" prefHeight="35.0" prefWidth="240.0" promptText="الجنسية" />
                                           <Button fx:id="addNationality" layoutX="55.0" layoutY="237.0" mnemonicParsing="false" onAction="#addNationality" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة جنسية" />
-                                          <Button layoutX="55.0" layoutY="326.0" mnemonicParsing="false" onAction="#deleteNationality" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف جنسية" />
+                                          <Button fx:id="delNationality" layoutX="55.0" layoutY="326.0" mnemonicParsing="false" onAction="#deleteNationality" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف جنسية" />
                                        </children>
                                     </AnchorPane>
                                 </content>

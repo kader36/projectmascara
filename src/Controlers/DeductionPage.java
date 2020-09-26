@@ -399,6 +399,10 @@ public class DeductionPage implements Initializable {
     private Button deductionAddPrivilege1;
     @FXML
     private Button deductionEditPrivilege;
+    @FXML
+    private Button deductionAddPrivilege2;
+    @FXML
+    private Button deductionDeletePrivilege2;
 
     @FXML
     private Button penaltyDeletePrivilege;
@@ -435,12 +439,13 @@ public class DeductionPage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -448,15 +453,7 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -464,7 +461,7 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -472,7 +469,7 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -480,7 +477,7 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -488,30 +485,15 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
-                    deductionAddPrivilege.setDisable(true);
-                    deductionAddPrivilege1.setDisable(true);
 
                 }else{
                     deductionMenuButton.setDisable(false);
-                    deductionAddPrivilege.setDisable(false);
-                    deductionAddPrivilege1.setDisable(false);
-
-                }
-                if (rs.getInt("dede")==0){
-                    deductionDeletePrivilege.setDisable(true);
-                    deductionDeletePrivilege1.setDisable(true);
-                    deductionEditPrivilege.setDisable(true);
-
-                }else{
-                    deductionDeletePrivilege.setDisable(false);
-                    deductionDeletePrivilege1.setDisable(false);
-                    deductionEditPrivilege.setDisable(false);
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -519,7 +501,7 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -532,6 +514,69 @@ public class DeductionPage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("desa")==0){
+                    deductionAddPrivilege.setDisable(true);
+
+                }else{
+                    deductionAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("desd")==0){
+                    deductionDeletePrivilege.setDisable(true);
+
+                }else{
+                    deductionDeletePrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("dese")==0){
+                    deductionEditPrivilege.setDisable(true);
+
+                }else{
+                    deductionEditPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("dema")==0){
+                    deductionAddPrivilege2.setDisable(true);
+
+                }else{
+                    deductionAddPrivilege2.setDisable(false);
+
+                }
+                if (rs.getInt("demd")==0){
+                    deductionEditPrivilege1.setDisable(true);
+
+                }else{
+                    deductionEditPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("deme")==0){
+                    deductionDeletePrivilege2.setDisable(true);
+
+                }else{
+                    deductionDeletePrivilege2.setDisable(false);
+
+                }
+                if (rs.getInt("desa")==0 && rs.getInt("dema")==0){
+                    deductionAddPrivilege1.setDisable(true);
+
+                }else{
+                    deductionAddPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("desd")==0 && rs.getInt("demd")==0){
+                    deductionDeletePrivilege1.setDisable(true);
+
+                }else{
+                    deductionDeletePrivilege1.setDisable(false);
 
                 }
             }

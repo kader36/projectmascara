@@ -70,7 +70,7 @@ public class UserPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
             pst.close();
@@ -238,13 +238,13 @@ public class UserPage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
 
-                if (rs.getInt("losa")==0){
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -252,15 +252,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -268,7 +260,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -276,7 +268,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -284,7 +276,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -292,7 +284,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -300,7 +292,7 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -308,28 +300,11 @@ public class UserPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
-                    userAddPrivilege.setDisable(true);
-                    userAddPrivilege1.setDisable(true);
 
                 }else{
                     userMenuButton.setDisable(false);
-                    userAddPrivilege.setDisable(false);
-                    userAddPrivilege1.setDisable(false);
-
-                }
-                if (rs.getInt("usde")==0){
-                    userDeletePrivilege.setDisable(true);
-                    userDeletePrivilege1.setDisable(true);
-                    userEditPrivilege.setDisable(true);
-                    userEditPrivilege1.setDisable(true);
-
-                }else{
-                    userDeletePrivilege.setDisable(false);
-                    userDeletePrivilege1.setDisable(false);
-                    userEditPrivilege.setDisable(false);
-                    userEditPrivilege1.setDisable(false);
 
                 }
 
@@ -338,6 +313,40 @@ public class UserPage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("ussa")==0){
+                    userAddPrivilege.setDisable(true);
+                    userAddPrivilege1.setDisable(true);
+
+                }else{
+                    userAddPrivilege.setDisable(false);
+                    userAddPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("ussd")==0){
+                    userDeletePrivilege.setDisable(true);
+                    userDeletePrivilege1.setDisable(true);
+
+                }else{
+                    userDeletePrivilege.setDisable(false);
+                    userDeletePrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("usse")==0){
+                    userEditPrivilege.setDisable(true);
+                    userEditPrivilege1.setDisable(true);
+
+                }else{
+                    userEditPrivilege.setDisable(false);
+                    userEditPrivilege1.setDisable(false);
 
                 }
             }
@@ -727,7 +736,7 @@ public class UserPage implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arsa"),rs.getInt("arde"),rs.getInt("losa"),rs.getInt("lode"),rs.getInt("prsa"),rs.getInt("prde"),rs.getInt("prsa1"),rs.getInt("prde1"),rs.getInt("grsa"),rs.getInt("grde"),rs.getInt("ocsa"),rs.getInt("ocde"),rs.getInt("emsa"),rs.getInt("emde"),rs.getInt("absa"),rs.getInt("abde"),rs.getInt("desa"),rs.getInt("dede"),rs.getInt("pesa"),rs.getInt("pede"),rs.getInt("ussa"),rs.getInt("usde"),rs.getInt("res"),rs.getString("privilegeName")));
+                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getString("privilegeName")));
 
             }
             pst.close();
@@ -961,153 +970,354 @@ public class UserPage implements Initializable {
     }
     @FXML
     private TextField privilegeNamee;
+
     @FXML
     private CheckBox arsa;
 
     @FXML
-    private CheckBox arde;
+    private CheckBox arss;
 
     @FXML
-    private CheckBox res;
+    private CheckBox arse;
+
+    @FXML
+    private CheckBox arsd;
 
     @FXML
     private CheckBox losa;
 
     @FXML
-    private CheckBox lode;
+    private CheckBox loss;
+
+    @FXML
+    private CheckBox lose;
+
+    @FXML
+    private CheckBox losd;
 
     @FXML
     private CheckBox prsa;
 
     @FXML
-    private CheckBox prde;
+    private CheckBox prss;
 
     @FXML
-    private CheckBox prsa1;
+    private CheckBox prse;
 
     @FXML
-    private CheckBox prde1;
+    private CheckBox prsd;
 
     @FXML
-    private CheckBox grsa;
+    private CheckBox prsi;
 
     @FXML
-    private CheckBox grde;
+    private CheckBox prst;
+
+    @FXML
+    private CheckBox prma;
+
+    @FXML
+    private CheckBox prme;
+
+    @FXML
+    private CheckBox prmd;
+
+    @FXML
+    private CheckBox prmi;
+
+    @FXML
+    private CheckBox prmt;
+
+    @FXML
+    private CheckBox gasa;
+
+    @FXML
+    private CheckBox gass;
+
+    @FXML
+    private CheckBox gase;
+
+    @FXML
+    private CheckBox gasd;
 
     @FXML
     private CheckBox ocsa;
 
     @FXML
-    private CheckBox ocde;
+    private CheckBox ocss;
+
+    @FXML
+    private CheckBox ocse;
+
+    @FXML
+    private CheckBox ocsd;
 
     @FXML
     private CheckBox emsa;
 
     @FXML
-    private CheckBox emde;
+    private CheckBox emss;
+
+    @FXML
+    private CheckBox emse;
+
+    @FXML
+    private CheckBox emsd;
 
     @FXML
     private CheckBox absa;
 
     @FXML
-    private CheckBox abde;
+    private CheckBox abss;
+
+    @FXML
+    private CheckBox abse;
+
+    @FXML
+    private CheckBox absd;
+
+    @FXML
+    private CheckBox abma;
+
+    @FXML
+    private CheckBox abme;
+
+    @FXML
+    private CheckBox abmd;
 
     @FXML
     private CheckBox desa;
 
     @FXML
-    private CheckBox dede;
+    private CheckBox dess;
+
+    @FXML
+    private CheckBox dese;
+
+    @FXML
+    private CheckBox desd;
+
+    @FXML
+    private CheckBox dema;
+
+    @FXML
+    private CheckBox deme;
+
+    @FXML
+    private CheckBox demd;
 
     @FXML
     private CheckBox pesa;
 
     @FXML
-    private CheckBox pede;
+    private CheckBox pess;
+
+    @FXML
+    private CheckBox pese;
+
+    @FXML
+    private CheckBox pesd;
+
+    @FXML
+    private CheckBox pema;
+
+    @FXML
+    private CheckBox peme;
+
+    @FXML
+    private CheckBox pemd;
 
     @FXML
     private CheckBox ussa;
 
     @FXML
-    private CheckBox usde;
+    private CheckBox usss;
+
+    @FXML
+    private CheckBox usse;
+
+    @FXML
+    private CheckBox ussd;
+
+    @FXML
+    private CheckBox res;
 
     @FXML
     void addPriv(ActionEvent event) {
+        int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0;
 
-        int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
-
+        if (arss.isSelected()){
+            arssi=1;
+        }
         if (arsa.isSelected()){
             arsai=1;
         }
-        if (arde.isSelected()){
-            ardei=1;
+        if (arsd.isSelected()){
+            arsdi=1;
+        }
+        if (arse.isSelected()){
+            arsei=1;
+        }
+        if (loss.isSelected()){
+            lossi=1;
         }
         if (losa.isSelected()){
             losai=1;
         }
-
-        if (lode.isSelected()){
-            lodei=1;
+        if (losd.isSelected()){
+            losdi=1;
+        }
+        if (lose.isSelected()){
+            losei=1;
+        }
+        if (prss.isSelected()){
+            prssi=1;
         }
         if (prsa.isSelected()){
             prsai=1;
         }
-        if (prde.isSelected()){
-            prdei=1;
+        if (prsd.isSelected()){
+            prsdi=1;
         }
-        if (prsa1.isSelected()){
-            prsai1=1;
+        if (prse.isSelected()){
+            prsei=1;
         }
-        if (prde1.isSelected()){
-            prdei1=1;
+        if (prst.isSelected()){
+            prsti=1;
         }
-        if (grsa.isSelected()){
-            grsai=1;
+        if (prsi.isSelected()){
+            prsii=1;
         }
-        if (grde.isSelected()){
-            grdei=1;
+        if (prma.isSelected()){
+            prmai=1;
+        }
+        if (prmd.isSelected()){
+            prmdi=1;
+        }
+        if (prme.isSelected()){
+            prmei=1;
+        }
+        if (prmt.isSelected()){
+            prmti=1;
+        }
+        if (prmi.isSelected()){
+            prmii=1;
+        }
+        if (gass.isSelected()){
+            gassi=1;
+        }
+        if (gasa.isSelected()){
+            gasai=1;
+        }
+        if (gasd.isSelected()){
+            gasdi=1;
+        }
+        if (gase.isSelected()){
+            gasei=1;
+        }
+        if (ocss.isSelected()){
+            ocssi=1;
         }
         if (ocsa.isSelected()){
             ocsai=1;
         }
-        if (ocde.isSelected()){
-            ocdei=1;
+        if (ocsd.isSelected()){
+            ocsdi=1;
         }
-
+        if (ocse.isSelected()){
+            ocsei=1;
+        }
+        if (emss.isSelected()){
+            emssi=1;
+        }
         if (emsa.isSelected()){
             emsai=1;
         }
-        if (emde.isSelected()){
-            emdei=1;
+        if (emsd.isSelected()){
+            emsdi=1;
+        }
+        if (emse.isSelected()){
+            emsei=1;
+        }
+        if (abss.isSelected()){
+            abssi=1;
         }
         if (absa.isSelected()){
             absai=1;
         }
-
-        if (abde.isSelected()){
-            abdei=1;
+        if (absd.isSelected()){
+            absdi=1;
+        }
+        if (abse.isSelected()){
+            absei=1;
+        }
+        if (abma.isSelected()){
+            abmai=1;
+        }
+        if (abmd.isSelected()){
+            abmdi=1;
+        }
+        if (abme.isSelected()){
+            abmei=1;
+        }
+        if (dess.isSelected()){
+            dessi=1;
         }
         if (desa.isSelected()){
             desai=1;
         }
-        if (dede.isSelected()){
-            dedei=1;
+        if (desd.isSelected()){
+            desdi=1;
         }
-
+        if (dese.isSelected()){
+            desei=1;
+        }
+        if (dema.isSelected()){
+            demai=1;
+        }
+        if (demd.isSelected()){
+            demdi=1;
+        }
+        if (deme.isSelected()){
+            demei=1;
+        }
+        if (pess.isSelected()){
+            pessi=1;
+        }
         if (pesa.isSelected()){
             pesai=1;
         }
-        if (pede.isSelected()){
-            pedei=1;
+        if (pesd.isSelected()){
+            pesdi=1;
+        }
+        if (pese.isSelected()){
+            pesei=1;
+        }
+        if (pema.isSelected()){
+            pemai=1;
+        }
+        if (pemd.isSelected()){
+            pemdi=1;
+        }
+        if (peme.isSelected()){
+            pemei=1;
+        }
+        if (usss.isSelected()){
+            usssi=1;
         }
         if (ussa.isSelected()){
             ussai=1;
         }
-        if (usde.isSelected()){
-            usdei=1;
+        if (ussd.isSelected()){
+            ussdi=1;
+        }
+        if (usse.isSelected()){
+            ussei=1;
         }
         if (res.isSelected()){
             resi=1;
         }
+
         int dejaExist2=0;
         int size2=0;
         try {
@@ -1133,33 +1343,65 @@ public class UserPage implements Initializable {
         }else{
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arsa`, `arde`, `losa`, `lode`, " +
-                        "`prsa`, `prde`,`prsa1`, `prde1`, `grsa`, `grde`, `ocsa`, `ocde`, `emsa`, `emde`, `absa`, `abde`, `desa`," +
-                        " `dede`, `pesa`, `pede`, `ussa`, `usde`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arss`, `arsa`, `arsd`, `arse`, `loss`, `losa`, `losd`, `lose`, `prss`, `prsa`, `prsd`, `prse`, `prst`, `prsi`, `prma`, `prmd`, `prme`, `prmt`, `prmi`, `gass`, `gasa`, `gasd`, `gase`, `ocss`, `ocsa`, `ocsd`, `ocse`, `emss`, `emsa`, `emsd`, `emse`, `abss`, `absa`, `absd`, `abse`, `abma`, `abmd`, `abme`, `dess`, `desa`, `desd`, `dese`, `dema`, `demd`, `deme`, `pess`, `pesa`, `pesd`, `pese`, `pema`, `pemd`, `peme`, `usss`, `ussa`, `ussd`, `usse`, `res`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 pst.setString(1,privilegeNamee.getText());
-                pst.setInt(2,arsai);
-                pst.setInt(3,ardei);
-                pst.setInt(4,losai);
-                pst.setInt(5,lodei);
-                pst.setInt(6,prsai);
-                pst.setInt(7,prdei);
-                pst.setInt(8,prsai1);
-                pst.setInt(9,prdei1);
-                pst.setInt(10,grsai);
-                pst.setInt(11,grdei);
-                pst.setInt(12,ocsai);
-                pst.setInt(13,ocdei);
-                pst.setInt(14,emsai);
-                pst.setInt(15,emdei);
-                pst.setInt(16,absai);
-                pst.setInt(17,abdei);
-                pst.setInt(18,desai);
-                pst.setInt(19,dedei);
-                pst.setInt(20,pesai);
-                pst.setInt(21,pedei);
-                pst.setInt(22,ussai);
-                pst.setInt(23,usdei);
-                pst.setInt(24,resi);
+                pst.setInt(2,arssi);
+                pst.setInt(3,arsai);
+                pst.setInt(4,arsdi);
+                pst.setInt(5,arsei);
+                pst.setInt(6,lossi);
+                pst.setInt(7,losai);
+                pst.setInt(8,losdi);
+                pst.setInt(9,losei);
+                pst.setInt(10,prssi);
+                pst.setInt(11,prsai);
+                pst.setInt(12,prsdi);
+                pst.setInt(13,prsei);
+                pst.setInt(14,prsti);
+                pst.setInt(15,prsii);
+                pst.setInt(16,prmai);
+                pst.setInt(17,prmdi);
+                pst.setInt(18,prmei);
+                pst.setInt(19,prmti);
+                pst.setInt(20,prmii);
+                pst.setInt(21,gassi);
+                pst.setInt(22,gasai);
+                pst.setInt(23,gasdi);
+                pst.setInt(24,gasei);
+                pst.setInt(25,ocssi);
+                pst.setInt(26,ocsai);
+                pst.setInt(27,ocsdi);
+                pst.setInt(28,ocsei);
+                pst.setInt(29,emssi);
+                pst.setInt(30,emsai);
+                pst.setInt(31,emsdi);
+                pst.setInt(32,emsei);
+                pst.setInt(33,abssi);
+                pst.setInt(34,absai);
+                pst.setInt(35,absdi);
+                pst.setInt(36,absei);
+                pst.setInt(37,abmai);
+                pst.setInt(38,abmdi);
+                pst.setInt(39,abmei);
+                pst.setInt(40,dessi);
+                pst.setInt(41,desai);
+                pst.setInt(42,desdi);
+                pst.setInt(43,desei);
+                pst.setInt(44,demai);
+                pst.setInt(45,demdi);
+                pst.setInt(46,demei);
+                pst.setInt(47,pessi);
+                pst.setInt(48,pesai);
+                pst.setInt(49,pesdi);
+                pst.setInt(50,pesei);
+                pst.setInt(51,pemai);
+                pst.setInt(52,pemdi);
+                pst.setInt(53,pemei);
+                pst.setInt(54,usssi);
+                pst.setInt(55,ussai);
+                pst.setInt(56,ussdi);
+                pst.setInt(57,ussei);
+                pst.setInt(58,resi);
                 pst.execute();
                 pst.close();
 
@@ -1171,29 +1413,64 @@ public class UserPage implements Initializable {
             }
             addToTable2();
             privilegeNamee.clear();
+            arss.setSelected(false);
             arsa.setSelected(false);
-            arde.setSelected(false);
+            arsd.setSelected(false);
+            arse.setSelected(false);
+            loss.setSelected(false);
             losa.setSelected(false);
-            lode.setSelected(false);
+            losd.setSelected(false);
+            lose.setSelected(false);
+            prss.setSelected(false);
             prsa.setSelected(false);
-            prde.setSelected(false);
-            prsa1.setSelected(false);
-            prde1.setSelected(false);
+            prsd.setSelected(false);
+            prse.setSelected(false);
+            prst.setSelected(false);
+            prsi.setSelected(false);
+            prma.setSelected(false);
+            prmd.setSelected(false);
+            prme.setSelected(false);
+            prmt.setSelected(false);
+            prmi.setSelected(false);
+            gass.setSelected(false);
+            gasa.setSelected(false);
+            gasd.setSelected(false);
+            gase.setSelected(false);
+            ocss.setSelected(false);
             ocsa.setSelected(false);
-            ocde.setSelected(false);
+            ocsd.setSelected(false);
+            ocse.setSelected(false);
+            emss.setSelected(false);
             emsa.setSelected(false);
-            emde.setSelected(false);
+            emsd.setSelected(false);
+            emse.setSelected(false);
+            abss.setSelected(false);
             absa.setSelected(false);
-            abde.setSelected(false);
+            absd.setSelected(false);
+            abse.setSelected(false);
+            abma.setSelected(false);
+            abmd.setSelected(false);
+            abme.setSelected(false);
+            dess.setSelected(false);
             desa.setSelected(false);
-            dede.setSelected(false);
+            desd.setSelected(false);
+            dese.setSelected(false);
+            dema.setSelected(false);
+            demd.setSelected(false);
+            deme.setSelected(false);
+            pess.setSelected(false);
             pesa.setSelected(false);
-            pede.setSelected(false);
+            pesd.setSelected(false);
+            pese.setSelected(false);
+            pema.setSelected(false);
+            pemd.setSelected(false);
+            peme.setSelected(false);
+            usss.setSelected(false);
             ussa.setSelected(false);
-            usde.setSelected(false);
+            ussd.setSelected(false);
+            usse.setSelected(false);
             res.setSelected(false);
-            grsa.setSelected(false);
-            grde.setSelected(false);
+
             fillComboPrivilege();
         }
 
@@ -1233,74 +1510,176 @@ public class UserPage implements Initializable {
         if (userEditPrivilege1.getText().contains("تعديل الصلاحية")){
             userEditPrivilege1.setText("حفظ");
             privilegeNamee.setText(privilegesTableView.getItems().get(index).getPrivilegeNamee());
+            if (privilegesTableView.getItems().get(index).getArss()==1){
+                arss.setSelected(true);
+            }
             if (privilegesTableView.getItems().get(index).getArsa()==1){
                 arsa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getArde()==1){
-                arde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getArsd()==1){
+                arsd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getArse()==1){
+                arse.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getLoss()==1){
+                loss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getLosa()==1){
                 losa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getLode()==1){
-                lode.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getLosd()==1){
+                losd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getLose()==1){
+                lose.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrss()==1){
+                prss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getPrsa()==1){
                 prsa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getPrde()==1){
-                prde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getPrsd()==1){
+                prsd.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getPrsa1()==1){
-                prsa1.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getPrse()==1){
+                prse.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getPrde1()==1){
-                prde1.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getPrst()==1){
+                prst.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrsi()==1){
+                prsi.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrma()==1){
+                prma.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrmd()==1){
+                prmd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrme()==1){
+                prme.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrmt()==1){
+                prmt.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrmi()==1){
+                prmi.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGass()==1){
+                gass.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGasa()==1){
+                gasa.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGasd()==1){
+                gasd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getGase()==1){
+                gase.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getOcss()==1){
+                ocss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getOcsa()==1){
                 ocsa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getOcde()==1){
-                ocde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getOcsd()==1){
+                ocsd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getOcse()==1){
+                ocse.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getEmss()==1){
+                emss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getEmsa()==1){
                 emsa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getEmde()==1){
-                emde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getEmsd()==1){
+                emsd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getEmse()==1){
+                emse.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbss()==1){
+                abss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getAbsa()==1){
                 absa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getAbde()==1){
-                abde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getAbsd()==1){
+                absd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbse()==1){
+                abse.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbma()==1){
+                abma.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbmd()==1){
+                abmd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getAbme()==1){
+                abme.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDess()==1){
+                dess.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getDesa()==1){
                 desa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getDede()==1){
-                dede.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getDesd()==1){
+                desd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDese()==1){
+                dese.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDema()==1){
+                dema.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDemd()==1){
+                demd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getDeme()==1){
+                deme.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPess()==1){
+                pess.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getPesa()==1){
                 pesa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getPede()==1){
-                pede.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getPesd()==1){
+                pesd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPese()==1){
+                pese.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPema()==1){
+                pema.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPemd()==1){
+                pemd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPeme()==1){
+                peme.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getUsss()==1){
+                usss.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getUssa()==1){
                 ussa.setSelected(true);
             }
-            if (privilegesTableView.getItems().get(index).getUsde()==1){
-                usde.setSelected(true);
+            if (privilegesTableView.getItems().get(index).getUssd()==1){
+                ussd.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getUsse()==1){
+                usse.setSelected(true);
             }
             if (privilegesTableView.getItems().get(index).getRes()==1){
                 res.setSelected(true);
-            }
-            if (privilegesTableView.getItems().get(index).getGrsa()==1){
-                grsa.setSelected(true);
-            }
-            if (privilegesTableView.getItems().get(index).getGrde()==1){
-                grde.setSelected(true);
             }
         }else if (userEditPrivilege1.getText().contains("حفظ")){
             int dejaExist2=0;
@@ -1329,109 +1708,241 @@ public class UserPage implements Initializable {
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
             }else{
                 try {
-                    int arsai=0,ardei=0,losai=0,lodei=0,prsai=0,prdei=0,prsai1=0,prdei1=0,grsai=0,grdei=0,ocsai=0,ocdei=0,emsai=0,emdei=0,absai=0,abdei=0,desai=0,dedei=0,pesai=0,pedei=0,ussai=0,usdei=0,resi=0;
+                    int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0;
 
+                    if (arss.isSelected()){
+                        arssi=1;
+                    }
                     if (arsa.isSelected()){
                         arsai=1;
                     }
-                    if (arde.isSelected()){
-                        ardei=1;
+                    if (arsd.isSelected()){
+                        arsdi=1;
+                    }
+                    if (arse.isSelected()){
+                        arsei=1;
+                    }
+                    if (loss.isSelected()){
+                        lossi=1;
                     }
                     if (losa.isSelected()){
                         losai=1;
                     }
-
-                    if (lode.isSelected()){
-                        lodei=1;
+                    if (losd.isSelected()){
+                        losdi=1;
+                    }
+                    if (lose.isSelected()){
+                        losei=1;
+                    }
+                    if (prss.isSelected()){
+                        prssi=1;
                     }
                     if (prsa.isSelected()){
                         prsai=1;
                     }
-                    if (prde.isSelected()){
-                        prdei=1;
+                    if (prsd.isSelected()){
+                        prsdi=1;
                     }
-                    if (prsa1.isSelected()){
-                        prsai1=1;
+                    if (prse.isSelected()){
+                        prsei=1;
                     }
-                    if (prde1.isSelected()){
-                        prdei1=1;
+                    if (prst.isSelected()){
+                        prsti=1;
                     }
-                    if (grsa.isSelected()){
-                        grsai=1;
+                    if (prsi.isSelected()){
+                        prsii=1;
                     }
-                    if (grde.isSelected()){
-                        grdei=1;
+                    if (prma.isSelected()){
+                        prmai=1;
+                    }
+                    if (prmd.isSelected()){
+                        prmdi=1;
+                    }
+                    if (prme.isSelected()){
+                        prmei=1;
+                    }
+                    if (prmt.isSelected()){
+                        prmti=1;
+                    }
+                    if (prmi.isSelected()){
+                        prmii=1;
+                    }
+                    if (gass.isSelected()){
+                        gassi=1;
+                    }
+                    if (gasa.isSelected()){
+                        gasai=1;
+                    }
+                    if (gasd.isSelected()){
+                        gasdi=1;
+                    }
+                    if (gase.isSelected()){
+                        gasei=1;
+                    }
+                    if (ocss.isSelected()){
+                        ocssi=1;
                     }
                     if (ocsa.isSelected()){
                         ocsai=1;
                     }
-                    if (ocde.isSelected()){
-                        ocdei=1;
+                    if (ocsd.isSelected()){
+                        ocsdi=1;
                     }
-
+                    if (ocse.isSelected()){
+                        ocsei=1;
+                    }
+                    if (emss.isSelected()){
+                        emssi=1;
+                    }
                     if (emsa.isSelected()){
                         emsai=1;
                     }
-                    if (emde.isSelected()){
-                        emdei=1;
+                    if (emsd.isSelected()){
+                        emsdi=1;
+                    }
+                    if (emse.isSelected()){
+                        emsei=1;
+                    }
+                    if (abss.isSelected()){
+                        abssi=1;
                     }
                     if (absa.isSelected()){
                         absai=1;
                     }
-
-                    if (abde.isSelected()){
-                        abdei=1;
+                    if (absd.isSelected()){
+                        absdi=1;
+                    }
+                    if (abse.isSelected()){
+                        absei=1;
+                    }
+                    if (abma.isSelected()){
+                        abmai=1;
+                    }
+                    if (abmd.isSelected()){
+                        abmdi=1;
+                    }
+                    if (abme.isSelected()){
+                        abmei=1;
+                    }
+                    if (dess.isSelected()){
+                        dessi=1;
                     }
                     if (desa.isSelected()){
                         desai=1;
                     }
-                    if (dede.isSelected()){
-                        dedei=1;
+                    if (desd.isSelected()){
+                        desdi=1;
                     }
-
+                    if (dese.isSelected()){
+                        desei=1;
+                    }
+                    if (dema.isSelected()){
+                        demai=1;
+                    }
+                    if (demd.isSelected()){
+                        demdi=1;
+                    }
+                    if (deme.isSelected()){
+                        demei=1;
+                    }
+                    if (pess.isSelected()){
+                        pessi=1;
+                    }
                     if (pesa.isSelected()){
                         pesai=1;
                     }
-                    if (pede.isSelected()){
-                        pedei=1;
+                    if (pesd.isSelected()){
+                        pesdi=1;
+                    }
+                    if (pese.isSelected()){
+                        pesei=1;
+                    }
+                    if (pema.isSelected()){
+                        pemai=1;
+                    }
+                    if (pemd.isSelected()){
+                        pemdi=1;
+                    }
+                    if (peme.isSelected()){
+                        pemei=1;
+                    }
+                    if (usss.isSelected()){
+                        usssi=1;
                     }
                     if (ussa.isSelected()){
                         ussai=1;
                     }
-                    if (usde.isSelected()){
-                        usdei=1;
+                    if (ussd.isSelected()){
+                        ussdi=1;
+                    }
+                    if (usse.isSelected()){
+                        ussei=1;
                     }
                     if (res.isSelected()){
                         resi=1;
                     }
                     con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `privileges` SET`privilegeName`=?,`arsa`=?,`arde`=?,`losa`=?,`lode`=?,`prsa`=?,`prde`=?,`prsa1`=?,`prde1`=?,`grsa`=?,`grde`=?,`ocsa`=?,`ocde`=?,`emsa`=?,`emde`=?,`absa`=?,`abde`=?,`desa`=?,`dede`=?,`pesa`=?,`pede`=?,`ussa`=?,`usde`=?,`res`=? WHERE `id`=?");
+                    pst = con.prepareStatement("UPDATE `privileges` SET `privilegeName`=?,`arss`=?,`arsa`=?,`arsd`=?,`arse`=?,`loss`=?,`losa`=?,`losd`=?,`lose`=?,`prss`=?,`prsa`=?,`prsd`=?,`prse`=?,`prst`=?,`prsi`=?,`prma`=?,`prmd`=?,`prme`=?,`prmt`=?,`prmi`=?,`gass`=?,`gasa`=?,`gasd`=?,`gase`=?,`ocss`=?,`ocsa`=?,`ocsd`=?,`ocse`=?,`emss`=?,`emsa`=?,`emsd`=?,`emse`=?,`abss`=?,`absa`=?,`absd`=?,`abse`=?,`abma`=?,`abmd`=?,`abme`=?,`dess`=?,`desa`=?,`desd`=?,`dese`=?,`dema`=?,`demd`=?,`deme`=?,`pess`=?,`pesa`=?,`pesd`=?,`pese`=?,`pema`=?,`pemd`=?,`peme`=?,`usss`=?,`ussa`=?,`ussd`=?,`usse`=?,`res`=? WHERE `id`=?");
 
                     pst.setString(1,privilegeNamee.getText());
-                    pst.setInt(2,arsai);
-                    pst.setInt(3,ardei);
-                    pst.setInt(4,losai);
-                    pst.setInt(5,lodei);
-                    pst.setInt(6,prsai);
-                    pst.setInt(7,prdei);
-                    pst.setInt(8,prsai1);
-                    pst.setInt(9,prdei1);
-                    pst.setInt(10,grsai);
-                    pst.setInt(11,grdei);
-                    pst.setInt(12,ocsai);
-                    pst.setInt(13,ocdei);
-                    pst.setInt(14,emsai);
-                    pst.setInt(15,emdei);
-                    pst.setInt(16,absai);
-                    pst.setInt(17,abdei);
-                    pst.setInt(18,desai);
-                    pst.setInt(19,dedei);
-                    pst.setInt(20,pesai);
-                    pst.setInt(21,pedei);
-                    pst.setInt(22,ussai);
-                    pst.setInt(23,usdei);
-                    pst.setInt(24,resi);
-                    pst.setInt(25,idEdit);
+                    pst.setInt(2,arssi);
+                    pst.setInt(3,arsai);
+                    pst.setInt(4,arsdi);
+                    pst.setInt(5,arsei);
+                    pst.setInt(6,lossi);
+                    pst.setInt(7,losai);
+                    pst.setInt(8,losdi);
+                    pst.setInt(9,losei);
+                    pst.setInt(10,prssi);
+                    pst.setInt(11,prsai);
+                    pst.setInt(12,prsdi);
+                    pst.setInt(13,prsei);
+                    pst.setInt(14,prsti);
+                    pst.setInt(15,prsii);
+                    pst.setInt(16,prmai);
+                    pst.setInt(17,prmdi);
+                    pst.setInt(18,prmei);
+                    pst.setInt(19,prmti);
+                    pst.setInt(20,prmii);
+                    pst.setInt(21,gassi);
+                    pst.setInt(22,gasai);
+                    pst.setInt(23,gasdi);
+                    pst.setInt(24,gasei);
+                    pst.setInt(25,ocssi);
+                    pst.setInt(26,ocsai);
+                    pst.setInt(27,ocsdi);
+                    pst.setInt(28,ocsei);
+                    pst.setInt(29,emssi);
+                    pst.setInt(30,emsai);
+                    pst.setInt(31,emsdi);
+                    pst.setInt(32,emsei);
+                    pst.setInt(33,abssi);
+                    pst.setInt(34,absai);
+                    pst.setInt(35,absdi);
+                    pst.setInt(36,absei);
+                    pst.setInt(37,abmai);
+                    pst.setInt(38,abmdi);
+                    pst.setInt(39,abmei);
+                    pst.setInt(40,dessi);
+                    pst.setInt(41,desai);
+                    pst.setInt(42,desdi);
+                    pst.setInt(43,desei);
+                    pst.setInt(44,demai);
+                    pst.setInt(45,demdi);
+                    pst.setInt(46,demei);
+                    pst.setInt(47,pessi);
+                    pst.setInt(48,pesai);
+                    pst.setInt(49,pesdi);
+                    pst.setInt(50,pesei);
+                    pst.setInt(51,pemai);
+                    pst.setInt(52,pemdi);
+                    pst.setInt(53,pemei);
+                    pst.setInt(54,usssi);
+                    pst.setInt(55,ussai);
+                    pst.setInt(56,ussdi);
+                    pst.setInt(57,ussei);
+                    pst.setInt(58,resi);
+                    pst.setInt(59,idEdit);
 
                     pst.execute();
                     pst.close();
@@ -1447,29 +1958,64 @@ public class UserPage implements Initializable {
                 addToTable2();
                 idEdit=0;
                 privilegeNamee.clear();
+                arss.setSelected(false);
                 arsa.setSelected(false);
-                arde.setSelected(false);
+                arsd.setSelected(false);
+                arse.setSelected(false);
+                loss.setSelected(false);
                 losa.setSelected(false);
-                lode.setSelected(false);
+                losd.setSelected(false);
+                lose.setSelected(false);
+                prss.setSelected(false);
                 prsa.setSelected(false);
-                prde.setSelected(false);
-                prsa1.setSelected(false);
-                prde1.setSelected(false);
+                prsd.setSelected(false);
+                prse.setSelected(false);
+                prst.setSelected(false);
+                prsi.setSelected(false);
+                prma.setSelected(false);
+                prmd.setSelected(false);
+                prme.setSelected(false);
+                prmt.setSelected(false);
+                prmi.setSelected(false);
+                gass.setSelected(false);
+                gasa.setSelected(false);
+                gasd.setSelected(false);
+                gase.setSelected(false);
+                ocss.setSelected(false);
                 ocsa.setSelected(false);
-                ocde.setSelected(false);
+                ocsd.setSelected(false);
+                ocse.setSelected(false);
+                emss.setSelected(false);
                 emsa.setSelected(false);
-                emde.setSelected(false);
+                emsd.setSelected(false);
+                emse.setSelected(false);
+                abss.setSelected(false);
                 absa.setSelected(false);
-                abde.setSelected(false);
+                absd.setSelected(false);
+                abse.setSelected(false);
+                abma.setSelected(false);
+                abmd.setSelected(false);
+                abme.setSelected(false);
+                dess.setSelected(false);
                 desa.setSelected(false);
-                dede.setSelected(false);
+                desd.setSelected(false);
+                dese.setSelected(false);
+                dema.setSelected(false);
+                demd.setSelected(false);
+                deme.setSelected(false);
+                pess.setSelected(false);
                 pesa.setSelected(false);
-                pede.setSelected(false);
+                pesd.setSelected(false);
+                pese.setSelected(false);
+                pema.setSelected(false);
+                pemd.setSelected(false);
+                peme.setSelected(false);
+                usss.setSelected(false);
                 ussa.setSelected(false);
-                usde.setSelected(false);
+                ussd.setSelected(false);
+                usse.setSelected(false);
                 res.setSelected(false);
-                grsa.setSelected(false);
-                grde.setSelected(false);
+
             }
 
         }
@@ -1480,29 +2026,65 @@ public class UserPage implements Initializable {
     void idReset2(MouseEvent event) {
         userEditPrivilege1.setText("تعديل الصلاحية");
         privilegeNamee.clear();
-            arsa.setSelected(false);
-            arde.setSelected(false);
-            losa.setSelected(false);
-            lode.setSelected(false);
-            prsa.setSelected(false);
-            prde.setSelected(false);
-            prsa1.setSelected(false);
-            prde1.setSelected(false);
-            ocsa.setSelected(false);
-            ocde.setSelected(false);
-            emsa.setSelected(false);
-            emde.setSelected(false);
-            absa.setSelected(false);
-            abde.setSelected(false);
-            desa.setSelected(false);
-            dede.setSelected(false);
-            pesa.setSelected(false);
-            pede.setSelected(false);
-            ussa.setSelected(false);
-            usde.setSelected(false);
-            res.setSelected(false);
-            grsa.setSelected(false);
-            grde.setSelected(false);
+        privilegeNamee.clear();
+        arss.setSelected(false);
+        arsa.setSelected(false);
+        arsd.setSelected(false);
+        arse.setSelected(false);
+        loss.setSelected(false);
+        losa.setSelected(false);
+        losd.setSelected(false);
+        lose.setSelected(false);
+        prss.setSelected(false);
+        prsa.setSelected(false);
+        prsd.setSelected(false);
+        prse.setSelected(false);
+        prst.setSelected(false);
+        prsi.setSelected(false);
+        prma.setSelected(false);
+        prmd.setSelected(false);
+        prme.setSelected(false);
+        prmt.setSelected(false);
+        prmi.setSelected(false);
+        gass.setSelected(false);
+        gasa.setSelected(false);
+        gasd.setSelected(false);
+        gase.setSelected(false);
+        ocss.setSelected(false);
+        ocsa.setSelected(false);
+        ocsd.setSelected(false);
+        ocse.setSelected(false);
+        emss.setSelected(false);
+        emsa.setSelected(false);
+        emsd.setSelected(false);
+        emse.setSelected(false);
+        abss.setSelected(false);
+        absa.setSelected(false);
+        absd.setSelected(false);
+        abse.setSelected(false);
+        abma.setSelected(false);
+        abmd.setSelected(false);
+        abme.setSelected(false);
+        dess.setSelected(false);
+        desa.setSelected(false);
+        desd.setSelected(false);
+        dese.setSelected(false);
+        dema.setSelected(false);
+        demd.setSelected(false);
+        deme.setSelected(false);
+        pess.setSelected(false);
+        pesa.setSelected(false);
+        pesd.setSelected(false);
+        pese.setSelected(false);
+        pema.setSelected(false);
+        pemd.setSelected(false);
+        peme.setSelected(false);
+        usss.setSelected(false);
+        ussa.setSelected(false);
+        ussd.setSelected(false);
+        usse.setSelected(false);
+        res.setSelected(false);
+
     }
 
 }

@@ -459,6 +459,10 @@ public class PenaltyPage implements Initializable {
     private Button penaltyAddPrivilege;
     @FXML
     private Button penaltyEditPrivilege;
+    @FXML
+    private Button penaltyAddPrivilege1;
+    @FXML
+    private Button penaltyDeletePrivilege1;
 
 
     int idConnected=0;
@@ -475,12 +479,13 @@ public class PenaltyPage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -488,15 +493,7 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -504,7 +501,7 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -512,7 +509,7 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -520,7 +517,7 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -528,7 +525,7 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -536,26 +533,15 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
-                    penaltyAddPrivilege.setDisable(true);
 
                 }else{
                     penaltyMenuButton.setDisable(false);
-                    penaltyAddPrivilege.setDisable(false);
-
-                }
-                if (rs.getInt("pede")==0){
-                    penaltyDeletePrivilege.setDisable(true);
-                    penaltyEditPrivilege.setDisable(true);
-
-                }else{
-                    penaltyDeletePrivilege.setDisable(false);
-                    penaltyEditPrivilege.setDisable(false);
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -568,6 +554,55 @@ public class PenaltyPage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("pesa")==0){
+                    penaltyAddPrivilege.setDisable(true);
+
+                }else{
+                    penaltyAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("pesd")==0){
+                    penaltyDeletePrivilege.setDisable(true);
+
+                }else{
+                    penaltyDeletePrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("pese")==0){
+                    penaltyEditPrivilege.setDisable(true);
+
+                }else{
+                    penaltyEditPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("pema")==0){
+                    penaltyAddPrivilege1.setDisable(true);
+
+                }else{
+                    penaltyAddPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("pemd")==0){
+                    penaltyDeletePrivilege1.setDisable(true);
+
+                }else{
+                    penaltyDeletePrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("peme")==0){
+                    penaltyEditPrivilege1.setDisable(true);
+
+                }else{
+                    penaltyEditPrivilege1.setDisable(false);
 
                 }
             }

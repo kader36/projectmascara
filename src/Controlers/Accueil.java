@@ -11,23 +11,76 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class Accueil  {
+public class Accueil implements Initializable {
         Connection con;
         PreparedStatement pst;
         ResultSet rs;
+    ObservableList<Notification> notifications= FXCollections.observableArrayList();
+    Date nowDate;
+    public void addToTable(){
+        notifications.clear();
+        Calendar now=Calendar.getInstance();
+        if ((now.get(Calendar.MONTH)+2)<=12){
+            nowDate= Date.valueOf(now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+2)+"-"+now.get(Calendar.DATE));
 
+        }else{
+            int a=now.get(Calendar.MONTH)+2-12;
+            System.out.println(a);
+            nowDate= Date.valueOf((now.get(Calendar.YEAR)+1)+"-"+a+"-"+now.get(Calendar.DATE));
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `residenceEndDate` <= ?");
+            pst.setString(1,nowDate.toString());
+            rs=pst.executeQuery();
+            while (rs.next()){
+                notifications.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية بطاقة إقامة",rs.getString("residenceEndDate")));
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `HealthCertificatEndDate` <= ?");
+            pst.setString(1,nowDate.toString());
+            rs=pst.executeQuery();
+            while (rs.next()){
+                notifications.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية الشهادة الصحية",rs.getString("HealthCertificatEndDate")));
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `employees` WHERE `ClassificationEndDate` <= ?");
+            pst.setString(1,nowDate.toString());
+            rs=pst.executeQuery();
+            while (rs.next()){
+                notifications.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية شهادة تصنيف الهيئة",rs.getString("ClassificationEndDate")));
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 
     @FXML
     private Label usernameMenu;
@@ -80,17 +133,13 @@ public class Accueil  {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("arde")==0){
 
-                }else{
-
-                }
-                if (rs.getInt("losa")==0){
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -98,15 +147,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -114,7 +155,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -122,7 +163,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -130,7 +171,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -138,7 +179,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -146,7 +187,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -154,7 +195,7 @@ public class Accueil  {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -167,6 +208,13 @@ public class Accueil  {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
 
                 }
             }
@@ -406,5 +454,24 @@ public class Accueil  {
             System.out.println(e.getMessage());
 
         }
+    }
+    @FXML
+    private TableView<Notification> notificationTableView;
+
+    @FXML
+    private TableColumn<Notification, String> endDate;
+
+    @FXML
+    private TableColumn<Notification, String> documentNotified;
+
+    @FXML
+    private TableColumn<Notification, String> employeeName;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addToTable();
+        employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        documentNotified.setCellValueFactory(new PropertyValueFactory<>("documentType"));
+        endDate.setCellValueFactory(new PropertyValueFactory<>("dateOfEnd"));
+        notificationTableView.setItems(notifications);
     }
 }

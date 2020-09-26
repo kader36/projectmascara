@@ -232,12 +232,13 @@ public class OccupationPage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -245,15 +246,7 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -261,26 +254,15 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
-                    occupationAddPrivilege.setDisable(true);
 
                 }else{
                     occupationMenuButton.setDisable(false);
-                    occupationAddPrivilege.setDisable(false);
-
-                }
-                if (rs.getInt("ocde")==0){
-                    occupationDeletePrivilege.setDisable(true);
-                    occupationEditPrivilege.setDisable(true);
-
-                }else{
-                    occupationDeletePrivilege.setDisable(false);
-                    occupationEditPrivilege.setDisable(false);
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -288,7 +270,7 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -296,7 +278,7 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -304,7 +286,7 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -312,7 +294,7 @@ public class OccupationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -325,6 +307,34 @@ public class OccupationPage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("ocsa")==0){
+                    occupationAddPrivilege.setDisable(true);
+
+                }else{
+                    occupationAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("ocsd")==0){
+                    occupationDeletePrivilege.setDisable(true);
+
+                }else{
+                    occupationDeletePrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("ocse")==0){
+                    occupationEditPrivilege.setDisable(true);
+
+                }else{
+                    occupationEditPrivilege.setDisable(false);
 
                 }
             }

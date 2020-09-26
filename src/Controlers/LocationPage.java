@@ -243,39 +243,21 @@ public class LocationPage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
-                    locationAddPrivilege.setDisable(true);
 
                 }else{
                     locationMenuButton.setDisable(false);
-                    locationAddPrivilege.setDisable(false);
-
-                }
-                if (rs.getInt("lode")==0){
-                    locationDeletePrivilege.setDisable(true);
-                    locationEditPrivilege.setDisable(true);
-
-                }else{
-                    locationDeletePrivilege.setDisable(false);
-                    locationEditPrivilege.setDisable(false);
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -283,7 +265,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -291,7 +273,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -299,7 +281,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -307,7 +289,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -315,7 +297,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -323,7 +305,7 @@ public class LocationPage implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -336,6 +318,34 @@ public class LocationPage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("losa")==0){
+                    locationAddPrivilege.setDisable(true);
+
+                }else{
+                    locationAddPrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("losd")==0){
+                    locationDeletePrivilege.setDisable(true);
+
+                }else{
+                    locationDeletePrivilege.setDisable(false);
+
+                }
+                if (rs.getInt("lose")==0){
+                    locationEditPrivilege.setDisable(true);
+
+                }else{
+                    locationEditPrivilege.setDisable(false);
 
                 }
             }

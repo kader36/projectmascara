@@ -6,16 +6,59 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class ProjectPage{
 
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
     @FXML
     private Label usernameMenu;
+    @FXML
+    private Button areaMenuButton;//c bn
+
+    @FXML
+    private Button locationMenuButton; //c bn
+
+    @FXML
+    private Button projectMenuButton;//mazel
+
+    @FXML
+    private Button garanteeMenuButton;// cbn
+
+    @FXML
+    private Button occupationMenuButton;// c bn
+
+    @FXML
+    private Button employeeMenuButton;// cbn
+
+    @FXML
+    private Button abstractMenuButton;// c bn
+
+    @FXML
+    private Button deductionMenuButton;// c bn
+
+    @FXML
+    private Button penaltyMenuButton;// c bn
+
+    @FXML
+    private Button userMenuButton;// c bn
+
+    @FXML
+    private Button repportMenuButton;//c bn
+
+
 
     int idConnected=0;
     String usernameConnected="";
@@ -25,6 +68,98 @@ public class ProjectPage{
         this.usernameConnected = usernameConnected;
         this.employeeNameConnected = employeeNameConnected;
         usernameMenu.setText(employeeNameConnected);
+        try {
+            con=new Controlers.ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
+            pst.setInt(1,idConnected);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("arss")==0){
+                    areaMenuButton.setDisable(true);
+                }else{
+                    areaMenuButton.setDisable(false);
+                }
+
+                if (rs.getInt("loss")==0){
+                    locationMenuButton.setDisable(true);
+
+                }else{
+                    locationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("gass")==0){
+                    garanteeMenuButton.setDisable(true);
+
+                }else{
+                    garanteeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("ocss")==0){
+                    occupationMenuButton.setDisable(true);
+
+                }else{
+                    occupationMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("emss")==0){
+                    employeeMenuButton.setDisable(true);
+
+                }else{
+                    employeeMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("abss")==0){
+                    abstractMenuButton.setDisable(true);
+
+                }else{
+                    abstractMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("dess")==0){
+                    deductionMenuButton.setDisable(true);
+
+                }else{
+                    deductionMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("pess")==0){
+                    penaltyMenuButton.setDisable(true);
+
+                }else{
+                    penaltyMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("usss")==0){
+                    userMenuButton.setDisable(true);
+
+                }else{
+                    userMenuButton.setDisable(false);
+
+                }
+
+                if (rs.getInt("res")==0){
+                    repportMenuButton.setDisable(true);
+                }else{
+                    repportMenuButton.setDisable(false);
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+                }else{
+                    projectMenuButton.setDisable(false);
+                }
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
     @FXML

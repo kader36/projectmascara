@@ -272,12 +272,13 @@ public class GaranteePage implements Initializable {
             pst.setInt(1,idConnected);
             rs=pst.executeQuery();
             while (rs.next()){
-                if (rs.getInt("arsa")==0){
+                if (rs.getInt("arss")==0){
                     areaMenuButton.setDisable(true);
                 }else{
                     areaMenuButton.setDisable(false);
                 }
-                if (rs.getInt("losa")==0){
+
+                if (rs.getInt("loss")==0){
                     locationMenuButton.setDisable(true);
 
                 }else{
@@ -285,38 +286,15 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("prsa")==0){
-                    projectMenuButton.setDisable(true);
-
-                }else{
-                    projectMenuButton.setDisable(false);
-
-                }
-
-                if (rs.getInt("grsa")==0){
+                if (rs.getInt("gass")==0){
                     garanteeMenuButton.setDisable(true);
-                    garanteeAddPrivilege.setDisable(true);
-                    garanteeAddPrivilege1.setDisable(true);
 
                 }else{
                     garanteeMenuButton.setDisable(false);
-                    garanteeAddPrivilege.setDisable(false);
-                    garanteeAddPrivilege1.setDisable(false);
-
-                }
-                if (rs.getInt("grde")==0){
-                    garanteeEditPrivilege.setDisable(true);
-                    garanteeDeletePrivilege.setDisable(true);
-                    garanteeDeletePrivilege1.setDisable(true);
-
-                }else{
-                    garanteeEditPrivilege.setDisable(false);
-                    garanteeDeletePrivilege.setDisable(false);
-                    garanteeDeletePrivilege1.setDisable(false);
 
                 }
 
-                if (rs.getInt("ocsa")==0){
+                if (rs.getInt("ocss")==0){
                     occupationMenuButton.setDisable(true);
 
                 }else{
@@ -324,7 +302,7 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("emsa")==0){
+                if (rs.getInt("emss")==0){
                     employeeMenuButton.setDisable(true);
 
                 }else{
@@ -332,7 +310,7 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("absa")==0){
+                if (rs.getInt("abss")==0){
                     abstractMenuButton.setDisable(true);
 
                 }else{
@@ -340,7 +318,7 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("desa")==0){
+                if (rs.getInt("dess")==0){
                     deductionMenuButton.setDisable(true);
 
                 }else{
@@ -348,7 +326,7 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("pesa")==0){
+                if (rs.getInt("pess")==0){
                     penaltyMenuButton.setDisable(true);
 
                 }else{
@@ -356,7 +334,7 @@ public class GaranteePage implements Initializable {
 
                 }
 
-                if (rs.getInt("ussa")==0){
+                if (rs.getInt("usss")==0){
                     userMenuButton.setDisable(true);
 
                 }else{
@@ -369,6 +347,38 @@ public class GaranteePage implements Initializable {
 
                 }else{
                     repportMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prss")==0){
+                    projectMenuButton.setDisable(true);
+
+                }else{
+                    projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("gasa")==0){
+                    garanteeAddPrivilege.setDisable(true);
+                    garanteeAddPrivilege1.setDisable(true);
+
+                }else{
+                    garanteeAddPrivilege.setDisable(false);
+                    garanteeAddPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("gasd")==0){
+                    garanteeDeletePrivilege.setDisable(true);
+                    garanteeDeletePrivilege1.setDisable(true);
+
+                }else{
+                    garanteeDeletePrivilege.setDisable(false);
+                    garanteeDeletePrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("gase")==0){
+                    garanteeEditPrivilege.setDisable(true);
+
+                }else{
+                    garanteeEditPrivilege.setDisable(false);
 
                 }
             }
