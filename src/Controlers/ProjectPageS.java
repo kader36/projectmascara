@@ -1162,7 +1162,22 @@ public class ProjectPageS implements Initializable {
 
         }
     }
+    public void home(MouseEvent mouseEvent) {
+        try {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
+            AnchorPane root = loader.load();
+            Accueil controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) mouseEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("الصفحة الرئيسية");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
 
     @FXML
     public void projects(ActionEvent actionEvent) {

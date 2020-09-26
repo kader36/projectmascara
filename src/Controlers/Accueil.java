@@ -377,23 +377,7 @@ public class Accueil  {
 
         }
     }
-    public void login(ActionEvent actionEvent) {
-        try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
-            AnchorPane root = loader.load();
-            ProjectPage controller = loader.getController();
-            controller.Init(idConnected,usernameConnected,employeeNameConnected);
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("المشاريع");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-
-        }
-
-    }
     @FXML
     private AnchorPane info;
 
@@ -407,4 +391,20 @@ public class Accueil  {
         }
     }
 
+    public void home(MouseEvent mouseEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
+            AnchorPane root = loader.load();
+            Accueil controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) mouseEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("الصفحة الرئيسية");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
 }

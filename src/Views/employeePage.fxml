@@ -61,7 +61,7 @@
                                              </effect>
                                           </TableView>
                                           <ComboBox fx:id="employeeType" layoutX="31.0" layoutY="14.0" onAction="#selectEmployeeType" prefHeight="35.0" prefWidth="200.0" promptText="نوغ الموظف" />
-                                          <AnchorPane fx:id="employeeAjnabi" layoutX="24.0" layoutY="58.0" prefHeight="147.0" prefWidth="1064.0">
+                                          <AnchorPane fx:id="employeeAjnabi" layoutX="24.0" layoutY="58.0" prefHeight="147.0" prefWidth="1064.0" visible="false">
                                              <children>
                                                 <TextField fx:id="employeeName2" layoutX="6.0" layoutY="11.0" prefHeight="35.0" prefWidth="200.0" promptText="إسم الموظف" />
                                                 <TextField fx:id="employeeNumber2" layoutX="215.0" layoutY="11.0" prefHeight="35.0" prefWidth="200.0" promptText="رقم الوظيفي" />
@@ -81,7 +81,7 @@
                                              </children>
                                           </AnchorPane>
                                           <ComboBox fx:id="employeeSex" layoutX="869.0" layoutY="14.0" prefHeight="35.0" prefWidth="200.0" promptText="الجنس" />
-                                          <AnchorPane fx:id="employeeSaoudi" layoutX="24.0" layoutY="59.0" prefHeight="147.0" prefWidth="1064.0" visible="false">
+                                          <AnchorPane fx:id="employeeSaoudi" layoutX="24.0" layoutY="59.0" prefHeight="147.0" prefWidth="1064.0">
                                              <children>
                                                 <TextField fx:id="employeeName" layoutX="6.0" layoutY="10.0" prefHeight="35.0" prefWidth="200.0" promptText="إسم الموظف" />
                                                 <TextField fx:id="employeeNumber" layoutX="215.0" layoutY="10.0" prefHeight="35.0" prefWidth="200.0" promptText="رقم الوظيفي" />
@@ -106,8 +106,8 @@
                                        <children>
                                           <AnchorPane layoutX="650.0" layoutY="5.0" prefHeight="562.0" prefWidth="431.0">
                                              <children>
-                                                <ImageView fx:id="imageHealth1" fitHeight="559.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <ImageView fx:id="imageClassification1" fitHeight="559.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="imageHealth1" fitHeight="559.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <ImageView fx:id="imageClassification1" fitHeight="559.0" fitWidth="430.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane layoutX="38.0" layoutY="6.0" prefHeight="215.0" prefWidth="195.0">
