@@ -489,22 +489,26 @@ public class RepportPage implements Initializable {
 
     }
     public void printTwo(ActionEvent actionEvent)  {
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else {
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report2.jrxml";
+                String querry="SELECT * FROM `projects`,`areas`, `users`,`privileges`,`locations`  WHERE areas.id=projects.areaId AND locations.id=projects.locationId AND projects.projectType='"+areaName1.getValue()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY areas.id";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
 
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report2.jrxml";
-            String querry="SELECT * FROM `projects`,`areas`, `users`,`privileges`,`locations`  WHERE areas.id=projects.areaId AND locations.id=projects.locationId AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY areas.id";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
-
-        } catch (JRException e) {
-            e.printStackTrace();
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
     public void printThree(ActionEvent actionEvent)  {
@@ -554,21 +558,26 @@ public class RepportPage implements Initializable {
 
     }
     public void printFive(ActionEvent actionEvent)  {
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report5.jrxml";
-            String querry="SELECT * FROM `deductions`,`projects`,`areas` ,`users`,`privileges`,`locations`  WHERE  deductions.idArea=areas.id AND  projects.locationId=locations.id AND deductions.idProject=projects.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY deductions.idProject";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else {
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report5.jrxml";
+                String querry="SELECT * FROM `deductions`,`projects`,`areas` ,`users`,`privileges`,`locations`  WHERE  deductions.idArea=areas.id AND  projects.locationId=locations.id AND projects.projectType='"+areaName1.getValue()+"' AND deductions.idProject=projects.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id GROUP BY deductions.idProject";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
 
-        } catch (JRException e) {
-            e.printStackTrace();
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
     public void printSix(ActionEvent actionEvent)  {
@@ -595,22 +604,26 @@ public class RepportPage implements Initializable {
 
     }
     public void printSeven(ActionEvent actionEvent)  {
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else {
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report7.jrxml";
+                String querry="SELECT * FROM `projectoccupations`,projects, areas, locations,occupations,`users`,`privileges` WHERE projectoccupations.idProject=projects.id AND projectoccupations.idOccupation=occupations.id AND  projects.projectType='"+areaName1.getValue()+"' AND projects.areaId = areas.id AND projects.locationId=locations.id AND (`maxNumber`-`realNumber`)>0  AND users.id="+idConnected+" AND users.privilegesId=privileges.id  ORDER BY projects.areaId,projects.locationId,projects.contractName ASC";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
 
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report7.jrxml";
-            String querry="SELECT * FROM `projectoccupations`,projects, areas, locations,occupations,`users`,`privileges` WHERE projectoccupations.idProject=projects.id AND projectoccupations.idOccupation=occupations.id AND projects.areaId = areas.id AND projects.locationId=locations.id AND (`maxNumber`-`realNumber`)>0  AND users.id="+idConnected+" AND users.privilegesId=privileges.id  ORDER BY projects.areaId,projects.locationId,projects.contractName ASC";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
-
-        } catch (JRException e) {
-            e.printStackTrace();
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
 
 
 
@@ -681,22 +694,26 @@ public class RepportPage implements Initializable {
 
     }
     public void printTen(ActionEvent actionEvent)  {
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else {
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report10.jrxml";
+                String querry="SELECT * FROM `abstract`,`areas`,`locations`,`projects`,`users`,`privileges`,`abstractyears` WHERE abstract.idProject=projects.id AND projects.projectType='"+areaName1.getValue()+"' AND abstract.id=abstractyears.idAbstract AND abstract.idArea = areas.id AND abstract.idLocation=locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY projects.areaId,projects.contractName ASC";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
 
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report10.jrxml";
-            String querry="SELECT * FROM `abstract`,`areas`,`locations`,`projects`,`users`,`privileges`,`abstractyears` WHERE abstract.idProject=projects.id AND abstract.id=abstractyears.idAbstract AND abstract.idArea = areas.id AND abstract.idLocation=locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY projects.areaId,projects.contractName ASC";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
-
-        } catch (JRException e) {
-            e.printStackTrace();
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
 
     }
 
@@ -736,23 +753,18 @@ public class RepportPage implements Initializable {
         locationName.getItems().clear();
         projectName.getItems().clear();
         fillComboLocation();
-
-
     }
     @FXML
     void selectLocation(ActionEvent event) {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
         fillComboProject();
-
     }
 
     @FXML
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-
-
     }
     public void fillComboLocation(){
         locations.clear();

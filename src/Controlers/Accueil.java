@@ -31,8 +31,7 @@ public class Accueil  {
 
     @FXML
     private Label usernameMenu;
-    @FXML
-    private Label usernameMenu1;
+
     @FXML
     private Button areaMenuButton;//c bn
 
@@ -75,7 +74,6 @@ public class Accueil  {
         this.usernameConnected = usernameConnected;
         this.employeeNameConnected = employeeNameConnected;
         usernameMenu.setText(employeeNameConnected);
-        usernameMenu1.setText(employeeNameConnected);
         try {
             con=new ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `users`,`privileges` WHERE users.id=? AND users.privilegesId=privileges.id");
