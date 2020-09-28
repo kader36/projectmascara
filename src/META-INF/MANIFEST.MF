@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Main-Class: Main
-Class-Path: lib/ecj-3.21.0.jar lib/commons-digester-2.1.jar lib/mysql-connector-java
- -5.1.49.jar lib/commons-logging-1.1.1.jar lib/commons-beanutils-1.9.4.jar lib/commo
- ns-logging-1.1.1.jar lib/commons-collections4-4.2.jar lib/jasperreports-6.14.0.
+Class-Path: jasperreports-6.14.0.jar commons-logging-1.1.1.jar ecj-3.21.
+ 0.jar commons-beanutils-1.9.4.jar mysql-connector-java-5.1.49.jar commo
+ ns-logging-1.1.1.jar commons-collections4-4.2.jar commons-digester-2.1.
  jar
 

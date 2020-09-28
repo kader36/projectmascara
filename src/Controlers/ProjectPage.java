@@ -184,7 +184,6 @@ public class ProjectPage{
 
     public void deduction(ActionEvent actionEvent) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/deductionPage.fxml"));
             AnchorPane root = loader.load();
             DeductionPage controller = loader.getController();
@@ -405,7 +404,6 @@ public class ProjectPage{
     }
     public void home(MouseEvent mouseEvent) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/accueil.fxml"));
             AnchorPane root = loader.load();
             Accueil controller = loader.getController();
@@ -421,7 +419,6 @@ public class ProjectPage{
     }
     public void goToMilitaire(ActionEvent actionEvent) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectPageM.fxml"));
             AnchorPane root = loader.load();
             ProjectPageM controller = loader.getController();

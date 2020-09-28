@@ -18,7 +18,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0" style="-fx-background-color: white;">
                      <children>
                         <Button layoutX="617.0" layoutY="227.0" mnemonicParsing="false" onAction="#goToSi7i" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع الصحي" />
-                        <Button layoutX="181.0" layoutY="227.0" mnemonicParsing="false" onAction="#goToMilitaire" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع الصحي" />
+                        <Button layoutX="181.0" layoutY="227.0" mnemonicParsing="false" onAction="#goToMilitaire" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع العسكري" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
