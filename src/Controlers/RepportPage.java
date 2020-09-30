@@ -24,7 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class RepportPage implements Initializable {
@@ -72,88 +71,6 @@ public class RepportPage implements Initializable {
 
     @FXML
     private Button repportMenuButton;//c bn
-
-    @FXML
-    private Button areaDeletePrivilege;
-    @FXML
-    private Button areaAddPrivilege;
-    @FXML
-    private Button areaEditPrivilege;
-
-    @FXML
-    private Button locationDeletePrivilege;
-    @FXML
-    private Button locationAddPrivilege;
-    @FXML
-    private Button locationEditPrivilege;
-
-    @FXML
-    private Button garanteeEditPrivilege;
-    @FXML
-    private Button garanteeAddPrivilege;
-    @FXML
-    private Button garanteeDeletePrivilege;
-    @FXML
-    private Button garanteeAddPrivilege1;
-    @FXML
-    private Button garanteeDeletePrivilege1;
-
-    @FXML
-    private Button occupationDeletePrivilege;
-    @FXML
-    private Button occupationAddPrivilege;
-    @FXML
-    private Button occupationEditPrivilege;
-
-    @FXML
-    private Button employeeDeletePrivilege;
-    @FXML
-    private Button employeeAddPrivilege;
-    @FXML
-    private Button employeeEditPrivilege;
-
-    @FXML
-    private Button abstractDeletePrivilege;
-    @FXML
-    private Button abstractAddPrivilege;
-    @FXML
-    private Button abstractDeletePrivilege1;
-    @FXML
-    private Button abstractAddPrivilege1;
-    @FXML
-    private Button abstractEditPrivilege;
-
-    @FXML
-    private Button deductionDeletePrivilege;
-    @FXML
-    private Button deductionAddPrivilege;
-    @FXML
-    private Button deductionDeletePrivilege1;
-    @FXML
-    private Button deductionAddPrivilege1;
-    @FXML
-    private Button deductionEditPrivilege;
-
-    @FXML
-    private Button penaltyDeletePrivilege;
-    @FXML
-    private Button penaltyAddPrivilege;
-    @FXML
-    private Button penaltyEditPrivilege;
-
-    @FXML
-    private Button userDeletePrivilege;
-    @FXML
-    private Button userAddPrivilege;
-    @FXML
-    private Button userDeletePrivilege1;
-    @FXML
-    private Button userAddPrivilege1;
-    @FXML
-    private Button userEditPrivilege;
-    @FXML
-    private Button userEditPrivilege1;
-
 
     int idConnected=0;
     String usernameConnected="";
@@ -505,7 +422,9 @@ public class RepportPage implements Initializable {
                 jv.viewReport( jasperPrint, false );
 
             } catch (JRException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println(e.getMessage());
+
             }
         }
 
@@ -658,9 +577,7 @@ public class RepportPage implements Initializable {
             primaryStage.setMaxWidth(460);
             primaryStage.show();
         }catch (Exception e){
-
             System.out.println(e.getMessage());
-
         }
     }
     public void printEight(ActionEvent actionEvent)  {

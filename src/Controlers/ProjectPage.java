@@ -385,11 +385,25 @@ public class ProjectPage{
 
         }
     }
+    public void goTo2(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPageM.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPageM controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("مشاريع القطاع العسكري");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
 
-    public void goToSi7i(ActionEvent actionEvent) {
+        }
+    }
+    public void goTo1(ActionEvent actionEvent) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectPageS.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPageS.fxml"));
             AnchorPane root = loader.load();
             ProjectPageS controller = loader.getController();
             controller.Init(idConnected,usernameConnected,employeeNameConnected);
@@ -417,19 +431,5 @@ public class ProjectPage{
 
         }
     }
-    public void goToMilitaire(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/ProjectPageM.fxml"));
-            AnchorPane root = loader.load();
-            ProjectPageM controller = loader.getController();
-            controller.Init(idConnected,usernameConnected,employeeNameConnected);
-            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            primaryStage.setTitle("مشاريع القطاع العسكري");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
 
-        }
-    }
 }

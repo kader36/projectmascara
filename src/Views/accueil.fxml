@@ -26,7 +26,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="notificationTableView" layoutX="14.0" layoutY="190.0" prefHeight="315.0" prefWidth="1068.0">
+                        <TableView fx:id="notificationTableView" layoutX="14.0" layoutY="190.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="315.0" prefWidth="1068.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="190.0">
                           <columns>
                               <TableColumn fx:id="endDate" prefWidth="231.0" text="تاريخ الإنتهاء" />
                             <TableColumn fx:id="documentNotified" minWidth="0.0" prefWidth="597.0" text="نوع التنبيه" />

@@ -15,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sun.security.provider.MD5;
 
 import java.net.URL;
 import java.security.MessageDigest;
@@ -2087,6 +2086,30 @@ public class UserPage implements Initializable {
 
     }
 
+
+    public void backup(ActionEvent actionEvent) {
+//        String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//        String path= date+".sql";
+//        Process p=null;
+//        try {
+//            Runtime runtime=Runtime.getRuntime();
+//
+//
+//            p=runtime.exec("C:/Users/mahdi/IdeaProjects/projectmascara2/src/Views/ -u root -p akader01 kara > C:/sakila_20200424.sql");
+//
+//            int processstate=p.waitFor();
+//            if (processstate==0){
+//                System.out.println("successfully uploaded");
+//            }else{
+//                System.out.println("erreur");
+//            }
+//
+//
+//        } catch (IOException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+    }
 }
 
 

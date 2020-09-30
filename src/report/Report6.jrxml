@@ -2,6 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cherry" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13acf49e-4913-4d1b-bccc-113817ad15d1">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testbase"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -148,99 +149,235 @@
 		<property name="com.jaspersoft.studio.field.label" value="privilegeName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
+	<field name="arss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="arss"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
 	<field name="arsa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="arsa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="arde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="arde"/>
+	<field name="arsd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="arsd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="arse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="arse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="loss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="loss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="losa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="losa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="lode" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="lode"/>
+	<field name="losd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="losd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="lose" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="lose"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="prsa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="prsa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="prde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="prde"/>
+	<field name="prsd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prsd"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="prsa1" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="prsa1"/>
+	<field name="prse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prse"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="prde1" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="prde1"/>
+	<field name="prst" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prst"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="grsa" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="grsa"/>
+	<field name="prsi" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prsi"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="grde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="grde"/>
+	<field name="prma" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prmd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prmd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prme" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prmt" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prmi" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prmi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gass" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gass"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gasa" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gasa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gasd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gasd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gase" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gase"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="ocss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="ocss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="ocsa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="ocsa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="ocde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="ocde"/>
+	<field name="ocsd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="ocsd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="ocse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="ocse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="emss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="emss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="emsa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="emsa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="emde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="emde"/>
+	<field name="emsd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="emsd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="emse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="emse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="absa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="absa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="abde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="abde"/>
+	<field name="absd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="absd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abse"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abma" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abma"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abmd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abmd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abme" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="dess" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dess"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="desa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="desa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="dede" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="dede"/>
+	<field name="desd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="desd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="dese" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dese"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="dema" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dema"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="demd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="demd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="deme" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="deme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="pess" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="pess"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="pesa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="pesa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="pede" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="pede"/>
+	<field name="pesd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="pesd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="pese" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="pese"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="pema" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="pema"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="pemd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="pemd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="peme" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="peme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="usss" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="usss"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="ussa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="ussa"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="usde" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="usde"/>
+	<field name="ussd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="ussd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="usse" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="usse"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
 	<field name="res" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="COLUMN_55" class="java.lang.Integer">
+	<field name="COLUMN_89" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="abstractyears"/>
 	</field>
@@ -311,7 +448,7 @@
 		<band height="277" splitType="Stretch">
 			<image>
 				<reportElement x="20" y="0" width="100" height="100" uuid="11247371-bd40-4735-9965-8ce0626c1caf"/>
-				<imageExpression><![CDATA["imgs/CompLogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:\\Users\\mahdi\\Desktop\\CompLogo.png"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="138" y="5" width="661" height="55" backcolor="#DBDBDB" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>

@@ -283,6 +283,16 @@
                                        </children></AnchorPane>
                               </content>
                             </Tab>
+                              <Tab closable="false" text="نسخة احتياطية">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <Button layoutX="483.0" layoutY="203.0" mnemonicParsing="false" onAction="#backup" text="تحميل نسخة احتياطية" />
+                                          <Button layoutX="483.0" layoutY="252.0" mnemonicParsing="false" text="تحميل نسخة احتياطية" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>
