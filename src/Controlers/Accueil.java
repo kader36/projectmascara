@@ -25,7 +25,9 @@ public class Accueil implements Initializable {
         PreparedStatement pst;
         ResultSet rs;
     ObservableList<Notification> notifications= FXCollections.observableArrayList();
-    Date nowDate;
+    ObservableList<Notification> notifications1= FXCollections.observableArrayList();
+    ObservableList<Notification> notifications2= FXCollections.observableArrayList();
+    Date nowDate,nowDate1,nowDate2;
     public void addToTable(){
         notifications.clear();
         Calendar now=Calendar.getInstance();
@@ -51,13 +53,27 @@ public class Accueil implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+    }
+    public void addToTable1(){
+        notifications1.clear();
+        Calendar now=Calendar.getInstance();
+        if ((now.get(Calendar.MONTH)+2)<=12){
+            nowDate1= Date.valueOf(now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+2)+"-"+now.get(Calendar.DATE));
+
+        }else{
+            int a=now.get(Calendar.MONTH)+2-12;
+            System.out.println(a);
+            nowDate1= Date.valueOf((now.get(Calendar.YEAR)+1)+"-"+a+"-"+now.get(Calendar.DATE));
+        }
+
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `employees` WHERE `HealthCertificatEndDate` <= ?");
-            pst.setString(1,nowDate.toString());
+            pst.setString(1,nowDate1.toString());
             rs=pst.executeQuery();
             while (rs.next()){
-                notifications.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية الشهادة الصحية",rs.getString("HealthCertificatEndDate")));
+                notifications1.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية الشهادة الصحية",rs.getString("HealthCertificatEndDate")));
             }
             pst.close();
 
@@ -65,17 +81,29 @@ public class Accueil implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
+    }
+    public void addToTable2(){
+        notifications2.clear();
+        Calendar now=Calendar.getInstance();
+        if ((now.get(Calendar.MONTH)+2)<=12){
+            nowDate2= Date.valueOf(now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+2)+"-"+now.get(Calendar.DATE));
+        }else{
+            int a=now.get(Calendar.MONTH)+2-12;
+            System.out.println(a);
+            nowDate2= Date.valueOf((now.get(Calendar.YEAR)+1)+"-"+a+"-"+now.get(Calendar.DATE));
+        }
+
         try {
             con=new Controlers.ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `employees` WHERE `ClassificationEndDate` <= ?");
-            pst.setString(1,nowDate.toString());
+            pst.setString(1,nowDate2.toString());
             rs=pst.executeQuery();
             while (rs.next()){
-                notifications.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية شهادة تصنيف الهيئة",rs.getString("ClassificationEndDate")));
+                notifications2.add(new Notification(rs.getInt("id"),rs.getString("employeeName"),"إنتهاء صلاحية شهادة تصنيف الهيئة",rs.getString("ClassificationEndDate")));
             }
             pst.close();
-
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -462,16 +490,40 @@ public class Accueil implements Initializable {
     private TableColumn<Notification, String> endDate;
 
     @FXML
-    private TableColumn<Notification, String> documentNotified;
+    private TableColumn<Notification, String> employeeName;
 
     @FXML
-    private TableColumn<Notification, String> employeeName;
+    private TableView<Notification> notificationTableView1;
+
+    @FXML
+    private TableColumn<Notification, String> endDate1;
+
+    @FXML
+    private TableColumn<Notification, String> employeeName1;
+
+    @FXML
+    private TableView<Notification> notificationTableView2;
+
+    @FXML
+    private TableColumn<Notification, String> endDate2;
+
+    @FXML
+    private TableColumn<Notification, String> employeeName2;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addToTable();
         employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-        documentNotified.setCellValueFactory(new PropertyValueFactory<>("documentType"));
         endDate.setCellValueFactory(new PropertyValueFactory<>("dateOfEnd"));
         notificationTableView.setItems(notifications);
+
+        addToTable1();
+        employeeName1.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        endDate1.setCellValueFactory(new PropertyValueFactory<>("dateOfEnd"));
+        notificationTableView1.setItems(notifications1);
+
+        addToTable2();
+        employeeName2.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        endDate2.setCellValueFactory(new PropertyValueFactory<>("dateOfEnd"));
+        notificationTableView2.setItems(notifications2);
     }
 }

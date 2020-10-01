@@ -502,7 +502,7 @@ public class ProjectPageM implements Initializable {
         projectEmployeesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND projects.projectType='مشروع قطاع عسكري'");
             rs=pst.executeQuery();
             while (rs.next()){
                 projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
@@ -1068,6 +1068,7 @@ public class ProjectPageM implements Initializable {
     public void fillComboArea2(){
         areas.clear();
         areaName1.getItems().clear();
+        areaNameEmployee.getItems().clear();
         try {
             con=new ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -1080,6 +1081,7 @@ public class ProjectPageM implements Initializable {
 
             for (int i=0;i<areas.size();i++){
                 areaName1.getItems().add(areas.get(i).getNameArea());
+                areaNameEmployee.getItems().add(areas.get(i).getNameArea());
             }
 
         } catch (SQLException throwables) {
@@ -1258,12 +1260,10 @@ public class ProjectPageM implements Initializable {
         projectEditPrivilege1.setText("تعديل مشروع");
         int index= projectTableView1.getSelectionModel().getSelectedIndex();
         idProject=projectTableView1.getItems().get(index).getProjectId();
-        System.out.println(idProject);
         fillTableMasroufate2();
+        fillTableProjectOccupation();
 
-        masroufatNameComboTable.setCellValueFactory(new PropertyValueFactory<>("masroufName"));
-        masroufPriceTable.setCellValueFactory(new PropertyValueFactory<>("masroufPrice"));
-        masroufat2TableView.setItems(masroufats2);
+
     }
 
 
@@ -1542,7 +1542,7 @@ public class ProjectPageM implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع صحي'");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع عسكري'");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -1577,6 +1577,28 @@ public class ProjectPageM implements Initializable {
         idProject=projects.get(index).getIdProject();
         fillComboOccupationEmployee();
 
+    }
+    public void fillComboOccupation(){
+        occupations.clear();
+        occupationName.getItems().clear();
+
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `occupations`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                occupations.add(new Occupation(rs.getInt("id"),rs.getString("occupationName")));
+
+            }
+            con.close();
+
+            for (int i=0;i<occupations.size();i++){
+                occupationName.getItems().add(occupations.get(i).getNameOcupation());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
     public void fillComboOccupationEmployee(){
         projectOccupation.clear();
@@ -1650,6 +1672,7 @@ public class ProjectPageM implements Initializable {
         fillComboArea2();
         fillProject();
         fillComboMasroufat();
+        fillComboOccupation();
 
         addToTableMilitaire();
         areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("areaName"));
@@ -1678,5 +1701,127 @@ public class ProjectPageM implements Initializable {
         masroufPriceTable.setCellValueFactory(new PropertyValueFactory<>("masroufPrice"));
         masroufat2TableView.setItems(masroufats2);
 
+        occupationNameTable.setCellValueFactory(new PropertyValueFactory<>("occupationName"));
+        maxNumberTable.setCellValueFactory(new PropertyValueFactory<>("maxNumber"));
+        realNumberTable.setCellValueFactory(new PropertyValueFactory<>("realNumber"));
+        projectOccupationTableView.setItems(projectOccupation);
+
+    }
+    @FXML
+    private TableView<ProjectOcupation> projectOccupationTableView;
+
+    @FXML
+    private TableColumn<ProjectOcupation, String> occupationNameTable;
+
+    @FXML
+    private TableColumn<ProjectOcupation, Integer> maxNumberTable;
+
+    @FXML
+    private TableColumn<ProjectOcupation, Integer> realNumberTable;
+    @FXML
+    private ComboBox<String> occupationName;
+
+    @FXML
+    private TextField maxNumber;
+
+    @FXML
+    void selectOccupation(ActionEvent event) {
+        int index= occupationName.getSelectionModel().getSelectedIndex();
+        idOccupation=occupations.get(index).getIdOcupation();
+    }
+
+    @FXML
+    void addProjectOccupation(ActionEvent event) {
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView1.getItems().get(index).getProjectId();
+
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations` WHERE `idOccupation`=? AND `idProject`=?");
+            pst.setInt(1,idOccupation);
+            pst.setInt(2,idProject);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size++;
+            }
+
+            if (size>0){
+                dejaExist=1;
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if (maxNumber.getText().isEmpty()||occupationName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+
+                pst=con.prepareStatement("INSERT INTO `projectoccupations`(`idProject`, `idOccupation`, `maxNumber`, `realNumber`) VALUES (?,?,?,?)");
+                pst.setInt(1,idProject);
+                pst.setInt(2,idOccupation);
+                pst.setInt(3,Integer.parseInt(maxNumber.getText()));
+                pst.setInt(4,0);
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            fillTableProjectOccupation();
+        }
+        dejaExist=0;
+        size=0;
+
+
+    }
+    public void fillTableProjectOccupation(){
+        projectOccupation.clear();
+        projectOccupationTableView.getItems().clear();
+        int index= projectTableView1.getSelectionModel().getSelectedIndex();
+        idProject=projectTableView1.getItems().get(index).getProjectId();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectoccupations`,`occupations` WHERE  projectoccupations.idOccupation=occupations.id AND projectoccupations.idProject=?");
+            pst.setInt(1,idProject);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectOccupation.add(new ProjectOcupation(rs.getInt("id"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("maxNumber"),rs.getInt("realNumber"),rs.getString("occupationName")));
+
+            }
+            con.close();
+
+
+        } catch (SQLException throwables) {
+            System.out.println("No Connection with DB");
+        }
+    }
+    @FXML
+    public void deleteRow2(ActionEvent actionEvent) {
+        int index= projectOccupationTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=projectOccupationTableView.getItems().get(index).getIdProjectOccupation();
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projectoccupations` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            fillTableProjectOccupation();
+        }
     }
 }

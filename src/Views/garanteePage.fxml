@@ -53,8 +53,8 @@
                                              </effect>
                                           </TableView>
                                           <TextArea fx:id="description" layoutX="19.0" layoutY="413.0" prefHeight="92.0" prefWidth="312.0" promptText="ملاحظة" />
-                                          <Button fx:id="garanteeAddPrivilege1" layoutX="17.0" layoutY="520.0" mnemonicParsing="false" onAction="#addHistorical" prefHeight="35.0" prefWidth="145.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة تحديث" />
-                                          <Button fx:id="garanteeDeletePrivilege1" layoutX="182.0" layoutY="520.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="152.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف تحديث" />
+                                          <Button fx:id="garanteeAddPrivilege1" layoutX="17.0" layoutY="520.0" mnemonicParsing="false" onAction="#addHistorical" prefHeight="35.0" prefWidth="100.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة تحديث" />
+                                          <Button fx:id="garanteeDeletePrivilege1" layoutX="234.0" layoutY="520.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="100.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف تحديث" />
                                           <TableView fx:id="historicalGaranteeTableView" layoutX="347.0" layoutY="412.0" onMouseClicked="#selectIdHistorical" prefHeight="143.0" prefWidth="752.0">
                                             <columns>
                                               <TableColumn fx:id="dateHistoricalTable" prefWidth="118.0" text="تاريخ التحديث" />
@@ -62,6 +62,7 @@
                                                 <TableColumn fx:id="nnameUserTable" prefWidth="165.0" text="الموظف" />
                                             </columns>
                                           </TableView>
+                                          <Button fx:id="garanteeEditPrivilege1" layoutX="126.0" layoutY="520.0" mnemonicParsing="false" onAction="#edit2" prefHeight="35.0" prefWidth="100.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل تحديث" />
                                        </children>
                                     </AnchorPane>
                               </content>

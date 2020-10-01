@@ -392,7 +392,7 @@
 		<band height="104" splitType="Stretch">
 			<image>
 				<reportElement x="10" y="7" width="94" height="90" uuid="9add56e1-262b-4e1f-a233-aa5c140a75c0"/>
-				<imageExpression><![CDATA["C:\\Users\\mahdi\\Desktop\\CompLogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["imgs/CompLogo.png"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="138" y="19" width="417" height="66" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>

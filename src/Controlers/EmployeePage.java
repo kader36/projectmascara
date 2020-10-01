@@ -39,7 +39,7 @@ public class EmployeePage implements Initializable {
     File file1=null,file2=null,file3=null;
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
     ObservableList<Nationality> nationalities= FXCollections.observableArrayList();
-    ObservableList<String> identityTypeList= FXCollections.observableArrayList("بطاقة هوية","جواز السفر","رخصة الإقامة");
+    ObservableList<String> identityTypeList= FXCollections.observableArrayList("جواز السفر","رخصة الإقامة");
     ObservableList<String> employeeTypeList= FXCollections.observableArrayList("موظف سعودي","موظف أجنبي");
     ObservableList<String> employeeSexList= FXCollections.observableArrayList("ذكر","أنثى");
     int idOccupation=0,idOccupation2=0;
@@ -209,9 +209,9 @@ public class EmployeePage implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if ((employeeType.getSelectionModel().getSelectedItem()=="موظف أجنبي")&&(employeeName2.getText().isEmpty() ||employeeNumber2.getText().isEmpty() ||employeeNationality2.getSelectionModel().isEmpty() ||identityType2.getSelectionModel().isEmpty() ||identityNumber2.getText().isEmpty() ||HealthCertificateNumber2.getText().isEmpty() ||ClassificationNumber2.getText().isEmpty() ||religion2.getText().isEmpty() ||residenceOccupation2.getText().isEmpty()  ||reelOccupation2.getSelectionModel().isEmpty()  ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate2.getEditor().getText().isEmpty()||HealthCertificateStartDate2.getEditor().getText().isEmpty()||HealthCertificatEndDate2.getEditor().getText().isEmpty()||ClassificationStartDate2.getEditor().getText().isEmpty()||ClassificationEndDate2.getEditor().getText().isEmpty())){
+        if ((employeeType.getSelectionModel().getSelectedItem()=="موظف أجنبي")&&(employeeName2.getText().isEmpty() ||employeeNumber2.getText().isEmpty() ||employeeNationality2.getSelectionModel().isEmpty() ||identityType2.getSelectionModel().isEmpty() ||identityNumber2.getText().isEmpty() ||HealthCertificateNumber2.getText().isEmpty() ||religion2.getText().isEmpty() ||residenceOccupation2.getText().isEmpty()  ||reelOccupation2.getSelectionModel().isEmpty()  ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate2.getEditor().getText().isEmpty()||HealthCertificateStartDate2.getEditor().getText().isEmpty()||HealthCertificatEndDate2.getEditor().getText().isEmpty())){
             warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else if ((employeeType.getSelectionModel().getSelectedItem()=="موظف سعودي")&&(employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||identityNumber.getText().isEmpty() ||HealthCertificateNumber.getText().isEmpty() ||ClassificationNumber.getText().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()||ClassificationStartDate.getEditor().getText().isEmpty()||ClassificationEndDate.getEditor().getText().isEmpty())){
+        }else if ((employeeType.getSelectionModel().getSelectedItem()=="موظف سعودي")&&(employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||identityNumber.getText().isEmpty() ||HealthCertificateNumber.getText().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty())){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -1336,10 +1336,14 @@ public class EmployeePage implements Initializable {
                 HealthCertificateStartDate2.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
                 HealthCertificatEndDate2.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getHealthCertificatEndDate()));
                 HealthCertificatEndDate2.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificatEndDate());
-                ClassificationStartDate2.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationStartDate()));
-                ClassificationStartDate2.getEditor().setText(employeeTableView.getItems().get(index).getClassificationStartDate());
-                ClassificationEndDate2.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationEndDate()));
-                ClassificationEndDate2.getEditor().setText(employeeTableView.getItems().get(index).getClassificationEndDate());
+                if (!employeeTableView.getItems().get(index).getClassificationStartDate().contains("null")){
+                    ClassificationStartDate2.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationStartDate()));
+                    ClassificationStartDate2.getEditor().setText(employeeTableView.getItems().get(index).getClassificationStartDate());
+                }
+                if (!employeeTableView.getItems().get(index).getClassificationEndDate().contains("null")){
+                    ClassificationEndDate2.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationEndDate()));
+                    ClassificationEndDate2.getEditor().setText(employeeTableView.getItems().get(index).getClassificationEndDate());
+                }
                 //              combobox
                 employeeType.setValue(employeeTableView.getItems().get(index).getEmployeeType());
                 employeeSex.setValue(employeeTableView.getItems().get(index).getEmployeeSex());
@@ -1366,10 +1370,14 @@ public class EmployeePage implements Initializable {
                 HealthCertificateStartDate.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificateStartDate());
                 HealthCertificatEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getHealthCertificatEndDate()));
                 HealthCertificatEndDate.getEditor().setText(employeeTableView.getItems().get(index).getHealthCertificatEndDate());
-                ClassificationStartDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationStartDate()));
-                ClassificationStartDate.getEditor().setText(employeeTableView.getItems().get(index).getClassificationStartDate());
-                ClassificationEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationEndDate()));
-                ClassificationEndDate.getEditor().setText(employeeTableView.getItems().get(index).getClassificationEndDate());
+                if (!employeeTableView.getItems().get(index).getClassificationStartDate().contains("null")){
+                    ClassificationStartDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationStartDate()));
+                    ClassificationStartDate.getEditor().setText(employeeTableView.getItems().get(index).getClassificationStartDate());
+                }
+                if (!employeeTableView.getItems().get(index).getClassificationEndDate().contains("null")){
+                    ClassificationEndDate.setValue(LocalDate.parse(employeeTableView.getItems().get(index).getClassificationEndDate()));
+                    ClassificationEndDate.getEditor().setText(employeeTableView.getItems().get(index).getClassificationEndDate());
+                }
                 //              combobox
                 employeeType.setValue(employeeTableView.getItems().get(index).getEmployeeType());
                 employeeSex.setValue(employeeTableView.getItems().get(index).getEmployeeSex());
@@ -1415,9 +1423,9 @@ public class EmployeePage implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            if ((employeeType.getSelectionModel().getSelectedItem()=="موظف أجنبي")&&(employeeName2.getText().isEmpty() ||employeeNumber2.getText().isEmpty() ||employeeNationality2.getSelectionModel().isEmpty() ||identityType2.getSelectionModel().isEmpty() ||identityNumber2.getText().isEmpty() ||HealthCertificateNumber2.getText().isEmpty() ||ClassificationNumber2.getText().isEmpty() ||religion2.getText().isEmpty() ||residenceOccupation2.getText().isEmpty()  ||reelOccupation2.getSelectionModel().isEmpty()  ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate2.getEditor().getText().isEmpty()||HealthCertificateStartDate2.getEditor().getText().isEmpty()||HealthCertificatEndDate2.getEditor().getText().isEmpty()||ClassificationStartDate2.getEditor().getText().isEmpty()||ClassificationEndDate2.getEditor().getText().isEmpty())){
+            if ((employeeType.getSelectionModel().getSelectedItem()=="موظف أجنبي")&&(employeeName2.getText().isEmpty() ||employeeNumber2.getText().isEmpty() ||employeeNationality2.getSelectionModel().isEmpty() ||identityType2.getSelectionModel().isEmpty() ||identityNumber2.getText().isEmpty() ||HealthCertificateNumber2.getText().isEmpty() ||religion2.getText().isEmpty() ||residenceOccupation2.getText().isEmpty()  ||reelOccupation2.getSelectionModel().isEmpty()  ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate2.getEditor().getText().isEmpty()||HealthCertificateStartDate2.getEditor().getText().isEmpty()||HealthCertificatEndDate2.getEditor().getText().isEmpty())){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
-            }else if ((employeeType.getSelectionModel().getSelectedItem()=="موظف سعودي")&&(employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||identityNumber.getText().isEmpty() ||HealthCertificateNumber.getText().isEmpty() ||ClassificationNumber.getText().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty()||ClassificationStartDate.getEditor().getText().isEmpty()||ClassificationEndDate.getEditor().getText().isEmpty())){
+            }else if ((employeeType.getSelectionModel().getSelectedItem()=="موظف سعودي")&&(employeeName.getText().isEmpty() ||employeeNumber.getText().isEmpty() ||identityNumber.getText().isEmpty() ||HealthCertificateNumber.getText().isEmpty() ||reelOccupation.getSelectionModel().isEmpty() ||employeeSex.getSelectionModel().isEmpty() ||residenceEndDate.getEditor().getText().isEmpty()||HealthCertificateStartDate.getEditor().getText().isEmpty()||HealthCertificatEndDate.getEditor().getText().isEmpty())){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else if(dejaExist==1){
                 warningMsg("تنبيه","المعلومات موجودة من قبل");

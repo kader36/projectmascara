@@ -950,6 +950,8 @@ public class GaranteePage implements Initializable {
     public void selectIdHistorical(MouseEvent mouseEvent) {
         int index=historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
         idHistorical=historicalGaranteeTableView.getItems().get(index).getIdHistorical();
+        garanteeEditPrivilege1.setText("تعديل تحديث");
+        description.clear();
     }
 
     public void addHistorical(ActionEvent actionEvent) {
@@ -1002,4 +1004,38 @@ public class GaranteePage implements Initializable {
             fillTableHistoricalGarantee();
         }
     }
+
+    @FXML
+    private Button garanteeEditPrivilege1;
+    public void edit2(ActionEvent actionEvent) {
+
+        int index= historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
+        int idEdit= historicalGaranteeTableView.getItems().get(index).getIdHistorical();
+
+        if (garanteeEditPrivilege1.getText().contains("تعديل تحديث")){
+            garanteeEditPrivilege1.setText("حفظ");
+            description.setText(historicalGaranteeTableView.getItems().get(index).getDescription());
+        }else if (garanteeEditPrivilege1.getText().contains("حفظ")){
+            try {
+                con = new Controlers.ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `historicalgarantees` SET `description`=? WHERE `id`=?");
+                pst.setString(1, description.getText());
+                pst.setInt(2, idEdit);
+                pst.execute();
+                warningMsg("تعديل","تم التعديل بنجاح");
+                garanteeEditPrivilege1.setText("تعديل تحديث");
+                pst.close();
+                description.clear();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء التعديل");
+            }
+            fillTableHistoricalGarantee();
+            idEdit=0;
+        }
+
+
+    }
+
 }

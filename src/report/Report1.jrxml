@@ -450,7 +450,7 @@
 			</frame>
 			<image>
 				<reportElement x="11" y="0" width="100" height="101" uuid="1646d428-d04f-4abe-a0a0-136d7385e0c9"/>
-				<imageExpression><![CDATA["C:\\Users\\mahdi\\Desktop\\CompLogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["imgs/CompLogo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

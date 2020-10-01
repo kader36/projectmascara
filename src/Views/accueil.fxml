@@ -26,11 +26,10 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="notificationTableView" layoutX="14.0" layoutY="190.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="315.0" prefWidth="1068.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="190.0">
+                        <TableView fx:id="notificationTableView" layoutX="749.0" layoutY="235.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="273.0" prefWidth="313.0" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="749.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="235.0">
                           <columns>
-                              <TableColumn fx:id="endDate" prefWidth="231.0" text="تاريخ الإنتهاء" />
-                            <TableColumn fx:id="documentNotified" minWidth="0.0" prefWidth="597.0" text="نوع التنبيه" />
-                              <TableColumn fx:id="employeeName" prefWidth="239.0" text="الإسم و اللقب" />
+                              <TableColumn fx:id="employeeName" prefWidth="182.0" text="الإسم الكامل" />
+                              <TableColumn fx:id="endDate" prefWidth="111.0" text="تاريخ الإنتهاء" />
                           </columns>
                         </TableView>
                         <ImageView fitHeight="150.0" fitWidth="164.0" layoutX="476.0" layoutY="25.0" onMouseClicked="#LogoutButton" pickOnBounds="true" preserveRatio="true">
@@ -38,6 +37,21 @@
                               <Image url="@../imgs/CompLogo.png" />
                            </image>
                         </ImageView>
+                        <TableView fx:id="notificationTableView1" layoutX="382.0" layoutY="235.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="273.0" prefWidth="313.0">
+                           <columns>
+                              <TableColumn fx:id="employeeName1" prefWidth="182.0" text="الإسم الكامل" />
+                              <TableColumn fx:id="endDate1" prefWidth="113.0" text="تاريخ الإنتهاء" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="notificationTableView2" layoutX="14.0" layoutY="235.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="273.0" prefWidth="313.0">
+                           <columns>
+                              <TableColumn fx:id="employeeName2" prefWidth="182.0" text="الإسم الكامل" />
+                              <TableColumn fx:id="endDate2" prefWidth="116.0" text="تاريخ الإنتهاء" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="995.0" layoutY="205.0" text="شهادة الإقامة" />
+                        <Label layoutX="609.0" layoutY="205.0" text="الشهادات الصحية" />
+                        <Label layoutX="211.0" layoutY="205.0" text="الشهادات تصنيف الهيئة" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
