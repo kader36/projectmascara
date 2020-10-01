@@ -287,8 +287,23 @@
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                                        <children>
-                                          <Button layoutX="483.0" layoutY="203.0" mnemonicParsing="false" onAction="#backup" text="تحميل نسخة احتياطية" />
-                                          <Button layoutX="483.0" layoutY="252.0" mnemonicParsing="false" text="تحميل نسخة احتياطية" />
+                                          <Button layoutX="139.0" layoutY="353.0" mnemonicParsing="false" onAction="#backup" prefHeight="73.0" prefWidth="279.0" styleClass="editButton" stylesheets="@../css/style.css" text="تحميل" />
+                                          <Separator layoutX="555.0" orientation="VERTICAL" prefHeight="578.0" prefWidth="1.0" />
+                                          <TextField fx:id="backup_link" alignment="CENTER" editable="false" layoutX="114.0" layoutY="273.0" prefHeight="37.0" prefWidth="401.0" promptText="مسار التسجيل" />
+                                          <Button layoutX="48.0" layoutY="273.0" mnemonicParsing="false" onAction="#backup_up" prefHeight="37.0" prefWidth="65.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إختيار" />
+                                          <Button layoutX="687.0" layoutY="353.0" mnemonicParsing="false" onAction="#restore" prefHeight="73.0" prefWidth="279.0" styleClass="editButton" stylesheets="@../css/style.css" text="إسترجاع" />
+                                          <TextField fx:id="restore_link" alignment="CENTER" editable="false" layoutX="662.0" layoutY="273.0" prefHeight="37.0" prefWidth="401.0" promptText="مسار الإسترجاع" />
+                                          <Button layoutX="596.0" layoutY="273.0" mnemonicParsing="false" onAction="#restore_up" prefHeight="37.0" prefWidth="65.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إختيار" />
+                                          <ImageView fitHeight="74.0" fitWidth="79.0" layoutX="238.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/dbbackup.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fitHeight="74.0" fitWidth="79.0" layoutX="790.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../imgs/dbrestore.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                 </content>

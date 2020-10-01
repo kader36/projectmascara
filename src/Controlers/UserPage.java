@@ -10,12 +10,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,9 +29,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
-public class UserPage implements Initializable {
+public class UserPage extends Component implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
@@ -38,6 +46,12 @@ public class UserPage implements Initializable {
 
     @FXML
     private TextField employeeName;
+
+    @FXML
+    private TextField backup_link;
+
+    @FXML
+    private TextField restore_link;
 
     @FXML
     private ComboBox<String> areaName;
@@ -2087,28 +2101,76 @@ public class UserPage implements Initializable {
     }
 
 
-    public void backup(ActionEvent actionEvent) {
-//        String date= new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//        String path= date+".sql";
-//        Process p=null;
-//        try {
-//            Runtime runtime=Runtime.getRuntime();
-//
-//
-//            p=runtime.exec("C:/Users/mahdi/IdeaProjects/projectmascara2/src/Views/ -u root -p akader01 kara > C:/sakila_20200424.sql");
-//
-//            int processstate=p.waitFor();
-//            if (processstate==0){
-//                System.out.println("successfully uploaded");
-//            }else{
-//                System.out.println("erreur");
-//            }
-//
-//
-//        } catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//        }
+String path=null,path2=null;
+    public void backup_up(ActionEvent actionEvent) {
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(this);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
+        try {
+            File f =fc.getSelectedFile();
+            path = f.getAbsolutePath();
+            path = path.replace('\\', '/');
+            path = path + "_" + date + ".sql";
+            backup_link.setText(path);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    Process p=null;
+    public void backup(ActionEvent actionEvent) {
+
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            p=runtime.exec("C:/AppServ/MySQL/bin/mysqldump.exe -uroot -pakader01 --add-drop-database -B kara -r"+path);
+
+            int processComplete = p.waitFor();
+            System.out.println(processComplete);
+            if (processComplete==0) {
+                warningMsg("نسخة احتياطية","تم تحميل النسخة الإحتياطية بنجاح");
+            }else{
+                warningMsg("نسخة احتياطية","حدث خطأ أثناء تحميل النسخة الإحتياطية");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    Process runtimProcess;
+
+    public void restore(ActionEvent actionEvent) {
+        String dbUserName = "root";// username
+        String dbPassword = "akader01";//Password
+
+        String[] restoreCmd = new String[]{"C:/AppServ/MySQL/bin/mysql.exe", "--user=" + dbUserName, "--password=" + dbPassword, "-e", "source " + path2};
+        try {
+            runtimProcess = Runtime.getRuntime().exec(restoreCmd);
+            int proceCom = runtimProcess.waitFor();
+
+            if (proceCom==0) {
+                warningMsg("نسخة احتياطية","تم إسترجاع النسخة الإحتياطية بنجاح");
+            }else{
+                warningMsg("نسخة احتياطية","حدث خطأ أثناء إسترجاع النسخة الإحتياطية");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restore_up(ActionEvent actionEvent) {
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(this);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        try {
+            File f =fc.getSelectedFile();
+            path2 = f.getAbsolutePath();
+            path2 = path2.replace('\\', '/');
+            restore_link.setText(path2);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
