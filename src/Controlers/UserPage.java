@@ -83,14 +83,12 @@ public class UserPage extends Component implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getString("privilegeName")));
+                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getString("privilegeName")));
+                privilegeName.getItems().add(rs.getString("privilegeName"));
 
             }
             pst.close();
 
-            for (int i=0;i<privileges.size();i++){
-                privilegeName.getItems().add(privileges.get(i).getPrivilegeNamee());
-            }
 
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -1510,6 +1508,7 @@ public class UserPage extends Component implements Initializable {
             }
             idDelete=0;
             addToTable2();
+            fillComboPrivilege();
         }
     }
 
@@ -2028,7 +2027,7 @@ public class UserPage extends Component implements Initializable {
                 ussd.setSelected(false);
                 usse.setSelected(false);
                 res.setSelected(false);
-
+                fillComboPrivilege();
             }
 
         }
@@ -2161,7 +2160,6 @@ String path=null,path2=null;
         JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(this);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
         try {
             File f =fc.getSelectedFile();
             path2 = f.getAbsolutePath();

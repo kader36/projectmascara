@@ -1615,7 +1615,7 @@ public class AbstractPage implements Initializable {
             pst.setInt(1,idAbstract);
             rs=pst.executeQuery();
             while (rs.next()){
-                abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
+                abstractYearsTable.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm"),rs.getString("remark")));
 
             }
             pst.close();
@@ -1636,7 +1636,7 @@ public class AbstractPage implements Initializable {
             pst.setInt(1,idAbstract);
             rs=pst.executeQuery();
             while (rs.next()){
-                abstractYearsTable1.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("nov"),rs.getString("oct"),rs.getString("dcm"),rs.getString("remark")));
+                abstractYearsTable1.add(new AbstractForTable2(rs.getInt("id"),rs.getInt("idAbstract"),rs.getString("year"),rs.getString("jan"),rs.getString("feb"),rs.getString("mar"),rs.getString("apr"),rs.getString("may"),rs.getString("jun"),rs.getString("jul"),rs.getString("aug"),rs.getString("sep"),rs.getString("oct"),rs.getString("nov"),rs.getString("dcm"),rs.getString("remark")));
 
             }
             pst.close();
