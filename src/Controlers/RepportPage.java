@@ -33,7 +33,7 @@ public class RepportPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
-    ObservableList<String> contracts= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع قطاع عسكري");
+    ObservableList<String> contracts= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع قطاع عسكري","مشروع الصيانة و النظافة");
 
     int idArea=0,idLocation=0,idProject=0;
 

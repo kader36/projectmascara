@@ -262,7 +262,7 @@ public class ProjectPage{
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPage.fxml"));
             AnchorPane root = loader.load();
-            ProjectPageM controller = loader.getController();
+            ProjectPage controller = loader.getController();
             controller.Init(idConnected,usernameConnected,employeeNameConnected);
             Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
             primaryStage.setTitle("المشاريع");
@@ -381,6 +381,21 @@ public class ProjectPage{
             primaryStage.show();
         }catch (Exception e){
 
+            System.out.println(e.getMessage());
+
+        }
+    }
+    public void goTo3(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPageRC.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPageRC controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("مشاريع الصيانة و النظافة");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
             System.out.println(e.getMessage());
 
         }
