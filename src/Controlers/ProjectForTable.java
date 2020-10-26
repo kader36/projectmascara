@@ -1,11 +1,14 @@
 package Controlers;
 
+import javafx.scene.control.CheckBox;
+
 public class ProjectForTable {
     private int projectId,areaId,locationId,contactDuration;
     private String contractName,areaName,locationName,projectType,contractStartDate,contractEndDate,contractNumber;
     private String contractPrice,contractPriceRest;
+    private CheckBox checkbox;
 
-    public ProjectForTable(int projectId, int areaId, int locationId, int contactDuration, String contractName, String areaName, String locationName, String projectType, String contractStartDate, String contractEndDate, String contractPrice,String contractPriceRest, String contractNumber) {
+    public ProjectForTable(int projectId, int areaId, int locationId, int contactDuration, String contractName, String areaName, String locationName, String projectType, String contractStartDate, String contractEndDate, String contractNumber, String contractPrice, String contractPriceRest, CheckBox checkbox) {
         this.projectId = projectId;
         this.areaId = areaId;
         this.locationId = locationId;
@@ -19,6 +22,7 @@ public class ProjectForTable {
         this.contractNumber = contractNumber;
         this.contractPrice = contractPrice;
         this.contractPriceRest = contractPriceRest;
+        this.checkbox = checkbox;
     }
 
     public String getContractPriceRest() {
@@ -71,5 +75,9 @@ public class ProjectForTable {
 
     public String getContractPrice() {
         return contractPrice;
+    }
+
+    public CheckBox getCheckbox() {
+        return checkbox;
     }
 }

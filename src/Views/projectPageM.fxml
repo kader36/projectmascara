@@ -40,13 +40,14 @@
                                           <TextField fx:id="contractPrice1" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate1" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
                                           <DatePicker fx:id="contractEndDate1" layoutX="839.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="نهاية العقد" />
-                                          <Button fx:id="projectAddPrivilege3" layoutX="58.0" layoutY="138.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
-                                          <Button fx:id="projectEditPrivilege1" layoutX="315.0" layoutY="137.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
-                                          <Button fx:id="projectDeletePrivilege3" layoutX="573.0" layoutY="137.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
+                                          <Button fx:id="projectAddPrivilege3" layoutX="58.0" layoutY="138.0" mnemonicParsing="false" onAction="#addProject2" prefHeight="35.0" prefWidth="170.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة مشروع" />
+                                          <Button fx:id="projectEditPrivilege1" layoutX="251.0" layoutY="137.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل مشروع" />
+                                          <Button fx:id="projectDeletePrivilege3" layoutX="442.0" layoutY="137.0" mnemonicParsing="false" onAction="#deleteRowMilitaire" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف مشروع" />
                                           <TextField fx:id="search1" layoutX="834.0" layoutY="137.0" onKeyReleased="#search1" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="projectTableView1" fixedCellSize="0.0" layoutX="57.0" layoutY="189.0" onMouseClicked="#getSelectItemTable2" prefHeight="148.0" prefWidth="1019.0">
                                              <columns>
-                                                <TableColumn fx:id="projectNameTable1" editable="false" prefWidth="118.0" text="إسم العقد" />
+                                                <TableColumn fx:id="checkbox" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" />
+                                                <TableColumn fx:id="projectNameTable1" editable="false" prefWidth="183.0" text="إسم العقد" />
                                                 <TableColumn fx:id="contractNumberTable1" prefWidth="112.0" text="رقم العقد" />
                                                 <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="95.0" text="المنطقة" />
                                                 <TableColumn fx:id="locationNameTable1" editable="false" minWidth="6.0" prefWidth="81.0" text="الموقع" />
@@ -116,6 +117,7 @@
                                                 </Tab>
                                             </tabs>
                                           </TabPane>
+                                          <Button layoutX="631.0" layoutY="137.0" mnemonicParsing="false" onAction="#transfereSelectedProject" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="نقل المشاريع المنتهية" />
                                        </children>
                                     </AnchorPane>
                                  </content>

@@ -694,7 +694,7 @@ public class GaranteePageUR implements Initializable {
         garanteesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id ");
+            pst=con.prepareStatement("SELECT * FROM `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=0");
             rs=pst.executeQuery();
             while (rs.next()){
                 garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
@@ -760,7 +760,7 @@ public class GaranteePageUR implements Initializable {
             garanteesTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM  `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.garanteeNumber LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM  `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=0 AND garanteesur.garanteeNumber LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
                     garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
@@ -869,7 +869,7 @@ public class GaranteePageUR implements Initializable {
 
                     pst.setInt(1,idArea);
                     pst.setInt(2,idLocation);
-                    pst.setInt(3,idProject);
+                    pst.setString(3,projectName.getText());
                     pst.setString(4,garanteeNumber.getText());
                     pst.setString(5,garanteeType.getValue());
                     pst.setInt(6,idBank);
@@ -1149,6 +1149,57 @@ public class GaranteePageUR implements Initializable {
             throwables.printStackTrace();
         }
     }
+    @FXML
+    private AnchorPane anchorHistoriser;
 
+    @FXML
+    private TextField historiserNumber;
+
+    @FXML
+    private DatePicker historiserDate;
+
+    @FXML
+    void hideHistoriser(ActionEvent event) {
+        anchorHistoriser.setVisible(false);
+    }
+    int idhistoriser=0;
+    @FXML
+    void showHistoriser(ActionEvent event) {
+        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
+        if (index>=0){
+            anchorHistoriser.setVisible(true);
+        }else{
+            warningMsg("تحذير","يرجى إختيار الضمان");
+
+        }
+    }
+
+    @FXML
+    void historiser(ActionEvent event) {
+        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
+        int idEdit= garanteeTableView.getItems().get(index).getIdGarantee();
+        if (historiserNumber.getText().isEmpty()||historiserDate.getEditor().getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("UPDATE `garanteesur` SET `historiser`=?,`historiserNumber`=?,`historiserDate`=? WHERE `id`=?");
+                pst.setInt(1, 1);
+                pst.setString(2, historiserNumber.getText());
+                pst.setString(3, historiserDate.getEditor().getText());
+                pst.setInt(4, idEdit);
+                pst.execute();
+                anchorHistoriser.setVisible(false);
+                warningMsg("تعديل","تم إنهاء الضمان بنجاح");
+                pst.close();
+                addToTable();
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("تعديل","حدث خطأ أثناء إنهاء الضمان");
+            }
+        }
+    }
 
 }

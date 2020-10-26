@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -35,9 +36,9 @@
                                           <ComboBox fx:id="locationName" layoutX="303.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <TextField fx:id="garanteeNumber" layoutX="824.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم الضمان" />
                                           <ComboBox fx:id="garanteeType" layoutX="41.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الضمان" />
-                                          <Button fx:id="garanteeAddPrivilege" layoutX="20.0" layoutY="138.0" mnemonicParsing="false" onAction="#addGarantee" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة ضمان" />
-                                          <Button fx:id="garanteeEditPrivilege" layoutX="287.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل ضمان" />
-                                          <Button fx:id="garanteeDeletePrivilege" layoutX="558.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
+                                          <Button fx:id="garanteeAddPrivilege" layoutX="20.0" layoutY="138.0" mnemonicParsing="false" onAction="#addGarantee" prefHeight="35.0" prefWidth="170.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة ضمان" />
+                                          <Button fx:id="garanteeEditPrivilege" layoutX="224.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="170.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل ضمان" />
+                                          <Button fx:id="garanteeDeletePrivilege" layoutX="430.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف ضمان" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="137.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="garanteeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" onMouseClicked="#idReset" prefHeight="211.0" prefWidth="1089.0">
                                             <columns>
@@ -70,6 +71,7 @@
                                           <TextField fx:id="projectName" layoutX="564.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
                                           <ComboBox fx:id="bankType" layoutX="301.0" layoutY="70.0" onAction="#selectBank" prefHeight="35.0" prefWidth="240.0" promptText="البنك" />
                                           <TextField fx:id="garanteePrice" layoutX="565.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="قيمة الضمان" />
+                                          <Button layoutX="634.0" layoutY="138.0" mnemonicParsing="false" onAction="#showHistoriser" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إنهاء الضمان" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -95,6 +97,28 @@
                               </Tab>
                           </tabs>
                         </TabPane>
+                        <AnchorPane fx:id="anchorHistoriser" nodeOrientation="RIGHT_TO_LEFT" prefHeight="601.0" prefWidth="1101.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false">
+                           <children>
+                              <AnchorPane layoutX="272.0" layoutY="137.0" prefHeight="327.0" prefWidth="558.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <Label layoutX="53.0" layoutY="80.0" text="رقم خطاب الإفراج :">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="53.0" layoutY="132.0" text="تاريخ خطاب الإفراج :">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="historiserNumber" alignment="CENTER_RIGHT" layoutX="194.0" layoutY="72.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="297.0" />
+                                    <DatePicker fx:id="historiserDate" layoutX="195.0" layoutY="124.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="37.0" prefWidth="297.0" />
+                                    <Button layoutX="154.0" layoutY="191.0" mnemonicParsing="false" onAction="#historiser" prefHeight="37.0" prefWidth="250.0" styleClass="editButton" stylesheets="@../css/style.css" text="حفظ و أرشفة الضمان" />
+                                    <Button layoutX="154.0" layoutY="242.0" mnemonicParsing="false" onAction="#hideHistoriser" prefHeight="37.0" prefWidth="250.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إلغاء" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">

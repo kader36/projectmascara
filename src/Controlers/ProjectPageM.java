@@ -10,12 +10,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.control.CheckBox;
 
+import java.awt.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,6 +93,9 @@ public class ProjectPageM implements Initializable {
 
     @FXML
     private TableColumn<ProjectForTable, String> areaNameTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, CheckBox> checkbox;
 
     @FXML
     private TableColumn<ProjectForTable, String> locationNameTable1;
@@ -723,10 +731,11 @@ public class ProjectPageM implements Initializable {
         projectsTable2.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع قطاع عسكري'");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع قطاع عسكري' AND projects.transfered=0 ");
             rs=pst.executeQuery();
             while (rs.next()){
-                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+                CheckBox ch=new CheckBox();
+                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch));
             }
             con.close();
 
@@ -1397,10 +1406,11 @@ public class ProjectPageM implements Initializable {
 
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع قطاع عسكري' AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع قطاع عسكري' AND projects.areaId=areas.id AND projects.transfered=0 AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber")));
+                    CheckBox ch=new CheckBox(""+rs.getInt("id"));
+                    projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch));
                 }
                 con.close();
                 projectTableView1.setItems(projectsTable2);
@@ -1675,6 +1685,7 @@ public class ProjectPageM implements Initializable {
         fillComboOccupation();
 
         addToTableMilitaire();
+        checkbox.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
         areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("areaName"));
         locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("locationName"));
         projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("contractName"));
@@ -1823,5 +1834,28 @@ public class ProjectPageM implements Initializable {
             idDelete=0;
             fillTableProjectOccupation();
         }
+    }
+
+    @FXML
+    void transfereSelectedProject(ActionEvent event) {
+        for (int i =0;i<projectTableView1.getItems().size();i++){
+            if (projectTableView1.getItems().get(i).getCheckbox().isSelected()){
+                try {
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `projects` SET `transfered`=? WHERE `id`=?");
+                    pst.setInt(1, 1);
+                    pst.setInt(2, projectTableView1.getItems().get(i).getProjectId());
+                    pst.execute();
+                    warningMsg("نقل مشاريع المنتهية","تم النقل بنجاح");
+                    pst.close();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("نقل مشاريع المنتهية","حدث خطأ أثناء النقل");
+                }
+            }
+        }
+        addToTableMilitaire();
+
     }
 }
