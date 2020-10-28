@@ -28,6 +28,8 @@ public class ProjectPageRC implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("مشروع النظافة","مشروع الصيانة","مشروع تعليمي");
+
     ObservableList projectsTable2= FXCollections.observableArrayList();
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();
     ObservableList<Area> areas= FXCollections.observableArrayList();
@@ -75,6 +77,9 @@ public class ProjectPageRC implements Initializable {
     private Button projectDeletePrivilege3;
 
     @FXML
+    private ComboBox<String> projectType;
+
+    @FXML
     private TextField search1;
 
     @FXML
@@ -94,6 +99,9 @@ public class ProjectPageRC implements Initializable {
 
     @FXML
     private TableColumn<ProjectForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<ProjectForTable, String> projectTypeTable1;
 
     @FXML
     private TableColumn<ProjectForTable, String> contactDurationTable1;
@@ -505,7 +513,7 @@ public class ProjectPageRC implements Initializable {
         projectEmployeesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND projects.projectType='مشروع الصيانة و النظافة'");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND (`projectType`='مشروع النظافة' OR `projectType`='مشروع الصيانة' OR `projectType`='مشروع تعليمي')");
             rs=pst.executeQuery();
             while (rs.next()){
                 projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
@@ -696,7 +704,7 @@ public class ProjectPageRC implements Initializable {
                         " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`) VALUES (?,?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea2);
                 pst.setInt(2,idLocation2);
-                pst.setString(3,"مشروع الصيانة و النظافة");
+                pst.setString(3,projectType.getValue());
                 pst.setString(4,projectName1.getText());
                 pst.setFloat(5, Float.parseFloat(contractPrice1.getText()));
                 pst.setInt(6, Integer.parseInt(contactDuration1.getText()));
@@ -726,7 +734,7 @@ public class ProjectPageRC implements Initializable {
         projectsTable2.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع الصيانة و النظافة' AND projects.transfered=0 ");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND (projects.projectType='مشروع النظافة' OR projects.projectType='مشروع الصيانة' OR projects.projectType='مشروع تعليمي') AND projects.transfered=0 ");
             rs=pst.executeQuery();
             while (rs.next()){
                 CheckBox ch=new CheckBox();
@@ -986,6 +994,7 @@ public class ProjectPageRC implements Initializable {
             projectEditPrivilege1.setText("حفظ");
             areaName1.setValue(projectTableView1.getItems().get(index).getAreaName());
             locationName1.setValue(projectTableView1.getItems().get(index).getLocationName());
+            projectType.setValue(projectTableView1.getItems().get(index).getProjectType());
             projectName1.setText(projectTableView1.getItems().get(index).getContractName());
             contractPrice1.setText(projectTableView1.getItems().get(index).getContractPrice());
             contactDuration1.setText(String.valueOf(projectTableView1.getItems().get(index).getContactDuration()));
@@ -1033,7 +1042,7 @@ public class ProjectPageRC implements Initializable {
 
                     pst.setInt(1,idArea2);
                     pst.setInt(2,idLocation2);
-                    pst.setString(3,"مشروع الصيانة و النظافة");
+                    pst.setString(3,projectType.getValue());
                     pst.setString(4,projectName1.getText());
                     pst.setFloat(5, Float.parseFloat(contractPrice1.getText()));
                     pst.setInt(6, Integer.parseInt(contactDuration1.getText()));
@@ -1401,7 +1410,7 @@ public class ProjectPageRC implements Initializable {
 
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع الصيانة و النظافة' AND projects.transfered=0  AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE (projects.projectType='مشروع النظافة' OR projects.projectType='مشروع الصيانة' OR projects.projectType='مشروع تعليمي' ) AND projects.transfered=0  AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
                     CheckBox ch=new CheckBox();
@@ -1547,7 +1556,7 @@ public class ProjectPageRC implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع الصيانة و النظافة'");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND (`projectType`='مشروع النظافة' OR `projectType`='مشروع الصيانة' OR `projectType`='مشروع تعليمي')");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -1678,10 +1687,11 @@ public class ProjectPageRC implements Initializable {
         fillProject();
         fillComboMasroufat();
         fillComboOccupation();
-
+        projectType.setItems(projectTypeCombo);
         addToTableMilitaire();
         checkbox.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
         areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("areaName"));
+        projectTypeTable1.setCellValueFactory(new PropertyValueFactory<>("projectType"));
         locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("locationName"));
         projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("contractName"));
         contactDurationTable1.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));

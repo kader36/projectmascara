@@ -385,6 +385,21 @@ public class ProjectPage{
 
         }
     }
+    public void goTo4(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPageEnded.fxml"));
+            AnchorPane root = loader.load();
+            ProjectPageEnded controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("العقود المنتهية");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
     public void goTo3(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/projectPageRC.fxml"));

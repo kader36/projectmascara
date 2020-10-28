@@ -386,6 +386,22 @@ public class GaranteePage {
         }
     }
 
+    public void goTo3(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePagePolicy.fxml"));
+            AnchorPane root = loader.load();
+            GaranteePagePolicy controller = loader.getController();
+            controller.Init(idConnected,usernameConnected,employeeNameConnected);
+            Stage primaryStage= (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+            primaryStage.setTitle("بوليصة التأمين");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
+    }
+
     public void goTo2(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/garanteePageUR.fxml"));
