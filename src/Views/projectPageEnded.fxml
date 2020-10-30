@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -30,7 +33,7 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <TextField fx:id="search" layoutX="834.0" layoutY="17.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
-                                          <TableView fx:id="projectTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="68.0" prefHeight="250.0" prefWidth="1019.0">
+                                          <TableView fx:id="projectEndedTableView" fixedCellSize="0.0" layoutX="57.0" layoutY="63.0" onMouseClicked="#reset" prefHeight="166.0" prefWidth="1019.0">
                                             <columns>
                                               <TableColumn fx:id="projectNameTable" editable="false" prefWidth="172.0" text="إسم العقد" />
                                                 <TableColumn fx:id="contractNumberTable" prefWidth="112.0" text="رقم العقد" />
@@ -49,6 +52,34 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
+                                          <TableView fx:id="projectExtensionTableView" fixedCellSize="0.0" layoutX="54.0" layoutY="409.0" prefHeight="152.0" prefWidth="1019.0">
+                                             <columns>
+                                                <TableColumn fx:id="extensionStartDateTable" editable="false" prefWidth="172.0" text="تاريخ بداية التمديد 10%" />
+                                                <TableColumn fx:id="extensionEndDateTable" prefWidth="112.0" text="تاريخ نهاية التمديد 10%" />
+                                                <TableColumn fx:id="directPurchaseStartDateTable" editable="false" prefWidth="95.0" text="تاريخ بداية الشراء المباشر" />
+                                                <TableColumn fx:id="directPurchaseEndDateTable" editable="false" prefWidth="78.0" text="تاريخ نهاية الشراء المباشر" />
+                                                <TableColumn fx:id="directPurchasePriceTable" editable="false" prefWidth="145.0" text="سعر الشراء المباشر" />
+                                                <TableColumn fx:id="approvalDirectPurchaseTable" editable="false" prefWidth="117.0" text="إعتماد الشراء المباشر" />
+                                                <TableColumn fx:id="isClosedTable" editable="false" prefWidth="115.0" text="مشروع مغلق" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <Separator layoutY="240.0" prefHeight="9.0" prefWidth="1107.0" />
+                                          <DatePicker fx:id="extensionStartDate" layoutX="39.0" layoutY="251.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية التمديد 10%" />
+                                          <DatePicker fx:id="extensionEndDate" layoutX="305.0" layoutY="251.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية التمديد 10%" />
+                                          <DatePicker fx:id="directPurchaseStartDate" layoutX="572.0" layoutY="251.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ بداية الشراء المباشر" />
+                                          <DatePicker fx:id="directPurchaseEndDate" layoutX="838.0" layoutY="251.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ نهاية الشراء المباشر" />
+                                          <TextField fx:id="directPurchasePrice" layoutX="39.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="سعر الشراء المباشر" />
+                                          <ComboBox fx:id="approvalDirectPurchase" layoutX="304.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="إعتماد الشراء المباشر" />
+                                          <ComboBox fx:id="isClosed" layoutX="571.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="مشروع مغلق" />
+                                          <Button layoutX="57.0" layoutY="362.0" mnemonicParsing="false" onAction="#addProjectExtension" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="editButton" layoutX="451.0" layoutY="362.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="240.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل" />
+                                          <Button layoutX="830.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                        </children>
                                     </AnchorPane>
                               </content>

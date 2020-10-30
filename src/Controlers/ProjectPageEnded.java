@@ -30,12 +30,38 @@ public class ProjectPageEnded implements Initializable {
     PreparedStatement pst;
     ResultSet rs;
     ObservableList projectsTable= FXCollections.observableArrayList();
+    ObservableList<String> yesNo= FXCollections.observableArrayList("نعم","لا");
+
+    ObservableList projectsExtensionTable= FXCollections.observableArrayList();
+
+
+    @FXML
+    private DatePicker extensionStartDate;
+
+    @FXML
+    private DatePicker extensionEndDate;
+
+    @FXML
+    private DatePicker directPurchaseStartDate;
+
+    @FXML
+    private DatePicker directPurchaseEndDate;
+
+    @FXML
+    private TextField directPurchasePrice;
+
+    @FXML
+    private ComboBox<String> approvalDirectPurchase;
+
+    @FXML
+    private ComboBox<String> isClosed;
+
 
     @FXML
     private TextField search;
 
     @FXML
-    private TableView<ProjectForTable> projectTableView;
+    private TableView<ProjectForTable> projectEndedTableView;
 
     @FXML
     private TableColumn<ProjectForTable, String> projectNameTable;
@@ -63,6 +89,31 @@ public class ProjectPageEnded implements Initializable {
 
     @FXML
     private TableColumn<ProjectForTable, String> contractEndDateTable;
+
+
+    @FXML
+    private TableView<ProjectExtensionForTable> projectExtensionTableView;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> extensionStartDateTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> extensionEndDateTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> directPurchaseStartDateTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> directPurchaseEndDateTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> directPurchasePriceTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> approvalDirectPurchaseTable;
+
+    @FXML
+    private TableColumn<ProjectExtensionForTable, String> isClosedTable;
 
     @FXML
     private Label usernameMenu;
@@ -311,6 +362,29 @@ public class ProjectPageEnded implements Initializable {
     }
 
 
+    public void addToTableExtension(){
+        int index= projectEndedTableView.getSelectionModel().getSelectedIndex();
+        int id=projectEndedTableView.getItems().get(index).getProjectId();
+
+        projectsExtensionTable.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projectextension` , `projects` WHERE projectextension.idProject=? AND projectextension.idProject=projects.id");
+            pst.setInt(1,id);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectsExtensionTable.add(new ProjectExtensionForTable(rs.getInt("id"),rs.getInt("idProject"),rs.getString("extensionStartDate"),rs.getString("extensionEndDate"),rs.getString("directPurchaseStartDate"),rs.getString("directPurchaseEndDate"),rs.getString("directPurchasePrice"),rs.getString("approvalDirectPurchase"),rs.getString("isClosed")));
+            }
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+
+
     @FXML
     public void employees(ActionEvent actionEvent) {
         try {
@@ -463,7 +537,7 @@ public class ProjectPageEnded implements Initializable {
         String key=search.getText().trim();
         if (key.isEmpty()){
             addToTable();
-            projectTableView.setItems(projectsTable);
+            projectEndedTableView.setItems(projectsTable);
         }else{
             projectsTable.clear();
             try {
@@ -476,7 +550,7 @@ public class ProjectPageEnded implements Initializable {
                 }
                 con.close();
 
-                projectTableView.setItems(projectsTable);
+                projectEndedTableView.setItems(projectsTable);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -556,9 +630,144 @@ public class ProjectPageEnded implements Initializable {
         contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
         contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
         contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
-        projectTableView.setItems(projectsTable);
+        projectEndedTableView.setItems(projectsTable);
+        approvalDirectPurchase.setItems(yesNo);
+        isClosed.setItems(yesNo);
+
+        extensionStartDateTable.setCellValueFactory(new PropertyValueFactory<>("extensionStartDate"));
+        extensionEndDateTable.setCellValueFactory(new PropertyValueFactory<>("extensionEndDate"));
+        directPurchaseStartDateTable.setCellValueFactory(new PropertyValueFactory<>("directPurchaseStartDate"));
+        directPurchaseEndDateTable.setCellValueFactory(new PropertyValueFactory<>("directPurchaseEndDate"));
+        directPurchasePriceTable.setCellValueFactory(new PropertyValueFactory<>("directPurchasePrice"));
+        approvalDirectPurchaseTable.setCellValueFactory(new PropertyValueFactory<>("approvalDirectPurchase"));
+        isClosedTable.setCellValueFactory(new PropertyValueFactory<>("isClosed"));
+        projectExtensionTableView.setItems(projectsExtensionTable);
+
+    }
+    @FXML
+    public void deleteRow(ActionEvent actionEvent) {
+        int index= projectExtensionTableView.getSelectionModel().getSelectedIndex();
+        int idDelete=projectExtensionTableView.getItems().get(index).getIdProjectExtension();
+
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `projectextension` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            addToTableExtension();
+        }
+    }
+
+
+    @FXML
+    public void addProjectExtension(ActionEvent actionEvent) {
+        int index= projectEndedTableView.getSelectionModel().getSelectedIndex();
+        int idProject=projectEndedTableView.getItems().get(index).getProjectId();
+
+        if (directPurchasePrice.getText().isEmpty()||approvalDirectPurchase.getSelectionModel().isEmpty()||isClosed.getSelectionModel().isEmpty()||extensionStartDate.getEditor().getText().isEmpty()||extensionEndDate.getEditor().getText().isEmpty()||directPurchaseStartDate.getEditor().getText().isEmpty()||directPurchaseEndDate.getEditor().getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `projectextension`(`idProject`, `extensionStartDate`, `extensionEndDate`, `directPurchaseStartDate`, `directPurchaseEndDate`, `directPurchasePrice`, `approvalDirectPurchase`, `isClosed`) VALUES (?,?,?,?,?,?,?,?)");
+                pst.setInt(1,idProject);
+                pst.setString(2,extensionStartDate.getEditor().getText());
+                pst.setString(3,extensionEndDate.getEditor().getText());
+                pst.setString(4,directPurchaseStartDate.getEditor().getText());
+                pst.setString(5,directPurchaseEndDate.getEditor().getText());
+                pst.setString(6,directPurchasePrice.getText());
+                pst.setString(7,approvalDirectPurchase.getValue());
+                pst.setString(8,isClosed.getValue());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTableExtension();
+            extensionStartDate.getEditor().clear();
+            extensionEndDate.getEditor().clear();
+            directPurchaseStartDate.getEditor().clear();
+            directPurchaseEndDate.getEditor().clear();
+            directPurchasePrice.clear();
+        }
 
     }
 
+    @FXML
+    void reset(MouseEvent event) {
+        addToTableExtension();
+    }
+
+    @FXML
+    private Button editButton;
+    @FXML
+    public void edit1(ActionEvent actionEvent) {
+        int index= projectExtensionTableView.getSelectionModel().getSelectedIndex();
+        int idEdit=projectExtensionTableView.getItems().get(index).getIdProjectExtension();
+
+        if (editButton.getText().contains("تعديل")){
+            editButton.setText("حفظ");
+            approvalDirectPurchase.setValue(projectExtensionTableView.getItems().get(index).getApprovalDirectPurchase());
+            isClosed.setValue(projectExtensionTableView.getItems().get(index).getIsClosed());
+            extensionStartDate.getEditor().setText(projectExtensionTableView.getItems().get(index).getExtensionStartDate());
+            extensionEndDate.getEditor().setText(projectExtensionTableView.getItems().get(index).getExtensionEndDate());
+            directPurchaseStartDate.getEditor().setText(projectExtensionTableView.getItems().get(index).getDirectPurchaseStartDate());
+            directPurchaseEndDate.getEditor().setText(projectExtensionTableView.getItems().get(index).getDirectPurchaseEndDate());
+            directPurchasePrice.setText(projectExtensionTableView.getItems().get(index).getDirectPurchasePrice());
+
+
+        }else if (editButton.getText().contains("حفظ")){
+
+            if (directPurchasePrice.getText().isEmpty()||approvalDirectPurchase.getSelectionModel().isEmpty()||isClosed.getSelectionModel().isEmpty()||extensionStartDate.getEditor().getText().isEmpty()||extensionEndDate.getEditor().getText().isEmpty()||directPurchaseStartDate.getEditor().getText().isEmpty()||directPurchaseEndDate.getEditor().getText().isEmpty()){
+                warningMsg("تنبيه","يرجى ملء الفراغات");
+            }else{
+                try {
+                    con = new ConnectDB().getConnection();
+                    pst = con.prepareStatement("UPDATE `projectextension` SET `extensionStartDate`=?,`extensionEndDate`=?,`directPurchaseStartDate`=?,`directPurchaseEndDate`=?,`directPurchasePrice`=?,`approvalDirectPurchase`=?,`isClosed`=? WHERE `id`=?");
+                    pst.setString(1,extensionStartDate.getEditor().getText());
+                    pst.setString(2,extensionEndDate.getEditor().getText());
+                    pst.setString(3,directPurchaseStartDate.getEditor().getText());
+                    pst.setString(4,directPurchaseEndDate.getEditor().getText());
+                    pst.setString(5, directPurchasePrice.getText());
+                    pst.setString(6, approvalDirectPurchase.getValue());
+                    pst.setString(7, isClosed.getValue());
+                    pst.setInt(8, idEdit);
+
+                    pst.execute();
+                    pst.close();
+
+                    warningMsg("تعديل","تم التعديل بنجاح");
+                    editButton.setText("تعديل");
+                    extensionStartDate.getEditor().clear();
+                    extensionEndDate.getEditor().clear();
+                    directPurchaseStartDate.getEditor().clear();
+                    directPurchaseEndDate.getEditor().clear();
+                    directPurchasePrice.clear();
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                    warningMsg("تعديل","حدث خطأ أثناء التعديل");
+                }
+                addToTableExtension();
+                idEdit=0;
+            }
+
+        }
+
+
+    }
 
 }
