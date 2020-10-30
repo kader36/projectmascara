@@ -50,124 +50,6 @@ public class GaranteePagePolicy implements Initializable {
     private ComboBox<String> projectName;
 
 
-    @FXML
-    private TableView<Banks> bankTableView;
-    @FXML
-    private TableColumn<Banks, String> bankNameTable;
-    @FXML
-    private TextField bankName1;
-
-    @FXML
-    public void deleteBank(ActionEvent actionEvent) {
-        int index= bankTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=bankTableView.getItems().get(index).getIdBank();
-        if (idDelete>0) {
-            try {
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("DELETE FROM `banks` WHERE `id`=?");
-                pst.setInt(1, idDelete);
-                pst.execute();
-                warningMsg("حذف","تم الحذف بنجاح");
-                pst.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("حذف","حدث خطأ أثناء الحذف");
-            }
-            idDelete=0;
-            addToTableBank();
-            fillComboBanks();
-
-        }
-    }
-    @FXML
-    public void addBank(ActionEvent actionEvent) {
-        int dejaExist=0;
-        int size=0;
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `banks` WHERE `bankName`=?");
-            pst.setString(1,bankName1.getText());
-            rs=pst.executeQuery();
-            while(rs.next()){
-                size++;
-            }
-            if (size>0){
-                dejaExist=1;
-            }
-            pst.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if (bankName1.getText().isEmpty()){
-            warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else if(dejaExist==1){
-            warningMsg("تنبيه","المعلومات موجودة من قبل");
-        }else{
-            try {
-                con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `banks`(`bankName`) VALUES (?)");
-                pst.setString(1,bankName1.getText());
-                pst.execute();
-                warningMsg("إظافة","تمت الإظافة بنجاح");
-                pst.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
-            }
-            addToTableBank();
-            fillComboBanks();
-            bankName1.clear();
-
-        }
-
-    }
-    ObservableList<Banks> banks= FXCollections.observableArrayList();
-
-    public void addToTableBank(){
-        banks.clear();
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `banks`");
-            rs=pst.executeQuery();
-            while (rs.next()){
-                banks.add(new Banks(rs.getInt("id"),rs.getString("bankName")));
-            }
-            con.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
-    @FXML
-    private ComboBox<String> bankType;
-    public void fillComboBanks(){
-        banks.clear();
-        bankType.getItems().clear();
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `banks`");
-            rs=pst.executeQuery();
-            while (rs.next()){
-                banks.add(new Banks(rs.getInt("id"),rs.getString("bankName")));
-
-            }
-            con.close();
-
-            for (int i=0;i<banks.size();i++){
-                bankType.getItems().add(banks.get(i).getBankName());
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-
-
 
 
     @FXML
@@ -192,11 +74,6 @@ public class GaranteePagePolicy implements Initializable {
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
-    }
-    @FXML
-    void selectBank(ActionEvent event) {
-        int index= bankType.getSelectionModel().getSelectedIndex();
-        idBank=banks.get(index).getIdBank();
     }
 
     public void fillComboLocation(){
@@ -827,10 +704,6 @@ public class GaranteePagePolicy implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
-        fillComboBanks();
-        garanteeType.setItems(garantees);
-
-
         addToTable();
         garanteePriceTable.setCellValueFactory(new PropertyValueFactory<>("garanteePrice"));
         bankTypeTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
@@ -840,9 +713,6 @@ public class GaranteePagePolicy implements Initializable {
         garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
         garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
         garanteeTableView.setItems(garanteesTable);
-        addToTableBank();
-        bankNameTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
-        bankTableView.setItems(banks);
     }
     public void addToTable(){
         garanteesTable.clear();
@@ -958,7 +828,6 @@ public class GaranteePagePolicy implements Initializable {
             garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
             garanteeNumber.setText(garanteeTableView.getItems().get(index).getGaranteeNumber());
             garanteePrice.setText(String.valueOf(garanteeTableView.getItems().get(index).getGaranteePrice()));
-            bankType.setValue(garanteeTableView.getItems().get(index).getBankName());
 
         }else if (garanteeEditPrivilege.getText().contains("حفظ")){
             int dejaExist=0;
@@ -982,7 +851,7 @@ public class GaranteePagePolicy implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            if (garanteeNumber.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()||bankType.getSelectionModel().isEmpty()){
+            if (garanteeNumber.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else if(dejaExist==1){
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -1005,11 +874,7 @@ public class GaranteePagePolicy implements Initializable {
                         }
                     }
 
-                    for (int i=0; i<banks.size() ;i++){
-                        if (banks.get(i).getBankName()==bankType.getValue()){
-                            idBank=banks.get(i).getIdBank();
-                        }
-                    }
+
                     con = new ConnectDB().getConnection();
                     pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=?,`bankId`=?,`garanteePrice`=? WHERE `id`=?");
 
@@ -1048,11 +913,6 @@ public class GaranteePagePolicy implements Initializable {
     }
 
 
-    ObservableList<HistoricalGaranteeForTable> historicalGarantee= FXCollections.observableArrayList();
-
-    @FXML
-    private TextArea description;
-
     @FXML
     void idReset(MouseEvent event) {
         garanteeEditPrivilege.setText("تعديل ضمان");
@@ -1063,178 +923,8 @@ public class GaranteePagePolicy implements Initializable {
         garanteeType.setValue("");
         garanteeType.setItems(garantees);
 
-        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
-        idGarantee=garanteeTableView.getItems().get(index).getIdGarantee();
-        fillTableHistoricalGarantee();
-        dateHistoricalTable.setCellValueFactory(new PropertyValueFactory<>("dateHistorical"));
-        descriptionTable.setCellValueFactory(new PropertyValueFactory<>("description"));
-        nnameUserTable.setCellValueFactory(new PropertyValueFactory<>("nameUser"));
-        historicalGaranteeTableView.setItems(historicalGarantee);
-    }
-    public void fillTableHistoricalGarantee(){
-        historicalGarantee.clear();
-        historicalGaranteeTableView.getItems().clear();
-        try {
-            con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `historicalgarantees` WHERE `idGarantee`=?");
-            pst.setInt(1,idGarantee);
-            rs=pst.executeQuery();
-            while (rs.next()){
-                historicalGarantee.add(new HistoricalGaranteeForTable(rs.getInt("id"),idConnected,rs.getInt("idGarantee"),rs.getString("dateHistorical"),rs.getString("description"),rs.getString("idUser")));
-
-            }
-            pst.close();
-
-
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
-        }
-    }
-
-    public void selectIdHistorical(MouseEvent mouseEvent) {
-        int index=historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
-        idHistorical=historicalGaranteeTableView.getItems().get(index).getIdHistorical();
-        garanteeEditPrivilege1.setText("تعديل تحديث");
-        description.clear();
-    }
-
-    public void addHistorical(ActionEvent actionEvent) {
-        if (description.getText().isEmpty()){
-            warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else{
-            if (idGarantee>0) {
-                try {
-                    con=new ConnectDB().getConnection();
-                    pst=con.prepareStatement("INSERT INTO `historicalgarantees`(`dateHistorical`, `description`, `idUser`, `idGarantee`) VALUES (?,?,?,?)");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd" );
-
-                    pst.setString(1, sdf.format(new Date()));
-                    pst.setString(2,description.getText());
-                    pst.setString(3,employeeNameConnected);
-                    pst.setInt(4,idGarantee);
-                    pst.execute();
-                    warningMsg("إظافة","تمت الإظافة بنجاح");
-                    pst.close();
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    warningMsg("إظافة","حدث خطأ أثناء الإظافة");
-                }
-                fillTableHistoricalGarantee();
-            }
-        }
-
-
-    }
-    @FXML
-    public void deleteRow2(ActionEvent actionEvent) {
-        int index= historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=historicalGaranteeTableView.getItems().get(index).getIdHistorical();
-        if (idDelete>0) {
-            try {
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("DELETE FROM `historicalgarantees` WHERE `id`=?");
-                pst.setInt(1, idDelete);
-                pst.execute();
-                warningMsg("حذف","تم الحذف بنجاح");
-                pst.close();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("حذف","حدث خطأ أثناء الحذف");
-
-            }
-            idDelete=0;
-            fillTableHistoricalGarantee();
-        }
-    }
-
-    @FXML
-    private Button garanteeEditPrivilege1;
-    public void edit2(ActionEvent actionEvent) {
-
-        int index= historicalGaranteeTableView.getSelectionModel().getSelectedIndex();
-        int idEdit= historicalGaranteeTableView.getItems().get(index).getIdHistorical();
-
-        if (garanteeEditPrivilege1.getText().contains("تعديل تحديث")){
-            garanteeEditPrivilege1.setText("حفظ");
-            description.setText(historicalGaranteeTableView.getItems().get(index).getDescription());
-        }else if (garanteeEditPrivilege1.getText().contains("حفظ")){
-            try {
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `historicalgarantees` SET `description`=? WHERE `id`=?");
-                pst.setString(1, description.getText());
-                pst.setInt(2, idEdit);
-                pst.execute();
-                warningMsg("تعديل","تم التعديل بنجاح");
-                garanteeEditPrivilege1.setText("تعديل تحديث");
-                pst.close();
-                description.clear();
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء التعديل");
-            }
-            fillTableHistoricalGarantee();
-            idEdit=0;
-        }
-
-
     }
 
 
-
-    @FXML
-    private AnchorPane anchorHistoriser;
-
-    @FXML
-    private TextField historiserNumber;
-
-    @FXML
-    private DatePicker historiserDate;
-
-    @FXML
-    void hideHistoriser(ActionEvent event) {
-        anchorHistoriser.setVisible(false);
-    }
-    int idhistoriser=0;
-    @FXML
-    void showHistoriser(ActionEvent event) {
-        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
-        if (index>=0){
-            anchorHistoriser.setVisible(true);
-        }else{
-            warningMsg("تحذير","يرجى إختيار الضمان");
-
-        }
-    }
-
-    @FXML
-    void historiser(ActionEvent event) {
-        int index= garanteeTableView.getSelectionModel().getSelectedIndex();
-        int idEdit= garanteeTableView.getItems().get(index).getIdGarantee();
-        if (historiserNumber.getText().isEmpty()||historiserDate.getEditor().getText().isEmpty()){
-            warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else{
-            try {
-                con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("UPDATE `garantees` SET `historiser`=?,`historiserNumber`=?,`historiserDate`=? WHERE `id`=?");
-                pst.setInt(1, 1);
-                pst.setString(2, historiserNumber.getText());
-                pst.setString(3, historiserDate.getEditor().getText());
-                pst.setInt(4, idEdit);
-                pst.execute();
-                anchorHistoriser.setVisible(false);
-                warningMsg("تعديل","تم إنهاء الضمان بنجاح");
-                pst.close();
-                addToTable();
-
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                warningMsg("تعديل","حدث خطأ أثناء إنهاء الضمان");
-            }
-        }
-    }
 
 }

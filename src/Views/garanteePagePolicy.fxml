@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.GaranteePageR">
+<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.GaranteePagePolicy">
    <children>
       <VBox prefHeight="603.0" prefWidth="1325.0">
          <children>
@@ -23,23 +23,22 @@
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="298.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
                                           <ComboBox fx:id="projectName" layoutX="565.0" layoutY="23.0" onAction="#selectProject" prefHeight="35.0" prefWidth="240.0" promptText="المشروع" />
-                                          <TextField fx:id="garanteeNumber" layoutX="830.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم بوليصة التأمين" />
-                                          <ComboBox fx:id="garanteeType" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع الضمان" />
+                                          <TextField fx:id="policyNumber" layoutX="830.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم بوليصة التأمين" />
                                           <Button fx:id="garanteeAddPrivilege" layoutX="20.0" layoutY="138.0" mnemonicParsing="false" onAction="#addGarantee" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة بوليصة التأمين" />
                                           <Button fx:id="garanteeEditPrivilege" layoutX="293.0" layoutY="138.0" mnemonicParsing="false" onAction="#edit" prefHeight="35.0" prefWidth="200.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل بوليصة التأمين" />
                                           <Button fx:id="garanteeDeletePrivilege" layoutX="561.0" layoutY="138.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="200.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف بوليصة التأمين" />
                                           <TextField fx:id="search" layoutX="834.0" layoutY="137.0" onKeyReleased="#search" prefHeight="37.0" prefWidth="240.0" promptText="بحث" />
                                           <TableView fx:id="garanteeTableView" fixedCellSize="0.0" layoutX="10.0" layoutY="186.0" onMouseClicked="#idReset" prefHeight="327.0" prefWidth="1089.0">
                                             <columns>
-                                                <TableColumn fx:id="garanteeNumberTable" prefWidth="166.0" text="اسم العقد" />
-                                                <TableColumn fx:id="garanteeTypeTable" prefWidth="200.0" text="رقم العقد" />
-                                                <TableColumn fx:id="projectNameTable" prefWidth="275.0" text="قيمة العقد" />
-                                              <TableColumn fx:id="areaNameTable" editable="false" prefWidth="204.0" text="بداية العقد" />
-                                                <TableColumn fx:id="locationNameTable" editable="false" prefWidth="243.0" text="نهاية العقد" />
-                                                <TableColumn fx:id="bankTypeTable" editable="false" prefWidth="243.0" text="رقم بوليصة التأمين" />
-                                                <TableColumn fx:id="garanteePriceTable" editable="false" prefWidth="243.0" text="تاريخ البداية" />
-                                                <TableColumn fx:id="garanteePriceTable1" editable="false" prefWidth="243.0" text="تاريخ النهاية" />
-                                                <TableColumn fx:id="garanteePriceTable11" editable="false" prefWidth="243.0" text="تاريخ التجديد" />
+                                                <TableColumn fx:id="contractNameTable" prefWidth="166.0" text="اسم العقد" />
+                                                <TableColumn fx:id="contractNumberTable" prefWidth="200.0" text="رقم العقد" />
+                                                <TableColumn fx:id="contractPriceTable" prefWidth="275.0" text="قيمة العقد" />
+                                              <TableColumn fx:id="contractStartDateTable" editable="false" prefWidth="204.0" text="بداية العقد" />
+                                                <TableColumn fx:id="contractEndDateTable" editable="false" prefWidth="243.0" text="نهاية العقد" />
+                                                <TableColumn fx:id="policyNumberTable" editable="false" prefWidth="243.0" text="رقم بوليصة التأمين" />
+                                                <TableColumn fx:id="policyBeginDateTable" editable="false" prefWidth="243.0" text="تاريخ البداية" />
+                                                <TableColumn fx:id="policyEndDateTable" editable="false" prefWidth="243.0" text="تاريخ النهاية" />
+                                                <TableColumn fx:id="policyRenewDateTable" editable="false" prefWidth="243.0" text="تاريخ التجديد" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
@@ -48,9 +47,9 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                           </TableView>
-                                          <DatePicker layoutX="298.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ البداية" />
-                                          <DatePicker layoutX="565.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ النهاية" />
-                                          <DatePicker layoutX="829.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ التجديد" />
+                                          <DatePicker fx:id="policyBeginDate" layoutX="31.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ البداية" />
+                                          <DatePicker fx:id="policyEndDate" layoutX="298.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ النهاية" />
+                                          <DatePicker fx:id="policyRenewDate" layoutX="565.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="تاريخ التجديد" />
                                        </children>
                                     </AnchorPane>
                               </content>

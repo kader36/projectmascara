@@ -658,6 +658,30 @@ public class GaranteePageUR implements Initializable {
     private TableColumn<GaranteeURForTable, String> garanteePriceTable;
 
     @FXML
+    private TableView<GaranteeURForTable> garanteeTableView1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> areaNameTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> projectNameTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> garanteeNumberTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> garanteeTypeTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> bankTypeTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> garanteePriceTable1;
+
+    @FXML
     private TableView<HistoricalGaranteeForTable> historicalGaranteeTableView;
 
     @FXML
@@ -669,6 +693,7 @@ public class GaranteePageUR implements Initializable {
     @FXML
     private TableColumn<HistoricalGaranteeForTable, String> nnameUserTable;
     ObservableList garanteesTable= FXCollections.observableArrayList();
+    ObservableList garanteesTable1= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -676,6 +701,15 @@ public class GaranteePageUR implements Initializable {
         fillComboBanks();
         garanteeType.setItems(garantees);
 
+        addToTableArchive();
+        garanteePriceTable1.setCellValueFactory(new PropertyValueFactory<>("garanteePrice"));
+        bankTypeTable1.setCellValueFactory(new PropertyValueFactory<>("bankName"));
+        locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
+        projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
+        garanteeNumberTable1.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
+        garanteeTypeTable1.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
+        garanteeTableView1.setItems(garanteesTable1);
 
         addToTable();
         bankTypeTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
@@ -709,6 +743,28 @@ public class GaranteePageUR implements Initializable {
 
 
     }
+
+
+    public void addToTableArchive(){
+        garanteesTable.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=1");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                garanteesTable1.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+            }
+            pst.close();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+
+    }
+
 
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1193,7 +1249,7 @@ public class GaranteePageUR implements Initializable {
                 warningMsg("تعديل","تم إنهاء الضمان بنجاح");
                 pst.close();
                 addToTable();
-
+                addToTableArchive();
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

@@ -95,6 +95,31 @@
                                     </AnchorPane>
                                 </content>
                               </Tab>
+                              <Tab closable="false" text="أرشيف الضمانات">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <TableView fx:id="garanteeTableView1" fixedCellSize="0.0" layoutX="49.0" layoutY="72.0" onMouseClicked="#idReset" prefHeight="435.0" prefWidth="1008.0">
+                                             <columns>
+                                                <TableColumn fx:id="garanteeNumberTable1" prefWidth="166.0" text="رقم الضمان" />
+                                                <TableColumn fx:id="garanteeTypeTable1" prefWidth="200.0" text="نوع الضمان" />
+                                                <TableColumn fx:id="projectNameTable1" prefWidth="275.0" text="المشروع" />
+                                                <TableColumn fx:id="areaNameTable1" editable="false" prefWidth="204.0" text="إسم المنطقة" />
+                                                <TableColumn fx:id="locationNameTable1" editable="false" prefWidth="243.0" text="إسم الموقع" />
+                                                <TableColumn fx:id="bankTypeTable1" editable="false" prefWidth="243.0" text="إسم البنك" />
+                                                <TableColumn fx:id="garanteePriceTable1" editable="false" prefWidth="243.0" text="قيمة الضمان" />
+                                             </columns>
+                                             <effect>
+                                                <DropShadow color="#9351f9" radius="12.225" width="29.9" />
+                                             </effect>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                         <AnchorPane fx:id="anchorHistoriser" nodeOrientation="RIGHT_TO_LEFT" prefHeight="601.0" prefWidth="1101.0" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false">
