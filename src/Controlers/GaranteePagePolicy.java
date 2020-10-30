@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -40,14 +41,17 @@ public class GaranteePagePolicy implements Initializable {
     @FXML
     private ComboBox<String> locationName;
     @FXML
-    private ComboBox<String> garanteeType;
+    private ComboBox<String> projectName;
+    @FXML
+    private TextField policyNumber;
+    @FXML
+    private DatePicker policyBeginDate;
 
     @FXML
-    private TextField garanteeNumber;
+    private DatePicker policyEndDate;
+
     @FXML
-    private TextField garanteePrice;
-    @FXML
-    private ComboBox<String> projectName;
+    private DatePicker policyRenewDate;
 
 
 
@@ -126,6 +130,7 @@ public class GaranteePagePolicy implements Initializable {
 
     public void fillComboArea(){
         areaName.getItems().clear();
+        areas.clear();
         try {
             con=new ConnectDB().getConnection();
             pst=con.prepareStatement("SELECT * FROM `areas`");
@@ -180,19 +185,6 @@ public class GaranteePagePolicy implements Initializable {
     @FXML
     private Button repportMenuButton;//c bn
 
-    @FXML
-    private Button areaDeletePrivilege;
-    @FXML
-    private Button areaAddPrivilege;
-    @FXML
-    private Button areaEditPrivilege;
-
-    @FXML
-    private Button locationDeletePrivilege;
-    @FXML
-    private Button locationAddPrivilege;
-    @FXML
-    private Button locationEditPrivilege;
 
     @FXML
     private Button garanteeEditPrivilege;
@@ -200,66 +192,7 @@ public class GaranteePagePolicy implements Initializable {
     private Button garanteeAddPrivilege;
     @FXML
     private Button garanteeDeletePrivilege;
-    @FXML
-    private Button garanteeAddPrivilege1;
-    @FXML
-    private Button garanteeDeletePrivilege1;
 
-    @FXML
-    private Button occupationDeletePrivilege;
-    @FXML
-    private Button occupationAddPrivilege;
-    @FXML
-    private Button occupationEditPrivilege;
-
-    @FXML
-    private Button employeeDeletePrivilege;
-    @FXML
-    private Button employeeAddPrivilege;
-    @FXML
-    private Button employeeEditPrivilege;
-
-    @FXML
-    private Button abstractDeletePrivilege;
-    @FXML
-    private Button abstractAddPrivilege;
-    @FXML
-    private Button abstractDeletePrivilege1;
-    @FXML
-    private Button abstractAddPrivilege1;
-    @FXML
-    private Button abstractEditPrivilege;
-
-    @FXML
-    private Button deductionDeletePrivilege;
-    @FXML
-    private Button deductionAddPrivilege;
-    @FXML
-    private Button deductionDeletePrivilege1;
-    @FXML
-    private Button deductionAddPrivilege1;
-    @FXML
-    private Button deductionEditPrivilege;
-
-    @FXML
-    private Button penaltyDeletePrivilege;
-    @FXML
-    private Button penaltyAddPrivilege;
-    @FXML
-    private Button penaltyEditPrivilege;
-
-    @FXML
-    private Button userDeletePrivilege;
-    @FXML
-    private Button userAddPrivilege;
-    @FXML
-    private Button userDeletePrivilege1;
-    @FXML
-    private Button userAddPrivilege1;
-    @FXML
-    private Button userEditPrivilege;
-    @FXML
-    private Button userEditPrivilege1;
 
 
     int idConnected=0;
@@ -362,20 +295,16 @@ public class GaranteePagePolicy implements Initializable {
                 }
                 if (rs.getInt("gasa")==0){
                     garanteeAddPrivilege.setDisable(true);
-                    garanteeAddPrivilege1.setDisable(true);
 
                 }else{
                     garanteeAddPrivilege.setDisable(false);
-                    garanteeAddPrivilege1.setDisable(false);
 
                 }
                 if (rs.getInt("gasd")==0){
                     garanteeDeletePrivilege.setDisable(true);
-                    garanteeDeletePrivilege1.setDisable(true);
 
                 }else{
                     garanteeDeletePrivilege.setDisable(false);
-                    garanteeDeletePrivilege1.setDisable(false);
 
                 }
                 if (rs.getInt("gase")==0){
@@ -615,9 +544,8 @@ public class GaranteePagePolicy implements Initializable {
         int size=0;
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `garantees` WHERE `garanteeNumber`=? OR `idProject`=?");
-            pst.setString(1,garanteeNumber.getText());
-            pst.setInt(2,idProject);
+            pst=con.prepareStatement("SELECT * FROM `garanteespolicy` WHERE `policyNumber`=?");
+            pst.setString(1,policyNumber.getText());
             rs=pst.executeQuery();
             while(rs.next()){
                 size++;
@@ -630,21 +558,21 @@ public class GaranteePagePolicy implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if (garanteeNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+        if (policyNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||policyBeginDate.getEditor().getText().isEmpty()||policyEndDate.getEditor().getText().isEmpty()||policyRenewDate.getEditor().getText().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
         }else{
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `garantees`(`areaId`, `locationId`,`idProject`, `garanteeNumber`, `garanteeType`, `bankId`, `garanteePrice`) VALUES (?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `garanteespolicy`(`idArea`, `idLocation`, `idProject`, `policyNumber`, `policyBeginDate`, `policyEndDate`, `policyRenewDate`) VALUES (?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setInt(3,idProject);
-                pst.setString(4,garanteeNumber.getText());
-                pst.setString(5,garanteeType.getValue());
-                pst.setInt(6,idBank);
-                pst.setDouble(7,Double.valueOf(garanteePrice.getText()));
+                pst.setString(4,policyNumber.getText());
+                pst.setString(5,policyBeginDate.getEditor().getText());
+                pst.setString(6,policyEndDate.getEditor().getText());
+                pst.setString(7,policyRenewDate.getEditor().getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
                 pst.close();
@@ -653,75 +581,78 @@ public class GaranteePagePolicy implements Initializable {
                 throwables.printStackTrace();
                 warningMsg("إظافة","حدث خطأ أثناء الإظافة");
             }
-            addToTable();
             areaName.getItems().clear();
             locationName.getItems().clear();
             projectName.getItems().clear();
-            garanteeNumber.clear();
-            garanteePrice.clear();
-            garanteeType.setItems(garantees);
+            policyNumber.clear();
+            policyBeginDate.getEditor().clear();
+            policyEndDate.getEditor().clear();
+            policyRenewDate.getEditor().clear();
+            garanteeEditPrivilege.setText("تعديل بوليصة التأمين");
+
+            addToTable();
+
             fillComboArea();
+
         }
 
     }
     @FXML
-    private TableView<GaranteeForTable> garanteeTableView;
+    private TableView<GaranteePolicyForTable> garanteeTableView;
+
 
     @FXML
-    private TableColumn<GaranteeForTable, String> areaNameTable;
+    private TableColumn<GaranteePolicyForTable, String> contractNameTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> locationNameTable;
+    private TableColumn<GaranteePolicyForTable, String> contractNumberTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> bankTypeTable;
+    private TableColumn<GaranteePolicyForTable, Double> contractPriceTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> garanteePriceTable;
+    private TableColumn<GaranteePolicyForTable, String> contractStartDateTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> projectNameTable;
+    private TableColumn<GaranteePolicyForTable, String> contractEndDateTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> garanteeNumberTable;
+    private TableColumn<GaranteePolicyForTable, String> policyNumberTable;
 
     @FXML
-    private TableColumn<GaranteeForTable, String> garanteeTypeTable;
+    private TableColumn<GaranteePolicyForTable, String> policyBeginDateTable;
 
     @FXML
-    private TableView<HistoricalGaranteeForTable> historicalGaranteeTableView;
+    private TableColumn<GaranteePolicyForTable, String> policyEndDateTable;
 
     @FXML
-    private TableColumn<HistoricalGaranteeForTable, String> dateHistoricalTable;
+    private TableColumn<GaranteePolicyForTable, String> policyRenewDateTable;
 
-    @FXML
-    private TableColumn<HistoricalGaranteeForTable, String> descriptionTable;
-
-    @FXML
-    private TableColumn<HistoricalGaranteeForTable, String> nnameUserTable;
     ObservableList garanteesTable= FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
         addToTable();
-        garanteePriceTable.setCellValueFactory(new PropertyValueFactory<>("garanteePrice"));
-        bankTypeTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
-        locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
-        areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
-        projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
-        garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
-        garanteeTypeTable.setCellValueFactory(new PropertyValueFactory<>("garanteeType"));
+        contractNameTable.setCellValueFactory(new PropertyValueFactory<>("contractName"));
+        contractNumberTable.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
+        contractPriceTable.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
+        contractStartDateTable.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
+        contractEndDateTable.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
+        policyNumberTable.setCellValueFactory(new PropertyValueFactory<>("policyNumber"));
+        policyBeginDateTable.setCellValueFactory(new PropertyValueFactory<>("policyBeginDate"));
+        policyEndDateTable.setCellValueFactory(new PropertyValueFactory<>("policyEndDate"));
+        policyRenewDateTable.setCellValueFactory(new PropertyValueFactory<>("policyRenewDate"));
         garanteeTableView.setItems(garanteesTable);
     }
     public void addToTable(){
         garanteesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `garantees`,`areas`,`locations`,`projects`,`banks` WHERE garantees.areaId=areas.id AND garantees.locationId=locations.id AND garantees.idProject=projects.id AND garantees.bankId=banks.id AND garantees.historiser=0");
+            pst=con.prepareStatement("SELECT * FROM `garanteespolicy`,`areas`,`locations`,`projects` WHERE garanteespolicy.idArea=areas.id AND garanteespolicy.idLocation=locations.id AND garanteespolicy.idProject=projects.id");
             rs=pst.executeQuery();
             while (rs.next()){
-                garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+                garanteesTable.add(new GaranteePolicyForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("policyNumber"),rs.getString("policyBeginDate"),rs.getString("policyEndDate"),rs.getString("policyRenewDate"),rs.getString("areaName"),rs.getString("locationName"),rs.getDouble("contractPrice")));
             }
             pst.close();
 
@@ -744,11 +675,11 @@ public class GaranteePagePolicy implements Initializable {
     @FXML
     public void deleteRow(ActionEvent actionEvent) {
         int index= garanteeTableView.getSelectionModel().getSelectedIndex();
-        int idDelete=garanteeTableView.getItems().get(index).getIdGarantee();
+        int idDelete=garanteeTableView.getItems().get(index).getIdPolicy();
         if (idDelete>0) {
             try {
                 con = new ConnectDB().getConnection();
-                pst = con.prepareStatement("DELETE FROM `garantees` WHERE `id`=?");
+                pst = con.prepareStatement("DELETE FROM `garanteespolicy` WHERE `id`=?");
                 pst.setInt(1, idDelete);
                 pst.execute();
                 warningMsg("حذف","تم الحذف بنجاح");
@@ -776,10 +707,11 @@ public class GaranteePagePolicy implements Initializable {
             garanteesTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM  `garantees`,`areas`,`locations`,`projects`,`banks` WHERE garantees.areaId=areas.id AND garantees.locationId=locations.id AND garantees.idProject=projects.id AND garantees.bankId=banks.id AND garantees.historiser=0 AND garantees.garanteeNumber LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM  `garanteespolicy`,`areas`,`locations`,`projects` WHERE garanteespolicy.idArea=areas.id AND garanteespolicy.idLocation=locations.id AND garanteespolicy.idProject=projects.id AND garanteespolicy.policyNumber LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    garanteesTable.add(new GaranteeForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+                    garanteesTable.add(new GaranteePolicyForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("idProject"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("policyNumber"),rs.getString("policyBeginDate"),rs.getString("policyEndDate"),rs.getString("policyRenewDate"),rs.getString("areaName"),rs.getString("locationName"),rs.getDouble("contractPrice")));
+
                 }
                 pst.close();
 
@@ -817,27 +749,27 @@ public class GaranteePagePolicy implements Initializable {
     private Button edit;
     public void edit(ActionEvent actionEvent) {
         int index= garanteeTableView.getSelectionModel().getSelectedIndex();
-        int idEdit=garanteeTableView.getItems().get(index).getIdGarantee();
+        int idEdit=garanteeTableView.getItems().get(index).getIdPolicy();
 
 
-        if (garanteeEditPrivilege.getText().contains("تعديل ضمان")){
+        if (garanteeEditPrivilege.getText().contains("تعديل بوليصة التأمين")){
             garanteeEditPrivilege.setText("حفظ");
-            areaName.setValue(garanteeTableView.getItems().get(index).getNameArea());
-            locationName.setValue(garanteeTableView.getItems().get(index).getNameLocation());
-            projectName.setValue(garanteeTableView.getItems().get(index).getNameProject());
-            garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
-            garanteeNumber.setText(garanteeTableView.getItems().get(index).getGaranteeNumber());
-            garanteePrice.setText(String.valueOf(garanteeTableView.getItems().get(index).getGaranteePrice()));
+            areaName.setValue(garanteeTableView.getItems().get(index).getAreaName());
+            locationName.setValue(garanteeTableView.getItems().get(index).getLocationName());
+            projectName.setValue(garanteeTableView.getItems().get(index).getContractName());
+            policyNumber.setText(garanteeTableView.getItems().get(index).getPolicyNumber());
+            policyBeginDate.getEditor().setText(String.valueOf(garanteeTableView.getItems().get(index).getPolicyBeginDate()));
+            policyEndDate.getEditor().setText(String.valueOf(garanteeTableView.getItems().get(index).getPolicyEndDate()));
+            policyRenewDate.getEditor().setText(String.valueOf(garanteeTableView.getItems().get(index).getPolicyRenewDate()));
 
         }else if (garanteeEditPrivilege.getText().contains("حفظ")){
             int dejaExist=0;
             int size=0;
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `garantees` WHERE (`garanteeNumber`=? OR `idProject`=?) AND id!=?");
-                pst.setString(1,garanteeNumber.getText());
-                pst.setInt(2,idProject);
-                pst.setInt(3,idEdit);
+                pst=con.prepareStatement("SELECT * FROM `garanteespolicy` WHERE (`policyNumber`=?) AND id!=?");
+                pst.setString(1,policyNumber.getText());
+                pst.setInt(2,idEdit);
 
                 rs=pst.executeQuery();
                 while(rs.next()){
@@ -851,7 +783,7 @@ public class GaranteePagePolicy implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            if (garanteeNumber.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+            if (policyNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||policyBeginDate.getEditor().getText().isEmpty()||policyEndDate.getEditor().getText().isEmpty()||policyRenewDate.getEditor().getText().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else if(dejaExist==1){
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -876,24 +808,23 @@ public class GaranteePagePolicy implements Initializable {
 
 
                     con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `garantees` SET `areaId`=?,`locationId`=?,`idProject`=?,`garanteeNumber`=?,`garanteeType`=?,`bankId`=?,`garanteePrice`=? WHERE `id`=?");
+                    pst = con.prepareStatement("UPDATE `garanteespolicy` SET `idArea`=?,`idLocation`=?,`idProject`=?,`policyNumber`=?,`policyBeginDate`=?,`policyEndDate`=?,`policyRenewDate`=? WHERE `id`=?");
 
 
                     pst.setInt(1,idArea);
                     pst.setInt(2,idLocation);
                     pst.setInt(3,idProject);
-                    pst.setString(4,garanteeNumber.getText());
-                    pst.setString(5,garanteeType.getValue());
-                    pst.setInt(6,idBank);
-                    pst.setDouble(7,Double.valueOf(garanteePrice.getText()));
+                    pst.setString(4,policyNumber.getText());
+                    pst.setString(5,policyBeginDate.getEditor().getText());
+                    pst.setString(6,policyEndDate.getEditor().getText());
+                    pst.setString(7,policyRenewDate.getEditor().getText());
                     pst.setInt(8,idEdit);
                     pst.execute();
-                    garanteeEditPrivilege.setText("تعديل ضمان");
-                    locationName.getItems().clear();
-                    projectName.getItems().clear();
-                    garanteeNumber.clear();
-                    garanteePrice.clear();
-                    garanteeType.setItems(garantees);
+                    garanteeEditPrivilege.setText("تعديل بوليصة التأمين");
+                    policyNumber.clear();
+                    policyBeginDate.getEditor().clear();
+                    policyEndDate.getEditor().clear();
+                    policyRenewDate.getEditor().clear();
                     warningMsg("تعديل","تم التعديل بنجاح");
                     pst.close();
 
@@ -915,14 +846,7 @@ public class GaranteePagePolicy implements Initializable {
 
     @FXML
     void idReset(MouseEvent event) {
-        garanteeEditPrivilege.setText("تعديل ضمان");
-        areaName.setValue("");
-        locationName.setValue("");
-        projectName.setValue("");
-        garanteeNumber.clear();
-        garanteeType.setValue("");
-        garanteeType.setItems(garantees);
-
+        garanteeEditPrivilege.setText("تعديل بوليصة التأمين");
     }
 
 

@@ -2,10 +2,10 @@ package Controlers;
 
 public class GaranteePolicyForTable {
     private int idPolicy,idArea,idLocation,idProject;
-    private String contractName,contractNumber,contractStartDate,contractEndDate,policyNumber,policyBeginDate,policyEndDate,policyRenewDate;
+    private String contractName,contractNumber,contractStartDate,contractEndDate,policyNumber,policyBeginDate,policyEndDate,policyRenewDate,areaName,locationName;
     private Double contractPrice;
 
-    public GaranteePolicyForTable(int idPolicy, int idArea, int idLocation, int idProject, String contractName, String contractNumber, String contractStartDate, String contractEndDate, String policyNumber, String policyBeginDate, String policyEndDate, String policyRenewDate, Double contractPrice) {
+    public GaranteePolicyForTable(int idPolicy, int idArea, int idLocation, int idProject, String contractName, String contractNumber, String contractStartDate, String contractEndDate, String policyNumber, String policyBeginDate, String policyEndDate, String policyRenewDate, String areaName, String locationName, Double contractPrice) {
         this.idPolicy = idPolicy;
         this.idArea = idArea;
         this.idLocation = idLocation;
@@ -18,7 +18,17 @@ public class GaranteePolicyForTable {
         this.policyBeginDate = policyBeginDate;
         this.policyEndDate = policyEndDate;
         this.policyRenewDate = policyRenewDate;
+        this.areaName = areaName;
+        this.locationName = locationName;
         this.contractPrice = contractPrice;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public String getLocationName() {
+        return locationName;
     }
 
     public Double getContractPrice() {
