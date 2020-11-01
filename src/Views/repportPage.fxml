@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.RepportPage">
    <children>
@@ -27,21 +28,106 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
                                        <children>
-                                          <ComboBox fx:id="areaName" layoutX="309.0" layoutY="67.0" onAction="#selectArea" prefHeight="37.0" prefWidth="230.0" promptText="المنطقة" />
-                                          <ComboBox fx:id="locationName" layoutX="580.0" layoutY="67.0" onAction="#selectLocation" prefHeight="37.0" prefWidth="230.0" promptText="الموقع" />
-                                          <ComboBox fx:id="projectName" layoutX="851.0" layoutY="67.0" onAction="#selectProject" prefHeight="37.0" prefWidth="230.0" promptText="المشروع" />
+                                          <ComboBox fx:id="areaName" layoutX="309.0" layoutY="43.0" onAction="#selectArea" prefHeight="37.0" prefWidth="230.0" promptText="المنطقة" />
+                                          <ComboBox fx:id="locationName" layoutX="580.0" layoutY="43.0" onAction="#selectLocation" prefHeight="37.0" prefWidth="230.0" promptText="الموقع" />
+                                          <ComboBox fx:id="projectName" layoutX="851.0" layoutY="43.0" onAction="#selectProject" prefHeight="37.0" prefWidth="230.0" promptText="المشروع" />
                                           <Separator layoutY="124.0" prefHeight="0.0" prefWidth="1107.0" />
-                                          <Button layoutX="32.0" layoutY="140.0" mnemonicParsing="false" onAction="#printOne" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العام للمشاريع لمنطقة معينة" />
-                                          <Button layoutX="405.0" layoutY="140.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير عقود جميع المناطق" />
-                                          <Button layoutX="784.0" layoutY="140.0" mnemonicParsing="false" onAction="#printThree" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع" />
-                                          <Button layoutX="32.0" layoutY="246.0" mnemonicParsing="false" onAction="#printFour" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
-                                          <Button layoutX="405.0" layoutY="246.0" mnemonicParsing="false" onAction="#printFive" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
-                                          <Button layoutX="784.0" layoutY="246.0" mnemonicParsing="false" onAction="#printSix" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لمشروع محدد" />
-                                          <Button layoutX="32.0" layoutY="353.0" mnemonicParsing="false" onAction="#printEight" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المصاريف لمشروع محدد" />
-                                          <Button layoutX="406.0" layoutY="353.0" mnemonicParsing="false" onAction="#printNine" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات لمشروع" />
-                                          <Button layoutX="784.0" layoutY="353.0" mnemonicParsing="false" onAction="#printSeven" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="نقص العمالة لجميع المناطق" />
-                                          <Button layoutX="32.0" layoutY="462.0" mnemonicParsing="false" onAction="#printTen" prefHeight="86.0" prefWidth="297.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لجميع المشاريع" />
-                                          <ComboBox fx:id="areaName1" layoutX="40.0" layoutY="67.0" onAction="#selectType" prefHeight="37.0" prefWidth="230.0" promptText="صحي / عسكري" />
+                                          <ComboBox fx:id="areaName1" layoutX="40.0" layoutY="43.0" onAction="#selectType" prefHeight="37.0" prefWidth="230.0" promptText="نوع المشروع" />
+                                          <Button layoutX="241.0" layoutY="155.0" mnemonicParsing="false" onAction="#showProject" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المشاريع" />
+                                          <Button layoutX="597.0" layoutY="155.0" mnemonicParsing="false" onAction="#showAmala" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير العمالة و المصاريف" />
+                                          <Button layoutX="243.0" layoutY="261.0" mnemonicParsing="false" onAction="#showPenalty" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الغرامات و الإستقطاعات" />
+                                          <Button layoutX="599.0" layoutY="261.0" mnemonicParsing="false" onAction="#showAbstract" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المستخلصات" />
+                                          <Button layoutX="244.0" layoutY="364.0" mnemonicParsing="false" onAction="#showEmployee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الموظفين" />
+                                          <Button layoutX="600.0" layoutY="364.0" mnemonicParsing="false" onAction="#showNotif" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير التنبيهات" />
+                                          <Button layoutX="428.0" layoutY="467.0" mnemonicParsing="false" onAction="#showGarantee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الضمانات" />
+                                          <AnchorPane fx:id="projectAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="480.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير المشاريع">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideProject" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="186.0" layoutY="184.0" mnemonicParsing="false" onAction="#printOne" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير عام لمشاريع منطقة معينة" />
+                                                <Button layoutX="610.0" layoutY="184.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير مشاريع لجميع المناطق" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="amalaAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="435.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير العمالة و المصاريف">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideAmala" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printThree" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير العمالة لمشروع محدد" />
+                                                <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printEight" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المصاريف لمشروع محدد" />
+                                                <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" onAction="#printSeven" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير نقص العمالة لجميع المناطق" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="penaltyAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="418.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير الغرامات و الإستقطاعات">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hidePenalty" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="201.0" mnemonicParsing="false" onAction="#printFour" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لمشروع محدد" />
+                                                <Button layoutX="610.0" layoutY="201.0" mnemonicParsing="false" onAction="#printFive" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="abstractAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="465.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير المستخلصات">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideAbstract" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="201.0" mnemonicParsing="false" onAction="#printSix" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لمشروع محدد" />
+                                                <Button layoutX="610.0" layoutY="201.0" mnemonicParsing="false" onAction="#printTen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لجميع المشاريع" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="employeeAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="475.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير الموظفين">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideEmployee" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printSeventeen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الجنسيات لجميع المناطق" />
+                                                <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printSixteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الجنسيات لمنطقة معينة" />
+                                                <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" onAction="#printFifteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الجنسيات لموقع محدد" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="notifAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="485.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير التنبيهات">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideNotif" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printTwelve" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لجميع الموظفين" />
+                                                <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printThirteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لمنطقة معينة" />
+                                                <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" onAction="#printFourteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لموقع محدد" />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="garanteeAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="474.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير الضمانات">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideGarantee" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printNine" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات المسجلة" />
+                                                <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printEleven" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات مشاريع غير مسجلة" />
+                                                <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات المغلقة " />
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </AnchorPane>
                               </content>
