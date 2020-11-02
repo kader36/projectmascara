@@ -2,7 +2,6 @@
 <!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cherry_Landscape_3" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a5c9b49-9dc5-422a-ac69-e92cf61ef530">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="testbase"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false"/>
@@ -214,7 +213,11 @@
 		<property name="com.jaspersoft.studio.field.label" value="penaltDaduct"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="projects"/>
 	</field>
-	<field name="COLUMN_13" class="java.lang.Integer">
+	<field name="transfered" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="transfered"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="projects"/>
+	</field>
+	<field name="COLUMN_14" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
 	</field>
@@ -222,7 +225,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="areaName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
 	</field>
-	<field name="COLUMN_15" class="java.lang.Integer">
+	<field name="COLUMN_16" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
@@ -254,7 +257,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="privilegesId"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
-	<field name="COLUMN_23" class="java.lang.Integer">
+	<field name="COLUMN_24" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
@@ -490,7 +493,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="COLUMN_82" class="java.lang.Integer">
+	<field name="COLUMN_83" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
@@ -498,7 +501,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
-	<field name="COLUMN_84" class="java.lang.Integer">
+	<field name="COLUMN_85" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
@@ -829,7 +832,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<staticText>
-					<reportElement x="303" y="56" width="65" height="20" uuid="990fe591-0429-4292-b02c-f7ee971437ac"/>
+					<reportElement x="302" y="56" width="65" height="20" uuid="990fe591-0429-4292-b02c-f7ee971437ac"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

@@ -20,10 +20,8 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class RepportPage implements Initializable {
@@ -34,7 +32,7 @@ public class RepportPage implements Initializable {
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
     ObservableList<String> contracts= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع قطاع عسكري","مشروع النظافة","مشروع الصيانة","مشروع تعليمي");
-
+    Date nowDate,nowDate1,nowDate2;
     int idArea=0,idLocation=0,idProject=0;
 
     @FXML
@@ -420,6 +418,16 @@ public class RepportPage implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         con=new Controlers.ConnectDB().getConnection();
         areaName1.setItems(contracts);
+
+        Calendar now=Calendar.getInstance();
+        if ((now.get(Calendar.MONTH)+2)<=12){
+            nowDate1= Date.valueOf(now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+2)+"-"+now.get(Calendar.DATE));
+
+        }else{
+            int a=now.get(Calendar.MONTH)+2-12;
+            System.out.println(a);
+            nowDate1= Date.valueOf((now.get(Calendar.YEAR)+1)+"-"+a+"-"+now.get(Calendar.DATE));
+        }
 
     }
 
@@ -817,7 +825,7 @@ public class RepportPage implements Initializable {
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report9.jrxml";
-                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND garantees.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -856,56 +864,47 @@ public class RepportPage implements Initializable {
     }
 
     public void printEleven(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
-        }else {
-            try {
-                String path=System.getProperty("user.dir")+"\\src\\report\\Report11.jrxml";
-                String querry="SELECT * FROM `garanteesur`,`historicalgaranteesur`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgaranteesur.idGarantee=garanteesur.id AND garanteesur.areaId=areas.id AND garanteesur.locationId =locations.id AND garanteesur.bankId =banks.id AND users.id=1 AND users.privilegesId=privileges.id";
-                JasperDesign jd=  JRXmlLoader.load(path);
-                JRDesignQuery query=new JRDesignQuery();
-                query.setText(querry);
-                jd.setQuery(query);
-                JasperReport jr= JasperCompileManager.compileReport(jd);
-                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-                JasperViewer jv = new JasperViewer( jasperPrint, false );
-                jv.viewReport( jasperPrint, false );
-
-            } catch (JRException e) {
-                e.printStackTrace();
-            }
+        try {
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report11.jrxml";
+            String querry="SELECT * FROM `garanteesur`,`historicalgaranteesur`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgaranteesur.idGarantee=garanteesur.id AND garanteesur.areaId=areas.id AND garanteesur.locationId =locations.id AND garanteesur.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+            JasperDesign jd=  JRXmlLoader.load(path);
+            JRDesignQuery query=new JRDesignQuery();
+            query.setText(querry);
+            jd.setQuery(query);
+            JasperReport jr= JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+            JasperViewer jv = new JasperViewer( jasperPrint, false );
+            jv.viewReport( jasperPrint, false );
+        } catch (JRException e) {
+            e.printStackTrace();
         }
     }
 
     public void printTwelve(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
-        }else {
-            try {
-                String path=System.getProperty("user.dir")+"\\src\\report\\Report12.jrxml";
-                String querry="(SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية بطاقة إقامة\" AS notifType,\"///\" AS notifNumber,employees.residenceEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `residenceEndDate` <=\"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية الشهادة الصحية\",employees.HealthCertificateNumber,employees.HealthCertificatEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `HealthCertificatEndDate` <= \"2021-07-24\"  AND users.id=1 AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية شهادة تصنيف الهيئة\",employees.ClassificationNumber,employees.ClassificationEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `ClassificationEndDate` <= \"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id )";
-                JasperDesign jd=  JRXmlLoader.load(path);
-                JRDesignQuery query=new JRDesignQuery();
-                query.setText(querry);
-                jd.setQuery(query);
-                JasperReport jr= JasperCompileManager.compileReport(jd);
-                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-                JasperViewer jv = new JasperViewer( jasperPrint, false );
-                jv.viewReport( jasperPrint, false );
+        try {
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report12.jrxml";
+            String querry="(SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية بطاقة إقامة' AS notifType,'///' AS notifNumber,employees.residenceEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `residenceEndDate` <='"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية الشهادة الصحية',employees.HealthCertificateNumber,employees.HealthCertificatEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `HealthCertificatEndDate` <= '"+nowDate1.toString()+"'  AND users.id="+idConnected+" AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية شهادة تصنيف الهيئة',employees.ClassificationNumber,employees.ClassificationEndDate,employees.employeeSex,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges` WHERE `ClassificationEndDate` <= '"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id )";
+            JasperDesign jd=  JRXmlLoader.load(path);
+            JRDesignQuery query=new JRDesignQuery();
+            query.setText(querry);
+            jd.setQuery(query);
+            JasperReport jr= JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+            JasperViewer jv = new JasperViewer( jasperPrint, false );
+            jv.viewReport( jasperPrint, false );
 
-            } catch (JRException e) {
-                e.printStackTrace();
-            }
+        } catch (JRException e) {
+            e.printStackTrace();
         }
     }
 
     public void printThirteen(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        if (areaName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار المنطقة");
         }else {
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report13.jrxml";
-                String querry="(SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية بطاقة إقامة\" AS notifType,\"///\" AS notifNumber,employees.residenceEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea=1 AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <=\"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية الشهادة الصحية\",employees.HealthCertificateNumber,employees.HealthCertificatEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea=1 AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= \"2021-07-24\"  AND users.id=1 AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية شهادة تصنيف الهيئة\",employees.ClassificationNumber,employees.ClassificationEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea=1 AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= \"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id )";
+                String querry="(SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية بطاقة إقامة' AS notifType,'///' AS notifNumber,employees.residenceEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea="+idArea+" AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <='"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية الشهادة الصحية',employees.HealthCertificateNumber,employees.HealthCertificatEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea="+idArea+" AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= '"+nowDate1.toString()+"'  AND users.id="+idConnected+" AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية شهادة تصنيف الهيئة',employees.ClassificationNumber,employees.ClassificationEndDate,areas.areaName,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`areas`,`locations` WHERE projectsemployees.idArea="+idArea+" AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= '"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id )";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -922,12 +921,12 @@ public class RepportPage implements Initializable {
     }
 
     public void printFourteen(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        if (locationName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار الموقع");
         }else {
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report14.jrxml";
-                String querry="(SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية بطاقة إقامة\" AS notifType,\"///\" AS notifNumber,employees.residenceEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <=\"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية الشهادة الصحية\",employees.HealthCertificateNumber,employees.HealthCertificatEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= \"2021-07-24\"  AND users.id=1 AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,\"إنتهاء صلاحية شهادة تصنيف الهيئة\",employees.ClassificationNumber,employees.ClassificationEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= \"2021-07-24\" AND users.id=1 AND users.privilegesId=privileges.id )";
+                String querry="(SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية بطاقة إقامة' AS notifType,'///' AS notifNumber,employees.residenceEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation="+idLocation+" AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <='"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية الشهادة الصحية',employees.HealthCertificateNumber,employees.HealthCertificatEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation="+idLocation+" AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= '"+nowDate1.toString()+"'  AND users.id="+idConnected+" AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,'إنتهاء صلاحية شهادة تصنيف الهيئة',employees.ClassificationNumber,employees.ClassificationEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation="+idLocation+" AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= '"+nowDate1.toString()+"' AND users.id="+idConnected+" AND users.privilegesId=privileges.id )";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -944,12 +943,12 @@ public class RepportPage implements Initializable {
     }
 
     public void printFifteen(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        if (locationName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار الموقع");
         }else {
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report15.jrxml";
-                String querry="SELECT * FROM `projectsemployees`,`locations`,`employees`,`users`,`privileges` WHERE projectsemployees.idLocation=locations.id AND locations.id=58 AND projectsemployees.idEmployee=employees.id AND users.id=1 AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `projectsemployees`,`locations`,`employees`,`users`,`privileges` WHERE projectsemployees.idLocation=locations.id AND locations.id="+idLocation+" AND projectsemployees.idEmployee=employees.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -966,12 +965,12 @@ public class RepportPage implements Initializable {
     }
 
     public void printSixteen(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        if (areaName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار المنطقة");
         }else {
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report16.jrxml";
-                String querry="SELECT DISTINCT employeeNationality,areas.areaName,users.employeeName,privileges.privilegeName,locations.locationName ,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea=1 AND projectsemployees.idEmployee=empl1.id ) AS total,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea=1 AND projectsemployees.idEmployee=empl1.id AND empl1.employeeSex=\"أنثى\") AS female,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea=1 AND projectsemployees.idEmployee=empl1.id AND empl1.employeeSex=\"ذكر\" ) AS male FROM `employees` AS empl2,`projectsemployees`,`areas`,`locations`,`users`,`privileges` WHERE projectsemployees.idArea=1 AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=empl2.id AND users.id=1 AND users.privilegesId=privileges.id";
+                String querry="SELECT DISTINCT employeeNationality,areas.areaName,users.employeeName,privileges.privilegeName,locations.locationName ,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea="+idArea+" AND projectsemployees.idEmployee=empl1.id ) AS total,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea="+idArea+" AND projectsemployees.idEmployee=empl1.id AND empl1.employeeSex='أنثى') AS female,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` WHERE empl2.employeeNationality=empl1.employeeNationality AND projectsemployees.idArea="+idArea+" AND projectsemployees.idEmployee=empl1.id AND empl1.employeeSex='ذكر' ) AS male FROM `employees` AS empl2,`projectsemployees`,`areas`,`locations`,`users`,`privileges` WHERE projectsemployees.idArea="+idArea+" AND projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=empl2.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -988,24 +987,20 @@ public class RepportPage implements Initializable {
     }
 
     public void printSeventeen(ActionEvent actionEvent) {
-        if (areaName1.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
-        }else {
-            try {
-                String path=System.getProperty("user.dir")+"\\src\\report\\Report17.jrxml";
-                String querry="SELECT DISTINCT pempl2.idArea,areas.areaName,users.employeeName,privileges.privilegeName,employeeNationality,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee ) AS total,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee AND empl1.employeeSex=\"أنثى\" ) AS female,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee AND empl1.employeeSex=\"ذكر\" ) AS male FROM `employees` AS empl2,`projectsemployees` AS pempl2,`areas`,`users`,`privileges` WHERE pempl2.idArea=areas.id AND users.id=1 AND users.privilegesId=privileges.id ORDER BY pempl2.idArea";
-                JasperDesign jd=  JRXmlLoader.load(path);
-                JRDesignQuery query=new JRDesignQuery();
-                query.setText(querry);
-                jd.setQuery(query);
-                JasperReport jr= JasperCompileManager.compileReport(jd);
-                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-                JasperViewer jv = new JasperViewer( jasperPrint, false );
-                jv.viewReport( jasperPrint, false );
+        try {
+            String path=System.getProperty("user.dir")+"\\src\\report\\Report17.jrxml";
+            String querry="SELECT DISTINCT pempl2.idArea,areas.areaName,users.employeeName,privileges.privilegeName,employeeNationality,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee ) AS total,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee AND empl1.employeeSex='أنثى' ) AS female,(SELECT COUNT(*) FROM `employees` AS empl1,`projectsemployees` AS pempl1 WHERE empl2.employeeNationality=empl1.employeeNationality AND pempl2.idArea=pempl1.idArea AND empl1.id=pempl1.idEmployee AND empl1.employeeSex='ذكر' ) AS male FROM `employees` AS empl2,`projectsemployees` AS pempl2,`areas`,`users`,`privileges` WHERE pempl2.idArea=areas.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY pempl2.idArea";
+            JasperDesign jd=  JRXmlLoader.load(path);
+            JRDesignQuery query=new JRDesignQuery();
+            query.setText(querry);
+            jd.setQuery(query);
+            JasperReport jr= JasperCompileManager.compileReport(jd);
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+            JasperViewer jv = new JasperViewer( jasperPrint, false );
+            jv.viewReport( jasperPrint, false );
 
-            } catch (JRException e) {
-                e.printStackTrace();
-            }
+        } catch (JRException e) {
+            e.printStackTrace();
         }
     }
 

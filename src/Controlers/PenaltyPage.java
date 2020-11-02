@@ -32,7 +32,7 @@ public class PenaltyPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<String> locoremps= FXCollections.observableArrayList("موقع","موظف");
-    ObservableList<String> perOrCoss= FXCollections.observableArrayList("نسبة","تكلفة");
+    ObservableList<String> perOrCoss= FXCollections.observableArrayList("تكلفة");
     ObservableList<Project> projects= FXCollections.observableArrayList();
     ObservableList<EmployeeForList> employees= FXCollections.observableArrayList();
     ObservableList<Occupation> occupations= FXCollections.observableArrayList();
@@ -831,7 +831,7 @@ public class PenaltyPage implements Initializable {
         }
     }
     public void addDeduction(ActionEvent actionEvent) {
-        if (amountOfDeduction.getText().isEmpty()||typeDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||locoremp.getSelectionModel().isEmpty()||perOrCos.getSelectionModel().isEmpty()){
+        if (amountOfDeduction.getText().isEmpty()||typeDeduction.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||locoremp.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else{
             try {
@@ -849,7 +849,7 @@ public class PenaltyPage implements Initializable {
                     pst.setInt(7,idEmployee);
                     pst.setString(8,employeeName.getValue());
                     pst.setString(9,"p");
-                    pst.setString(10,perOrCos.getValue());
+                    pst.setString(10,"تكلفة");
 
                 }else{
                     pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
@@ -861,7 +861,7 @@ public class PenaltyPage implements Initializable {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
                     pst.setString(6, sdf.format(new Date()));
                     pst.setString(7,"p");
-                    pst.setString(8,perOrCos.getValue());
+                    pst.setString(8,"تكلفة");
 
                 }
 
@@ -900,7 +900,7 @@ public class PenaltyPage implements Initializable {
     }
 
     public void addDeduction1(ActionEvent actionEvent) {
-        if (amountOfDeduction1.getText().isEmpty()||typeDeduction1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()||locoremp1.getSelectionModel().isEmpty()||perOrCos1.getSelectionModel().isEmpty()){
+        if (amountOfDeduction1.getText().isEmpty()||typeDeduction1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||projectName1.getSelectionModel().isEmpty()||locoremp1.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else{
             try {
@@ -918,7 +918,7 @@ public class PenaltyPage implements Initializable {
                     pst.setInt(7,idEmployee);
                     pst.setString(8,employeeName1.getValue());
                     pst.setString(9,"p");
-                    pst.setString(10,perOrCos1.getValue());
+                    pst.setString(10,"تكلفة");
 
                 }else{
                     pst=con.prepareStatement("INSERT INTO `deductions`(`idArea`, `idLocation`, `typeDeduction`, `amountOfDeduction`, `idProject`, `deductionDate`, `dorp`, `nort`) VALUES (?,?,?,?,?,?,?,?)");
@@ -930,7 +930,7 @@ public class PenaltyPage implements Initializable {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd" );
                     pst.setString(6, sdf.format(new Date()));
                     pst.setString(7,"p");
-                    pst.setString(8,perOrCos1.getValue());
+                    pst.setString(8,"تكلفة");
 
                 }
 
