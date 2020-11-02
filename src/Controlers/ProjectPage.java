@@ -56,7 +56,14 @@ public class ProjectPage{
     private Button userMenuButton;// c bn
 
     @FXML
-    private Button repportMenuButton;//c bn
+    private Button repportMenuButton;// c bn
+
+    @FXML
+    private Button projectSi7i;
+    @FXML
+    private Button project3askari;
+    @FXML
+    private Button projectSiyana;
 
 
 
@@ -88,7 +95,7 @@ public class ProjectPage{
 
                 }
 
-                if (rs.getInt("gass")==0){
+                if ((rs.getInt("gass")==0)&&(rs.getInt("gass1")==0)){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -149,10 +156,25 @@ public class ProjectPage{
                 }else{
                     repportMenuButton.setDisable(false);
                 }
-                if (rs.getInt("prss")==0){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
                 }else{
                     projectMenuButton.setDisable(false);
+                }
+                if (rs.getInt("prss")==0){
+                    projectSi7i.setDisable(true);
+                }else{
+                    projectSi7i.setDisable(false);
+                }
+                if (rs.getInt("prms")==0){
+                    project3askari.setDisable(true);
+                }else{
+                    project3askari.setDisable(false);
+                }
+                if (rs.getInt("prrcs")==0){
+                    projectSiyana.setDisable(true);
+                }else{
+                    projectSiyana.setDisable(false);
                 }
             }
             pst.close();

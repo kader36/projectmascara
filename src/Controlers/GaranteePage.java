@@ -56,7 +56,16 @@ public class GaranteePage {
     private Button userMenuButton;// c bn
 
     @FXML
-    private Button repportMenuButton;//c bn
+    private Button repportMenuButton;// c bn
+
+    @FXML
+    private Button garR;
+
+    @FXML
+    private Button garUR;
+
+    @FXML
+    private Button garP;
 
 
 
@@ -88,7 +97,7 @@ public class GaranteePage {
 
                 }
 
-                if (rs.getInt("gass")==0){
+                if ((rs.getInt("gass")==0)&&(rs.getInt("gass1")==0)){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -149,10 +158,24 @@ public class GaranteePage {
                 }else{
                     repportMenuButton.setDisable(false);
                 }
-                if (rs.getInt("prss")==0){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
                 }else{
                     projectMenuButton.setDisable(false);
+                }
+                if ((rs.getInt("gass")==0)){
+                    garR.setDisable(true);
+                    garUR.setDisable(true);
+
+                }else{
+                    garR.setDisable(false);
+                    garUR.setDisable(false);
+
+                }
+                if ((rs.getInt("gass1")==0)){
+                    garP.setDisable(true);
+                }else{
+                    garP.setDisable(false);
                 }
             }
             pst.close();
