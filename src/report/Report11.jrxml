@@ -7,7 +7,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `garanteesur`,`historicalgaranteesur`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgaranteesur.idGarantee=garanteesur.id AND garanteesur.areaId=areas.id AND garanteesur.locationId =locations.id AND garanteesur.bankId =banks.id AND users.id=1 AND users.privilegesId=privileges.id]]>
+		<![CDATA[SELECT * FROM `garanteesur`,`users`,`privileges`,`banks`,`areas`,`locations`,`historicalgaranteesur` WHERE `projectName`='sdfsdkfl' AND garanteesur.bankId=banks.id AND garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND users.id=1 AND users.privilegesId=privileges.id AND historicalgaranteesur.idGarantee=garanteesur.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -55,46 +55,6 @@
 	</field>
 	<field name="COLUMN_12" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
-	</field>
-	<field name="dateHistorical" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="dateHistorical"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
-	</field>
-	<field name="description" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="description"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
-	</field>
-	<field name="idUser" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="idUser"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
-	</field>
-	<field name="idGarantee" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="idGarantee"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
-	</field>
-	<field name="COLUMN_17" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
-	</field>
-	<field name="areaName" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="areaName"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
-	</field>
-	<field name="COLUMN_19" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
-	</field>
-	<field name="locationName" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
-	</field>
-	<field name="COLUMN_21" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
-	</field>
-	<field name="COLUMN_22" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
 	<field name="employeeName" class="java.lang.String">
@@ -125,7 +85,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="privilegesId"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
-	<field name="COLUMN_30" class="java.lang.Integer">
+	<field name="COLUMN_20" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
@@ -361,13 +321,157 @@
 		<property name="com.jaspersoft.studio.field.label" value="res"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="COLUMN_89" class="java.lang.Integer">
+	<field name="res1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res2" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res3" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res4" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res4"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res5" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res5"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res6" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res6"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res7" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res7"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="res8" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="res8"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prstp" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prstp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prms" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prms"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prmtp" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prmtp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrcs" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrcs"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrca" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrcd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrcd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrce" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrct" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrct"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrci" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrci"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prrctp" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prrctp"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gasa1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gasa1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gasd1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gasd1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gase1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gase1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="gass1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="gass1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prss1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prss1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prsa1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prsa1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prsd1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prsd1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="prse1" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="prse1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="COLUMN_105" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="banks"/>
 	</field>
 	<field name="bankName" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="bankName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="banks"/>
+	</field>
+	<field name="COLUMN_107" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
+	</field>
+	<field name="areaName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="areaName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
+	</field>
+	<field name="COLUMN_109" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="locationName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_111" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
+	</field>
+	<field name="COLUMN_112" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
+	</field>
+	<field name="dateHistorical" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="dateHistorical"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
+	</field>
+	<field name="idUser" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="idUser"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
+	</field>
+	<field name="idGarantee" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idGarantee"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
 	</field>
 	<variable name="amountOfDeduction1" class="java.lang.Float" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>

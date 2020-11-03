@@ -168,11 +168,6 @@ public class ProjectPage{
                 }else{
                     projectSi7i.setDisable(false);
                 }
-                if (rs.getInt("prss1")==0){
-                    projectEnd.setDisable(true);
-                }else{
-                    projectEnd.setDisable(false);
-                }
                 if (rs.getInt("prms")==0){
                     project3askari.setDisable(true);
                 }else{
@@ -182,6 +177,11 @@ public class ProjectPage{
                     projectSiyana.setDisable(true);
                 }else{
                     projectSiyana.setDisable(false);
+                }
+                if (rs.getInt("prss1")==0){
+                    projectEnd.setDisable(true);
+                }else{
+                    projectEnd.setDisable(false);
                 }
             }
             pst.close();

@@ -31,9 +31,11 @@ public class RepportPage implements Initializable {
     ObservableList<Area> areas= FXCollections.observableArrayList();
     ObservableList<Location> locations= FXCollections.observableArrayList();
     ObservableList<Project> projects= FXCollections.observableArrayList();
+    ObservableList<Project> projects1= FXCollections.observableArrayList();
+    ObservableList<Project> projects3= FXCollections.observableArrayList();
     ObservableList<String> contracts= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع قطاع عسكري","مشروع النظافة","مشروع الصيانة","مشروع تعليمي");
     Date nowDate,nowDate1,nowDate2;
-    int idArea=0,idLocation=0,idProject=0;
+    int idArea=0,idLocation=0,idProject=0,idProject1=0,idProject3=0;
 
     @FXML
     private Label usernameMenu;
@@ -519,6 +521,12 @@ public class RepportPage implements Initializable {
     private ComboBox<String> locationName;
     @FXML
     private ComboBox<String> projectName;
+    @FXML
+    private ComboBox<String> projectName1;
+    @FXML
+    private ComboBox<String> projectName2;
+    @FXML
+    private ComboBox<String> projectName3;
     public void warningMsg(String title,String message ){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -546,12 +554,27 @@ public class RepportPage implements Initializable {
         int index= locationName.getSelectionModel().getSelectedIndex();
         idLocation=locations.get(index).getIdLocation();
         fillComboProject();
+        fillComboProject1();
+        fillComboProject2();
+        fillComboProject3();
     }
 
     @FXML
     void selectProject(ActionEvent event) {
         int index= projectName.getSelectionModel().getSelectedIndex();
         idProject=projects.get(index).getIdProject();
+    }
+
+    @FXML
+    void selectProject1(ActionEvent event) {
+        int index= projectName1.getSelectionModel().getSelectedIndex();
+        idProject1=projects1.get(index).getIdProject();
+    }
+
+    @FXML
+    void selectProject3(ActionEvent event) {
+        int index= projectName3.getSelectionModel().getSelectedIndex();
+        idProject3=projects3.get(index).getIdProject();
     }
     public void fillComboLocation(){
         locations.clear();
@@ -579,7 +602,6 @@ public class RepportPage implements Initializable {
     public void fillComboProject(){
         projects.clear();
         projectName.getItems().clear();
-        System.out.println(areaName1.getValue());
         try {
 
             con=new ConnectDB().getConnection();
@@ -590,11 +612,85 @@ public class RepportPage implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 projects.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
-
             }
 
             for (int i=0;i<projects.size();i++){
                 projectName.getItems().add(projects.get(i).getContractName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.getStackTrace();
+            System.out.println(throwables.getMessage());
+
+        }
+    }
+    public void fillComboProject1(){
+        projects1.clear();
+        projectName1.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`=? AND `transfered`=?");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            pst.setString(3,areaName1.getValue());
+            pst.setInt(4,0);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects1.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+            }
+
+            for (int i=0;i<projects1.size();i++){
+                projectName1.getItems().add(projects1.get(i).getContractName());
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.getStackTrace();
+            System.out.println(throwables.getMessage());
+
+        }
+    }
+    public void fillComboProject2(){
+        projectName2.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `garanteesur` WHERE `areaId`=? AND `locationId`=?");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projectName2.getItems().add(rs.getString("projectName"));
+            }
+
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.getStackTrace();
+            System.out.println(throwables.getMessage());
+
+        }
+    }
+    public void fillComboProject3(){
+        projects3.clear();
+        projectName3.getItems().clear();
+        try {
+
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`=? AND `transfered`=?");
+            pst.setInt(1,idArea);
+            pst.setInt(2,idLocation);
+            pst.setString(3,areaName1.getValue());
+            pst.setInt(4,1);
+            rs=pst.executeQuery();
+            while (rs.next()){
+                projects3.add(new Project(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("projectType"),rs.getString("contractName"),rs.getString("contractNumber"),rs.getString("contractDate"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getFloat("contractPrice")));
+            }
+
+            for (int i=0;i<projects3.size();i++){
+                projectName3.getItems().add(projects3.get(i).getContractName());
             }
             pst.close();
 
@@ -671,6 +767,8 @@ public class RepportPage implements Initializable {
     @FXML
     void hideGarantee(ActionEvent event) {
         garanteeAnchor.setVisible(false);
+        projectName.setVisible(true);
+
     }
 
     @FXML
@@ -712,6 +810,7 @@ public class RepportPage implements Initializable {
     @FXML
     void showGarantee(ActionEvent event) {
         garanteeAnchor.setVisible(true);
+        projectName.setVisible(false);
     }
 
     @FXML
@@ -913,12 +1012,34 @@ public class RepportPage implements Initializable {
     }
 
     public void printNine(ActionEvent actionEvent)  {
-        if (projectName.getSelectionModel().isEmpty()){
-            warningMsg("تنبيه","يرجى إختيار المشروع");
+        if (projectName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار مشروع مسجل");
         }else{
             try {
                 String path=System.getProperty("user.dir")+"\\src\\report\\Report9.jrxml";
-                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND garantees.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject1+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND garantees.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
+
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printNine2(ActionEvent actionEvent)  {
+        if (projectName3.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار مشروع مغلق");
+        }else{
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report9.jrxml";
+                String querry="SELECT * FROM `garantees`,`historicalgarantees`,`projects`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgarantees.idGarantee=garantees.id AND projects.id=garantees.idProject AND projects.id="+idProject3+" AND garantees.areaId=areas.id AND garantees.locationId =locations.id AND garantees.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
                 JasperDesign jd=  JRXmlLoader.load(path);
                 JRDesignQuery query=new JRDesignQuery();
                 query.setText(querry);
@@ -957,20 +1078,25 @@ public class RepportPage implements Initializable {
     }
 
     public void printEleven(ActionEvent actionEvent) {
-        try {
-            String path=System.getProperty("user.dir")+"\\src\\report\\Report11.jrxml";
-            String querry="SELECT * FROM `garanteesur`,`historicalgaranteesur`,`areas`,`locations` ,`users`,`privileges`,`banks` WHERE historicalgaranteesur.idGarantee=garanteesur.id AND garanteesur.areaId=areas.id AND garanteesur.locationId =locations.id AND garanteesur.bankId =banks.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id";
-            JasperDesign jd=  JRXmlLoader.load(path);
-            JRDesignQuery query=new JRDesignQuery();
-            query.setText(querry);
-            jd.setQuery(query);
-            JasperReport jr= JasperCompileManager.compileReport(jd);
-            JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
-            JasperViewer jv = new JasperViewer( jasperPrint, false );
-            jv.viewReport( jasperPrint, false );
-        } catch (JRException e) {
-            e.printStackTrace();
+        if (projectName2.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار مشروع غير مسجل");
+        }else{
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report11.jrxml";
+                String querry="SELECT * FROM `garanteesur`,`users`,`privileges`,`banks`,`areas`,`locations`,`historicalgaranteesur` WHERE `projectName`='"+projectName2.getValue()+"' AND garanteesur.bankId=banks.id AND garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id AND historicalgaranteesur.idGarantee=garanteesur.id";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void printTwelve(ActionEvent actionEvent) {
