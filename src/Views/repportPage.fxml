@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="664.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="627.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.RepportPage">
+<AnchorPane maxHeight="664.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="627.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.RepportPage">
    <children>
       <VBox prefHeight="630.0" prefWidth="1325.0">
          <children>
@@ -24,13 +33,14 @@
                                           <ComboBox fx:id="projectName" layoutX="851.0" layoutY="43.0" onAction="#selectProject" prefHeight="37.0" prefWidth="230.0" promptText="المشروع" />
                                           <Separator layoutY="124.0" prefHeight="0.0" prefWidth="1107.0" />
                                           <ComboBox fx:id="areaName1" layoutX="40.0" layoutY="43.0" onAction="#selectType" prefHeight="37.0" prefWidth="230.0" promptText="نوع المشروع" />
-                                          <Button layoutX="241.0" layoutY="155.0" mnemonicParsing="false" onAction="#showProject" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المشاريع" />
-                                          <Button layoutX="597.0" layoutY="155.0" mnemonicParsing="false" onAction="#showAmala" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير العمالة و المصاريف" />
-                                          <Button layoutX="243.0" layoutY="261.0" mnemonicParsing="false" onAction="#showPenalty" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الغرامات و الإستقطاعات" />
-                                          <Button layoutX="599.0" layoutY="261.0" mnemonicParsing="false" onAction="#showAbstract" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المستخلصات" />
-                                          <Button layoutX="244.0" layoutY="364.0" mnemonicParsing="false" onAction="#showEmployee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الموظفين" />
-                                          <Button layoutX="600.0" layoutY="364.0" mnemonicParsing="false" onAction="#showNotif" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير التنبيهات" />
-                                          <Button layoutX="428.0" layoutY="467.0" mnemonicParsing="false" onAction="#showGarantee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الضمانات" />
+                                          <Button fx:id="res1" layoutX="241.0" layoutY="155.0" mnemonicParsing="false" onAction="#showProject" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المشاريع" />
+                                          <Button fx:id="res2" layoutX="597.0" layoutY="155.0" mnemonicParsing="false" onAction="#showAmala" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير العمالة و المصاريف" />
+                                          <Button fx:id="res3" layoutX="243.0" layoutY="261.0" mnemonicParsing="false" onAction="#showPenalty" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الغرامات و الإستقطاعات" />
+                                          <Button fx:id="res4" layoutX="599.0" layoutY="261.0" mnemonicParsing="false" onAction="#showAbstract" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير المستخلصات" />
+                                          <Button fx:id="res5" layoutX="244.0" layoutY="364.0" mnemonicParsing="false" onAction="#showEmployee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الموظفين" />
+                                          <Button fx:id="res6" layoutX="600.0" layoutY="364.0" mnemonicParsing="false" onAction="#showNotif" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير التنبيهات" />
+                                          <Button fx:id="res7" layoutX="244.0" layoutY="467.0" mnemonicParsing="false" onAction="#showGarantee" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير الضمانات" />
+                                          <Button fx:id="res8" layoutX="599.0" layoutY="467.0" mnemonicParsing="false" onAction="#showGaranteePol" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقارير بوليصة التأمين" />
                                           <AnchorPane fx:id="projectAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
                                              <children>
                                                 <Text fill="#9351f9" layoutX="480.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير المشاريع">
@@ -117,6 +127,17 @@
                                                 <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printNine" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات المسجلة" />
                                                 <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printEleven" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات مشاريع غير مسجلة" />
                                                 <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الضمانات المغلقة " />
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane fx:id="garanteePolAnchor" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                             <children>
+                                                <Text fill="#9351f9" layoutX="459.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير بوليصة التأمين">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                </Text>
+                                                <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideGaranteePol" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
+                                                <Button layoutX="393.0" layoutY="161.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير بوليصة التأمين" />
                                              </children>
                                           </AnchorPane>
                                        </children>

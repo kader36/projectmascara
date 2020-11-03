@@ -162,6 +162,8 @@ public class ProjectPageRC implements Initializable {
 
     @FXML
     private Button editPosition;
+    @FXML
+    private Button kill;
 
     @FXML
     private TableView<projectEmployeeForTable> projectEmployeeTableView;
@@ -336,7 +338,7 @@ public class ProjectPageRC implements Initializable {
                     projectMenuButton.setDisable(false);
 
                 }
-                if (rs.getInt("prma")==0){
+                if (rs.getInt("prrca")==0){
                     projectAddPrivilege3.setDisable(true);
                     projectAddPrivilege4.setDisable(true);
                     projectAddPrivilege2.setDisable(true);
@@ -349,7 +351,7 @@ public class ProjectPageRC implements Initializable {
                     projectAddPrivilege5.setDisable(false);
 
                 }
-                if (rs.getInt("prmd")==0){
+                if (rs.getInt("prrcd")==0){
                     projectDeletePrivilege4.setDisable(true);
                     projectDeletePrivilege5.setDisable(true);
 
@@ -358,24 +360,29 @@ public class ProjectPageRC implements Initializable {
                     projectDeletePrivilege5.setDisable(false);
 
                 }
-                if (rs.getInt("prme")==0){
+                if (rs.getInt("prrce")==0){
                     projectEditPrivilege1.setDisable(true);
 
                 }else{
                     projectEditPrivilege1.setDisable(false);
 
                 }
-                if (rs.getInt("prmt")==0){
+                if (rs.getInt("prrct")==0){
                     editPosition.setDisable(true);
 
                 }else{
                     editPosition.setDisable(false);
 
                 }
-                if (rs.getInt("prmi")==0){
+                if (rs.getInt("prrci")==0){
                     projectDeletePrivilege2.setDisable(true);
                 }else{
                     projectDeletePrivilege2.setDisable(false);
+                }
+                if (rs.getInt("prrctp")==0){
+                    kill.setDisable(true);
+                }else{
+                    kill.setDisable(false);
                 }
             }
             pst.close();

@@ -157,6 +157,9 @@ public class ProjectPageS implements Initializable {
     private Button editPosition;
 
     @FXML
+    private Button kill;
+
+    @FXML
     private TableView<projectEmployeeForTable> projectEmployeeTableView;
 
     @FXML
@@ -367,6 +370,11 @@ public class ProjectPageS implements Initializable {
                     projectDeletePrivilege2.setDisable(true);
                 }else{
                     projectDeletePrivilege2.setDisable(false);
+                }
+                if (rs.getInt("prstp")==0){
+                    kill.setDisable(true);
+                }else{
+                    kill.setDisable(false);
                 }
 
             }

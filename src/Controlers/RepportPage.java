@@ -70,6 +70,30 @@ public class RepportPage implements Initializable {
     @FXML
     private Button repportMenuButton;//c bn
 
+    @FXML
+    private Button res1;//c bn
+
+    @FXML
+    private Button res2;//c bn
+
+    @FXML
+    private Button res3;//c bn
+
+    @FXML
+    private Button res4;//c bn
+
+    @FXML
+    private Button res5;//c bn
+
+    @FXML
+    private Button res6;//c bn
+
+    @FXML
+    private Button res7;//c bn
+
+    @FXML
+    private Button res8;//c bn
+
 
 
     int idConnected=0;
@@ -168,6 +192,62 @@ public class RepportPage implements Initializable {
 
                 }else{
                     projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("res1")==0){
+                    res1.setDisable(true);
+
+                }else{
+                    res1.setDisable(false);
+
+                }
+                if (rs.getInt("res2")==0){
+                    res2.setDisable(true);
+
+                }else{
+                    res2.setDisable(false);
+
+                }
+                if (rs.getInt("res3")==0){
+                    res3.setDisable(true);
+
+                }else{
+                    res3.setDisable(false);
+
+                }
+                if (rs.getInt("res4")==0){
+                    res4.setDisable(true);
+
+                }else{
+                    res4.setDisable(false);
+
+                }
+                if (rs.getInt("res5")==0){
+                    res5.setDisable(true);
+
+                }else{
+                    res5.setDisable(false);
+
+                }
+                if (rs.getInt("res6")==0){
+                    res6.setDisable(true);
+
+                }else{
+                    res6.setDisable(false);
+
+                }
+                if (rs.getInt("res7")==0){
+                    res7.setDisable(true);
+
+                }else{
+                    res7.setDisable(false);
+
+                }
+                if (rs.getInt("res8")==0){
+                    res8.setDisable(true);
+
+                }else{
+                    res8.setDisable(false);
 
                 }
             }
@@ -571,6 +651,9 @@ public class RepportPage implements Initializable {
     private AnchorPane garanteeAnchor;
 
     @FXML
+    private AnchorPane garanteePolAnchor;
+
+    @FXML
     void hideAbstract(ActionEvent event) {
         abstractAnchor.setVisible(false);
     }
@@ -588,6 +671,11 @@ public class RepportPage implements Initializable {
     @FXML
     void hideGarantee(ActionEvent event) {
         garanteeAnchor.setVisible(false);
+    }
+
+    @FXML
+    void hideGaranteePol(ActionEvent event) {
+        garanteePolAnchor.setVisible(false);
     }
 
     @FXML
@@ -624,6 +712,11 @@ public class RepportPage implements Initializable {
     @FXML
     void showGarantee(ActionEvent event) {
         garanteeAnchor.setVisible(true);
+    }
+
+    @FXML
+    void showGaranteePol(ActionEvent event) {
+        garanteePolAnchor.setVisible(true);
     }
 
     @FXML
