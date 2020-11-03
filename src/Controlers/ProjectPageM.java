@@ -263,7 +263,7 @@ public class ProjectPageM implements Initializable {
 
                 }
 
-                if (rs.getInt("gass")==0){
+                if ((rs.getInt("gass")==0)&&(rs.getInt("gass1")==0)){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -326,7 +326,7 @@ public class ProjectPageM implements Initializable {
                     repportMenuButton.setDisable(false);
 
                 }
-                if (rs.getInt("prss")==0){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
 
                 }else{

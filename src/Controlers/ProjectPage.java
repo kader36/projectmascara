@@ -63,6 +63,8 @@ public class ProjectPage{
     @FXML
     private Button project3askari;
     @FXML
+    private Button projectEnd;
+    @FXML
     private Button projectSiyana;
 
 
@@ -156,7 +158,7 @@ public class ProjectPage{
                 }else{
                     repportMenuButton.setDisable(false);
                 }
-                if ((rs.getInt("prss")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
                 }else{
                     projectMenuButton.setDisable(false);
@@ -165,6 +167,11 @@ public class ProjectPage{
                     projectSi7i.setDisable(true);
                 }else{
                     projectSi7i.setDisable(false);
+                }
+                if (rs.getInt("prss1")==0){
+                    projectEnd.setDisable(true);
+                }else{
+                    projectEnd.setDisable(false);
                 }
                 if (rs.getInt("prms")==0){
                     project3askari.setDisable(true);

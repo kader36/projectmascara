@@ -83,7 +83,7 @@ public class UserPage extends Component implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gass1"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getInt("res1"),rs.getInt("res2"),rs.getInt("res3"),rs.getInt("res4"),rs.getInt("res5"),rs.getInt("res6"),rs.getInt("res7"),rs.getInt("res8"),rs.getInt("prstp"),rs.getInt("prms"),rs.getInt("prmtp"),rs.getInt("prrcs"),rs.getInt("prrca"),rs.getInt("prrcd"),rs.getInt("prrce"),rs.getInt("prrct"),rs.getInt("prrci"),rs.getInt("prrctp"),rs.getInt("gasa1"),rs.getInt("gasd1"),rs.getInt("gase1"),rs.getString("privilegeName")));
+                privileges.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gass1"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getInt("res1"),rs.getInt("res2"),rs.getInt("res3"),rs.getInt("res4"),rs.getInt("res5"),rs.getInt("res6"),rs.getInt("res7"),rs.getInt("res8"),rs.getInt("prstp"),rs.getInt("prms"),rs.getInt("prmtp"),rs.getInt("prrcs"),rs.getInt("prrca"),rs.getInt("prrcd"),rs.getInt("prrce"),rs.getInt("prrct"),rs.getInt("prrci"),rs.getInt("prrctp"),rs.getInt("gasa1"),rs.getInt("gasd1"),rs.getInt("gase1"),rs.getInt("prss1"),rs.getInt("prsa1"),rs.getInt("prsd1"),rs.getInt("prse1"),rs.getString("privilegeName")));
                 privilegeName.getItems().add(rs.getString("privilegeName"));
 
             }
@@ -324,7 +324,7 @@ public class UserPage extends Component implements Initializable {
                     repportMenuButton.setDisable(false);
 
                 }
-                if ((rs.getInt("prss")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
 
                 }else{
@@ -745,7 +745,7 @@ public class UserPage extends Component implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `privileges`");
             rs=pst.executeQuery();
             while (rs.next()){
-                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gass1"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getInt("res1"),rs.getInt("res2"),rs.getInt("res3"),rs.getInt("res4"),rs.getInt("res5"),rs.getInt("res6"),rs.getInt("res7"),rs.getInt("res8"),rs.getInt("prstp"),rs.getInt("prms"),rs.getInt("prmtp"),rs.getInt("prrcs"),rs.getInt("prrca"),rs.getInt("prrcd"),rs.getInt("prrce"),rs.getInt("prrct"),rs.getInt("prrci"),rs.getInt("prrctp"),rs.getInt("gasa1"),rs.getInt("gasd1"),rs.getInt("gase1"),rs.getString("privilegeName")));
+                privilegesTable.add(new PrivilegeForTable(rs.getInt("id"),rs.getInt("arss"),rs.getInt("arsa"),rs.getInt("arsd"),rs.getInt("arse"),rs.getInt("loss"),rs.getInt("losa"),rs.getInt("losd"),rs.getInt("lose"),rs.getInt("prss"),rs.getInt("prsa"),rs.getInt("prsd"),rs.getInt("prse"),rs.getInt("prst"),rs.getInt("prsi"),rs.getInt("prma"),rs.getInt("prmd"),rs.getInt("prme"),rs.getInt("prmt"),rs.getInt("prmi"),rs.getInt("gass"),rs.getInt("gass1"),rs.getInt("gasa"),rs.getInt("gasd"),rs.getInt("gase"),rs.getInt("ocss"),rs.getInt("ocsa"),rs.getInt("ocsd"),rs.getInt("ocse"),rs.getInt("emss"),rs.getInt("emsa"),rs.getInt("emsd"),rs.getInt("emse"),rs.getInt("abss"),rs.getInt("absa"),rs.getInt("absd"),rs.getInt("abse"),rs.getInt("abma"),rs.getInt("abmd"),rs.getInt("abme"),rs.getInt("dess"),rs.getInt("desa"),rs.getInt("desd"),rs.getInt("dese"),rs.getInt("dema"),rs.getInt("demd"),rs.getInt("deme"),rs.getInt("pess"),rs.getInt("pesa"),rs.getInt("pesd"),rs.getInt("pese"),rs.getInt("pema"),rs.getInt("pemd"),rs.getInt("peme"),rs.getInt("usss"),rs.getInt("ussa"),rs.getInt("ussd"),rs.getInt("usse"),rs.getInt("res"),rs.getInt("res1"),rs.getInt("res2"),rs.getInt("res3"),rs.getInt("res4"),rs.getInt("res5"),rs.getInt("res6"),rs.getInt("res7"),rs.getInt("res8"),rs.getInt("prstp"),rs.getInt("prms"),rs.getInt("prmtp"),rs.getInt("prrcs"),rs.getInt("prrca"),rs.getInt("prrcd"),rs.getInt("prrce"),rs.getInt("prrct"),rs.getInt("prrci"),rs.getInt("prrctp"),rs.getInt("gasa1"),rs.getInt("gasd1"),rs.getInt("gase1"),rs.getInt("prss1"),rs.getInt("prsa1"),rs.getInt("prsd1"),rs.getInt("prse1"),rs.getString("privilegeName")));
 
             }
             pst.close();
@@ -1218,10 +1218,22 @@ public class UserPage extends Component implements Initializable {
     @FXML
     private CheckBox res8;
 
+    @FXML
+    private CheckBox prss1;
+
+    @FXML
+    private CheckBox prsa1;
+
+    @FXML
+    private CheckBox prsd1;
+
+    @FXML
+    private CheckBox prse1;
+
 
     @FXML
     void addPriv(ActionEvent event) {
-        int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gass1i=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0,res1i=0,res2i=0,res3i=0,res4i=0,res5i=0,res6i=0,res7i=0,res8i=0,prstpi=0,prmsi=0,prmtpi=0,prrcsi=0,prrcai=0,prrcdi=0,prrcei=0,prrcti=0,prrcii=0,prrctpi=0,gasa1i=0,gasd1i=0,gase1i=0;
+        int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gass1i=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0,res1i=0,res2i=0,res3i=0,res4i=0,res5i=0,res6i=0,res7i=0,res8i=0,prstpi=0,prmsi=0,prmtpi=0,prrcsi=0,prrcai=0,prrcdi=0,prrcei=0,prrcti=0,prrcii=0,prrctpi=0,gasa1i=0,gasd1i=0,gase1i=0,prss1i=0,prsa1i=0,prsd1i=0,prse1i=0;
 
         if (arss.isSelected()){
             arssi=1;
@@ -1460,6 +1472,18 @@ public class UserPage extends Component implements Initializable {
         if (gase1.isSelected()){
             gase1i=1;
         }
+        if (prss1.isSelected()){
+            prss1i=1;
+        }
+        if (prsa1.isSelected()){
+            prsa1i=1;
+        }
+        if (prsd1.isSelected()){
+            prsd1i=1;
+        }
+        if (prse1.isSelected()){
+            prse1i=1;
+        }
 
         int dejaExist2=0;
         int size2=0;
@@ -1486,7 +1510,7 @@ public class UserPage extends Component implements Initializable {
         }else{
             try {
                 con=new Controlers.ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arss`, `arsa`, `arsd`, `arse`, `loss`, `losa`, `losd`, `lose`, `prss`, `prsa`, `prsd`, `prse`, `prst`, `prsi`, `prma`, `prmd`, `prme`, `prmt`, `prmi`, `gass`, `gass1`, `gasa`, `gasd`, `gase`, `ocss`, `ocsa`, `ocsd`, `ocse`, `emss`, `emsa`, `emsd`, `emse`, `abss`, `absa`, `absd`, `abse`, `abma`, `abmd`, `abme`, `dess`, `desa`, `desd`, `dese`, `dema`, `demd`, `deme`, `pess`, `pesa`, `pesd`, `pese`, `pema`, `pemd`, `peme`, `usss`, `ussa`, `ussd`, `usse`, `res`, `res`, `res1`, `res2`, `res3`, `res4`, `res5`, `res6`, `res7`, `res8`, `prstp`, `prms`, `prmtp`, `prrcs`, `prrca`, `prrcd`, `prrce`, `prrct`, `prrci`, `prrctp`, `gasa1`, `gasd1`, `gase1`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `privileges`(`privilegeName`, `arss`, `arsa`, `arsd`, `arse`, `loss`, `losa`, `losd`, `lose`, `prss`, `prsa`, `prsd`, `prse`, `prst`, `prsi`, `prma`, `prmd`, `prme`, `prmt`, `prmi`, `gass`, `gass1`, `gasa`, `gasd`, `gase`, `ocss`, `ocsa`, `ocsd`, `ocse`, `emss`, `emsa`, `emsd`, `emse`, `abss`, `absa`, `absd`, `abse`, `abma`, `abmd`, `abme`, `dess`, `desa`, `desd`, `dese`, `dema`, `demd`, `deme`, `pess`, `pesa`, `pesd`, `pese`, `pema`, `pemd`, `peme`, `usss`, `ussa`, `ussd`, `usse`, `res`, `res`, `res1`, `res2`, `res3`, `res4`, `res5`, `res6`, `res7`, `res8`, `prstp`, `prms`, `prmtp`, `prrcs`, `prrca`, `prrcd`, `prrce`, `prrct`, `prrci`, `prrctp`, `gasa1`, `gasd1`, `gase1`, `prss1`, `prsa1`, `prsd1`, `prse1`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 pst.setString(1,privilegeNamee.getText());
                 pst.setInt(2,arssi);
                 pst.setInt(3,arsai);
@@ -1567,6 +1591,10 @@ public class UserPage extends Component implements Initializable {
                 pst.setInt(78,gasa1i);
                 pst.setInt(79,gasd1i);
                 pst.setInt(80,gase1i);
+                pst.setInt(81,prss1i);
+                pst.setInt(82,prsa1i);
+                pst.setInt(83,prsd1i);
+                pst.setInt(84,prse1i);
                 pst.execute();
                 pst.close();
 
@@ -1657,6 +1685,10 @@ public class UserPage extends Component implements Initializable {
             gasa1.setSelected(false);
             gasd1.setSelected(false);
             gase1.setSelected(false);
+            prss1.setSelected(false);
+            prsa1.setSelected(false);
+            prsd1.setSelected(false);
+            prse1.setSelected(false);
 
             fillComboPrivilege();
         }
@@ -1935,6 +1967,18 @@ public class UserPage extends Component implements Initializable {
             if (privilegesTableView.getItems().get(index).getGase1()==1){
                 gase1.setSelected(true);
             }
+            if (privilegesTableView.getItems().get(index).getPrss1()==1){
+                prss1.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrsa1()==1){
+                prsa1.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrsd1()==1){
+                prsd1.setSelected(true);
+            }
+            if (privilegesTableView.getItems().get(index).getPrse1()==1){
+                prse1.setSelected(true);
+            }
         }else if (userEditPrivilege1.getText().contains("حفظ")){
             int dejaExist2=0;
             int size2=0;
@@ -1962,7 +2006,7 @@ public class UserPage extends Component implements Initializable {
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
             }else{
                 try {
-                    int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gass1i=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0,res1i=0,res2i=0,res3i=0,res4i=0,res5i=0,res6i=0,res7i=0,res8i=0,prstpi=0,prmsi=0,prmtpi=0,prrcsi=0,prrcai=0,prrcdi=0,prrcei=0,prrcti=0,prrcii=0,prrctpi=0,gasa1i=0,gasd1i=0,gase1i=0;
+                    int arssi=0,arsai=0,arsdi=0,arsei=0,lossi=0,losai=0,losdi=0,losei=0,prssi=0,prsai=0,prsdi=0,prsei=0,prsti=0,prsii=0,prmai=0,prmdi=0,prmei=0,prmti=0,prmii=0,gassi=0 ,gass1i=0 ,gasai=0,gasdi=0,gasei=0,ocssi=0,ocsai=0,ocsdi=0,ocsei=0,emssi=0,emsai=0,emsdi=0,emsei=0,abssi=0,absai=0,absdi=0,absei=0,abmai=0,abmdi=0,abmei=0,dessi=0,desai=0,desdi=0,desei=0,demai=0,demdi=0,demei=0,pessi=0,pesai=0,pesdi=0,pesei=0,pemai=0,pemdi=0,pemei=0,usssi=0,ussai=0,ussdi=0,ussei=0,resi=0,res1i=0,res2i=0,res3i=0,res4i=0,res5i=0,res6i=0,res7i=0,res8i=0,prstpi=0,prmsi=0,prmtpi=0,prrcsi=0,prrcai=0,prrcdi=0,prrcei=0,prrcti=0,prrcii=0,prrctpi=0,gasa1i=0,gasd1i=0,gase1i=0,prss1i=0,prsa1i=0,prsd1i=0,prse1i=0;
 
                     if (arss.isSelected()){
                         arssi=1;
@@ -2201,8 +2245,20 @@ public class UserPage extends Component implements Initializable {
                     if (gase1.isSelected()){
                         gase1i=1;
                     }
+                    if (prss1.isSelected()){
+                        prss1i=1;
+                    }
+                    if (prsa1.isSelected()){
+                        prsa1i=1;
+                    }
+                    if (prsd1.isSelected()){
+                        prsd1i=1;
+                    }
+                    if (prse1.isSelected()){
+                        prse1i=1;
+                    }
                     con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `privileges` SET `privilegeName`=?,`arss`=?,`arsa`=?,`arsd`=?,`arse`=?,`loss`=?,`losa`=?,`losd`=?,`lose`=?,`prss`=?,`prsa`=?,`prsd`=?,`prse`=?,`prst`=?,`prsi`=?,`prma`=?,`prmd`=?,`prme`=?,`prmt`=?,`prmi`=?,`gass`=?,`gass1`=?,`gasa`=?,`gasd`=?,`gase`=?,`ocss`=?,`ocsa`=?,`ocsd`=?,`ocse`=?,`emss`=?,`emsa`=?,`emsd`=?,`emse`=?,`abss`=?,`absa`=?,`absd`=?,`abse`=?,`abma`=?,`abmd`=?,`abme`=?,`dess`=?,`desa`=?,`desd`=?,`dese`=?,`dema`=?,`demd`=?,`deme`=?,`pess`=?,`pesa`=?,`pesd`=?,`pese`=?,`pema`=?,`pemd`=?,`peme`=?,`usss`=?,`ussa`=?,`ussd`=?,`usse`=?,`res`=?,`res1`=?,`res2`=?,`res3`=?,`res4`=?,`res5`=?,`res6`=?,`res7`=?,`res8`=?,`prstp`=?,`prms`=?,`prmtp`=?,`prrcs`=?,`prrca`=?,`prrcd`=?,`prrce`=?,`prrct`=?,`prrci`=?,`prrctp`=?,`gasa1`=?,`gasd1`=?,`gase1`=? WHERE `id`=?");
+                    pst = con.prepareStatement("UPDATE `privileges` SET `privilegeName`=?,`arss`=?,`arsa`=?,`arsd`=?,`arse`=?,`loss`=?,`losa`=?,`losd`=?,`lose`=?,`prss`=?,`prsa`=?,`prsd`=?,`prse`=?,`prst`=?,`prsi`=?,`prma`=?,`prmd`=?,`prme`=?,`prmt`=?,`prmi`=?,`gass`=?,`gass1`=?,`gasa`=?,`gasd`=?,`gase`=?,`ocss`=?,`ocsa`=?,`ocsd`=?,`ocse`=?,`emss`=?,`emsa`=?,`emsd`=?,`emse`=?,`abss`=?,`absa`=?,`absd`=?,`abse`=?,`abma`=?,`abmd`=?,`abme`=?,`dess`=?,`desa`=?,`desd`=?,`dese`=?,`dema`=?,`demd`=?,`deme`=?,`pess`=?,`pesa`=?,`pesd`=?,`pese`=?,`pema`=?,`pemd`=?,`peme`=?,`usss`=?,`ussa`=?,`ussd`=?,`usse`=?,`res`=?,`res1`=?,`res2`=?,`res3`=?,`res4`=?,`res5`=?,`res6`=?,`res7`=?,`res8`=?,`prstp`=?,`prms`=?,`prmtp`=?,`prrcs`=?,`prrca`=?,`prrcd`=?,`prrce`=?,`prrct`=?,`prrci`=?,`prrctp`=?,`gasa1`=?,`gasd1`=?,`gase1`=?,`prss1`=?,`prsa1`=?,`prsd1`=?,`prse1`=? WHERE `id`=?");
 
                     pst.setString(1,privilegeNamee.getText());
                     pst.setInt(2,arssi);
@@ -2284,7 +2340,11 @@ public class UserPage extends Component implements Initializable {
                     pst.setInt(78,gasa1i);
                     pst.setInt(79,gasd1i);
                     pst.setInt(80,gase1i);
-                    pst.setInt(81,idEdit);
+                    pst.setInt(81,prss1i);
+                    pst.setInt(82,prsa1i);
+                    pst.setInt(83,prsd1i);
+                    pst.setInt(84,prse1i);
+                    pst.setInt(85,idEdit);
 
                     pst.execute();
                     pst.close();
@@ -2379,6 +2439,10 @@ public class UserPage extends Component implements Initializable {
                 gasa1.setSelected(false);
                 gasd1.setSelected(false);
                 gase1.setSelected(false);
+                prss1.setSelected(false);
+                prsa1.setSelected(false);
+                prsd1.setSelected(false);
+                prse1.setSelected(false);
                 fillComboPrivilege();
             }
 

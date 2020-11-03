@@ -223,7 +223,7 @@ public class GaranteePagePolicy implements Initializable {
 
                 }
 
-                if (rs.getInt("gass")==0){
+                if ((rs.getInt("gass")==0)&&(rs.getInt("gass1")==0)){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -286,28 +286,28 @@ public class GaranteePagePolicy implements Initializable {
                     repportMenuButton.setDisable(false);
 
                 }
-                if (rs.getInt("prss")==0){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
 
                 }else{
                     projectMenuButton.setDisable(false);
 
                 }
-                if (rs.getInt("gasa")==0){
+                if (rs.getInt("gasa1")==0){
                     garanteeAddPrivilege.setDisable(true);
 
                 }else{
                     garanteeAddPrivilege.setDisable(false);
 
                 }
-                if (rs.getInt("gasd")==0){
+                if (rs.getInt("gasd1")==0){
                     garanteeDeletePrivilege.setDisable(true);
 
                 }else{
                     garanteeDeletePrivilege.setDisable(false);
 
                 }
-                if (rs.getInt("gase")==0){
+                if (rs.getInt("gase1")==0){
                     garanteeEditPrivilege.setDisable(true);
 
                 }else{

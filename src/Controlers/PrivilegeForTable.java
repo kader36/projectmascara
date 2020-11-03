@@ -1,10 +1,10 @@
 package Controlers;
 
 public class PrivilegeForTable {
-    private int idPrivilege,arss,arsa,arsd,arse,loss,losa,losd,lose,prss,prsa,prsd,prse,prst,prsi,prma,prmd,prme,prmt,prmi,gass,gass1,gasa,gasd,gase,ocss,ocsa,ocsd,ocse,emss,emsa,emsd,emse,abss,absa,absd,abse,abma,abmd,abme,dess,desa,desd,dese,dema,demd,deme,pess,pesa,pesd,pese,pema,pemd,peme,usss,ussa,ussd,usse,res,res1,res2,res3,res4,res5,res6,res7,res8,prstp,prms,prmtp,prrcs,prrca,prrcd,prrce,prrct,prrci,prrctp,gasa1,gasd1,gase1;
+    private int idPrivilege,arss,arsa,arsd,arse,loss,losa,losd,lose,prss,prsa,prsd,prse,prst,prsi,prma,prmd,prme,prmt,prmi,gass,gass1,gasa,gasd,gase,ocss,ocsa,ocsd,ocse,emss,emsa,emsd,emse,abss,absa,absd,abse,abma,abmd,abme,dess,desa,desd,dese,dema,demd,deme,pess,pesa,pesd,pese,pema,pemd,peme,usss,ussa,ussd,usse,res,res1,res2,res3,res4,res5,res6,res7,res8,prstp,prms,prmtp,prrcs,prrca,prrcd,prrce,prrct,prrci,prrctp,gasa1,gasd1,gase1,prss1,prsa1,prsd1,prse1;
     private String privilegeNamee;
 
-    public PrivilegeForTable(int idPrivilege, int arss, int arsa, int arsd, int arse, int loss, int losa, int losd, int lose, int prss, int prsa, int prsd, int prse, int prst, int prsi, int prma, int prmd, int prme, int prmt, int prmi, int gass, int gass1, int gasa, int gasd, int gase, int ocss, int ocsa, int ocsd, int ocse, int emss, int emsa, int emsd, int emse, int abss, int absa, int absd, int abse, int abma, int abmd, int abme, int dess, int desa, int desd, int dese, int dema, int demd, int deme, int pess, int pesa, int pesd, int pese, int pema, int pemd, int peme, int usss, int ussa, int ussd, int usse, int res, int res1, int res2, int res3, int res4, int res5, int res6, int res7, int res8, int prstp, int prms, int prmtp, int prrcs, int prrca, int prrcd, int prrce, int prrct, int prrci, int prrctp, int gasa1, int gasd1, int gase1, String privilegeNamee) {
+    public PrivilegeForTable(int idPrivilege, int arss, int arsa, int arsd, int arse, int loss, int losa, int losd, int lose, int prss, int prsa, int prsd, int prse, int prst, int prsi, int prma, int prmd, int prme, int prmt, int prmi, int gass, int gass1, int gasa, int gasd, int gase, int ocss, int ocsa, int ocsd, int ocse, int emss, int emsa, int emsd, int emse, int abss, int absa, int absd, int abse, int abma, int abmd, int abme, int dess, int desa, int desd, int dese, int dema, int demd, int deme, int pess, int pesa, int pesd, int pese, int pema, int pemd, int peme, int usss, int ussa, int ussd, int usse, int res, int res1, int res2, int res3, int res4, int res5, int res6, int res7, int res8, int prstp, int prms, int prmtp, int prrcs, int prrca, int prrcd, int prrce, int prrct, int prrci, int prrctp, int gasa1, int gasd1, int gase1, int prss1, int prsa1, int prsd1, int prse1, String privilegeNamee) {
         this.idPrivilege = idPrivilege;
         this.arss = arss;
         this.arsa = arsa;
@@ -85,6 +85,10 @@ public class PrivilegeForTable {
         this.gasa1 = gasa1;
         this.gasd1 = gasd1;
         this.gase1 = gase1;
+        this.prss1 = prss1;
+        this.prsa1 = prsa1;
+        this.prsd1 = prsd1;
+        this.prse1 = prse1;
         this.privilegeNamee = privilegeNamee;
     }
 
@@ -406,6 +410,22 @@ public class PrivilegeForTable {
 
     public int getGase1() {
         return gase1;
+    }
+
+    public int getPrss1() {
+        return prss1;
+    }
+
+    public int getPrsa1() {
+        return prsa1;
+    }
+
+    public int getPrsd1() {
+        return prsd1;
+    }
+
+    public int getPrse1() {
+        return prse1;
     }
 
     public String getPrivilegeNamee() {

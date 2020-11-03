@@ -152,6 +152,12 @@ public class ProjectPageEnded implements Initializable {
     private Button repportMenuButton;
 
     @FXML
+    private Button projectDeletePrivilege4;
+
+    @FXML
+    private Button projectAddPrivilege3;
+
+    @FXML
     public void LogoutButton(MouseEvent event) {
         try {
             Parent loader = FXMLLoader.load(getClass().getResource("/Views/loginPage.fxml"));
@@ -200,7 +206,7 @@ public class ProjectPageEnded implements Initializable {
 
                 }
 
-                if (rs.getInt("gass")==0){
+                if ((rs.getInt("gass")==0)&&(rs.getInt("gass1")==0)){
                     garanteeMenuButton.setDisable(true);
 
                 }else{
@@ -263,11 +269,32 @@ public class ProjectPageEnded implements Initializable {
                     repportMenuButton.setDisable(false);
 
                 }
-                if (rs.getInt("prss")==0){
+                if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
 
                 }else{
                     projectMenuButton.setDisable(false);
+
+                }
+                if (rs.getInt("prsa1")==0){
+                    projectAddPrivilege3.setDisable(true);
+
+                }else{
+                    projectAddPrivilege3.setDisable(false);
+
+                }
+                if (rs.getInt("prsd1")==0){
+                    projectDeletePrivilege4.setDisable(true);
+
+                }else{
+                    projectDeletePrivilege4.setDisable(false);
+
+                }
+                if (rs.getInt("prse1")==0){
+                    editButton.setDisable(true);
+
+                }else{
+                    editButton.setDisable(false);
 
                 }
 

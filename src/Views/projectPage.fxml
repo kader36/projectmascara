@@ -16,7 +16,7 @@
                         <Button fx:id="projectSi7i" layoutX="617.0" layoutY="115.0" mnemonicParsing="false" onAction="#goTo1" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع الصحي" />
                         <Button fx:id="project3askari" layoutX="181.0" layoutY="115.0" mnemonicParsing="false" onAction="#goTo2" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع العسكري" />
                         <Button fx:id="projectSiyana" layoutX="617.0" layoutY="346.0" mnemonicParsing="false" onAction="#goTo3" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع الصيانة و النظافة و التعليمية" />
-                        <Button layoutX="181.0" layoutY="346.0" mnemonicParsing="false" onAction="#goTo4" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="العقود المنتهية" />
+                        <Button fx:id="projectEnd" layoutX="181.0" layoutY="346.0" mnemonicParsing="false" onAction="#goTo4" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="العقود المنتهية" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">

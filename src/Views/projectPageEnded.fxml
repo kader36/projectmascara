@@ -77,9 +77,9 @@
                                           <TextField fx:id="directPurchasePrice" layoutX="39.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="سعر الشراء المباشر" />
                                           <ComboBox fx:id="approvalDirectPurchase" layoutX="304.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="إعتماد الشراء المباشر" />
                                           <ComboBox fx:id="isClosed" layoutX="571.0" layoutY="296.0" prefHeight="35.0" prefWidth="240.0" promptText="مشروع مغلق" />
-                                          <Button layoutX="57.0" layoutY="362.0" mnemonicParsing="false" onAction="#addProjectExtension" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button fx:id="projectAddPrivilege3" layoutX="57.0" layoutY="362.0" mnemonicParsing="false" onAction="#addProjectExtension" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
                                           <Button fx:id="editButton" layoutX="451.0" layoutY="362.0" mnemonicParsing="false" onAction="#edit1" prefHeight="35.0" prefWidth="240.0" styleClass="editButton" stylesheets="@../css/style.css" text="تعديل" />
-                                          <Button layoutX="830.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <Button fx:id="projectDeletePrivilege4" layoutX="830.0" layoutY="362.0" mnemonicParsing="false" onAction="#deleteRow" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
                                        </children>
                                     </AnchorPane>
                               </content>
