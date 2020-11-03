@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPage">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPage">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8344671201814059" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0" style="-fx-background-color: white;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1083.0" style="-fx-background-color: white;">
                      <children>
                         <Button fx:id="projectSi7i" layoutX="617.0" layoutY="115.0" mnemonicParsing="false" onAction="#goTo1" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع الصحي" />
                         <Button fx:id="project3askari" layoutX="181.0" layoutY="115.0" mnemonicParsing="false" onAction="#goTo2" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="مشاريع القطاع العسكري" />
@@ -19,7 +23,7 @@
                         <Button fx:id="projectEnd" layoutX="181.0" layoutY="346.0" mnemonicParsing="false" onAction="#goTo4" prefHeight="147.0" prefWidth="328.0" styleClass="editButton" stylesheets="@../css/style.css" text="العقود المنتهية" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>

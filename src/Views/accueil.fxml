@@ -12,21 +12,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.Accueil">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.Accueil">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8344671201814059" maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="689.0" prefWidth="1083.0">
+                <AnchorPane maxHeight="700.0" maxWidth="1083.0" minHeight="700.0" minWidth="1083.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="1083.0">
                      <children>
-                        <Separator layoutX="-1.0" layoutY="534.0" prefHeight="7.0" prefWidth="1101.0" />
-                        <Label layoutX="12.0" layoutY="537.0" prefHeight="64.0" prefWidth="581.0" text="© Copyright 2020, Gueddim Abdellah El Mehdi , All Rights Reserved " textAlignment="RIGHT" textFill="#9351f9">
+                        <Separator layoutX="-1.0" layoutY="570.0" prefHeight="7.0" prefWidth="1101.0" AnchorPane.bottomAnchor="121.0" />
+                        <Label layoutX="12.0" layoutY="573.0" prefHeight="64.0" prefWidth="581.0" text="© Copyright 2020, Gueddim Abdellah El Mehdi , All Rights Reserved " textAlignment="RIGHT" textFill="#9351f9" AnchorPane.bottomAnchor="61.0">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="notificationTableView" layoutX="749.0" layoutY="235.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="273.0" prefWidth="313.0" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="749.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="235.0">
+                        <TableView fx:id="notificationTableView" layoutX="749.0" layoutY="235.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="273.0" prefWidth="298.0">
                           <columns>
                               <TableColumn fx:id="employeeName" prefWidth="182.0" text="الإسم الكامل" />
                               <TableColumn fx:id="endDate" prefWidth="111.0" text="تاريخ الإنتهاء" />
@@ -49,12 +49,12 @@
                               <TableColumn fx:id="endDate2" prefWidth="116.0" text="تاريخ الإنتهاء" />
                            </columns>
                         </TableView>
-                        <Label layoutX="995.0" layoutY="205.0" text="شهادة الإقامة" />
+                        <Label layoutX="979.0" layoutY="205.0" text="شهادة الإقامة" />
                         <Label layoutX="609.0" layoutY="205.0" text="الشهادات الصحية" />
                         <Label layoutX="211.0" layoutY="205.0" text="الشهادات تصنيف الهيئة" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>

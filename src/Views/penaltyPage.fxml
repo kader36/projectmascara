@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.PenaltyPage">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.PenaltyPage">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8344671201814059" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1083.0">
                      <children>
-                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
+                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="700.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab closable="false" text="غرامات القطاع الصحي">
                               <content>
@@ -106,7 +116,7 @@
                         </TabPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>

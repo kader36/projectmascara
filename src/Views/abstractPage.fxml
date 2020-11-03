@@ -20,19 +20,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.AbstractPage">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.AbstractPage">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8344671201814059" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0">
+                <AnchorPane maxHeight="700.0" minHeight="700.0" minWidth="0.0" prefHeight="700.0" prefWidth="1083.0">
                      <children>
-                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
+                        <TabPane layoutX="11.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="700.0" prefWidth="1120.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab closable="false" text="مستخلصات القطاع الصحي">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1124.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <ComboBox fx:id="areaName" layoutX="31.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="306.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
@@ -75,7 +75,7 @@
                                           <TextArea fx:id="remark" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
                                           <Button fx:id="abstractAddPrivilege2" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
                                           <Button fx:id="abstractDeletePrivilege2" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow2" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <TableView fx:id="yearAbstractTableView" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset2" prefHeight="127.0" prefWidth="913.0">
+                                          <TableView fx:id="yearAbstractTableView" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset2" prefHeight="155.0" prefWidth="913.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable" prefWidth="64.0" text="السنة" />
                                                 <TableColumn prefWidth="300.0" resizable="false" text="الأشهر">
@@ -148,7 +148,7 @@
                                           <TextArea fx:id="remark1" layoutX="196.0" layoutY="384.0" prefHeight="44.0" prefWidth="889.0" promptText="الملاحظة" />
                                           <Button fx:id="abstractAddPrivilege11" layoutX="22.0" layoutY="436.0" mnemonicParsing="false" onAction="#addAbstractYears1" prefHeight="35.0" prefWidth="127.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
                                           <Button fx:id="abstractDeletePrivilege11" layoutX="22.0" layoutY="527.0" mnemonicParsing="false" onAction="#deleteRow21" prefHeight="35.0" prefWidth="127.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
-                                          <TableView fx:id="yearAbstractTableView1" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset21" prefHeight="127.0" prefWidth="913.0">
+                                          <TableView fx:id="yearAbstractTableView1" layoutX="171.0" layoutY="436.0" onMouseClicked="#idReset21" prefHeight="155.0" prefWidth="913.0">
                                              <columns>
                                                 <TableColumn fx:id="yearTable1" prefWidth="64.0" text="السنة" />
                                                 <TableColumn prefWidth="300.0" resizable="false" text="الأشهر">
@@ -180,7 +180,7 @@
                         </TabPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane maxHeight="700.0" maxWidth="216.0" minHeight="700.0" minWidth="216.0" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>

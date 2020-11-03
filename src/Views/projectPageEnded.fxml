@@ -18,15 +18,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPageEnded">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.ProjectPageEnded">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8344671201814059" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1083.0">
                      <children>
-                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
+                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="700.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab closable="false" text="العقود المنتهية">
                               <content>
@@ -88,7 +88,7 @@
                         </TabPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>

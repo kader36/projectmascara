@@ -15,19 +15,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="606.0" maxWidth="1325.0" minHeight="606.0" minWidth="1325.0" prefHeight="606.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.AreaPage">
+<AnchorPane maxHeight="700.0" maxWidth="1325.0" minHeight="700.0" minWidth="1325.0" prefHeight="700.0" prefWidth="1325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlers.AreaPage">
    <children>
-      <VBox prefHeight="603.0" prefWidth="1325.0">
+      <VBox prefHeight="700.0" prefWidth="1325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.8344671201814059" prefHeight="605.0" prefWidth="1325.0">
+            <SplitPane dividerPositions="0.8041237113402062" prefHeight="700.0" prefWidth="1325.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="689.0" prefWidth="1083.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1083.0">
                      <children>
-                        <TabPane layoutX="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="606.0" prefWidth="1107.0" tabClosingPolicy="ALL_TABS">
+                        <TabPane layoutX="-23.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="700.0" prefWidth="1086.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <tabs>
                             <Tab closable="false" text="المناطق">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="1082.0" style="-fx-background-color: #FFF;">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="671.0" prefWidth="1124.0" style="-fx-background-color: #FFF;">
                                        <children>
                                           <TextField fx:id="areaName" layoutX="56.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم المنطقة" />
                                           <Button fx:id="areaAddPrivilege" layoutX="58.0" layoutY="104.0" mnemonicParsing="false" onAction="#addArea" prefHeight="35.0" prefWidth="200.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة منطقة" />
@@ -50,7 +50,7 @@
                         </TabPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
+                <AnchorPane maxHeight="700.0" maxWidth="216.0" minHeight="700.0" minWidth="216.0" prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">
                      <children>
                         <ImageView fitHeight="142.0" fitWidth="127.0" layoutX="45.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
