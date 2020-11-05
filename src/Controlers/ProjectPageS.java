@@ -29,6 +29,7 @@ public class ProjectPageS implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
+    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("مشروع قطاع صحي","مشروع تعليمي");
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();
     ObservableList projectsTable= FXCollections.observableArrayList();
     ObservableList<Area> areas= FXCollections.observableArrayList();
@@ -44,6 +45,9 @@ public class ProjectPageS implements Initializable {
     int size=0;
     @FXML
     private TextField projectName;
+
+    @FXML
+    private ComboBox<String> projectType;
 
     @FXML
     private ComboBox<String> areaName;
@@ -513,7 +517,7 @@ public class ProjectPageS implements Initializable {
         projectEmployeesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND projects.projectType='مشروع قطاع صحي'");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND (projects.projectType='مشروع قطاع صحي' OR projects.projectType='مشروع تعليمي')");
             rs=pst.executeQuery();
             while (rs.next()){
                 projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
@@ -562,7 +566,7 @@ public class ProjectPageS implements Initializable {
                         " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`) VALUES (?,?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
-                pst.setString(3,"مشروع قطاع صحي");
+                pst.setString(3,projectType.getValue());
                 pst.setString(4,projectName.getText());
                 pst.setFloat(5, Float.parseFloat(contractPrice.getText()));
                 pst.setInt(6, Integer.parseInt(contactDuration.getText()));
@@ -753,7 +757,7 @@ public class ProjectPageS implements Initializable {
         projectsTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND projects.projectType='مشروع قطاع صحي' AND projects.transfered=0 ");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND (projects.projectType='مشروع قطاع صحي' OR projects.projectType='مشروع تعليمي') AND projects.transfered=0 ");
             rs=pst.executeQuery();
             while (rs.next()){
                 CheckBox ch=new CheckBox();
@@ -886,7 +890,7 @@ public class ProjectPageS implements Initializable {
                             ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=? WHERE `id`=?");
                     pst.setInt(1,idArea);
                     pst.setInt(2,idLocation);
-                    pst.setString(3,"مشروع قطاع صحي");
+                    pst.setString(3,projectType.getValue());
                     pst.setString(4,projectName.getText());
                     pst.setFloat(5, Float.parseFloat(contractPrice.getText()));
                     pst.setInt(6, Integer.parseInt(contactDuration.getText()));
@@ -1249,7 +1253,7 @@ public class ProjectPageS implements Initializable {
             projectsTable.clear();
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.projectType='مشروع قطاع صحي' AND projects.transfered=0 AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE (projects.projectType='مشروع قطاع صحي' OR projects.projectType='مشروع تعليمي') AND projects.transfered=0 AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
                     CheckBox ch=new CheckBox();
@@ -1395,7 +1399,7 @@ public class ProjectPageS implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND `projectType`='مشروع قطاع صحي'");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND (projects.projectType='مشروع قطاع صحي' OR projects.projectType='مشروع تعليمي')");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -1525,6 +1529,7 @@ public class ProjectPageS implements Initializable {
         fillComboArea();
         fillProject();
         fillComboOccupation();
+        projectType.setItems(projectTypeCombo);
 
         addToTable();
         checkbox.setCellValueFactory(new PropertyValueFactory<>("checkbox"));

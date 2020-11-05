@@ -28,7 +28,7 @@ public class ProjectPageRC implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
-    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("مشروع النظافة","مشروع الصيانة","مشروع تعليمي");
+    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("مشروع النظافة","مشروع الصيانة");
 
     ObservableList projectsTable2= FXCollections.observableArrayList();
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();

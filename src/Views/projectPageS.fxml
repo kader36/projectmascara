@@ -35,7 +35,7 @@
                                           <TextField fx:id="projectName" layoutX="31.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم العقد" />
                                           <ComboBox fx:id="areaName" layoutX="301.0" layoutY="23.0" onAction="#selectArea" prefHeight="35.0" prefWidth="240.0" promptText="المنطقة" />
                                           <ComboBox fx:id="locationName" layoutX="570.0" layoutY="23.0" onAction="#selectLocation" prefHeight="35.0" prefWidth="240.0" promptText="الموقع" />
-                                          <TextField fx:id="contactDuration" layoutX="840.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
+                                          <TextField fx:id="contactDuration" layoutX="32.0" layoutY="116.0" prefHeight="35.0" prefWidth="240.0" promptText="مدة العقد" />
                                           <TextField fx:id="contactNumber" layoutX="32.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="رقم العقد" />
                                           <TextField fx:id="contractPrice" layoutX="301.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="مبلغ العقد" />
                                           <DatePicker fx:id="contractStartDate" layoutX="570.0" layoutY="69.0" prefHeight="35.0" prefWidth="240.0" promptText="بداية العقد" />
@@ -78,6 +78,7 @@
                                              </effect>
                                           </TableView>
                                           <Button fx:id="kill" layoutX="631.0" layoutY="165.0" mnemonicParsing="false" onAction="#transfereSelectedProject" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="نقل المشاريع المنتهية" />
+                                          <ComboBox fx:id="projectType" layoutX="838.0" layoutY="23.0" prefHeight="35.0" prefWidth="240.0" promptText="نوع عقد" />
                                        </children>
                                     </AnchorPane>
                               </content>
