@@ -1577,6 +1577,40 @@ public class PenaltyPage implements Initializable {
 
 
     }
+    @FXML
+    private TextField search2;
+    @FXML
+    public void search5(KeyEvent keyEvent) {
+        String key=search2.getText().trim();
+        if (key.isEmpty()){
+            addToTable5();
+
+            deductionTableView2.setItems(deductionsTable5);
+        }else{
+            deductionsTable5.clear();
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("SELECT * FROM `deductions`,`areas`,`locations`,`projects` WHERE deductions.idArea=areas.id AND deductions.idLocation=locations.id AND deductions.idProject=projects.id AND deductions.dorp='p' AND projects.contractName LIKE '%"+key+"%'");
+                rs=pst.executeQuery();
+                while (rs.next()){
+                    deductionsTable5.add(new DeductionForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idEmployeeDeduction"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("empoyeeNameDed"),rs.getString("typeDeduction"),rs.getString("amountOfDeduction"),rs.getString("nort")));
+
+
+                }
+                pst.close();
+
+
+                deductionTableView2.setItems(deductionsTable5);
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+
+    }
 
     @FXML
     private TextField search1;
