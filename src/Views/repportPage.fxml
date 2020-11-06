@@ -51,6 +51,7 @@
                                                 <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideProject" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
                                                 <Button layoutX="186.0" layoutY="184.0" mnemonicParsing="false" onAction="#printOne" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير عام لمشاريع منطقة معينة" />
                                                 <Button layoutX="610.0" layoutY="184.0" mnemonicParsing="false" onAction="#printTwo" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير مشاريع لجميع المناطق" />
+                                                <Button layoutX="396.0" layoutY="297.0" mnemonicParsing="false" onAction="#printEighteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير مشروع محدد" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane fx:id="amalaAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
@@ -114,6 +115,7 @@
                                                 <Button layoutX="176.0" layoutY="161.0" mnemonicParsing="false" onAction="#printTwelve" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لجميع الموظفين" />
                                                 <Button layoutX="610.0" layoutY="161.0" mnemonicParsing="false" onAction="#printThirteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لمنطقة معينة" />
                                                 <Button layoutX="394.0" layoutY="282.0" mnemonicParsing="false" onAction="#printFourteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير التنبيهات لموقع محدد" />
+                                                <ComboBox fx:id="chahadatcombo" layoutX="429.0" layoutY="88.0" prefHeight="37.0" prefWidth="230.0" promptText="نوع التنبيه" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane fx:id="garanteeAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
@@ -140,7 +142,7 @@
                                                    </font>
                                                 </Text>
                                                 <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideGaranteePol" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
-                                                <Button layoutX="393.0" layoutY="161.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير بوليصة التأمين" />
+                                                <Button layoutX="393.0" layoutY="161.0" mnemonicParsing="false" onAction="#printNineteen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير بوليصة التأمين" />
                                              </children>
                                           </AnchorPane>
                                        </children>

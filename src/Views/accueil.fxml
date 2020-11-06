@@ -51,7 +51,7 @@
                         </TableView>
                         <Label layoutX="979.0" layoutY="205.0" text="رخص الإقامة" />
                         <Label layoutX="609.0" layoutY="205.0" text="الشهادات الصحية" />
-                        <Label layoutX="211.0" layoutY="205.0" text="الشهادات تصنيف الهيئة" />
+                        <Label layoutX="211.0" layoutY="205.0" text="شهادات تصنيف الهيئة" />
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="700.0" prefWidth="216.0" style="-fx-background-color: #9351F9;">

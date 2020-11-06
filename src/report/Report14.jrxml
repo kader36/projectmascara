@@ -156,7 +156,7 @@
 		</field>
 	</subDataset>
 	<queryString language="SQL">
-		<![CDATA[(SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية بطاقة إقامة" AS notifType,"///" AS notifNumber,employees.residenceEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <="2021-07-24" AND users.id=1 AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية الشهادة الصحية",employees.HealthCertificateNumber,employees.HealthCertificatEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= "2021-07-24"  AND users.id=1 AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية شهادة تصنيف الهيئة",employees.ClassificationNumber,employees.ClassificationEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= "2021-07-24" AND users.id=1 AND users.privilegesId=privileges.id )]]>
+		<![CDATA[(SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية بطاقة إقامة" AS notifType,"///" AS notifNumber,employees.residenceEndDate AS notifEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `residenceEndDate` <="2021-07-24" AND users.id=1 AND users.privilegesId=privileges.id) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية الشهادة الصحية",employees.HealthCertificateNumber,employees.HealthCertificatEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `HealthCertificatEndDate` <= "2021-07-24"  AND users.id=1 AND users.privilegesId=privileges.id ) UNION ALL (SELECT employees.employeeName,employees.employeeNationality,"إنتهاء صلاحية شهادة تصنيف الهيئة",employees.ClassificationNumber,employees.ClassificationEndDate,locations.locationName,users.employeeName,privileges.privilegeName FROM `employees`,`users`,`privileges`,`projectsemployees`,`locations` WHERE projectsemployees.idLocation=58 AND projectsemployees.idLocation=locations.id AND projectsemployees.idEmployee=employees.id AND `ClassificationEndDate` <= "2021-07-24" AND users.id=1 AND users.privilegesId=privileges.id )]]>
 	</queryString>
 	<field name="employeeName" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="employeeName"/>
@@ -172,9 +172,8 @@
 	<field name="notifNumber" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="notifNumber"/>
 	</field>
-	<field name="residenceEndDate" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="residenceEndDate"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	<field name="notifEndDate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="notifEndDate"/>
 	</field>
 	<field name="locationName" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
@@ -341,7 +340,7 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{residenceEndDate}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{notifEndDate}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
 				<reportElement stretchType="RelativeToTallestObject" x="120" y="0" width="160" height="20" isRemoveLineWhenBlank="true" uuid="68b31e28-361f-44c9-9894-59c52318b1ed">
