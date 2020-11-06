@@ -698,6 +698,10 @@ public class AbstractPage implements Initializable {
     @FXML
     private Button abstractDeletePrivilege2;
     @FXML
+    private Button abstractAddPrivilege21;
+    @FXML
+    private Button abstractDeletePrivilege21;
+    @FXML
     private Button abstractAddPrivilege11;
     @FXML
     private Button abstractDeletePrivilege11;
@@ -787,13 +791,16 @@ public class AbstractPage implements Initializable {
 
                 }
 
-                if (rs.getInt("res")==0){
-                    repportMenuButton.setDisable(true);
 
-                }else{
+
+                if ((rs.getInt("res1")==1)||(rs.getInt("res2")==1)||(rs.getInt("res3")==1)||(rs.getInt("res4")==1)||(rs.getInt("res5")==1)||(rs.getInt("res6")==1)||(rs.getInt("res7")==1)||(rs.getInt("res8")==1)){
                     repportMenuButton.setDisable(false);
 
+                }else{
+                    repportMenuButton.setDisable(true);
+
                 }
+
                 if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
                     projectMenuButton.setDisable(true);
 
@@ -852,6 +859,31 @@ public class AbstractPage implements Initializable {
                 }else{
                     abstractEditPrivilege1.setDisable(false);
                     abstractEditPrivilege21.setDisable(false);
+                }
+                if (rs.getInt("abrca")==0){
+                    abstractAddPrivilege2.setDisable(true);
+                    abstractAddPrivilege21.setDisable(true);
+
+                }else{
+                    abstractAddPrivilege2.setDisable(false);
+                    abstractAddPrivilege21.setDisable(false);
+
+                }
+                if (rs.getInt("abrcd")==0){
+                    abstractDeletePrivilege2.setDisable(true);
+                    abstractDeletePrivilege21.setDisable(true);
+
+                }else{
+                    abstractDeletePrivilege2.setDisable(false);
+                    abstractDeletePrivilege21.setDisable(false);
+
+                }
+                if (rs.getInt("abrce")==0){
+                    abstractEditPrivilege2.setDisable(true);
+                    abstractEditPrivilege22.setDisable(true);
+                }else{
+                    abstractEditPrivilege2.setDisable(false);
+                    abstractEditPrivilege22.setDisable(false);
                 }
             }
             pst.close();

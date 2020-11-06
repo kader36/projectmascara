@@ -645,6 +645,8 @@ public class PenaltyPage implements Initializable {
     @FXML
     private Button penaltyDeletePrivilege;
     @FXML
+    private Button penaltyDeletePrivilege2;
+    @FXML
     private Button penaltyAddPrivilege;
     @FXML
     private Button penaltyEditPrivilege;
@@ -740,11 +742,11 @@ public class PenaltyPage implements Initializable {
 
                 }
 
-                if (rs.getInt("res")==0){
-                    repportMenuButton.setDisable(true);
+                if ((rs.getInt("res1")==1)||(rs.getInt("res2")==1)||(rs.getInt("res3")==1)||(rs.getInt("res4")==1)||(rs.getInt("res5")==1)||(rs.getInt("res6")==1)||(rs.getInt("res7")==1)||(rs.getInt("res8")==1)){
+                    repportMenuButton.setDisable(false);
 
                 }else{
-                    repportMenuButton.setDisable(false);
+                    repportMenuButton.setDisable(true);
 
                 }
                 if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
@@ -794,6 +796,27 @@ public class PenaltyPage implements Initializable {
 
                 }else{
                     penaltyEditPrivilege1.setDisable(false);
+
+                }
+                if (rs.getInt("perca")==0){
+                    penaltyAddPrivilege2.setDisable(true);
+
+                }else{
+                    penaltyAddPrivilege2.setDisable(false);
+
+                }
+                if (rs.getInt("percd")==0){
+                    penaltyDeletePrivilege2.setDisable(true);
+
+                }else{
+                    penaltyDeletePrivilege2.setDisable(false);
+
+                }
+                if (rs.getInt("perce")==0){
+                    penaltyEditPrivilege2.setDisable(true);
+
+                }else{
+                    penaltyEditPrivilege2.setDisable(false);
 
                 }
             }

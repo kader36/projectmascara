@@ -542,6 +542,10 @@ public class DeductionPage implements Initializable {
     private Button deductionAddPrivilege2;
     @FXML
     private Button deductionDeletePrivilege2;
+    @FXML
+    private Button deductionAddPrivilege3;
+    @FXML
+    private Button deductionDeletePrivilege3;
 
     @FXML
     private Button penaltyDeletePrivilege;
@@ -648,11 +652,11 @@ public class DeductionPage implements Initializable {
 
                 }
 
-                if (rs.getInt("res")==0){
-                    repportMenuButton.setDisable(true);
+                if ((rs.getInt("res1")==1)||(rs.getInt("res2")==1)||(rs.getInt("res3")==1)||(rs.getInt("res4")==1)||(rs.getInt("res5")==1)||(rs.getInt("res6")==1)||(rs.getInt("res7")==1)||(rs.getInt("res8")==1)){
+                    repportMenuButton.setDisable(false);
 
                 }else{
-                    repportMenuButton.setDisable(false);
+                    repportMenuButton.setDisable(true);
 
                 }
                 if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
@@ -691,17 +695,38 @@ public class DeductionPage implements Initializable {
 
                 }
                 if (rs.getInt("demd")==0){
+                    deductionDeletePrivilege2.setDisable(true);
+
+                }else{
+                    deductionDeletePrivilege2.setDisable(false);
+
+                }
+                if (rs.getInt("deme")==0){
                     deductionEditPrivilege1.setDisable(true);
 
                 }else{
                     deductionEditPrivilege1.setDisable(false);
 
                 }
-                if (rs.getInt("deme")==0){
-                    deductionDeletePrivilege2.setDisable(true);
+                if (rs.getInt("derca")==0){
+                    deductionAddPrivilege3.setDisable(true);
 
                 }else{
-                    deductionDeletePrivilege2.setDisable(false);
+                    deductionAddPrivilege3.setDisable(false);
+
+                }
+                if (rs.getInt("dercd")==0){
+                    deductionDeletePrivilege3.setDisable(true);
+
+                }else{
+                    deductionDeletePrivilege3.setDisable(false);
+
+                }
+                if (rs.getInt("derce")==0){
+                    deductionEditPrivilege2.setDisable(true);
+
+                }else{
+                    deductionEditPrivilege2.setDisable(false);
 
                 }
                 if (rs.getInt("desa")==0 && rs.getInt("dema")==0){

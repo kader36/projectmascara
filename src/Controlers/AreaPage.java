@@ -318,11 +318,11 @@ public class AreaPage implements Initializable {
 
                 }
 
-                if (rs.getInt("res")==0){
-                    repportMenuButton.setDisable(true);
+                if ((rs.getInt("res1")==1)||(rs.getInt("res2")==1)||(rs.getInt("res3")==1)||(rs.getInt("res4")==1)||(rs.getInt("res5")==1)||(rs.getInt("res6")==1)||(rs.getInt("res7")==1)||(rs.getInt("res8")==1)){
+                    repportMenuButton.setDisable(false);
 
                 }else{
-                    repportMenuButton.setDisable(false);
+                    repportMenuButton.setDisable(true);
 
                 }
                 if ((rs.getInt("prss")==0)&&(rs.getInt("prss1")==0)&&(rs.getInt("prms")==0)&&(rs.getInt("prrcs")==0)){
