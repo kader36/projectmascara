@@ -45,6 +45,8 @@ public class GaranteePageUR implements Initializable {
     @FXML
     private TextField garanteeNumber;
     @FXML
+    private TextField garanteeJiha;
+    @FXML
     private TextField garanteePrice;
     @FXML
     private TextField projectName;
@@ -598,14 +600,14 @@ public class GaranteePageUR implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if (garanteeNumber.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getText().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+        if (garanteeNumber.getText().isEmpty()||garanteeJiha.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getText().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
         }else{
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("INSERT INTO `garanteesur`(`areaId`, `locationId`, `projectName`, `garanteeNumber`, `garanteeType`, `bankId`, `garanteePrice`) VALUES (?,?,?,?,?,?,?)");
+                pst=con.prepareStatement("INSERT INTO `garanteesur`(`areaId`, `locationId`, `projectName`, `garanteeNumber`, `garanteeType`, `bankId`, `garanteePrice`, `garanteeJiha`) VALUES (?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea);
                 pst.setInt(2,idLocation);
                 pst.setString(3,projectName.getText());
@@ -613,6 +615,7 @@ public class GaranteePageUR implements Initializable {
                 pst.setString(5,garanteeType.getValue());
                 pst.setInt(6,idBank);
                 pst.setString(7,garanteePrice.getText());
+                pst.setString(8,garanteeJiha.getText());
                 pst.execute();
                 warningMsg("إظافة","تمت الإظافة بنجاح");
                 pst.close();
@@ -627,6 +630,7 @@ public class GaranteePageUR implements Initializable {
             projectName.clear();
             garanteeNumber.clear();
             garanteePrice.clear();
+            garanteeJiha.clear();
             projectName.clear();
             garanteeType.setItems(garantees);
             fillComboArea();
@@ -641,6 +645,9 @@ public class GaranteePageUR implements Initializable {
 
     @FXML
     private TableColumn<GaranteeURForTable, String> locationNameTable;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> garanteeJihaTable;
 
     @FXML
     private TableColumn<GaranteeURForTable, String> projectNameTable;
@@ -665,6 +672,9 @@ public class GaranteePageUR implements Initializable {
 
     @FXML
     private TableColumn<GaranteeURForTable, String> locationNameTable1;
+
+    @FXML
+    private TableColumn<GaranteeURForTable, String> garanteeJihaTable1;
 
     @FXML
     private TableColumn<GaranteeURForTable, String> projectNameTable1;
@@ -705,6 +715,7 @@ public class GaranteePageUR implements Initializable {
         garanteePriceTable1.setCellValueFactory(new PropertyValueFactory<>("garanteePrice"));
         bankTypeTable1.setCellValueFactory(new PropertyValueFactory<>("bankName"));
         locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        garanteeJihaTable1.setCellValueFactory(new PropertyValueFactory<>("garanteeJiha"));
         areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
         garanteeNumberTable1.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
@@ -715,6 +726,7 @@ public class GaranteePageUR implements Initializable {
         bankTypeTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
         garanteePriceTable.setCellValueFactory(new PropertyValueFactory<>("garanteePrice"));
         locationNameTable.setCellValueFactory(new PropertyValueFactory<>("nameLocation"));
+        garanteeJihaTable.setCellValueFactory(new PropertyValueFactory<>("garanteeJiha"));
         areaNameTable.setCellValueFactory(new PropertyValueFactory<>("nameArea"));
         projectNameTable.setCellValueFactory(new PropertyValueFactory<>("nameProject"));
         garanteeNumberTable.setCellValueFactory(new PropertyValueFactory<>("garanteeNumber"));
@@ -731,7 +743,7 @@ public class GaranteePageUR implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=0");
             rs=pst.executeQuery();
             while (rs.next()){
-                garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+                garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice"),rs.getString("garanteeJiha")));
             }
             pst.close();
 
@@ -752,7 +764,7 @@ public class GaranteePageUR implements Initializable {
             pst=con.prepareStatement("SELECT * FROM `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=1");
             rs=pst.executeQuery();
             while (rs.next()){
-                garanteesTable1.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+                garanteesTable1.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice"),rs.getString("garanteeJiha")));
             }
             pst.close();
 
@@ -819,7 +831,7 @@ public class GaranteePageUR implements Initializable {
                 pst=con.prepareStatement("SELECT * FROM  `garanteesur`,`areas`,`locations`,`banks` WHERE garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND garanteesur.bankId=banks.id AND garanteesur.historiser=0 AND garanteesur.garanteeNumber LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
-                    garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice")));
+                    garanteesTable.add(new GaranteeURForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("bankId"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectName"),rs.getString("garanteeNumber"),rs.getString("garanteeType"),rs.getString("bankName"),rs.getDouble("garanteePrice"),rs.getString("garanteeJiha")));
 
                 }
                 pst.close();
@@ -870,6 +882,7 @@ public class GaranteePageUR implements Initializable {
             garanteeEditPrivilege.setText("حفظ");
             areaName.setValue(garanteeTableView.getItems().get(index).getNameArea());
             locationName.setValue(garanteeTableView.getItems().get(index).getNameLocation());
+            garanteeJiha.setText(garanteeTableView.getItems().get(index).getGaranteeJiha());
             projectName.setText(garanteeTableView.getItems().get(index).getNameProject());
             garanteeType.setValue(garanteeTableView.getItems().get(index).getGaranteeType());
             bankType.setValue(garanteeTableView.getItems().get(index).getBankName());
@@ -897,7 +910,7 @@ public class GaranteePageUR implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            if (garanteeNumber.getText().isEmpty()||projectName.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+            if (garanteeNumber.getText().isEmpty()||garanteeJiha.getText().isEmpty()||projectName.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else if(dejaExist==1){
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -920,7 +933,7 @@ public class GaranteePageUR implements Initializable {
                         }
                     }
                     con = new ConnectDB().getConnection();
-                    pst = con.prepareStatement("UPDATE `garanteesur` SET `areaId`=?,`locationId`=?,`projectName`=?,`garanteeNumber`=?,`garanteeType`=?,`bankId`=?,`garanteePrice`=? WHERE `id`=?");
+                    pst = con.prepareStatement("UPDATE `garanteesur` SET `areaId`=?,`locationId`=?,`projectName`=?,`garanteeNumber`=?,`garanteeType`=?,`bankId`=?,`garanteePrice`=?,`garanteeJiha`=? WHERE `id`=?");
 
 
                     pst.setInt(1,idArea);
@@ -930,12 +943,14 @@ public class GaranteePageUR implements Initializable {
                     pst.setString(5,garanteeType.getValue());
                     pst.setInt(6,idBank);
                     pst.setString(7,garanteePrice.getText());
-                    pst.setInt(8,idEdit);
+                    pst.setString(8,garanteeJiha.getText());
+                    pst.setInt(9,idEdit);
                     pst.execute();
                     garanteeEditPrivilege.setText("تعديل ضمان");
                     locationName.getItems().clear();
                     projectName.clear();
                     garanteePrice.clear();
+                    garanteeJiha.clear();
                     garanteeNumber.clear();
                     garanteeType.setItems(garantees);
                     warningMsg("تعديل","تم التعديل بنجاح");

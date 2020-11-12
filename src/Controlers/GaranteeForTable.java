@@ -20,6 +20,7 @@ public class GaranteeForTable {
         this.garanteePrice = garanteePrice;
     }
 
+
     public String getBankName() {
         return bankName;
     }

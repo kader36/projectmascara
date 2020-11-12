@@ -72,6 +72,7 @@
                                           <ComboBox fx:id="bankType" layoutX="298.0" layoutY="70.0" onAction="#selectBank" prefHeight="35.0" prefWidth="240.0" promptText="البنك" />
                                           <TextField fx:id="garanteePrice" layoutX="564.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="قيمة الضمان" />
                                           <Button layoutX="634.0" layoutY="138.0" mnemonicParsing="false" onAction="#showHistoriser" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إنهاء الضمان" />
+                                          <ComboBox fx:id="bankType1" layoutX="830.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الجهة" visible="false" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -119,6 +120,25 @@
                                        </children>
                                     </AnchorPane>
                                 </content>
+                              </Tab>
+                              <Tab closable="false" disable="true">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                       <children>
+                                          <TableView fx:id="bankTableView1" layoutX="399.0" layoutY="101.0" prefHeight="388.0" prefWidth="660.0">
+                                             <columns>
+                                                <TableColumn fx:id="bankNameTable1" prefWidth="75.0" text="إسم الجهة" />
+                                             </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <Button layoutX="88.0" layoutY="266.0" mnemonicParsing="false" onAction="#addBank5" prefHeight="35.0" prefWidth="240.0" styleClass="addButton" stylesheets="@../css/style.css" text="إظافة" />
+                                          <Button layoutX="87.0" layoutY="407.0" mnemonicParsing="false" onAction="#deleteBank5" prefHeight="35.0" prefWidth="240.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="حذف" />
+                                          <TextField fx:id="bankName11" layoutX="89.0" layoutY="99.0" prefHeight="35.0" prefWidth="240.0" promptText="إسم الجهة" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
                               </Tab>
                           </tabs>
                         </TabPane>

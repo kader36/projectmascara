@@ -377,7 +377,7 @@ public class ProjectPageEnded implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 CheckBox ch=new CheckBox();
-                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber"),ch));
+                projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),rs.getString("contractPrice"),rs.getString("contractNumber"),ch,rs.getString("jiha")));
             }
             con.close();
         } catch (SQLException throwables) {
@@ -573,7 +573,7 @@ public class ProjectPageEnded implements Initializable {
                 rs=pst.executeQuery();
                 while (rs.next()){
                     CheckBox ch=new CheckBox();
-                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch));
+                    projectsTable.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch,rs.getString("jiha")));
                 }
                 con.close();
 

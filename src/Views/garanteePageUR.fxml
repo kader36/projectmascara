@@ -49,6 +49,7 @@
                                                 <TableColumn fx:id="locationNameTable" editable="false" prefWidth="243.0" text="إسم الموقع" />
                                                 <TableColumn fx:id="bankTypeTable" editable="false" prefWidth="243.0" text="البنك" />
                                                 <TableColumn fx:id="garanteePriceTable" editable="false" prefWidth="243.0" text="قيمة الضمان" />
+                                                <TableColumn fx:id="garanteeJihaTable" editable="false" prefWidth="243.0" text="الجهة" />
                                             </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />
@@ -72,6 +73,7 @@
                                           <ComboBox fx:id="bankType" layoutX="301.0" layoutY="70.0" onAction="#selectBank" prefHeight="35.0" prefWidth="240.0" promptText="البنك" />
                                           <TextField fx:id="garanteePrice" layoutX="565.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="قيمة الضمان" />
                                           <Button layoutX="634.0" layoutY="138.0" mnemonicParsing="false" onAction="#showHistoriser" prefHeight="35.0" prefWidth="170.0" styleClass="deleteButton" stylesheets="@../css/style.css" text="إنهاء الضمان" />
+                                          <TextField fx:id="garanteeJiha" layoutX="824.0" layoutY="70.0" prefHeight="35.0" prefWidth="240.0" promptText="الجهة" />
                                        </children>
                                     </AnchorPane>
                               </content>
@@ -108,6 +110,7 @@
                                                 <TableColumn fx:id="locationNameTable1" editable="false" prefWidth="243.0" text="إسم الموقع" />
                                                 <TableColumn fx:id="bankTypeTable1" editable="false" prefWidth="243.0" text="إسم البنك" />
                                                 <TableColumn fx:id="garanteePriceTable1" editable="false" prefWidth="243.0" text="قيمة الضمان" />
+                                                <TableColumn fx:id="garanteeJihaTable1" editable="false" prefWidth="243.0" text="الجهة" />
                                              </columns>
                                              <effect>
                                                 <DropShadow color="#9351f9" radius="12.225" width="29.9" />

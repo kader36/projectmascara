@@ -28,7 +28,7 @@ public class ProjectPageRC implements Initializable {
     Connection con;
     PreparedStatement pst;
     ResultSet rs;
-    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("مشروع النظافة","مشروع الصيانة");
+    ObservableList<String> projectTypeCombo= FXCollections.observableArrayList("نظافة","صيانة");
 
     ObservableList projectsTable2= FXCollections.observableArrayList();
     ObservableList projectEmployeesTable= FXCollections.observableArrayList();
@@ -101,6 +101,9 @@ public class ProjectPageRC implements Initializable {
     private TableColumn<ProjectForTable, String> locationNameTable1;
 
     @FXML
+    private TableColumn<ProjectForTable, String> locationNameTable11;
+
+    @FXML
     private TableColumn<ProjectForTable, String> projectTypeTable1;
 
     @FXML
@@ -108,9 +111,9 @@ public class ProjectPageRC implements Initializable {
 
     @FXML
     private TableColumn<ProjectForTable, String> contractPriceTable1;
-
-    @FXML
-    private TableColumn<ProjectForTable, String> contractRestTable1;
+//
+//    @FXML
+//    private TableColumn<ProjectForTable, String> contractRestTable1;
 
     @FXML
     private TableColumn<ProjectForTable, String> contractStartDateTable1;
@@ -520,7 +523,7 @@ public class ProjectPageRC implements Initializable {
         projectEmployeesTable.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND (`projectType`='مشروع النظافة' OR `projectType`='مشروع الصيانة' OR `projectType`='مشروع تعليمي')");
+            pst=con.prepareStatement("SELECT * FROM `projectsemployees`,`areas`,`locations`,`projects`,`occupations`,`employees` WHERE projectsemployees.idArea=areas.id AND projectsemployees.idLocation=locations.id AND projectsemployees.idProject=projects.id AND projectsemployees.idOccupation=occupations.id AND projectsemployees.idEmployee=employees.id AND (`projectType`='نظافة' OR `projectType`='صيانة')");
             rs=pst.executeQuery();
             while (rs.next()){
                 projectEmployeesTable.add(new projectEmployeeForTable(rs.getInt("id"),rs.getInt("idArea"),rs.getInt("idLocation"),rs.getInt("idProject"),rs.getInt("idOccupation"),rs.getInt("idEmployee"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("contractName"),rs.getString("occupationName"),rs.getString("employeeName")));
@@ -700,7 +703,7 @@ public class ProjectPageRC implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if (projectName1.getText().isEmpty()||contactDuration1.getText().isEmpty()||contactNumber1.getText().isEmpty()||contractPrice1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||contractStartDate1.getEditor().getText().isEmpty()||contractEndDate1.getEditor().getText().isEmpty()){
+        if (projectName1.getText().isEmpty()||contactDuration1.getText().isEmpty()||contactNumber1.getText().isEmpty()||contractPrice1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||bankType1.getSelectionModel().isEmpty()||contractStartDate1.getEditor().getText().isEmpty()||contractEndDate1.getEditor().getText().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist4==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -708,7 +711,7 @@ public class ProjectPageRC implements Initializable {
             try {
                 con=new ConnectDB().getConnection();
                 pst=con.prepareStatement("INSERT INTO `projects`(`areaId`, `locationId`, `projectType`, `contractName`, `contractPrice`," +
-                        " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`) VALUES (?,?,?,?,?,?,?,?,?)");
+                        " `contactDuration`, `contractStartDate`, `contractEndDate`, `contractNumber`, `jiha`) VALUES (?,?,?,?,?,?,?,?,?,?)");
                 pst.setInt(1,idArea2);
                 pst.setInt(2,idLocation2);
                 pst.setString(3,projectType.getValue());
@@ -718,6 +721,8 @@ public class ProjectPageRC implements Initializable {
                 pst.setString(7, String.valueOf(contractStartDate1.getValue()));
                 pst.setString(8, String.valueOf(contractEndDate1.getValue()));
                 pst.setString(9, contactNumber1.getText());
+                pst.setString(10, bankType1.getValue());
+
                 pst.execute();
                 pst.close();
 
@@ -741,11 +746,11 @@ public class ProjectPageRC implements Initializable {
         projectsTable2.clear();
         try {
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND (projects.projectType='مشروع النظافة' OR projects.projectType='مشروع الصيانة' OR projects.projectType='مشروع تعليمي') AND projects.transfered=0 ");
+            pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE projects.areaId=areas.id AND projects.locationId=locations.id AND (projects.projectType='نظافة' OR projects.projectType='صيانة') AND projects.transfered=0 ");
             rs=pst.executeQuery();
             while (rs.next()){
                 CheckBox ch=new CheckBox();
-                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch));
+                projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch,rs.getString("jiha")));
             }
             con.close();
 
@@ -1010,6 +1015,8 @@ public class ProjectPageRC implements Initializable {
             contractStartDate1.getEditor().setText(projectTableView1.getItems().get(index).getContractStartDate());
             contractEndDate1.getEditor().setText(projectTableView1.getItems().get(index).getContractEndDate());
             contactNumber1.setText(projectTableView1.getItems().get(index).getContractNumber());
+            bankType1.setValue(projectTableView1.getItems().get(index).getJiha());
+            projectType.setValue(projectTableView1.getItems().get(index).getProjectType());
 
 
         }else if (projectEditPrivilege1.getText().contains("حفظ")){
@@ -1034,7 +1041,7 @@ public class ProjectPageRC implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            if (projectName1.getText().isEmpty()||contactDuration1.getText().isEmpty()||contactNumber1.getText().isEmpty()||contractPrice1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||contractStartDate1.getEditor().getText().isEmpty()||contractEndDate1.getEditor().getText().isEmpty()){
+            if (projectName1.getText().isEmpty()||contactDuration1.getText().isEmpty()||contactNumber1.getText().isEmpty()||contractPrice1.getText().isEmpty()||areaName1.getSelectionModel().isEmpty()||locationName1.getSelectionModel().isEmpty()||bankType1.getSelectionModel().isEmpty()||contractStartDate1.getEditor().getText().isEmpty()||contractEndDate1.getEditor().getText().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else if(dejaExist4==1){
                 warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -1045,7 +1052,7 @@ public class ProjectPageRC implements Initializable {
                     con = new ConnectDB().getConnection();
                     pst = con.prepareStatement("UPDATE `projects` SET `areaId`=?,`locationId`=?," +
                             "`projectType`=?,`contractName`=?,`contractPrice`=?,`contactDuration`=?" +
-                            ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=? WHERE `id`=?");
+                            ",`contractStartDate`=?,`contractEndDate`=?,`contractNumber`=?,`jiha`=? WHERE `id`=?");
 
                     pst.setInt(1,idArea2);
                     pst.setInt(2,idLocation2);
@@ -1056,7 +1063,8 @@ public class ProjectPageRC implements Initializable {
                     pst.setString(7, String.valueOf(contractStartDate1.getValue()));
                     pst.setString(8, String.valueOf(contractEndDate1.getValue()));
                     pst.setString(9, contactNumber1.getText());
-                    pst.setInt(10, idEdit);
+                    pst.setString(10, bankType1.getValue());
+                    pst.setInt(11, idEdit);
 
                     pst.execute();
                     pst.close();
@@ -1417,11 +1425,11 @@ public class ProjectPageRC implements Initializable {
 
             try {
                 con=new ConnectDB().getConnection();
-                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE (projects.projectType='مشروع النظافة' OR projects.projectType='مشروع الصيانة' OR projects.projectType='مشروع تعليمي' ) AND projects.transfered=0  AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
+                pst=con.prepareStatement("SELECT * FROM `projects`,`areas`,`locations` WHERE (projects.projectType='نظافة' OR projects.projectType='صيانة') AND projects.transfered=0  AND projects.areaId=areas.id AND projects.locationId=locations.id AND projects.contractName LIKE '%"+key+"%'");
                 rs=pst.executeQuery();
                 while (rs.next()){
                     CheckBox ch=new CheckBox();
-                    projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch));
+                    projectsTable2.add(new ProjectForTable(rs.getInt("id"),rs.getInt("areaId"),rs.getInt("locationId"),rs.getInt("contactDuration"),rs.getString("contractName"),rs.getString("areaName"),rs.getString("locationName"),rs.getString("projectType"),rs.getString("contractStartDate"),rs.getString("contractEndDate"),rs.getString("contractPrice"),calculerRest(rs.getInt("id")),rs.getString("contractNumber"),ch,rs.getString("jiha")));
                 }
                 con.close();
                 projectTableView1.setItems(projectsTable2);
@@ -1563,7 +1571,7 @@ public class ProjectPageRC implements Initializable {
         try {
 
             con=new ConnectDB().getConnection();
-            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND (`projectType`='مشروع النظافة' OR `projectType`='مشروع الصيانة' OR `projectType`='مشروع تعليمي')");
+            pst=con.prepareStatement("SELECT * FROM `projects` WHERE `areaId`=? AND `locationId`=? AND (`projectType`='نظافة' OR `projectType`='صيانة')");
             pst.setInt(1,idArea);
             pst.setInt(2,idLocation);
             rs=pst.executeQuery();
@@ -1700,10 +1708,11 @@ public class ProjectPageRC implements Initializable {
         areaNameTable1.setCellValueFactory(new PropertyValueFactory<>("areaName"));
         projectTypeTable1.setCellValueFactory(new PropertyValueFactory<>("projectType"));
         locationNameTable1.setCellValueFactory(new PropertyValueFactory<>("locationName"));
+        locationNameTable11.setCellValueFactory(new PropertyValueFactory<>("jiha"));
         projectNameTable1.setCellValueFactory(new PropertyValueFactory<>("contractName"));
         contactDurationTable1.setCellValueFactory(new PropertyValueFactory<>("contactDuration"));
         contractPriceTable1.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
-        contractRestTable1.setCellValueFactory(new PropertyValueFactory<>("contractPriceRest"));
+//        contractRestTable1.setCellValueFactory(new PropertyValueFactory<>("contractPriceRest"));
         contractStartDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractStartDate"));
         contractEndDateTable1.setCellValueFactory(new PropertyValueFactory<>("contractEndDate"));
         contractNumberTable1.setCellValueFactory(new PropertyValueFactory<>("contractNumber"));
@@ -1728,6 +1737,11 @@ public class ProjectPageRC implements Initializable {
         maxNumberTable.setCellValueFactory(new PropertyValueFactory<>("maxNumber"));
         realNumberTable.setCellValueFactory(new PropertyValueFactory<>("realNumber"));
         projectOccupationTableView.setItems(projectOccupation);
+
+        addToTableBank5();
+        bankNameTable1.setCellValueFactory(new PropertyValueFactory<>("bankName"));
+        bankTableView1.setItems(banks5);
+        fillComboBanks5();
 
     }
     @FXML
@@ -1869,5 +1883,123 @@ public class ProjectPageRC implements Initializable {
         }
         addToTableMilitaire();
 
+    }
+
+    @FXML
+    private ComboBox<String> bankType1;
+    @FXML
+    private TableView<Banks> bankTableView1;
+    @FXML
+    private TableColumn<Banks, String> bankNameTable1;
+    @FXML
+    private TextField bankName11;
+
+    @FXML
+    public void addBank5(ActionEvent actionEvent) {
+        int dejaExist5=0;
+        int size5=0;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats` WHERE `jihaName`=?");
+            pst.setString(1,bankName11.getText());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size5++;
+            }
+            if (size5>0){
+                dejaExist5=1;
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if (bankName11.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist5==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `jihats`(`jihaName`) VALUES (?)");
+                pst.setString(1,bankName11.getText());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTableBank5();
+            fillComboBanks5();
+            bankName11.clear();
+
+        }
+
+    }
+
+    ObservableList<Banks> banks5= FXCollections.observableArrayList();
+
+    public void addToTableBank5(){
+        banks5.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                banks5.add(new Banks(rs.getInt("id"),rs.getString("jihaName")));
+            }
+            con.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+    public void fillComboBanks5(){
+        banks5.clear();
+        bankType1.getItems().clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                banks5.add(new Banks(rs.getInt("id"),rs.getString("jihaName")));
+
+            }
+            con.close();
+
+            for (int i=0;i<banks5.size();i++){
+                bankType1.getItems().add(banks5.get(i).getBankName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void deleteBank5(ActionEvent actionEvent) {
+        int index= bankTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=bankTableView1.getItems().get(index).getIdBank();
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `jihats` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            addToTableBank5();
+            fillComboBanks5();
+
+        }
     }
 }

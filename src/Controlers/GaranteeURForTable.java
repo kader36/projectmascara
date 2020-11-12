@@ -4,8 +4,9 @@ public class GaranteeURForTable {
     private int idGarantee,idArea,idLocation,idBank;
     private String nameArea,nameLocation,nameProject,garanteeNumber,garanteeType,bankName;
     private Double garanteePrice;
+    private String garanteeJiha;
 
-    public GaranteeURForTable(int idGarantee, int idArea, int idLocation, int idBank, String nameArea, String nameLocation, String nameProject, String garanteeNumber, String garanteeType, String bankName, Double garanteePrice) {
+    public GaranteeURForTable(int idGarantee, int idArea, int idLocation, int idBank, String nameArea, String nameLocation, String nameProject, String garanteeNumber, String garanteeType, String bankName, Double garanteePrice, String garanteeJiha) {
         this.idGarantee = idGarantee;
         this.idArea = idArea;
         this.idLocation = idLocation;
@@ -17,6 +18,11 @@ public class GaranteeURForTable {
         this.garanteeType = garanteeType;
         this.bankName = bankName;
         this.garanteePrice = garanteePrice;
+        this.garanteeJiha = garanteeJiha;
+    }
+
+    public String getGaranteeJiha() {
+        return garanteeJiha;
     }
 
     public String getBankName() {

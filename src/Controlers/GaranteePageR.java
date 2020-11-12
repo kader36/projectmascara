@@ -58,6 +58,13 @@ public class GaranteePageR implements Initializable {
     private TextField bankName1;
 
     @FXML
+    private TableView<Banks> bankTableView1;
+    @FXML
+    private TableColumn<Banks, String> bankNameTable1;
+    @FXML
+    private TextField bankName11;
+
+    @FXML
     public void deleteBank(ActionEvent actionEvent) {
         int index= bankTableView.getSelectionModel().getSelectedIndex();
         int idDelete=bankTableView.getItems().get(index).getIdBank();
@@ -77,6 +84,29 @@ public class GaranteePageR implements Initializable {
             idDelete=0;
             addToTableBank();
             fillComboBanks();
+
+        }
+    }
+    @FXML
+    public void deleteBank5(ActionEvent actionEvent) {
+        int index= bankTableView1.getSelectionModel().getSelectedIndex();
+        int idDelete=bankTableView1.getItems().get(index).getIdBank();
+        if (idDelete>0) {
+            try {
+                con = new ConnectDB().getConnection();
+                pst = con.prepareStatement("DELETE FROM `jihats` WHERE `id`=?");
+                pst.setInt(1, idDelete);
+                pst.execute();
+                warningMsg("حذف","تم الحذف بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("حذف","حدث خطأ أثناء الحذف");
+            }
+            idDelete=0;
+            addToTableBank5();
+            fillComboBanks5();
 
         }
     }
@@ -124,6 +154,50 @@ public class GaranteePageR implements Initializable {
         }
 
     }
+    @FXML
+    public void addBank5(ActionEvent actionEvent) {
+        int dejaExist5=0;
+        int size5=0;
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats` WHERE `jihaName`=?");
+            pst.setString(1,bankName11.getText());
+            rs=pst.executeQuery();
+            while(rs.next()){
+                size5++;
+            }
+            if (size5>0){
+                dejaExist5=1;
+            }
+            pst.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if (bankName11.getText().isEmpty()){
+            warningMsg("تنبيه","يرجى ملء الفراغات");
+        }else if(dejaExist5==1){
+            warningMsg("تنبيه","المعلومات موجودة من قبل");
+        }else{
+            try {
+                con=new ConnectDB().getConnection();
+                pst=con.prepareStatement("INSERT INTO `jihats`(`jihaName`) VALUES (?)");
+                pst.setString(1,bankName11.getText());
+                pst.execute();
+                warningMsg("إظافة","تمت الإظافة بنجاح");
+                pst.close();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                warningMsg("إظافة","حدث خطأ أثناء الإظافة");
+            }
+            addToTableBank5();
+            fillComboBanks5();
+            bankName11.clear();
+
+        }
+
+    }
     ObservableList<Banks> banks= FXCollections.observableArrayList();
 
     public void addToTableBank(){
@@ -134,6 +208,24 @@ public class GaranteePageR implements Initializable {
             rs=pst.executeQuery();
             while (rs.next()){
                 banks.add(new Banks(rs.getInt("id"),rs.getString("bankName")));
+            }
+            con.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+    ObservableList<Banks> banks5= FXCollections.observableArrayList();
+
+    public void addToTableBank5(){
+        banks5.clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                banks5.add(new Banks(rs.getInt("id"),rs.getString("jihaName")));
             }
             con.close();
 
@@ -159,6 +251,29 @@ public class GaranteePageR implements Initializable {
 
             for (int i=0;i<banks.size();i++){
                 bankType.getItems().add(banks.get(i).getBankName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    @FXML
+    private ComboBox<String> bankType1;
+    public void fillComboBanks5(){
+        banks5.clear();
+        bankType1.getItems().clear();
+        try {
+            con=new ConnectDB().getConnection();
+            pst=con.prepareStatement("SELECT * FROM `jihats`");
+            rs=pst.executeQuery();
+            while (rs.next()){
+                banks5.add(new Banks(rs.getInt("id"),rs.getString("jihaName")));
+
+            }
+            con.close();
+
+            for (int i=0;i<banks5.size();i++){
+                bankType1.getItems().add(banks5.get(i).getBankName());
             }
 
         } catch (SQLException throwables) {
@@ -753,7 +868,7 @@ public class GaranteePageR implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        if (garanteeNumber.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()){
+        if (garanteeNumber.getText().isEmpty()||garanteePrice.getText().isEmpty()||areaName.getSelectionModel().isEmpty()||locationName.getSelectionModel().isEmpty()||projectName.getSelectionModel().isEmpty()||garanteeType.getSelectionModel().isEmpty()||bankType.getSelectionModel().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else if(dejaExist==1){
             warningMsg("تنبيه","المعلومات موجودة من قبل");
@@ -798,6 +913,9 @@ public class GaranteePageR implements Initializable {
 
     @FXML
     private TableColumn<GaranteeForTable, String> bankTypeTable;
+
+    @FXML
+    private TableColumn<GaranteeForTable, String> bankType1Table;
 
     @FXML
     private TableColumn<GaranteeForTable, String> garanteePriceTable;
@@ -855,6 +973,7 @@ public class GaranteePageR implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fillComboArea();
         fillComboBanks();
+        fillComboBanks5();
         garanteeType.setItems(garantees);
 
         addToTableArchive();
@@ -880,6 +999,9 @@ public class GaranteePageR implements Initializable {
         addToTableBank();
         bankNameTable.setCellValueFactory(new PropertyValueFactory<>("bankName"));
         bankTableView.setItems(banks);
+
+        bankNameTable1.setCellValueFactory(new PropertyValueFactory<>("bankName"));
+        bankTableView1.setItems(banks5);
     }
     public void addToTable(){
         garanteesTable.clear();
