@@ -164,7 +164,7 @@
 				<reportElement x="370" y="0" width="185" height="20" uuid="cb9b4d48-81dd-46a4-b3e8-0e0e53bd743b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd2e6497-956e-494e-be66-ffeb768545a5"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -179,7 +179,7 @@
 				<reportElement x="240" y="0" width="130" height="20" uuid="a6a20ff9-6b09-4e93-95e4-7e2d17b019a7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd2e6497-956e-494e-be66-ffeb768545a5"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -194,7 +194,7 @@
 				<reportElement x="160" y="0" width="80" height="20" uuid="9e0bdc19-62ee-4970-838e-4ed682e74f34">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54f22713-e59f-4096-9315-6d68ba828ba2"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -209,7 +209,7 @@
 				<reportElement x="80" y="0" width="80" height="20" uuid="d2b3b6fd-08c2-4631-ae9c-006be4bec292">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd2e6497-956e-494e-be66-ffeb768545a5"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -224,7 +224,7 @@
 				<reportElement x="0" y="0" width="80" height="20" uuid="f453d019-a1b9-486c-8067-5bcc177e1871">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="54f22713-e59f-4096-9315-6d68ba828ba2"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

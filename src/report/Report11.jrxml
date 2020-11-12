@@ -7,7 +7,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
 	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM `garanteesur`,`users`,`privileges`,`banks`,`areas`,`locations`,`historicalgaranteesur` WHERE `projectName`='sdfsdkfl' AND garanteesur.bankId=banks.id AND garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND users.id=1 AND users.privilegesId=privileges.id AND historicalgaranteesur.idGarantee=garanteesur.id]]>
+		<![CDATA[SELECT * FROM `garanteesur`,`users`,`privileges`,`banks`,`areas`,`locations`,`historicalgaranteesur` WHERE `projectName`='hjghjghjgjh' AND garanteesur.bankId=banks.id AND garanteesur.areaId=areas.id AND garanteesur.locationId=locations.id AND users.id=1 AND users.privilegesId=privileges.id AND historicalgaranteesur.idGarantee=garanteesur.id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
@@ -53,7 +53,11 @@
 		<property name="com.jaspersoft.studio.field.label" value="historiserDate"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="garanteesur"/>
 	</field>
-	<field name="COLUMN_12" class="java.lang.Integer">
+	<field name="garanteeJiha" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="garanteeJiha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="garanteesur"/>
+	</field>
+	<field name="COLUMN_13" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
@@ -85,7 +89,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="privilegesId"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
 	</field>
-	<field name="COLUMN_20" class="java.lang.Integer">
+	<field name="COLUMN_21" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
@@ -425,7 +429,43 @@
 		<property name="com.jaspersoft.studio.field.label" value="prse1"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
 	</field>
-	<field name="COLUMN_105" class="java.lang.Integer">
+	<field name="abrca" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abrca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abrcd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abrcd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="abrce" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="abrce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="derca" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="derca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="dercd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="dercd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="derce" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="derce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="perca" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="perca"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="percd" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="percd"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="perce" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="perce"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="privileges"/>
+	</field>
+	<field name="COLUMN_115" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="banks"/>
 	</field>
@@ -433,7 +473,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="bankName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="banks"/>
 	</field>
-	<field name="COLUMN_107" class="java.lang.Integer">
+	<field name="COLUMN_117" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
 	</field>
@@ -441,7 +481,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="areaName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="areas"/>
 	</field>
-	<field name="COLUMN_109" class="java.lang.Integer">
+	<field name="COLUMN_119" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
@@ -449,11 +489,11 @@
 		<property name="com.jaspersoft.studio.field.label" value="locationName"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
-	<field name="COLUMN_111" class="java.lang.Integer">
+	<field name="COLUMN_121" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="areaId"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="locations"/>
 	</field>
-	<field name="COLUMN_112" class="java.lang.Integer">
+	<field name="COLUMN_122" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="historicalgaranteesur"/>
 	</field>
@@ -521,9 +561,9 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="143" splitType="Stretch">
+		<band height="159" splitType="Stretch">
 			<frame>
-				<reportElement style="Detail" x="0" y="6" width="552" height="94" uuid="34c2ad49-1c9a-413a-9b69-12801945b66c"/>
+				<reportElement style="Detail" x="0" y="6" width="552" height="114" uuid="34c2ad49-1c9a-413a-9b69-12801945b66c"/>
 				<box padding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -647,7 +687,7 @@
 					</textElement>
 					<text><![CDATA[قيمة الضمان :]]></text>
 				</staticText>
-				<textField textAdjust="ScaleFont">
+				<textField textAdjust="ScaleFont" pattern="#,##0.00#">
 					<reportElement x="-1" y="63" width="132" height="20" uuid="763bd82f-a313-420a-86fa-39652620d0b2"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -686,9 +726,35 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{bankName}]]></textFieldExpression>
 				</textField>
+				<textField textAdjust="ScaleFont">
+					<reportElement x="237" y="86" width="211" height="20" uuid="66118cd6-af49-44bc-b7e8-4ca61a348cde"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{garanteeJiha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="456" y="86" width="84" height="20" uuid="4a68c437-6d60-4302-8e8a-9af50b1301ce"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[الجهة :]]></text>
+				</staticText>
 			</frame>
 			<staticText>
-				<reportElement x="453" y="113" width="100" height="30" uuid="00f693ee-73ea-488f-b419-d9fb114798a4">
+				<reportElement x="453" y="129" width="100" height="30" uuid="00f693ee-73ea-488f-b419-d9fb114798a4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b6fb831-bc52-4c6c-a76f-379fc00eadd8"/>
 				</reportElement>
 				<box>
@@ -703,7 +769,7 @@
 				<text><![CDATA[الموظف]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="113" width="123" height="30" uuid="50195151-8a1e-454f-b309-095cb59181a1">
+				<reportElement x="330" y="129" width="123" height="30" uuid="50195151-8a1e-454f-b309-095cb59181a1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="733800ff-9bbf-466e-84c5-f1064de5dd15"/>
 				</reportElement>
 				<box>
@@ -718,7 +784,7 @@
 				<text><![CDATA[التاريخ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="113" width="330" height="30" uuid="5c96c32b-7d9d-4957-9a0d-71d995573b8d">
+				<reportElement x="0" y="129" width="330" height="30" uuid="5c96c32b-7d9d-4957-9a0d-71d995573b8d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40283ce9-16ec-4ccc-b7b1-fef6514ce067"/>
 				</reportElement>
 				<box>
@@ -740,7 +806,7 @@
 				<reportElement stretchType="RelativeToTallestObject" x="453" y="1" width="100" height="19" uuid="2a59beff-594c-4802-bb87-0328861260c7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b6fb831-bc52-4c6c-a76f-379fc00eadd8"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -755,7 +821,7 @@
 				<reportElement stretchType="RelativeToTallestObject" x="330" y="1" width="123" height="19" uuid="11e78fd2-4e87-47f8-aea7-547b68ee78bb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="733800ff-9bbf-466e-84c5-f1064de5dd15"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -770,7 +836,7 @@
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="1" width="330" height="19" uuid="5e2d6dcb-a719-4acc-9a39-111405d79c29">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="40283ce9-16ec-4ccc-b7b1-fef6514ce067"/>
 				</reportElement>
-				<box>
+				<box leftPadding="2" rightPadding="2">
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
