@@ -1441,4 +1441,29 @@ public class RepportPage implements Initializable {
         }
     }
 
+
+    public void printTwenty(ActionEvent actionEvent)  {
+        if (areaName1.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار نوع المشروع");
+        }else if (areaName.getSelectionModel().isEmpty()){
+            warningMsg("تنبيه","يرجى إختيار المنطقة");
+        }else {
+            try {
+                String path=System.getProperty("user.dir")+"\\src\\report\\Report20.jrxml";
+                String querry="SELECT * FROM `abstract`,`areas`,`locations`,`projects`,`users`,`privileges`,`abstractyears` WHERE abstract.idProject=projects.id AND projects.projectType='"+areaName1.getValue()+"' AND abstract.id=abstractyears.idAbstract AND abstract.idArea = "+idArea+" AND abstract.idArea = areas.id AND abstract.idLocation=locations.id AND users.id="+idConnected+" AND users.privilegesId=privileges.id ORDER BY projects.areaId,projects.contractName ASC";
+                JasperDesign jd=  JRXmlLoader.load(path);
+                JRDesignQuery query=new JRDesignQuery();
+                query.setText(querry);
+                jd.setQuery(query);
+                JasperReport jr= JasperCompileManager.compileReport(jd);
+                JasperPrint jasperPrint= JasperFillManager.fillReport(jr, null, con);
+                JasperViewer jv = new JasperViewer( jasperPrint, false );
+                jv.viewReport( jasperPrint, false );
+
+            } catch (JRException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

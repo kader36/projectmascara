@@ -79,7 +79,7 @@
                                                 <Button layoutX="610.0" layoutY="201.0" mnemonicParsing="false" onAction="#printFive" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane fx:id="abstractAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
+                                          <AnchorPane fx:id="abstractAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;">
                                              <children>
                                                 <Text fill="#9351f9" layoutX="465.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير المستخلصات">
                                                    <font>
@@ -89,6 +89,7 @@
                                                 <Button layoutX="1.0" mnemonicParsing="false" onAction="#hideAbstract" styleClass="deleteButton" stylesheets="@../css/style.css" text="X" />
                                                 <Button layoutX="176.0" layoutY="201.0" mnemonicParsing="false" onAction="#printSix" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لمشروع محدد" />
                                                 <Button layoutX="610.0" layoutY="201.0" mnemonicParsing="false" onAction="#printTen" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لجميع المشاريع" />
+                                                <Button layoutX="385.0" layoutY="312.0" mnemonicParsing="false" onAction="#printTwenty" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير المستخلصات لمنطقة معينة" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane fx:id="employeeAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">

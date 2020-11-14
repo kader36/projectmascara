@@ -700,7 +700,7 @@ public class ProjectPageEnded implements Initializable {
         int index= projectEndedTableView.getSelectionModel().getSelectedIndex();
         int idProject=projectEndedTableView.getItems().get(index).getProjectId();
 
-        if (directPurchasePrice.getText().isEmpty()||approvalDirectPurchase.getSelectionModel().isEmpty()||isClosed.getSelectionModel().isEmpty()||extensionStartDate.getEditor().getText().isEmpty()||extensionEndDate.getEditor().getText().isEmpty()||directPurchaseStartDate.getEditor().getText().isEmpty()||directPurchaseEndDate.getEditor().getText().isEmpty()){
+        if (directPurchasePrice.getText().isEmpty()&&approvalDirectPurchase.getSelectionModel().isEmpty()&&isClosed.getSelectionModel().isEmpty()&&extensionStartDate.getEditor().getText().isEmpty()&&extensionEndDate.getEditor().getText().isEmpty()&&directPurchaseStartDate.getEditor().getText().isEmpty()&&directPurchaseEndDate.getEditor().getText().isEmpty()){
             warningMsg("تنبيه","يرجى ملء الفراغات");
         }else{
             try {
@@ -757,7 +757,7 @@ public class ProjectPageEnded implements Initializable {
 
         }else if (editButton.getText().contains("حفظ")){
 
-            if (directPurchasePrice.getText().isEmpty()||approvalDirectPurchase.getSelectionModel().isEmpty()||isClosed.getSelectionModel().isEmpty()||extensionStartDate.getEditor().getText().isEmpty()||extensionEndDate.getEditor().getText().isEmpty()||directPurchaseStartDate.getEditor().getText().isEmpty()||directPurchaseEndDate.getEditor().getText().isEmpty()){
+            if (directPurchasePrice.getText().isEmpty()&&approvalDirectPurchase.getSelectionModel().isEmpty()&&isClosed.getSelectionModel().isEmpty()&&extensionStartDate.getEditor().getText().isEmpty()&&extensionEndDate.getEditor().getText().isEmpty()&&directPurchaseStartDate.getEditor().getText().isEmpty()&&directPurchaseEndDate.getEditor().getText().isEmpty()){
                 warningMsg("تنبيه","يرجى ملء الفراغات");
             }else{
                 try {
