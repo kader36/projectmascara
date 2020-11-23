@@ -700,9 +700,6 @@ public class ProjectPageEnded implements Initializable {
         int index= projectEndedTableView.getSelectionModel().getSelectedIndex();
         int idProject=projectEndedTableView.getItems().get(index).getProjectId();
 
-        if (directPurchasePrice.getText().isEmpty()&&approvalDirectPurchase.getSelectionModel().isEmpty()&&isClosed.getSelectionModel().isEmpty()&&extensionStartDate.getEditor().getText().isEmpty()&&extensionEndDate.getEditor().getText().isEmpty()&&directPurchaseStartDate.getEditor().getText().isEmpty()&&directPurchaseEndDate.getEditor().getText().isEmpty()){
-            warningMsg("تنبيه","يرجى ملء الفراغات");
-        }else{
             try {
                 con=new ConnectDB().getConnection();
                 pst=con.prepareStatement("INSERT INTO `projectextension`(`idProject`, `extensionStartDate`, `extensionEndDate`, `directPurchaseStartDate`, `directPurchaseEndDate`, `directPurchasePrice`, `approvalDirectPurchase`, `isClosed`) VALUES (?,?,?,?,?,?,?,?)");
@@ -728,7 +725,7 @@ public class ProjectPageEnded implements Initializable {
             directPurchaseStartDate.getEditor().clear();
             directPurchaseEndDate.getEditor().clear();
             directPurchasePrice.clear();
-        }
+
 
     }
 
@@ -756,10 +753,6 @@ public class ProjectPageEnded implements Initializable {
 
 
         }else if (editButton.getText().contains("حفظ")){
-
-            if (directPurchasePrice.getText().isEmpty()&&approvalDirectPurchase.getSelectionModel().isEmpty()&&isClosed.getSelectionModel().isEmpty()&&extensionStartDate.getEditor().getText().isEmpty()&&extensionEndDate.getEditor().getText().isEmpty()&&directPurchaseStartDate.getEditor().getText().isEmpty()&&directPurchaseEndDate.getEditor().getText().isEmpty()){
-                warningMsg("تنبيه","يرجى ملء الفراغات");
-            }else{
                 try {
                     con = new ConnectDB().getConnection();
                     pst = con.prepareStatement("UPDATE `projectextension` SET `extensionStartDate`=?,`extensionEndDate`=?,`directPurchaseStartDate`=?,`directPurchaseEndDate`=?,`directPurchasePrice`=?,`approvalDirectPurchase`=?,`isClosed`=? WHERE `id`=?");
@@ -790,8 +783,6 @@ public class ProjectPageEnded implements Initializable {
                 }
                 addToTableExtension();
                 idEdit=0;
-            }
-
         }
 
 

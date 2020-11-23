@@ -79,7 +79,7 @@
                                                 <Button layoutX="610.0" layoutY="201.0" mnemonicParsing="false" onAction="#printFive" prefHeight="80.0" prefWidth="300.0" styleClass="editButton" stylesheets="@../css/style.css" text="تقرير الغرامات و الإستقطاعات لجميع المواقع" />
                                              </children>
                                           </AnchorPane>
-                                          <AnchorPane fx:id="abstractAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;">
+                                          <AnchorPane fx:id="abstractAnchor" layoutX="6.0" layoutY="126.0" prefHeight="447.0" prefWidth="1101.0" style="-fx-background-color: white;" visible="false">
                                              <children>
                                                 <Text fill="#9351f9" layoutX="465.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="تقارير المستخلصات">
                                                    <font>
