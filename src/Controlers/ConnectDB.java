@@ -12,8 +12,8 @@ public class ConnectDB {
          try {
              Class.forName("com.mysql.jdbc.Driver");
 
-//             Connection con= DriverManager.getConnection("jdbc:mysql://192.168.1.118:3306/kara?useSSL=false","root","akader01");
-             Connection con= DriverManager.getConnection("jdbc:mysql://localhost/kara?useSSL=false","root","akader01");
+             Connection con= DriverManager.getConnection("jdbc:mysql://192.168.1.118:3306/kara?useSSL=false","root","akader01");
+//           Connection con= DriverManager.getConnection("jdbc:mysql://localhost/kara?useSSL=false","root","akader01");
 
              return con;
          } catch (Exception e) {
